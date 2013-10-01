@@ -1,0 +1,196 @@
+/*
+ * @name ice
+ * @version 1.0
+ * @ShopVersion ShopFront 1.x
+ * @author Salvatore Bordonaro
+ * @web http://inspiredgroup.com.au
+ *
+ * @description	This is the Default shop CSS stylesheet for ShopFront Cart page
+ *
+ *
+ * Cart Table Styles
+ */
+
+ 
+ 
+ 
+
+#NC_Master .cart-table 
+{
+    width: 100%;
+    background:rgb(255,255,255); /*#fff;*/
+    margin-bottom: 18px;
+    border: 1px solid #ECECEC;  
+    border-radius: 5px;
+    border-spacing:0;
+
+}
+
+#NC_Master .cart-table td, .cart-table th 
+{
+    color: #333333;
+    padding: 5px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #f7f7f7;
+    border-left: 1px solid #ECECEC;  
+}
+
+#NC_Master .cart-table th { 
+
+    color: #777;
+    background: none repeat scroll 0 0 #F9F9F9;
+    font-family: 'Oswald',sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    text-transform:uppercase;
+	
+}
+
+#NC_Master .cart-table th.first { border-left:none;}
+#NC_Master .cart-table th.last { }
+#NC_Master .cart-table td 
+{
+    vertical-align: middle;
+}
+
+#NC_Master .cart-table tr:hover
+{
+    background:rgb(253,253,253); 
+}
+
+
+
+#NC_Master .cart-table .cart-product-remove 
+{
+    width: 13px;
+}
+#NC_Master .cart-table a.remove 
+{
+    color: white;
+    padding: 5px;
+    background: #ddd;
+    border-right: 1px solid #ECECEC;  
+    text-decoration: none;
+}
+#NC_Master .cart-table a.remove:hover 
+{
+    background: #f44;
+}
+#NC_Master .cart-table .cart-product-thumbnail 
+{
+    width: 40px;
+    border-left:none;
+}
+#NC_Master .cart-table .cart-product-thumbnail img 
+{
+    width: 40px;
+    height: 40px;
+    display: block;
+}
+#NC_Master .cart-table .cart-product-name a 
+{
+	color: #333333;
+	min-width: 200px;
+	max-width: 400px;
+	display: block;
+	margin: 0 auto;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+#NC_Master .cart-table input {
+    margin: 0;
+}
+
+#NC_Master .cart-table .actions {
+    text-align: right;
+    padding-top: 21px;
+    padding-bottom: 21px;
+}
+
+
+
+ /*
+  * Cart-totals
+  *
+  */
+#NC_Master .cart-totals {
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+#NC_Master .cart-totals h2 {
+	/*Inherit the rest of the sites styles*/
+	text-align:right;
+    text-transform:uppercase;
+}
+
+#NC_Master .cart-totals-table-wrapper {
+	min-width: 300px;
+	max-width: 400px;
+	float:right;
+}
+
+#NC_Master .cart-totals table {
+    width: 100%;
+    background: #fff;
+    margin-bottom: 18px; 
+    border: 1px solid #d0d0d0;
+    border-collapse: collapsed;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;  
+  
+}
+
+#NC_Master .cart-totals table th,
+#NC_Master .cart-totals table td {
+    color: #333333;
+    padding: 13px;
+    line-height: 18px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #f7f7f7;
+}
+
+#NC_Master .cart-totals table th { background:#F9F9F9;}
+#NC_Master .cart-totals table thead th {  }
+#NC_Master .cart-totals table thead:first-child tr th, 
+#NC_Master .cart-totals table thead:first-child tr td { }
+
+/* Draw col divider */
+#NC_Master .cart-totals table th + th,
+#NC_Master .cart-totals table td + td,
+#NC_Master .cart-totals table th + td,
+#NC_Master .cart-totals table td + th {
+    border-left: 1px solid #ececec;
+}
+
+#NC_Master .cart-totals table tbody tr:hover td,
+#NC_Master .cart-totals table tbody tr:hover th 
+{
+    /* You can use this to have a ho ver effect */
+    background:rgb(253,253,253); 
+}
+
+
+/** 
+ *
+ * Hide some cols for mobile
+ *
+ */
+#cart-table * {font-size:10px;;padding: 0px;margin:0px}
+#cart-table th.tcollapse, 
+#cart-table td.tcollapse {display: none;  }
+
+
+@media only screen and (min-width: 450px) {
+     #cart-table th.tcollapse, 
+     #cart-table td.tcollapse  { width: auto;display:table-cell; }
+     
+     #cart-table table { width: 350px; }
+     #cart-table * {font-size:12px;padding: 4px;}
+}

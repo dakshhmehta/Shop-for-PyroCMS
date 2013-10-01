@@ -1,0 +1,22 @@
+/*
+ * For product Discounts Tab
+ *
+ *
+ *
+ */
+.disc_qty       {   width:30px;}
+.disc_price     {   min-width:30px;max-width:50px;}
+.disc_dstart    {   min-width:30px;max-width:250px;}
+.disc_dend      {   min-width:30px;max-width:250px;}
+	 
+ 
+.scrollable_panel #discounts-list {width:410px;}
+.scrollable_panel {width:600px;max-height:400px;overflow-y:scroll;}
+
+
+/*product gallery*/
+.gall_container { position: relative; width: 100px; height: 100px; float: left; margin-right: 4px; margin-bottom: 4px;}
+.gall_cover2 { position: absolute; bottom: 0px; right: 0px; opacity:0.5; }
+.gall_cover2:hover {opacity:1; }	
+.gall_cover3 { position: absolute; top: 0px; left: 0px; opacity:0.5; }
+.gall_cover3:hover {opacity:1; }			

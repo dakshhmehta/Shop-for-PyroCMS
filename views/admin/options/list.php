@@ -1,0 +1,65 @@
+<section class="title">
+	<h4><?php echo lang('options'); ?></h4>
+	<h4 style="float:right"><a title='<?php echo lang('new'); ?>' href="admin/shop/options/create" class='tooltip-s modal img_icon_title img_create'></a></h4>
+</section>
+<?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
+<section class="item">
+	<div class="content">
+		<?php if (empty($options)): ?>
+			<div class="no_data">
+			<p><?php echo lang('options_description'); ?></p>
+			<?php echo lang('no_items'); ?></div>
+		</section>
+	<?php else: ?>
+		<table>			
+			<thead>
+				<tr>
+					<th><input type="checkbox" name="action_to_all" value="" class="check-all" /></th>
+					<th></th>
+					<th><?php echo lang('nc:options:title');?></th>
+					<th><?php echo lang('name');?></th>
+					<th><?php echo lang('type');?></th>
+					<th style="width: 120px"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($options AS $item): ?>
+					<tr class="<?php echo alternator('even', ''); ?>">
+						<td><input type="checkbox" name="action_to[]" value="<?php echo $item->id; ?>"  /></td>
+						<td>
+
+							<div class="img_48 img_groups"></div>
+							
+						</td>							
+						<td><?php echo $item->title; ?></td>
+						<td><?php echo $item->name; ?></td>
+						<td><?php echo $item->type; ?></td>
+						<td>
+							<span style="float:right;">
+								<a title='<?php echo lang('edit'); ?>' class="tooltip-s img_icon img_edit " href="<?php echo site_url('admin/shop/options/edit/' . $item->id); ?>"> </a>
+								<a title='<?php echo lang('copy'); ?>' class="tooltip-s img_icon img_copy" href="<?php echo site_url('admin/shop/options/duplicate/' . $item->id); ?>"> </a>
+								<a title='<?php echo lang('delete'); ?>' class="tooltip-s img_icon img_delete confirm" href="<?php echo site_url('admin/shop/options/delete/' . $item->id); ?>"> </a>
+							</span>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="9"><div style="float:right;"></div></td>
+				</tr>
+			</tfoot>
+		</table>
+
+		<div class="buttons">
+			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete'))); ?>
+		</div>
+	</div>
+	</section>
+<?php endif; ?>
+
+<?php echo form_close(); ?>
+
+<?php if (isset($pagination)): ?>
+	<?php echo $pagination; ?>
+<?php endif; ?>

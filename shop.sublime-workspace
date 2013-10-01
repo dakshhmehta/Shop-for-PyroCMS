@@ -1,0 +1,524 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"produ",
+				"Productgroups_m"
+			],
+			[
+				"product",
+				"ProductGroups"
+			],
+			[
+				"countr",
+				"countryList"
+			],
+			[
+				"val",
+				"validation"
+			],
+			[
+				"cover",
+				"cover_image"
+			],
+			[
+				"new",
+				"new_filter"
+			],
+			[
+				"for",
+				"foreach	foreach …"
+			],
+			[
+				"res",
+				"results"
+			],
+			[
+				"_",
+				"_table"
+			],
+			[
+				"catego",
+				"categories"
+			],
+			[
+				"segn",
+				"segment_2"
+			],
+			[
+				"categ",
+				"categories"
+			],
+			[
+				"array_ke",
+				"array_diff_key"
+			],
+			[
+				"parent",
+				"parent_id"
+			],
+			[
+				"pare",
+				"parent_id"
+			],
+			[
+				"category",
+				"category_id"
+			],
+			[
+				"gatew",
+				"gateway_reference"
+			],
+			[
+				"unin",
+				"uninstall"
+			],
+			[
+				"details",
+				"details_library"
+			],
+			[
+				"of",
+				"offset"
+			],
+			[
+				"base",
+				"base_url"
+			],
+			[
+				"order",
+				"order_by"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 85.0,
+		"selected_items":
+		[
+			[
+				"Snippet: ",
+				"Snippet: Lorem ipsum"
+			],
+			[
+				"lor",
+				"Snippet: Lorem ipsum"
+			],
+			[
+				"lo",
+				"Snippet: Lorem ipsum"
+			],
+			[
+				"menu",
+				"View: Toggle Menu"
+			],
+			[
+				"if",
+				"Snippet: if … else …"
+			],
+			[
+				"ME",
+				"View: Toggle Menu"
+			],
+			[
+				"view",
+				"View: Toggle Menu"
+			]
+		],
+		"width": 386.0
+	},
+	"console":
+	{
+		"height": 247.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/.gitignore",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/details.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/admin/shop.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/config/routes.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/models/statistics_m.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/js/admin/dashboard.js",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/dashboard/dashboard.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/css/admin.css",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/store/controllers/admin/stats.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/store/models/stats_m.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/store/controllers/admin/store.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/store/css/admin.css",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/store/css/store.css",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/store/js/stats.js",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/store/views/admin/dashboard.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/language/english/permission_lang.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/libraries/Details_library.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/admin/products.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/models/orders_m.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/admin/orders.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/orders/filter.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/orders/line_item.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/orders/orders.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/products/products.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/products/filter.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/products.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/products/line_item.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/js/admin/products.js",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/models/products_admin_m.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/cart.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/models/product_prices_m.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/models/pgroups_prices_m.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/helpers/shop_prices_helper.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/libraries/SFCart.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/js/admin/product.js",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/products/form.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/admin/pgroups.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/pgroups/list.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/plugin.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/models/products_m.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/models/pgroups_m.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/productgroups/edit.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/language/english/shop_admin_cp_lang.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/language/english/shop_admin_pgroups_lang.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/language/english/shop_admin_products_lang.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/admin/productgroups.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/js/admin/pgroups.js",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/models/productgroups_m.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/models/productgroups_prices_m.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/events.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/language/english/shop_admin_pgroups.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/language/english/shop_admin_products.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/language/english/shop_admin_lang.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/libraries/Package_library.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/libraries/Core2_library.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/themes/tldonline/views/modules/shop/my/address.php",
+		"/C/Users/Dell/Desktop/ash images rotator/adrenalinhealth_t24/views/partials/header.html",
+		"/C/Users/Dell/Desktop/ash images rotator/adrenalinhealth_t24/views/partials/slider.html",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/checkout.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/widgets/shop_recently_added/shop_recently_added.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/models/products_front_m.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/models/options_m.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/widgets/shop_recently_added/views/form.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/wishlist.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/orders/order.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/checkout/single/register.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/widgets/shop_categories/shop_categories.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/checkout/single/login.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/widgets/shop_categories/views/display.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/js/admin/orders.js",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/models/blacklist_m.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/admin/blacklist.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/libraries/shipping/twoducks/twoducks.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/helpers/shop_public_helper.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/shipping/items.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/admin/shipping.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/libraries/Shipping_library.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/system/cms/modules/users/details.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/admin/brands.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/admin/tax.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/admin/packages.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/admin/options.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/admin/gateways.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/admin/categories.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/admin/images.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/system/cms/modules/users/controllers/admin_fields.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/system/cms/modules/users/language/english/permission_lang.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/system/cms/modules/permissions/language/english/permissions_lang.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/libraries/Fraud_control.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/blacklist/list.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/blacklist/form.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/helpers/shop_admin_helper.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/my.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/controllers/addresses.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/models/addresses_m.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/libraries/Options_library.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/blacklist/edit.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/blacklist/create.php",
+		"/C/Users/Dell/Desktop/paypal api signature",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/webparts/views/admin/view.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/webparts/views/admin/form_edit.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/webparts/views/admin/form_add.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/webparts/views/admin/form_promote.php",
+		"/C/Users/Dell/Desktop/zoom-master/zoom-master/demo.html",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/themes/tldonline/views/partials/meta.html",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/webparts/views/admin/index_groups.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/webparts/views/admin/form.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/webparts/views/admin/index.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/webparts/details.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/js/admin/admin.js",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/libraries/shipping/austpost/austpost.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/upgrade.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/libraries/Gateway_library.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/libraries/packages/custom/custom.php",
+		"//SRV1/Volume_1/code/nitrocart/shop/details.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/models/options_values_m.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/options/addoption.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/options/editoption.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/libraries/packages/bbx2/bbx2.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/models/transactions_m.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/merchant/manual/display.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/widgets/shop_simple_cart/views/display.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/widgets/shop_simple_cart/shop_simple_cart.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/widgets/shop_simple_cart/views/form.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/merchant/manual/form.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/libraries/gateways/manual/manual.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/views/admin/categories/form.php",
+		"/C/wamp/www/twolittleducklings.com.au/ws1/addons/shared_addons/modules/shop/models/categories_m.php"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 92.0,
+		"where_history":
+		[
+			"C:\\wamp\\www\\pyro221\\addons\\shared_addons\\modules\\shop,C:\\wamp\\www\\twolittleducklings.com.au\\ws1\\addons\\shared_addons\\modules\\shop",
+			"C:\\wamp\\www\\pyro221\\addons\\shared_addons\\modules\\shop\\",
+			"<open files>,C:\\wamp\\www\\twolittleducklings.com.au\\ws1\\addons\\shared_addons\\modules\\shop",
+			"<open files>",
+			"<open files>,C:\\wamp\\www\\twolittleducklings.com.au\\ws1\\addons\\shared_addons\\modules\\shop",
+			"<open files>",
+			"",
+			"C:\\wamp\\www\\pyro221\\addons\\shared_addons\\modules\\shop\\,C:\\wamp\\www\\twolittleducklings.com.au\\ws1\\addons\\shared_addons\\modules\\shop\\models,C:\\wamp\\www\\twolittleducklings.com.au\\ws1\\addons\\shared_addons\\modules\\shop\\controllers",
+			"C:\\wamp\\www\\pyro221\\addons\\shared_addons\\modules\\shop\\,C:\\wamp\\www\\twolittleducklings.com.au\\ws1\\addons\\shared_addons\\modules\\shop\\models",
+			"C:\\wamp\\www\\pyro221\\addons\\shared_addons\\modules\\shop\\",
+			"C:\\wamp\\www\\pyro221\\addons\\shared_addons\\modules\\shop\\libraries",
+			"C:\\wamp\\www\\pyro221\\addons\\shared_addons\\modules\\shop\\libries",
+			"C:\\wamp\\www\\pyro221\\addons\\shared_addons\\modules\\shop"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"hlp_get_price",
+			"product_qty",
+			"_prepare_item_for_cart",
+			"pgroup_m",
+			"productgroups_prices_m",
+			"productgroups_m",
+			"Core2_library",
+			"merge_object",
+			"merge",
+			"shop_fields",
+			"storeshop",
+			"store",
+			"get_country_from_iso2alpha",
+			"resume_checkout",
+			"get_unique_slug",
+			"get_lib_ob",
+			"module_name",
+			"_prepare_item_for_cart",
+			"_get_option_fields",
+			"display_order_filter",
+			"_get_orderby",
+			"_get_pagination_limit",
+			"shop:links",
+			"products_m",
+			"get_images",
+			"products_m",
+			"products_front_m",
+			"admin_products_m",
+			"admin_products_m ",
+			"update_inventory",
+			"admin_admin_products_m",
+			"products_m",
+			"_get_pagination_limit",
+			"shop_count",
+			"count_by_filter",
+			"shop_count",
+			"get_by_slug",
+			"_prepare_item_for_cart",
+			"_get_option_fields",
+			"_prepare_item_for_cart",
+			"vhos",
+			"ul",
+			"topheader",
+			"CmsContent",
+			"cmscontent",
+			"permission",
+			"permission_lang",
+			"btnValidate",
+			"curl",
+			"connect to host",
+			"couldn't connect to host",
+			"redirect_method",
+			"_redirect_method",
+			"lang",
+			"curl",
+			"SetEnv",
+			"curl",
+			"$this->load->library(",
+			"post_request",
+			"_post_paypal_request",
+			"process()",
+			"_process",
+			"_purchase",
+			"post_redirect",
+			"redirect()",
+			"post_redirect",
+			"manager_m",
+			"MERCHANT_DRIVER_PATH",
+			"MERCHANT_VENDOR_PATH",
+			"driver_paths",
+			"MERCHANT_VENDOR_PATH",
+			"MERCHANT_DRIVER_PATH",
+			"place_order",
+			"createDefaultFolders",
+			"shop_settings",
+			"lang->load('",
+			"sf_reporting",
+			"load->helper(",
+			"helper('shop/nitro_admin')",
+			"nitro_admin_helper",
+			"$this->load->library('",
+			"$this->load->library(",
+			"$this->load->library('",
+			"Search_Library",
+			"in_gateway",
+			"Shipping_library",
+			"TaxMode",
+			"create_lite",
+			"shop_products_count",
+			"get_catalogue_data",
+			"get_inventory_notifications",
+			"shop_get_by_category_name",
+			"products_m->get(",
+			"get_product_attributes",
+			"get_images",
+			"count_all",
+			"get_search",
+			"get_shipment_method",
+			"Gateway_Library",
+			"package_library",
+			"nc_enable_views",
+			"package_library",
+			"get_prod_option",
+			"get_option_value",
+			"name",
+			"Core2_library",
+			"explosive"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"products_admin_m",
+			"admin_products_m"
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": false,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 148.0
+	},
+	"project": "shop.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"enu",
+				"libraries\\Enums.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 285.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

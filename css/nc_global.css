@@ -1,0 +1,207 @@
+/*
+ * @name ice
+ * @version 1.0
+ * @ShopVersion ShopFront 1.x
+ * @author Salvatore Bordonaro
+ * @web http://inspiredgroup.com.au
+ *
+ * @description	This is the Default shop CSS stylesheet for ShopFront Cart page
+ *
+ *
+ * Top Level NC Styles and Global Styles
+ */
+
+ 
+
+
+ 
+/**
+ * Global Classes
+ *
+ */
+.error      {color:#f00;}
+.success    {color:#0f0;}
+
+
+
+
+/**
+ * TopLevel NC Node
+ *
+ */
+#NC_Master * { text-decoration:none; } 
+
+
+
+/** Define the standard Page Title Across the whole Shop */
+#NC_Master .page-title { }
+#NC_Master .page-title h2
+{ 
+    font-size:18px;
+    text-transform:uppercase;
+}
+#NC_Master .page-title h2 span
+{ 
+    font-size:16px;
+}
+
+
+
+/** Define the standard Button / Rounded */
+
+div.nc_widget
+{
+
+}
+
+/** Define the standard Button / Flat */
+div.nc_widget .ncbtn,
+#NC_Master .ncbtn 
+{ 
+    border:0px;
+    list-style:none;  
+    padding:6px; 	
+    padding-left:10px; 	
+    padding-right:10px; 	
+    border-radius:0px;
+    margin-right:2px;
+
+    background:#ddd; /*apply common bg color*/
+}
+/*Button Hover*/
+div.nc_widget .ncbtn:hover,
+#NC_Master .ncbtn:hover {background:#eee; /*apply common bg color*/}
+
+
+/*Checkout Button*/
+#NC_Master a.ncbtn.checkout,
+#NC_Master input.ncbtn.checkout
+{ 
+    color:#eee;text-shadow: 0 1px #555;
+    background:#88d;
+    
+}
+
+#NC_Master a.ncbtn.checkout:hover,
+#NC_Master input.ncbtn.checkout:hover
+{ 
+    color:#fff;
+    background:#77d;
+    text-shadow: 0 1px #000;
+}
+
+/*Drop Button*/
+#NC_Master a.ncbtn.drop,
+#NC_Master input.ncbtn.drop
+{ 
+    color:#222;
+}
+#NC_Master a.ncbtn.drop:hover,
+#NC_Master input.ncbtn.drop:hover
+{ 
+    color:#66f;
+}
+
+/*update*/
+#NC_Master a.ncbtn.update,
+#NC_Master input.ncbtn.update
+{ 
+    color:#222;
+}
+#NC_Master a.ncbtn.update:hover,
+#NC_Master input.ncbtn.update:hover
+{ 
+    color:#66f;
+}
+
+
+
+/*Add to cart list */
+#NC_Master a.ncbtn.list,
+#NC_Master input.ncbtn.list
+{ 
+    color:#666;
+    background:#fff;
+    border:1px solid #66e;
+    margin-right:0px;
+}
+#NC_Master a.ncbtn.list:hover,
+#NC_Master input.ncbtn.list:hover
+{ 
+    color:#444;
+}
+
+
+/*Add to cart*/
+#NC_Master a.ncbtn.atc,
+#NC_Master input.ncbtn.atc
+{ 
+    color:#fff;
+    background:#66e;
+    border:1px solid #66e;    
+    margin-left:0px;
+
+}
+#NC_Master a.ncbtn.atc:hover,
+#NC_Master input.ncbtn.atc:hover
+{ 
+	
+    
+}
+
+
+
+
+/*add to cart*/
+#NC_Master #NC_ProductDetail a.ncbtn.addtocart,
+#NC_Master #NC_ProductDetail input.ncbtn.addtocart
+{ 
+    color:#eee;text-shadow: 0 1px #555;
+    background:#88d;
+    float:left;
+
+}
+#NC_Master #NC_ProductDetail a.ncbtn.addtocart:hover,
+#NC_Master #NC_ProductDetail input.ncbtn.addtocart:hover
+{ 
+    color:#fff;
+    background:#77d;
+    text-shadow: 0 1px #000;
+}
+
+
+
+/*add to wishlist*/
+#NC_Master #NC_ProductDetail a.ncbtn.addtowishlist,
+#NC_Master #NC_ProductDetail input.ncbtn.addtowishlist
+{ 
+    color:#eee;
+    text-shadow: 0 1px #555;
+    background:#d44;
+
+
+}
+#NC_Master #NC_ProductDetail a.ncbtn.addtowishlist:hover,
+#NC_Master #NC_ProductDetail input.ncbtn.addtowishlist:hover
+{ 
+    color:#fff;
+    background:#f44;
+    text-shadow: 0 1px #000;
+ 
+}
+#NC_Master #NC_ProductDetail .button-wrapper
+{
+    margin-top:5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
