@@ -137,7 +137,7 @@
 					<li>
 						<label><?php echo lang('address'); ?></label>
 						<div class="value">
-							<?php echo $invoice->address1; ?><br />
+							<?php echo $invoice->address1; ?> , 
 							<?php echo $invoice->address2; ?>
 						</div>
 					</li>
@@ -212,7 +212,7 @@
 					<li>
 						<label><?php echo lang('address'); ?></label>
 						<div class="value">
-							<?php echo $shipping_address->address1; ?><br />
+							<?php echo $shipping_address->address1; ?>,
 							<?php echo $shipping_address->address2; ?>
 						</div>
 					</li>

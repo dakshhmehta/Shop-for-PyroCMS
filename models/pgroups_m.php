@@ -44,7 +44,7 @@ class Pgroups_m extends MY_Model
 	public function __construct() 
 	{
 		parent::__construct();
-		$this->load->model('pgroups_prices_m');
+		$this->load->model('shop/pgroups_prices_m');
 		
 	}
 

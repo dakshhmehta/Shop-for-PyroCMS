@@ -1,6 +1,3 @@
-<!--- FILE.START:VIEW.BRANDS.LEGACY.BRANDS_LIST --->
-
-
 
 <div class="products-list">
 
@@ -44,4 +41,3 @@
 <?php endforeach; ?>
 <?php endif; ?>
 </div>
-<!--- FILE.END:VIEW.BRANDS.LEGACY.BRANDS_LIST --->

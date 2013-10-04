@@ -46,6 +46,9 @@ class Widget_Shop_Dashboard extends Widgets
 	{
 		$this->load->model('shop/orders_m');
 
+		//$this->template->append_js('module::admin/dashboard.js')
+		//$this->template->append_js('jquery/jquery.flot.js')
+
 		//only get active 'open' orders
 		$data['recent_shop_order'] = $this->orders_m->order_by('id','desc')->get_last(5);
 		

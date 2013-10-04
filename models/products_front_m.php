@@ -191,7 +191,9 @@ class Products_front_m extends Products_m
 
 
 
+		// 
 		// Start filtering now
+		// 
 		$this->db->reset_query();
 
 
@@ -274,8 +276,11 @@ class Products_front_m extends Products_m
 		}
 
 
-
+		//
+		//	we need to do this as we have now collected the categories
+		//
 		$this->db->reset_query();	
+
 
 		//count all products by first category and standard fields
 		$count = $this->count_by($filter);

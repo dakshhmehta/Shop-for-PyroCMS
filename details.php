@@ -1,18 +1,26 @@
 <?php if (!defined('BASEPATH'))  exit('No direct script access allowed');
 /*
  * SHOP for PyroCMS
- *
+ * 
  * Copyright (c) 2013, Salvatore Bordonaro
  * All rights reserved.
  *
- * @author: Salvatore Bordonaro <sal.bordonaro@live.com.au>
- * @copyright Salvatore Bordonaro 2013
- * @version: 0.90.0.000 
+ * Author: Salvatore Bordonaro
+ * Version: 1.0.0.051
  *
  *
+ *
+ * 
+ * See Full license details on the License.txt file
  */
-  
+ 
 /**
+ * SHOP			A full featured shopping cart system for PyroCMS
+ *
+ * @author		Salvatore Bordonaro
+ * @version		1.0.0.051
+ * @website		http://www.inspiredgroup.com.au/
+ * @system		PyroCMS 2.1.x
  *
  */
 class Module_Shop extends Module 
@@ -135,7 +143,26 @@ class Module_Shop extends Module
 					);
 		}
 
-		$this->db->insert_batch('shop_countries', $data);		
+		$this->db->insert_batch('shop_countries', $data);	
+
+
+		$data = array();
+
+		foreach($this->details_library->get_array('trust_score') as $key => $value)
+		{
+			$data[] = array(
+					'score' => $value['score'],
+					'category' => $value['category'],
+					'word' => $value['word'],
+					'count' => 0,
+					'enabled' => 1,
+					);
+		}
+
+		$this->db->insert_batch('shop_trust_data', $data);		
+
+
+		return TRUE;	
 
 	}	
 
@@ -191,6 +218,39 @@ class Module_Shop extends Module
 		switch ($old_version) 
 		{
 			case '0.1.7':
+
+
+				$tbls = $this->install_tables( 
+
+					array('shop_trust_data' => array(
+						'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
+						'score' =>  array('type' => 'INT', 'constraint' => '1', 'default' => 1), /*product group */
+						'category' => array('type' => 'VARCHAR', 'constraint' => '50', 'default' => ''),   /*user group*/
+						'word' => array('type' => 'VARCHAR', 'constraint' => '200', 'default' => ''), /*product group */
+						'count' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'default' => 1),  /*times used*/
+						'enabled' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'default' => 1),  
+					)) 
+
+				);
+			
+
+
+				$data = array();
+
+				foreach($this->details_library->get_array('trust_score') as $key => $value)
+				{
+					$data[] = array(
+							'score' => $value['score'],
+							'category' => $value['category'],
+							'word' => $value['word'],
+							'count' => 0,
+							'enabled' => 1,
+							);
+				}
+
+				$this->db->insert_batch('shop_trust_data', $data);
+
+
 				break;
 			case '0.1.6':
 				$tbls = $this->install_tables( 

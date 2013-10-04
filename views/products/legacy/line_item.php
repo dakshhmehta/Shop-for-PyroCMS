@@ -1,4 +1,4 @@
-<!--- FILE.START:VIEW.PRODUCTS.LINE_ITEM --->
+
 <?php foreach ($items as $item): ?>	
 
 	<div class="product">
@@ -69,4 +69,3 @@
 		</div>
 	  </div>
 <?php endforeach;?>	
-<!--- FILE.END:VIEW.PRODUCTS.LINE_ITEM --->

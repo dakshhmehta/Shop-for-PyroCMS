@@ -28,6 +28,7 @@
 					<th class="collapse"><?php echo lang('shipping'); ?></th>
 					<th class="collapse"><?php echo lang('total'); ?></th>
 					<th class="collapse"><?php echo lang('location'); ?></th>
+					<th class="collapse">Score</th>
 					<th class="collapse"><?php echo lang('status'); ?></th>
 					<th style="text-align:right"><?php echo lang('actions'); ?></th>
 				</tr>
@@ -39,7 +40,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="11">
+					<td colspan="12">
 						<div class="inner"><?php echo $pagination['links'];?></div>
 					</td>
 				</tr>

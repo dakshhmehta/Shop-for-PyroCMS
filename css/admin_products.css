@@ -1,9 +1,4 @@
-/*
- * For product Discounts Tab
- *
- *
- *
- */
+
 .disc_qty       {   width:30px;}
 .disc_price     {   min-width:30px;max-width:50px;}
 .disc_dstart    {   min-width:30px;max-width:250px;}

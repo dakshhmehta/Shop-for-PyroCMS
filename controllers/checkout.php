@@ -1,47 +1,35 @@
 <?php if (!defined('BASEPATH'))  exit('No direct script access allowed');
 /*
- * NITRO-CART Developer Preview
+ * SHOP for PyroCMS
  * 
- *
- *
  * Copyright (c) 2013, Salvatore Bordonaro
  * All rights reserved.
  *
  * Author: Salvatore Bordonaro
- * Version: 0.90.0.000
- *
- * Credits: - Salvatore Bordonaro (DB, Development, JavaScript)
- *
- * 			- Guido Grazioli (DB and Development)
- *
- *          - Alison McDonald (Usability, Language and Testing)
+ * Version: 1.0.0.051
  *
  *
  *
- *
- *
- *
- *
- *
- *
+ * 
+ * See Full license details on the License.txt file
  */
  
 /**
- * NITRO CART	An explosive e-commerce solution for PyroCMS - ......and 'Open Source'
+ * SHOP			A full featured shopping cart system for PyroCMS
  *
  * @author		Salvatore Bordonaro
- * @version		0.90.0.000
+ * @version		1.0.0.051
  * @website		http://www.inspiredgroup.com.au/
- * @package		Checkout Public Contoller for NITRO-CART
  * @system		PyroCMS 2.1.x
  *
  */
-
 class Checkout extends Public_Controller 
 {
 
 	// Support multiple checkout theme/styles
 	protected $theme_name = 'single';
+
+	protected $checkout_version = '0.1';
 	
 	public function __construct() 
 	{
@@ -198,13 +186,27 @@ class Checkout extends Public_Controller
 				$this->calc_shipping_by_id($shipping_method_id, $this->tmp_addr ) ;
 
 
+				// 
+				// we need this so that the fraud tools know which version of the input
+				// to chek against
+				// 
+				$input['checkout_version'] = $this->checkout_version;
+				$input['order_total'] = $this->sfcart->total();
+
 				//
 				// Now we are ready to place an order, lets validate against the blacklist
 				//
 				if( $this->fraud_control->validate_order($input) )
 				{
+					//get a score
+ 					$trust_object = $this->fraud_control->get_trust_score($input);
+
+
+ 					$input['trust_score'] = $trust_object->score;
+
 					// Place the order - redirect here
-					$this->place_order($input) ;
+					$this->place_order($input, $trust_object->events) ;
+
 					//echo "GOOD";die;
 				}
 				else
@@ -516,7 +518,7 @@ class Checkout extends Public_Controller
 	
 	
 	
-	private function place_order($input)
+	private function place_order($input, $trust_events = array())
 	{
 
 
@@ -565,7 +567,15 @@ class Checkout extends Public_Controller
 				
 
 				// Now write a transaction record 			
-				$tran_id = $this->transactions_m->log($order_id, 0,  0 ,'CUSTOMER', 'Order Placed');
+				//$tran_id = $this->transactions_m->log($order_id, 0,  0 ,'CUSTOMER', 'Order Placed');
+				$tran_id = $this->transactions_m->log_new_order($order_id);
+
+
+				// value is typiclyy a string "+1 for similar email"
+				// or -2 for unknown country
+				$this->transactions_m->log_trust_data($order_id, $input['trust_score'],  $trust_events);
+				
+
 
 				// Order is placed so deatroy the cart
 				//$this->sfcart->destroy();

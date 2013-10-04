@@ -19,6 +19,7 @@
 					<td class="collapse">
 						<?php echo $order->city; ?>
 					</td>
+					<td><?php echo $order->trust_score; ?></td>
 					<td>
 						<?php 
 							$class_name = 'status_img_'.$order->status.'';

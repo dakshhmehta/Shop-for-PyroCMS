@@ -58,6 +58,17 @@ class Transactions_m extends MY_Model
 	}	
 	
 	
+	public function log_new_order($id) 
+	{
+		return $this->log($id, 0,  0 ,'CUSTOMER', 'Order Placed', 2);
+	}
+
+	public function log_trust_data($id, $score,  $events = array()) 
+	{
+		return $this->log($id, 0,  0 , 'Trust-Score' , 'Trust score awarded:' . $score , 2, $events ) ;
+	}
+
+
 	/**
 	 * log($id, $credit,  $refund ,$user = 'SYSTEM', $message = '',$status=2) 
 	 *
@@ -72,7 +83,7 @@ class Transactions_m extends MY_Model
 	 * @return INT The ID of the record created
 	 *
 	 */
-	public function log($id, $credit,  $refund ,$user = 'SYSTEM', $message = '',$status=2) 
+	public function log($id, $credit,  $refund ,$user = 'SYSTEM', $message = '',$status=2, $data =array()) 
 	{
 	
 		$to_insert = array(
@@ -84,12 +95,11 @@ class Transactions_m extends MY_Model
 				'amount' => $credit,
 				'gateway' => 0,
 				'user' => $user,
-				'data' => ''
+				'data' => json_encode($data),
 		);
 	
 		return $this->create($to_insert); //returns id
 	}
    
-	
 
 }

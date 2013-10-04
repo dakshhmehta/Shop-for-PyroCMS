@@ -46,9 +46,9 @@ if (!function_exists('hlp_get_price'))
 
 		$ci =& get_instance();
 		
-		$ci->load->model('product_prices_m');
-		$ci->load->model('pgroups_m');
-		$ci->load->model('pgroups_prices_m');
+		$ci->load->model('shop/product_prices_m');
+		$ci->load->model('shop/pgroups_m');
+		$ci->load->model('shop/pgroups_prices_m');
 
 
 		//

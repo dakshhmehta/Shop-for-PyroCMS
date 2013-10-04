@@ -1,28 +1,26 @@
 <?php if (!defined('BASEPATH'))  exit('No direct script access allowed');
 /*
- * NITRO-CART Developer Preview
+ * SHOP for PyroCMS
  * 
- *
- *
  * Copyright (c) 2013, Salvatore Bordonaro
  * All rights reserved.
  *
  * Author: Salvatore Bordonaro
- * Version: 0.90.0.000
- *
- * Credits: - Salvatore Bordonaro (DB, Development, JavaScript)
- *
- * 			- Guido Grazioli (DB and Development)
- *
- *          - Alison McDonald (Usability, Language and Testing)
+ * Version: 1.0.0.051
  *
  *
  *
+ * 
+ * See Full license details on the License.txt file
+ */
+ 
+/**
+ * SHOP			A full featured shopping cart system for PyroCMS
  *
- *
- *
- *
- *
+ * @author		Salvatore Bordonaro
+ * @version		1.0.0.051
+ * @website		http://www.inspiredgroup.com.au/
+ * @system		PyroCMS 2.1.x
  *
  */
 
@@ -140,42 +138,6 @@ class SFCart
 		
 	}
 	
-
-	
-   /*
-	* Returns the total Qty of a product regardless of the rowid/options
-	* This can be useful for inventory checkign
-	*
-	public function product_qty($val, $by_rowid = TRUE) 
-	{
-	
-		$count = 0;
-		
-		$selector = ($by_rowid)? 'rowid' : 'id' ;
-		
-		//var_dump($this->contents() );die;
-		
-		if( $this->contents() != NULL )
-		{
-	
-			foreach( $this->contents() as $item ) 
-			{
-			
-				if(isset($item[$selector]))
-				{
-					if ($item[$selector] == $val)
-					{
-						$count += $item['qty'];
-					}
-				}
-			}
-			
-		}
-	
-		return $count;
-	
-	}
-	*/
 
 
 	public function product_qty($val, $by = 'rowid') 

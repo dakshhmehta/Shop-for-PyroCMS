@@ -32,7 +32,7 @@
 class Widget_Shop_Filter extends Widgets
 {
 	public $title		= array(
-		'en' => 'NitroCart - Products Filter',
+		'en' => 'Shop - Products Filter',
 	);
 	public $description	= array(
 		'en' => 'Display a Filter to search for products',

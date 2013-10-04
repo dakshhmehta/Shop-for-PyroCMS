@@ -1,4 +1,4 @@
-<!--- FILE.START:VIEW.CART.STANDARD.CART_ACTIONS --->
+<!--- FILE.START:VIEW.CART.STANDARD.CART_ACTIONS -->
 			  <tr>
 			  
 				<td colspan="6">
@@ -12,4 +12,4 @@
 				</td>
 				
 			  </tr>
-<!--- FILE.END:VIEW.CART.STANDARD.CART_ACTIONS --->			  
+<!--- FILE.END:VIEW.CART.STANDARD.CART_ACTIONS -->			  

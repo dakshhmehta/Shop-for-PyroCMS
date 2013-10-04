@@ -68,7 +68,8 @@ class Orders_m extends MY_Model
 				'billing_address_id' => $inputs['billing_address_id'],
 				'shipping_address_id' => $inputs['shipping_address_id'],
 				'session_id' => $inputs['session_id'], 
-				'ip_address' => $inputs['ip_address'],			
+				'ip_address' => $inputs['ip_address'],	
+				'trust_score' => $inputs['trust_score'],			
 				'order_date' => time(),
 		));
 	

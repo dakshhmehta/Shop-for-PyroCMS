@@ -10,17 +10,6 @@
  * Author: Salvatore Bordonaro
  * Version: 0.90.0.000
  *
- * Credits: - Salvatore Bordonaro (DB, Development, JavaScript)
- *
- * 			- Guido Grazioli (DB and Development)
- *
- *          - Alison McDonald (Usability, Language and Testing)
- *
- *
- *
- *
- *
- *
  *
  *
  *

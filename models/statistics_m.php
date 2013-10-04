@@ -118,7 +118,7 @@ class Statistics_m extends MY_Model
 	}
 
             
-    public function get_period($days = 7, $limit = 'all') 
+    public function get_period($days = 5, $limit = 'all') 
     {
         $stats = array();
 
@@ -138,9 +138,9 @@ class Statistics_m extends MY_Model
         return $stats;
     }	
 
-    private function _get_orders($days) 
+    private function _get_orders($days = 5) 
     {
-    	$days = 7;
+    	//$days = 7;
         $dates = array();
         
         $day_seconds = 86400;

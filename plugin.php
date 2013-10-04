@@ -1,43 +1,67 @@
 <?php if (!defined('BASEPATH'))  exit('No direct script access allowed');
 /*
- * NITRO-CART Developer Preview
+ * SHOP for PyroCMS
  * 
- *
- *
  * Copyright (c) 2013, Salvatore Bordonaro
  * All rights reserved.
  *
  * Author: Salvatore Bordonaro
- * Version: 0.90.0.000
- *
- * Credits: - Salvatore Bordonaro (DB, Development, JavaScript)
- *
- * 			- Guido Grazioli (DB and Development)
- *
- *          - Alison McDonald (Usability, Language and Testing)
+ * Version: 1.0.0.051
  *
  *
  *
- *
- *
- *
- *
- *
- *
+ * 
+ * See Full license details on the License.txt file
  */
  
 /**
- * NITRO CART	An explosive e-commerce solution for PyroCMS - ......and 'Open Source'
+ * SHOP			A full featured shopping cart system for PyroCMS
  *
  * @author		Salvatore Bordonaro
- * @version		0.90.0.000
+ * @version		1.0.0.051
  * @website		http://www.inspiredgroup.com.au/
- * @package		Plugin Class for NITRO-CART
  * @system		PyroCMS 2.1.x
  *
  */
 class Plugin_Shop extends Plugin 
 {
+
+	/**
+	 * For now we only retrieve the symbol, but we should add options for 2 letter code, etc..
+	 * @return [type] [description]
+	 */
+	function currency()
+	{
+		$ci =& get_instance();
+		$ci->load->helper('shop_public');
+
+		$option = $this->attribute( 'get' , 'symbol' );  	
+
+		if($option == 'symbol')
+		{
+			return nc_currency_symbol();
+		}
+
+		return "";
+	}
+
+
+	function pricer() 
+	{
+
+		$ci =& get_instance();
+		$ci->load->helper('shop_public');
+
+		$_a = $this->attribute( 'price' , 0 );  	
+		$_b = $this->attribute( 'base' , 0 ); 
+
+		$_price = $_a + $_b;	
+		
+		return nc_format_price($_price);
+		
+	}	
+	
+
 
 	/**
 	 * Method 1: Simple - Just Pass the ID of the product
@@ -440,29 +464,96 @@ class Plugin_Shop extends Plugin
 		$CI->load->library('shop/SFCart');
 
 
-
-
+		$format = $this->attribute('format', 'NO'); //items is default
 		$option = $this->attribute('cart', 'total'); //items is default
 		   				
+		$price = 0;
 
 		switch ( $option )
 		{
 			case 'total':
-				return $CI->sfcart->total();		
+				$price = $CI->sfcart->total();		
 				break;
 			case 'sub-total':
-				return $CI->sfcart->items_total();			
+				$price =  $CI->sfcart->items_total();			
 				break;
 			case 'shipping':
-				return $CI->sfcart->shipping_total();		
+				$price =  $CI->sfcart->shipping_total();		
 				break;
 			case 'items':			
 			default:
-				return $CI->sfcart->total_items();	
+				$price =  $CI->sfcart->total_items();	
+
 		}
+
+
+		if(strtoupper($format) == 'YES')
+		{
+			return nc_format_price($price);
+		}
+
+		return $price;
 		
 	}
 
+	/**
+	 * {{cart_contents}}
+	 *
+	 * {{/cart_contents}}
+	 * 
+	 * @return Array All items in cart
+	 */
+	function cart_contents() 
+	{
+		
+		$CI =& get_instance();
+		$CI->load->library('shop/SFCart');
+		$i = 1;
+		$items = array();
+		$arr = $CI->sfcart->contents();
+
+		if($arr ===null)
+			return $arr;
+
+		foreach($arr as $item)
+		{
+
+				$item['counter'] = $i;
+				$items[] = $item;
+				$i++;
+
+	
+		}
+
+		return $items;
+
+
+
+	}
+
+	function coverimage()
+	{
+		$id = $this->attribute('id', 0);
+
+
+		$CI =& get_instance();
+		$CI->load->model('shop/products_front_m');
+
+		$product =  $CI->products_front_m->get_plugin($id);
+
+
+		return img(site_url('files/thumb/'.$product->cover_id.'/100/100'));
+
+
+	}
+
+
+
 }
+
+
+
+
+
 
 /* End of file plugin.php */

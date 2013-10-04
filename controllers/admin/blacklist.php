@@ -1,30 +1,24 @@
 <?php if (!defined('BASEPATH'))  exit('No direct script access allowed');
 /*
- * Shop for PyroCMS 
+ * SHOP for PyroCMS
  * 
- *
- *
  * Copyright (c) 2013, Salvatore Bordonaro
  * All rights reserved.
  *
  * Author: Salvatore Bordonaro
- * Version: 0.90.0.000
- *
- * For full license details please read the license.txt file
+ * Version: 1.0.0.051
  *
  *
  *
- *
- *
- *
- *
+ * 
+ * See Full license details on the License.txt file
  */
  
 /**
- * Shop			A full featured, yet simple shopping cart for PyroCMS
+ * SHOP			A full featured shopping cart system for PyroCMS
  *
  * @author		Salvatore Bordonaro
- * @version		0.90.0.000
+ * @version		1.0.0.051
  * @website		http://www.inspiredgroup.com.au/
  * @system		PyroCMS 2.1.x
  *

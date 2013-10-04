@@ -231,3 +231,16 @@ section.title .form-title { margin-left: 20px; }
 {
     display: none;
 }
+
+
+.btn.black {
+    background-color: #333;
+    background-image: linear-gradient(to bottom, #000, #333);
+    background-repeat: repeat-x;
+    border-color: #000 #333 #000;
+
+    color: #FFFFFF;
+    text-shadow: 0 -3px 0 rgba(5, 0, 5, 0.25);
+}
+
+ 

@@ -1,38 +1,25 @@
 <?php if (!defined('BASEPATH'))  exit('No direct script access allowed');
 /*
- * NITRO-CART Developer Preview
+ * SHOP for PyroCMS
  * 
- *
- *
  * Copyright (c) 2013, Salvatore Bordonaro
  * All rights reserved.
  *
  * Author: Salvatore Bordonaro
- * Version: 0.90.0.000
- *
- * Credits: - Salvatore Bordonaro (DB, Development, JavaScript)
- *
- * 			- Guido Grazioli (DB and Development)
- *
- *          - Alison McDonald (Usability, Language and Testing)
+ * Version: 1.0.0.051
  *
  *
  *
- *
- *
- *
- *
- *
- *
+ * 
+ * See Full license details on the License.txt file
  */
  
 /**
- * NITRO CART	An explosive e-commerce solution for PyroCMS - ......and 'Open Source'
+ * SHOP			A full featured shopping cart system for PyroCMS
  *
  * @author		Salvatore Bordonaro
- * @version		0.90.0.000
+ * @version		1.0.0.051
  * @website		http://www.inspiredgroup.com.au/
- * @package		Events Class for NITRO-CART
  * @system		PyroCMS 2.1.x
  *
  */
@@ -142,10 +129,6 @@ class Events_Shop
 		//Lang
 		$this->ci->lang->load('shop/shop_front');  
 
-
-		
-		
-		
 	}
 
 	// This gets fired upon oading a public controller
@@ -160,6 +143,7 @@ class Events_Shop
 		$this->ci->lang->load('shop/shop_admin_cp');
 		$this->ci->lang->load('shop/shop_admin_pgroups');
 		$this->ci->lang->load('shop/shop_admin_products');
+		$this->ci->lang->load('shop/shop_admin_dashboard');
 
 
 
@@ -170,7 +154,8 @@ class Events_Shop
 	{
 	
 		// If Shop is closed then do not allow to add to cart
-        if ( $this->ci->settings->get('nc_open_status') == '0' ) {
+        if ( $this->ci->settings->get('nc_open_status') == '0' ) 
+        {
             $this->ci->sfcart->destroy();
             $this->ci->session->set_flashdata('error', $this->ci->settings->get('shop_is_disabled'));
             redirect($this->ci->input->server('HTTP_REFERER'));

@@ -1,9 +1,27 @@
 <?php if (!defined('BASEPATH'))  exit('No direct script access allowed');
-
-/**
+/*
+ * SHOP for PyroCMS
  * 
+ * Copyright (c) 2013, Salvatore Bordonaro
+ * All rights reserved.
+ *
+ * Author: Salvatore Bordonaro
+ * Version: 1.0.0.051
+ *
+ *
  *
  * 
+ * See Full license details on the License.txt file
+ */
+ 
+/**
+ * SHOP			A full featured shopping cart system for PyroCMS
+ *
+ * @author		Salvatore Bordonaro
+ * @version		1.0.0.051
+ * @website		http://www.inspiredgroup.com.au/
+ * @system		PyroCMS 2.1.x
+ *
  */
 class Details_library  
 {
@@ -450,6 +468,7 @@ class Details_library
 				'ip_address' => array('type' => 'VARCHAR', 'constraint' => '40', 'default' => '',),
 				'tracking_code' => array('type' => 'VARCHAR', 'constraint' => '110', 'default' => '',),
 				'data' => array('type' => 'VARCHAR', 'constraint' => '500', 'default' => '',),
+				'trust_core' => array('type' => 'INT', 'constraint' => '11'),
 				'order_date' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE,),
 			),
 			'shop_order_items' => array(
@@ -458,7 +477,7 @@ class Details_library
 				'product_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE,),
 				'options' => array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),
 				'title' => array('type' => 'VARCHAR', 'constraint' => '100', 'default' => '',),
-				'qty' => array('type' => 'TINYINT'),
+				'qty' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE),
 				'cost_item' => array('type' => 'DECIMAL(10,2)', 'unsigned' => TRUE),
 				'cost_sub' => array('type' => 'DECIMAL(10,2)', 'unsigned' => TRUE),
 				'cost_base' => array('type' => 'DECIMAL(10,2)', 'unsigned' => TRUE),
@@ -599,7 +618,20 @@ class Details_library
 				'rate_state' => array('type' => 'DECIMAL(4,2)', 'default' => 0),	
 				'rate_fed' => array('type' => 'DECIMAL(4,2)', 'default' => 0),  
 				/*'core' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE),*/			  
-			));
+			),
+			'shop_trust_data' => array(
+				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
+				'score' =>  array('type' => 'INT', 'constraint' => '1', 'default' => 1), /*product group */
+				'category' => array('type' => 'VARCHAR', 'constraint' => '50', 'default' => ''),   /*user group*/
+				'word' => array('type' => 'VARCHAR', 'constraint' => '200', 'default' => ''), /*product group */
+				'count' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'default' => 1),  /*times used*/
+				'enabled' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'default' => 1),  
+			)
+			);
+
+
+
+
 	}
 
 
@@ -1001,6 +1033,79 @@ class Details_library
 		return TRUE;
 
 	}
+
+	public function get_array($name = 'trust_score')
+	{
+		$_untrusted_words = array();
+
+		//
+		// Commerce scores can vary based on the value as the shop is a commerce system
+		//
+		$_untrusted_words[] = array('score'=> 1, 'category' => 'commerce', 'word' => 'As seen on' );
+		$_untrusted_words[] = array('score'=> 1, 'category' => 'commerce', 'word' => 'Buying judgments' );
+		$_untrusted_words[] = array('score'=> 1, 'category' => 'commerce', 'word' => 'Order status' );
+		$_untrusted_words[] = array('score'=> 1, 'category' => 'commerce', 'word' => 'buy' );
+		$_untrusted_words[] = array('score'=> 1, 'category' => 'commerce', 'word' => 'clearance' );
+		$_untrusted_words[] = array('score'=> 1, 'category' => 'commerce', 'word' => 'order shipped by' );
+		$_untrusted_words[] = array('score'=> 1, 'category' => 'commerce', 'word' => 'buy direct' );
+		$_untrusted_words[] = array('score'=> 1, 'category' => 'commerce', 'word' => 'clearance' );
+
+		//
+		// Persoinals get a high risk score
+		//
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'personal', 'word' => 'Dig up dirt on friends' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'personal', 'word' => 'Meet singles' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'personal', 'word' => 'Score with babes' );
+
+		//
+		// Employment 
+		//
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'employment ', 'word' => 'Additional Income' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'employment', 'word' => 'Be your own boss' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'employment', 'word' => 'Compete for your business' );		
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'employment ', 'word' => 'Double your');
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'employment', 'word' => 'earn $' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'employment', 'word' => 'Earn extra cash' );	
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'employment', 'word' => 'Earn per week' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'employment', 'word' => 'expect to earn' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'employment', 'word' => 'extra income ' );
+		$_untrusted_words[] = array('score'=> 1, 'category' => 'employment', 'word' => 'home based' );		
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'employment', 'word' => 'homebased business' );
+		$_untrusted_words[] = array('score'=> 1, 'category' => 'employment', 'word' => 'homebased' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'employment', 'word' => 'opportunity' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'employment', 'word' => 'work from home' );		
+
+
+		//
+		// Financial
+		//
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'financial', 'word' => 'bargain' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'financial', 'word' => 'beneficiary' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'financial', 'word' => 'affordable' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'financial', 'word' => 'cash' );	
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'financial', 'word' => 'credit' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'financial', 'word' => 'free' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'financial', 'word' => 'f r e e' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'financial', 'word' => 'only' );	
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'financial', 'word' => 'o n l y' );	
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'financial', 'word' => 'save' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'financial', 'word' => 'us dollars' );	
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'financial', 'word' => 'why pay more' );		
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'financial', 'word' => 'investment' );		
+
+
+		//
+		// General
+		//
+		$_untrusted_words[] = array('score'=> 3, 'category' => 'general', 'word' => 'nigeria' );
+		$_untrusted_words[] = array('score'=> 2, 'category' => 'general', 'word' => 'ukraine' );
+		$_untrusted_words[] = array('score'=> 1, 'category' => 'general', 'word' => 'india' );
+		$_untrusted_words[] = array('score'=> 1, 'category' => 'general', 'word' => 'china' );		
+		$_untrusted_words[] = array('score'=> 1, 'category' => 'general', 'word' => 'us' );	
+
+		return $_untrusted_words;			
+	}
+
 
 
 

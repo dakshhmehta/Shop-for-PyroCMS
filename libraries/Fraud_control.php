@@ -1,253 +1,98 @@
 <?php if (!defined('BASEPATH'))  exit('No direct script access allowed');
 /*
- * NITRO-CART Developer Preview
+ * SHOP for PyroCMS
  * 
- *
- *
  * Copyright (c) 2013, Salvatore Bordonaro
  * All rights reserved.
  *
  * Author: Salvatore Bordonaro
- * Version: 0.90.0.000
- *
- * Credits: - Salvatore Bordonaro (DB, Development, JavaScript)
- *
- * 			- Guido Grazioli (DB and Development)
- *
- *          - Alison McDonald (Usability, Language and Testing)
+ * Version: 1.0.0.051
  *
  *
  *
+ * 
+ * See Full license details on the License.txt file
+ */
+ 
+/**
+ * SHOP			A full featured shopping cart system for PyroCMS
  *
- *
- *
- *
- *
+ * @author		Salvatore Bordonaro
+ * @version		1.0.0.051
+ * @website		http://www.inspiredgroup.com.au/
+ * @system		PyroCMS 2.1.x
  *
  */
-class Fraud_control 
+
+require_once('Core_library.php');
+
+class Fraud_control extends Core_library
 {
-
-
-
-
-	// Private variables.  Do not change!
-	private $CI;
-	private $_user_emails = array();
-	private $_user_ips = array();
-	private $_user_country = array();
-	
-	public function __get($var) 
-	{
-		if (isset(get_instance()->$var)) 
-		{
-			return get_instance()->$var;
-		}
-	}
 
 
 	public function __construct($params = array())
 	{
 	
-		// Set the super object to a local variable for use later
-		$this->CI =& get_instance();
-
-
-		log_message('debug', "Options Library Class Initialized");
+		parent::__construct();
+		log_message('debug', "Class Initialized");
 		
 	}
 
-	
-	
-	
-	
+
+
+	/**
+	 *  
+	 * @param  [type] $order_data [description]
+	 * @return [type]             [description]
+	 */
+	public function get_trust_score($order_data)
+	{
+		$lib = $this->loadlib('trust');
+
+		if($order_data['checkout_version'] == '0.1')
+		{ 
+			return $lib->get_trust_score($order_data);
+		}
+
+
+		//
+		// We dont have the tools for this version so
+		// we just return 0 - orders can always be placed een with -100, 0 is considers normal
+		//
+		$ret_object = new stdClass();
+		$ret_object['score'] = 0;
+		$ret_object['events'] = array(); //empty array
+
+		return $ret_object;
+	}
+
+
+
+
+	/**
+	 *  
+	 * @param  [type] $order_data [description]
+	 * @return [type]             [description]
+	 */
 	public function validate_order($order_data)
 	{
-		//var_dump($order_data);die;
-
-
-		// firsat check if using the existing address data
-		$this->collect_ip_data($order_data);
-
-		$this->collect_email_data($order_data);
-
-		$this->collect_country_data($order_data);
-
-		return $this->do_validation();
-
-	}
-
-
-
-
-
-
-	private function collect_country_data(&$order_data)
-	{
-
-	
-		if(isset($order_data['country']))
-		{
-				$country = $order_data['country'];
-
-				if(trim($country) != '')
-				{
-					$this->_user_country[] = $this->prep_country($country);
-				}
-
-		}
-
+		$lib = $this->loadlib('blacklist');
 		
-		if(isset($order_data['shipping_country']))
-		{
-				$country = $order_data['shipping_country'];
-
-				if(trim($country) != '')
-				{
-					$this->_user_country[] = $this->prep_country($country);
-				}
-
-		}
-
-
-	}
-
-
-	private function collect_email_data(&$order_data)
-	{
-
-
-		// Check billing email		
-		if(isset($order_data['email']))
-		{
-				$email = $order_data['email'];
-
-				if(trim($email) != '')
-				{
-					$this->_user_emails[] = $email;
-				}
-
-		}
-
-		if(isset($order_data['shipping_email']))
-		{
-				$email = $order_data['shipping_email'];
-
-				if(trim($email) != '')
-				{
-					$this->_user_emails[] = $email;
-				}
-
+		if($order_data['checkout_version'] == '0.1')
+		{ 
+			return $lib->validate_order($order_data);
 		}
 
 		//
-		// Now collect data if using existing on file data
-		//
-		//
-		//
-		$this->load->model('addresses_m');
-
-
-		//if ok - do nothing else
-
-		// Check billing email		
-		if(isset($order_data['existing_address_id']))
-		{
-				$addr = $this->addresses_m->get($order_data['existing_address_id']);
-
-				if($addr)
-				{
-					$this->_user_emails[] =$addr->email;
-				}
-
-		}
-
-		// Check Shipping email		
-		if(isset($order_data['existing_address_shipping_id']))
-		{
-				$addr = $this->addresses_m->get($order_data['existing_address_shipping_id']);
-
-				if($addr)
-				{
-					$this->_user_emails[] = $addr->email;
-				}
-		}
-
-	}
-
-	
-	
-	private function collect_ip_data(&$order_data)
-	{
-
-		$this->_user_ips[] = $order_data['ip_address'];
-
-	}
-
-
-
-	private function do_validation()
-	{
-
-		$this->load->model('blacklist_m');
-
-		/*
-	 		$items[0]  = 'None';
-			$items[1]  = 'IP Address';
-			$items[2]  = 'Email';
-			$items[3]  = 'Country';
-		*/
-
-		$blocked_ips = $this->blacklist_m->where('enabled',1)->where('method',1)->get_all();
-		$blocked_emails = $this->blacklist_m->where('enabled',1)->where('method',2)->get_all();
-		$blocked_country = $this->blacklist_m->where('enabled',1)->where('method',3)->get_all();
-
-
-
-
-		if(!$this->_validate($blocked_emails, $this->_user_emails))
-			return FALSE;
-
-		if(!$this->_validate($blocked_ips, $this->_user_ips))
-			return FALSE;
-
-		if(!$this->_validate($blocked_country, $this->_user_country))
-			return FALSE;
-
-		//
-		// Passed the test
+		// We dont have the tools for this version
+		// so its best we just pass
 		//
 		return TRUE;
-
-	}
-
-
-	private function _validate($data_set, $user_data)
-	{
-
-		foreach($data_set as $blocked)
-		{
-
-			foreach($user_data as $data)
-			{
-				if($blocked->value == $data)
-				{
-					return FALSE;
-				}
-			}
-			
-		}
-
-		return TRUE;
-
 	}
 
 
 
-	private function prep_country($country)
-	{
-		return trim(strtolower($country));
-	}
+
 
 }
 // END Cart Class

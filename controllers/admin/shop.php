@@ -1,38 +1,25 @@
 <?php if (!defined('BASEPATH'))  exit('No direct script access allowed');
 /*
- * NITRO-CART Developer Preview
+ * SHOP for PyroCMS
  * 
- *
- *
  * Copyright (c) 2013, Salvatore Bordonaro
  * All rights reserved.
  *
  * Author: Salvatore Bordonaro
- * Version: 0.90.0.000
- *
- * Credits: - Salvatore Bordonaro (DB, Development, JavaScript)
- *
- * 			- Guido Grazioli (DB and Development)
- *
- *          - Alison McDonald (Usability, Language and Testing)
+ * Version: 1.0.0.051
  *
  *
  *
- *
- *
- *
- *
- *
- *
+ * 
+ * See Full license details on the License.txt file
  */
  
 /**
- * NITRO CART	An explosive e-commerce solution for PyroCMS - ......and 'Open Source'
+ * SHOP			A full featured shopping cart system for PyroCMS
  *
  * @author		Salvatore Bordonaro
- * @version		0.90.0.000
+ * @version		1.0.0.051
  * @website		http://www.inspiredgroup.com.au/
- * @package		Shop Admin Contoller for NITRO-CART
  * @system		PyroCMS 2.1.x
  *
  */
@@ -119,6 +106,43 @@ class Shop extends Admin_Controller
 
         } 
     }	
+
+
+
+
+    public function cache($option = 'products')
+    {
+
+
+    	if ( ($option == 'products') || ($option == 'all' ) )
+    	{
+			$this->pyrocache->delete_all('products_m');
+			$this->pyrocache->delete_all('products_admin_m');
+			$this->pyrocache->delete_all('products_front_m');
+		}
+
+
+    	if ( ($option == 'categories') || ($option == 'all' ) )
+    	{
+			$this->pyrocache->delete_all('categories_m');
+		}    		
+
+
+    	if ( ($option == 'brands') || ($option == 'all' ) )
+    	{
+			$this->pyrocache->delete_all('brands_m');
+		}  
+				
+
+    	if ( ($option == 'options') || ($option == 'all' ) )
+    	{
+			$this->pyrocache->delete_all('options_m');    
+		}  
+				 		
+
+		echo "Complete..";die;
+		//echo json_encode(array('status' => 'complete')) ;die;
+    }
 	
 
 }
