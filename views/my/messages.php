@@ -1,6 +1,13 @@
-<!--- FILE.START:VIEW.MY.MESSAGES --->
+
 <h2 id="nc-view-title"><?php echo lang('messages'); ?></h2>
-<?php $this->load->view('my/mymenu'); ?>
+
+		<ul>
+		{{ shop:mylinks remove='wishlist shop' active='messages' }}
+			{{link}}
+		{{ /shop:mylinks }}
+		</ul>
+
+
 <div id="SF_CustomerPage">
 	<div class="my-dashboard">
 		<table>
@@ -34,4 +41,3 @@
 		</p>
 	</div>
 </div>
-<!--- FILE.END:VIEW.MY.MESSAGES --->

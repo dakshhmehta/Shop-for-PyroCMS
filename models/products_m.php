@@ -125,7 +125,7 @@ class Products_m extends MY_Model
 	 * @param  [type] $id [description]
 	 * @return [type]     [description]
 	 */
-	public function get_product($id) 
+	public function get_product($id, $method='id') 
 	{	
 		$this->load->library('files/files');
 	

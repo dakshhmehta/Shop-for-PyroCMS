@@ -36,10 +36,6 @@ class Categories extends Public_Controller
 		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 		$this->limit = Settings::get('ss_qty_perpage_limit');
 		
-		// NC Markup theme
-		$this->nc_page_layout = Settings::get('nc_markup_theme'); /*standard or legacy*/
-		$this->nc_page_layout_path = 'categories/'.$this->nc_page_layout.'/categories';		
-
 		
 		// Load required classes
 		$this->load->model('products_front_m');
@@ -66,18 +62,14 @@ class Categories extends Public_Controller
 				
 
 		$data->pagination = create_pagination('shop', $this->categories_m->count_all(), $limit, 2);
+
 		$data->shop_title = $this->shop_title;
-		
-		//
-		// Pass the layout name as views may require it for includes
-		//
-		$data->nc_layout =  $this->nc_page_layout;
 		
 		
 		$this->template
 			->set_breadcrumb($this->shop_title)
 			->title($this->module_details['name'])
-			->build($this->nc_page_layout_path, $data);
+			->build('common/categories_list', $data);
 
 
 
@@ -112,7 +104,7 @@ class Categories extends Public_Controller
 			$total_items = $this->products_front_m->count_by_filter($filter);
 
 			//Get the items for the display
-			$data->items = $this->products_front_m->shop_filter($filter, $limit, $offset);		
+			$data->products = $this->products_front_m->shop_filter($filter, $limit, $offset);		
 
 			//build the uri path
 			$uri = base_url() . 'shop/category/' . $category->slug;
@@ -124,7 +116,7 @@ class Categories extends Public_Controller
 		}
 		else
 		{
-			$data->items = NULL;
+			$data->products = NULL;
 			
 		}
 
@@ -138,14 +130,11 @@ class Categories extends Public_Controller
 	private function build_page($data)
 	{
 
-		// Pass the layout name as views may require it for includes
-		$data->nc_layout =  $this->nc_page_layout;
-		
 		
 		$this->template
 			->title($this->module_details['name'].' |' .lang('products'))
 			->set_breadcrumb($this->shop_title)
-			->build('products/'.$this->nc_page_layout.'/products', $data);
+			->build('common/products_list', $data);
 	}
 
 

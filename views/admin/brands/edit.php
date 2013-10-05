@@ -28,8 +28,14 @@
 				<li>
 					<label><?php echo lang('image'); ?></label>
 					<div id='cover_img' name='cover_img'>
-					 <?php if ($image_id > 0) {echo '<img src="'.site_url().'files/thumb/'.$image_id.'/100/100">'; }; ?>
+					 <?php if ($image_id > 0) 
+					 	{
+					 		echo '<img src="'.site_url().'files/thumb/'.$image_id.'/100/100">'; 
+					 	}
+					 	?>
+
 					</div>   
+					<input type="hidden" value="<?php echo $image_id; ?>" name="image_id" />
 				</li>	
 				<li>
 					<label><?php echo lang('nc:brands:changeimage'); ?></label>

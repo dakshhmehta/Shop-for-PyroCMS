@@ -15,7 +15,7 @@
 		{{ endif }}
 
 
-		{{items}}
+		{{products}}
 
 			<div class="product">
 		 
@@ -58,7 +58,7 @@
 				</div>
 
 		  	</div>
-		{{/items}}
+		{{/products}}
 
 		<div class="products-filter">
 			<!-- Pagination -->

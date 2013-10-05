@@ -112,43 +112,6 @@ class Plugin_Shop extends Plugin
 	}	
 
 
-
-	/**
-	 * This is really only used like base_url() but we need an option that allows us to get the https:// prefix.
-	 * 
-	 * {{ shop:domain }} 					- return http://mysite.com
-	 *
-	 * {{ shop:domain use_https="YES" }} 	- return https://mysite.com
-	 *
-	 *
-	 *
-	 * 
-	 * @return [type] [description]
-	 */
-	function domain() 
-	{
-
-		$ci =& get_instance();
-		$ci->load->helper('shop_public');
-
-		//default
-		$use_https = FALSE;
-
-		$use_https_option = $this->attribute( 'use_https' , 'YES' );  		
-		
-		if($use_https_option == 'YES')
-		{
-			
-			if ( Settings::get('ss_ssl_required') == SettingMode::Enabled) 
-			{
-				$use_https = TRUE;
-			}
-
-		}
-
-		return url_domain($use_https);
-		
-	}	
 	
 	
 	/**
@@ -291,28 +254,7 @@ class Plugin_Shop extends Plugin
 
 
 
-	/**
-	 * All shop links should be created using this plugin or the helper function
-	 * 
-	 * Usage:
-	 *
-	 * {{ shop:uri to='shop' text='shop' }} - returns <a href="{{url:site}}/shop">shop</a>
-	 * {{ shop:uri to='cart' text='my cart' }} - returns <a href="{{url:site}}/shop/cart">my cart</a>
-	 * {{ shop:uri to='my/orders' text='Orders' }} - returns <a href="{{url:site}}/shop/my/orders">Orders</a>
-	 *
-	 * 
-	 * @return [type] [description]
-	 */
-	function uri()
-	{
-		$to = $this->attribute('to', '');
-		$text = $this->attribute('text', 'shop');
 
-		$to = 'shop/'.$to;
-
-		return '<a href={{url:site}}'.$to.'>'.$text.'</a>';
-	}
-	
 
 	 
 	function product() 
@@ -331,6 +273,7 @@ class Plugin_Shop extends Plugin
 		if ($product==NULL) 
 			return array();
 
+		//if we have used the products_front_m we shouldnt have to check this.
 		if (($product->deleted) || ($product->public == 0)) 
 			return array();
 
@@ -548,7 +491,109 @@ class Plugin_Shop extends Plugin
 	}
 
 
+	/**
+	 * Customer Dashboard links
+	 * 
+	 *	{{ shop:mylinks remove='wishlist dashboard orders' }}
+	 *		{{link}}
+	 *	{{ /shop:mylinks }}
+	 * 
+	 * @return [type] [description]
+	 */
+	function mylinks()
+	{
 
+		$active = $this->attribute('active', '');
+		$remove = $this->attribute('remove', '');
+		$remove = explode(' ', $remove);
+
+		$links = array();
+
+		$links['dashboard']['link'] = anchor('shop/my/', lang('dashboard'));
+		$links['orders']['link'] = anchor('shop/my/orders', lang('orders'));
+		$links['wishlist']['link'] = anchor('shop/my/wishlist', lang('wishlist'));
+		$links['messages']['link'] = anchor('shop/my/messages', lang('messages'));
+		$links['addresses']['link'] = anchor('shop/my/addresses', lang('addresses'));
+		$links['shop']['link'] = anchor('shop/', lang('back_to_shop'));
+
+		foreach($remove as $link)
+		{
+			unset($links[$link]);
+		}
+
+		if(isset($links[$active]))
+		{
+			//set the active class
+			$links[$active]['link'] = anchor('shop/my/'.$active, lang($active), 'style="font-weight:bold"');
+		}
+
+		return $links;
+
+	}
+	
+
+	/**
+	 * All shop links should be created using this plugin or the helper function
+	 * 
+	 * Usage:
+	 *
+	 * {{ shop:uri to='shop' text='shop' }} - returns <a href="{{url:site}}/shop">shop</a>
+	 * {{ shop:uri to='cart' text='my cart' }} - returns <a href="{{url:site}}/shop/cart">my cart</a>
+	 * {{ shop:uri to='my/orders' text='Orders' }} - returns <a href="{{url:site}}/shop/my/orders">Orders</a>
+	 *
+	 *
+	 *{{ shop:uri to="products" use_https="YES" text="view all products" class="some_class" }}
+	 * 
+	 * @return [type] [description]
+	 */
+	function uri()
+	{
+		$to = $this->attribute('to', '');
+		$text = $this->attribute('text', 'shop');
+
+		$to = 'shop/'.$to;
+
+		return '<a href={{url:site}}'.$to.'>'.$text.'</a>';
+	}
+	
+
+
+	/**
+	 * This is really only used like base_url() but we need an option that allows us to get the https:// prefix.
+	 * 
+	 * {{ shop:domain }} 					- return http://mysite.com
+	 *
+	 * {{ shop:domain use_https="YES" }} 	- return https://mysite.com
+	 *
+	 *
+	 *
+	 * 
+	 * @return [type] [description]
+	 */
+	function domain() 
+	{
+
+		$ci =& get_instance();
+		$ci->load->helper('shop_public');
+
+		//default
+		$use_https = FALSE;
+
+		$use_https_option = $this->attribute( 'use_https' , 'YES' );  		
+		
+		if($use_https_option == 'YES')
+		{
+			
+			if ( Settings::get('ss_ssl_required') == SettingMode::Enabled) 
+			{
+				$use_https = TRUE;
+			}
+
+		}
+
+		return url_domain($use_https);
+		
+	}	
 }
 
 

@@ -39,11 +39,7 @@ class Cart extends Public_Controller
 		$this->login_required = Settings::get('ss_require_login');
 		$this->has_logged_in_user =  ($this->current_user)? TRUE : FALSE ;
 		
-		
-		// Cart theme
-		$this->cart_layout = Settings::get('nc_markup_theme');  /*standard or legacy*/
-		$this->cart_layout_path = 'cart/'.$this->cart_layout.'/cart';
-		
+				
 		// Load required classes
 		$this->load->model('products_front_m');
 		$this->load->model('product_prices_m');
@@ -69,10 +65,10 @@ class Cart extends Public_Controller
 	 */
 	public function index() 
 	{
-		$data->cart_layout = $this->cart_layout;
+
 		$this->template->title($this->module_details['name'])
 				->append_css('module::shop.css')
-				->build($this->cart_layout_path, $data);
+				->build('common/cart');
 
 	}
 

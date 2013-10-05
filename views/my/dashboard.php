@@ -1,6 +1,12 @@
-<!--- FILE.START:VIEW.MY.DASHBOARD --->
+
 <h2 id="nc-view-title"><?php echo lang('dashboard'); ?></h2>
-<?php $this->load->view('my/mymenu'); ?>
+
+		<ul>
+		{{ shop:mylinks remove='wishlist shop' active='dashboard' }}
+			{{link}}
+		{{ /shop:mylinks }}
+		</ul>
+		
 <div id="SF_CustomerPage">
 	<div class="wpanel">
 		<table>
@@ -31,4 +37,3 @@
 		</table>
 	</div>
 </div>
-<!--- FILE.END:VIEW.MY.DASHBOARD --->

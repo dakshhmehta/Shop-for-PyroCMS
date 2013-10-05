@@ -1,6 +1,12 @@
 <!--- FILE.START:VIEW.MY.ADDRESS -->
 <h2 id="nc-view-title"><?php echo lang('address'); ?></h2>
-<?php $this->load->view('my/mymenu'); ?>
+
+		<ul>
+		{{ shop:mylinks remove='wishlist shop' active='addresses' }}
+			{{link}}
+		{{ /shop:mylinks }}
+		</ul>
+
 <?php
 if (validation_errors()) 
 {

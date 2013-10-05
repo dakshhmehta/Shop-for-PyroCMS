@@ -44,6 +44,7 @@ class Brands_m extends MY_Model
 		$to_insert = array(
 			'name' => $input['name'],
 			'notes' => strip_tags($input['notes']),
+			'image_id' =>  $input['image_id'],
 			'slug' => $this->_check_slug($input['slug'])
 		);
 
@@ -69,6 +70,7 @@ class Brands_m extends MY_Model
 		$update_array = array(
 				'name' => $input['name'],
 				'notes' => strip_tags($input['notes']),
+				'image_id' =>  $input['image_id'],
 				'slug' => $this->_check_slug($input['slug'])
 		);
 				
@@ -91,39 +93,26 @@ class Brands_m extends MY_Model
 		return $slug;
 	}
 
-	public function get_brand($id) 
-	{
-		$result = $this->get($id);
-		return $result;
-	}
-	
-	
-	public function get_brand_id_by_slug($slug) 
-	{
-		$this->db->select('shop_brands.id');
-		$ret = $this->db->where('shop_brands.slug =',trim($slug))->get($this->_table)->result();
-		if ($ret) 
-		{
-			return $ret[0]->id;
-		}
-		return FALSE;
-	}	
-	
-	
+
 	/**
-	 * Set a cover image to the product gallery
-	 * @param unknown_type $id
-	 * @param unknown_type $cover_id
+	 * This could be useful if using ajax calls to update a single property.
+	 * Will definiantly be needed with the API calls.
+	 * 
+	 * @param [id|slug|image_id] 	$field    
+	 * @param [Mixed] 				$value    [Mixed]
+	 * @param [INT] 				$brand_id [INT]
 	 */
-	public function set_cover($brand_id, $image_id) 
+	public function set_field($field, $value, $brand_id ) 
 	{
+
 		$update_record = array(
-				'image_id' => $image_id,
+				$field => $value,
 		);
 	
-		return $this->update($brand_id, $update_record); //returns id
+		return $this->update($brand_id, $update_record);
 	}
 	
+
 	/**
 	 * build_dropdown(INT)
 	 * 
@@ -151,5 +140,6 @@ class Brands_m extends MY_Model
         // Return it
         return $drop;		
 	}
+
 
 }

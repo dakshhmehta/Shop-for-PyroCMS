@@ -38,18 +38,15 @@ class Products extends Public_Controller
 		// Retrieve some core settings
 		$this->use_css =  Settings::get('nc_css');
 		$this->shop_title = Settings::get('ss_name');		//Get the shop name
-		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
+		$this->shop_subtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 		
 		// Load required classes
 		$this->load->model('products_front_m');
 		$this->load->model('categories_m');
 		$this->load->model('brands_m');		
 		
-		
-		// NC Markup theme
-		$this->nc_page_layout = Settings::get('nc_markup_theme'); /*standard or legacy*/
-		$this->nc_page_layout_path = 'products/'.$this->nc_page_layout.'/products';		
-		
+	
+
 		// Apply default CSS if required
 		if ($this->use_css) _setCSS($this->template);
 
@@ -74,25 +71,14 @@ class Products extends Public_Controller
 
 
 
-		//Get the items for the display
-		$data->items = $this->products_front_m->shop_filter($filter, $limit, $offset);		
+		$uri = 'shop/products';
 
 
-		$uri = 'shop/products/';
+		//$data->pagination2 = nc_pagination( base_url() . $uri  , $total_items, $limit);
+		$data->pagination = create_pagination( $uri, $total_items, $limit, 3);
 
-		/*
-		 Using CI pagination library until the Pyro one is fixed
-		 */
 
-		$data->pagination2 = nc_pagination( base_url() . $uri  , $total_items, $limit);
-		//$data->pagination = create_pagination( $uri, $total_items, $limit, 3);
-		
-	
-
-		//
-		// Pass the layout name as views may require it for includes
-		//
-		$data->nc_layout =  $this->nc_page_layout;
+		$data->products =  $this->products_front_m->shop_filter($filter , $data->pagination['limit'] , $data->pagination['offset']);
 		
 
 		//
@@ -101,10 +87,15 @@ class Products extends Public_Controller
 		$this->template
 			->title($this->module_details['name'].' |' .lang('products'))
 			->set_breadcrumb($this->shop_title)
-			->build($this->nc_page_layout_path, $data);
+			->build('common/products_list', $data);
 	}
 	
 	
+
+
+
+
+
 	/**
 	 * The Search handler
 	 *

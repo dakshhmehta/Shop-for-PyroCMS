@@ -1,6 +1,11 @@
-<!--- FILE.START:VIEW.MY.ORDER --->
 <h2 id="nc-view-title"><?php echo lang('orders'); ?></h2>
-<?php $this->load->view('my/mymenu'); ?>
+
+		<ul>
+		{{ shop:mylinks remove='wishlist shop' active='orders' }}
+			{{link}}
+		{{ /shop:mylinks }}
+		</ul>
+
 <div id="SF_CustomerPage">
 	<div class="my-dashboard">
 	
@@ -125,4 +130,3 @@
 		</p>
 	</div>
 </div>
-<!--- FILE.END:VIEW.MY.ORDER --->

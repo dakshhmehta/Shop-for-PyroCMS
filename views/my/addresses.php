@@ -1,6 +1,12 @@
-<!--- FILE.END:VIEW.MY.ADDRESSES --->
+
 <h2 id="nc-view-title"><?php echo lang('addresses'); ?></h2>
-<?php $this->load->view('my/mymenu'); ?>
+
+		<ul>
+		{{ shop:mylinks remove='wishlist shop' active='addresses' }}
+			{{link}}
+		{{ /shop:mylinks }}
+		</ul>
+
 <div id="SF_CustomerPage">
 	<div class="my-dashboard">
 <?php
@@ -51,4 +57,3 @@ if (validation_errors())
 </div>
 </div>
 </div>
-<!--- FILE.END:VIEW.MY.ADDRESSES --->

@@ -37,7 +37,7 @@ class Product extends Public_Controller
 		// Retrieve some core settings
 		$this->use_css =  Settings::get('nc_css');
 		$this->shop_title = Settings::get('ss_name');		//Get the shop name
-		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
+		$this->shop_subtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 
 		
 
@@ -51,10 +51,7 @@ class Product extends Public_Controller
 		
 		
 		$this->load->library(array('keywords/keywords'));
-		
-		// NC Markup theme
-		$this->nc_page_layout = Settings::get('nc_markup_theme'); /*standard or legacy*/
-		$this->nc_page_layout_path = 'products/'.$this->nc_page_layout.'/single';			
+	
 
 		
 		// Apply default CSS if required - 
@@ -67,8 +64,11 @@ class Product extends Public_Controller
 	}
 
 	
+	
 	/**
+	 * 
 	 * @description If the system doesnt find the product it will redirect away
+	 * 
 	 * OPTION 1 : domain.com/product/slug   	
 	 * OPTION 2 : domain.com/product/7  		 
 	 */
@@ -81,7 +81,6 @@ class Product extends Public_Controller
 		//
 		$method = (is_numeric($param))  ? 'id' : 'slug' ;
 
-		
 		
 		//
 		// Get the product and all its goodness
@@ -97,21 +96,15 @@ class Product extends Public_Controller
 		
 
 
-
 		//
 		// Display the product
 		//
 		$this->template
-			//->enable_parser(FALSE)
 			->title($this->module_details['name'].' &rarr;'.$data->product->name)		
 			->set_breadcrumb($data->product->name) // current crumb
 			->set_metadata('description', strip_tags($data->product->meta_desc)) 						
-			->build($this->nc_page_layout_path, $data); 
+			->build('common/products_single', $data); 
 
-
-			//			->enable_parser(TRUE)
-			//->enable_minify(TRUE)
-			//->set_layout(FALSE)	
 	}	
 
 }

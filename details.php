@@ -37,7 +37,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.0512';  
+	public $version = '1.0.0.069';  
 	private $language_file = 'shop/shop';
 	private $setting_en_brands = 0; //default to off;
 
@@ -222,9 +222,9 @@ class Module_Shop extends Module
 
 		switch ($old_version) 
 		{
-			case '1.0.0.0512':
-			case '1.0.0.0511':
-			case '1.0.0.0510':
+			case '1.0.0.068':			
+			case '1.0.0.062':
+			case '1.0.0.051':
 
 				//
 				// removed un-used settings
@@ -251,7 +251,7 @@ class Module_Shop extends Module
 				$this->_rename_setting('nc_ssl_required'			,'ss_ssl_required');
 
 				break;
-			case '1.0.0.0509':
+			case '1.0.0.050':
 				break;
 			default:
 				break;
@@ -379,7 +379,6 @@ class Module_Shop extends Module
 	private function _create_setting($slug, $title, $description, $type ='text', $default = '', $value ='' ,$options ='', $is_required = TRUE, $is_gui = TRUE, $order = 900)
 	{
 
-
 		 $setting = array( 
 			'slug' => $slug,
 			'title' => $title, 
@@ -391,8 +390,7 @@ class Module_Shop extends Module
 			'is_required' => $is_required,
 			'is_gui' => $is_gui, 
 			'module' => 'shop', 
-			'order' => $order
-		);	
+			'order' => $order		);	
 
 
 		if($this->db->insert('settings', $setting))	

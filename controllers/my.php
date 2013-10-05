@@ -189,18 +189,6 @@ class My extends Public_Controller
 	
 	
 	
-	public function settings() 
-	{
-		$data = array();
-		
-		// Display the page
-		$this->template
-				->set_breadcrumb(lang('my'), 'shop/my')
-				->set_breadcrumb(lang('settings'))
-				->title($this->module_details['name'])
-				->build('my/settings', $data);
-	}
-	
 	
 	/**
 	 * @url site.com/shop/my/orders/order

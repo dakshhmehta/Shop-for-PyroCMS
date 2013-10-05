@@ -111,13 +111,16 @@ class Brands extends Admin_Controller
 			}
 		}
 
+		// prepare dropdown image folders
+		$data->folders = $this->_prep_folders();
+
 		// Build page
 		$this->template
 			->title($this->module_details['name'])
 			->append_js('module::admin/admin.js')
 			->append_js('module::admin/brands.js')			
 			->append_metadata($this->load->view('fragments/wysiwyg', $data, TRUE))
-			->build('admin/brands/create', $data);
+			->build('admin/brands/edit', $data);
 	}
 
 	/**

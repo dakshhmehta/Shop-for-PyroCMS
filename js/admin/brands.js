@@ -1,22 +1,22 @@
-function set_img(o) {
+/*
+ * 
+ */
+function set_img(o) 
+{
 	
 		// Get the brand ID
-		bid = $('#bid').attr('value');
+		image_id = o.value;
+
+		//set the hidden field
+		$('input[name="image_id"]').val(image_id);
+
+		//set the tmp image
+		var  img_path =  "<img src='" + SITE_URL +"files/thumb/" + o.value + "/100'>";
 		
-		$.post('shop/admin/brands/set_cover', { image_id:o.value, brand_id:bid } )
-		
-			.done(function(data) 
-			{			
-				var obj = jQuery.parseJSON(data);
-	
-				//alert(obj.html);
-				if (obj.status == 'success') {
-					$("#cover_img").html(obj.html);
-				}
-			}
-		);
+		$("#cover_img").html(img_path);
 
 }
+			
 
 
 jQuery(function($){
@@ -35,11 +35,14 @@ jQuery(function($){
 			var obj = jQuery.parseJSON(data);
 			
 			str = '';
-			for (var i = 0; i < obj.length; i++) {
+			for (var i = 0; i < obj.length; i++) 
+			{	
+
+				var imgObj = obj.content[i];
 				
 				str += "<div class='container'>";
-				str += "   <img src='" + obj.url + 'files/thumb/' + obj.content[i] + "/100/100' alt='' style='float:left'>";
-				str += "   <input onclick='set_img(this)' type='radio' class='gall_checkbox' id='images[]' name='images[]' value='" + obj.content[i] + "' />";
+				str += "   <img src='" + obj.url + 'files/thumb/' + imgObj.id + "/100/100' alt='' style='float:left'>";
+				str += "   <input onclick='set_img(this)' type='radio' class='gall_checkbox' id='images[]' name='images[]' value='" + imgObj.id + "' />";
 				str += "</div>";
 			}
 
