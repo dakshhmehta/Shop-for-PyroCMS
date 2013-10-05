@@ -1,19 +1,15 @@
-Copyright (c) 2013, Salvatore Bordonaro - 
-All rights reserved.
+Salvatore Bordonaro - 
+Attribution 3.0 Australia
+http://creativecommons.org/licenses/by/3.0/au/
 
-Redistribution and use in source and binary forms, 
-with or without modification are not permitted 
-without consent or a valid license issued by 
-the owner of this software.
 
-You may purchase this software either directly
-from the owner or online at PyroCMS.com/store
 
 More details can be found
 https://bitbucket.org/pyromaniac/ishop-for-pyrocms/wiki/Home
-
-
 https://bitbucket.org/pyromaniac/ishop-for-pyrocms
+
+
+
 
 
 
