@@ -12,7 +12,7 @@
 				{{ pagination:links }}
 			</div>
 		</div>
-		{{ endif}}
+		{{ endif }}
 
 
 		{{items}}

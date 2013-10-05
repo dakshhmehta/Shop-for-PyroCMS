@@ -1,4 +1,3 @@
-<!--- FILE.START:VIEW.CART.STANDARD.CART --->
 <div>
 
 		<?php echo form_open('shop/cart/update'); ?>
@@ -59,4 +58,3 @@
 		<?php echo form_close(); ?>
 
 </div>
-<!--- FILE.END:VIEW.CART.STANDARD.CART --->

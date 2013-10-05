@@ -42,7 +42,7 @@ class Details_library
 				'en' => 'SHOP',
 			),
 			'description' => array(
-				'en' => 'Turbo Powered Shopping  - for PyroCMS!',
+				'en' => 'A full featured shopping cart system for PyroCMS!',
 			),
 			'skip_xss' => TRUE,
 			'frontend' => TRUE,
@@ -253,7 +253,7 @@ class Details_library
 		{	
 			if(group_has_role('shop', 'brands'))
 			{
-				if ( Settings::get('nc_enable_brands') == SettingMode::Enabled) 
+				if ( Settings::get('ss_enable_brands') == SettingMode::Enabled) 
 				{ 
 					$menu['lang:nc:admin:nitro']['lang:nc:admin:brands'] = 'admin/shop/brands';
 				}
@@ -636,8 +636,17 @@ class Details_library
 
 
 
-	public function clear_cache()
+	public function get_cache_list()
  	{
+
+		return array(
+				'products_m',
+				'products_admin_m',
+				'products_front_m',
+				'categories_m',
+				'brands_m',
+				'options_m'
+				);
 
 	}
 
@@ -678,11 +687,18 @@ class Details_library
 			);
 	}
 
-
+	/**
+	 * Settings
+	 *
+	 * ss_distribution_loc
+	 *
+	 * 
+	 * @return [type] [description]
+	 */
 	public function get_settings()
 	{
 		$settings = array(
-			'nc_dist_loc' => array( /*distribution location ISO 2 letter country code*//*http://www.iso.org/iso/country_codes.htm*/
+			'ss_distribution_loc' => array( /*distribution location ISO 2 letter country code*//*http://www.iso.org/iso/country_codes.htm*/
 				'title' => 'Distribution Country', 
 				'description' => 'Set your ISO 3166-1 alpha-2 code of your distribution center. This is important for shipping',
 				'type' => 'text', 
@@ -694,7 +710,7 @@ class Details_library
 				'module' => 'shop', 
 				'order' => 960
 			),		  
-			'nc_name' => array(
+			'ss_name' => array(
 				'title' => 'Shop Name', 
 				'description' => 'Give your online shop a name - This will be used on title pages and general places around the Shop',
 				'type' => 'text', 
@@ -706,7 +722,7 @@ class Details_library
 				'module' => 'shop', 
 				'order' => 950
 			),	  
-			'nc_slogan' => array(
+			'ss_slogan' => array(
 				'title' => 'Shop Slogan', 
 				'description' => 'The slogan will be used in the Shops title pages. You may also use the plugin { Shop:slogan }',
 				'type' => 'text', 
@@ -718,7 +734,7 @@ class Details_library
 				'module' => 'shop', 
 				'order' => 940
 			),				  
-			'nc_currency_code' => array(
+			'ss_currency_code' => array(
 				'title' => 'Shop Currency', 
 				'description' => 'Currency Code you will accept (ISO-4217 format, ex. AUD)',
 				'type' => 'text', 
@@ -730,7 +746,7 @@ class Details_library
 				'module' => 'shop', 
 				'order' => 890
 			),
-			'nc_currency_symbol' => array(
+			'ss_currency_symbol' => array(
 				'title' => 'Currency Symbol', 
 				'description' => 'Select which currency symbol your store will use',
 				'type' => 'select', 
@@ -742,7 +758,7 @@ class Details_library
 				'module' => 'shop', 
 				'order' => 888
 			),		  
-			'nc_currency_layout' => array(
+			'ss_currency_layout' => array(
 				'title' => 'Show currency symbol before value', 
 				'description' => '$ XX.XX or XX.XX $',
 				'type' => 'radio',			  
@@ -754,7 +770,7 @@ class Details_library
 				'module' => 'shop', 
 				'order' => 887
 			),	  
-			'nc_currency_thousand_sep' => array(
+			'ss_currency_thousand_sep' => array(
 				'title' => 'Thousands seperator', 
 				'description' => 'Thousands Separator Formatting',
 				'type' => 'radio',			  
@@ -766,7 +782,7 @@ class Details_library
 				'module' => 'shop', 
 				'order' => 886
 			),	  
-			'nc_currency_decimal_sep' => array(
+			'ss_currency_decimal_sep' => array(
 				'title' => 'Decimal seperator', 
 				'description' => 'Decimal Separator Formatting',
 				'type' => 'radio',			  
@@ -777,20 +793,8 @@ class Details_library
 				'is_gui' => TRUE, 
 				'module' => 'shop', 
 				'order' => 885
-			),			  
-			'nc_currency_api_key' => array(
-				'title' => 'Currency API KEY', 
-				'description' => 'Get your key from <a target="new" href="https://openexchangerates.org/signup/free">Open Exchange Rates</a>',
-				'type' => 'text',			   
-				'default' => '', 
-				'value' => '', 
-				'options' => '',
-				'is_required' => FALSE,
-				'is_gui' => TRUE, 
-				'module' => 'shop', 
-				'order' => 850
-			),	  
-			'nc_enable_brands' => array(
+			),			    
+			'ss_enable_brands' => array(
 				'title' => 'Enable Product Brands',
 				'description' => 'Enable this if your products have ',
 				'type' => 'radio',
@@ -802,19 +806,8 @@ class Details_library
 				'module' => 'shop',
 				'order' => 860
 			),			 
-			'nc_enable_wishlist' => array(
-				'title' => 'Enable Wishlist',
-				'description' => 'Enable this if you want your customers to have a Wishlist',
-				'type' => 'radio',
-				'default' => '0',
-				'value' => '0',
-				'options' => '1=Yes| 0=No',
-				'is_required' => TRUE,
-				'is_gui' => TRUE,
-				'module' => 'shop',
-				'order' => 860
-			),					
-			'nc_qty_perpage_limit' => array(
+				
+			'ss_qty_perpage_limit' => array(
 				'title' => 'Products per page',
 				'description' => 'How many products show in category view (0 - general pagination settings will be used)',
 				'type' => 'text', 
@@ -826,7 +819,7 @@ class Details_library
 				'module' => 'shop', 
 				'order' => 820
 			),
-			'nc_require_login' => array(
+			'ss_require_login' => array(
 				'title' => 'Require login to use shop', 
 				'description' => 'Will you require your users to have an account to shop online..',
 				'type' => 'radio', 
@@ -838,7 +831,7 @@ class Details_library
 				'module' => 'shop', 
 				'order' => 800
 			),
-			'nc_ssl_required' => array(
+			'ss_ssl_required' => array(
 				'title' => 'Enable Secure SSL Payment', 
 				'description' => 'Require to proccess order and payment through SSL',
 				'type' => 'radio', 
@@ -849,19 +842,7 @@ class Details_library
 				'is_gui' => TRUE, 
 				'module' => 'shop', 
 				'order' => 790
-			),
-			'nc_support_email' => array(
-				'title' => 'Support Email', 
-				'description' => 'Enter your system admin support email',
-				'type' => 'text', 
-				'default' => 'support@inspiredgroup.com.au', 
-				'value' => '', 
-				'options' => '', 
-				'is_required' => FALSE,
-				'is_gui' => TRUE, 
-				'module' => 'shop', 
-				'order' => 780
-			),	  
+			),  
 			'nc_open_status' => array(
 				'title' => 'Shop Open Status', 
 				'description' => 'Use this option to the user-facing part of the Shop. Useful when you want to take the Shop offline without shutting down the whole site',
@@ -910,20 +891,6 @@ class Details_library
 				'module' => 'shop',
 				'order' => 740
 				),		
-			'sf_profiler' => array(
-				'title' => 'Enable Profiling',
-				'description' => 'Enable profiling for testing and development',
-				'type' => 'select',
-				'default' => 0,
-				'value' => '0',
-				'options' => '1=On|0=Off',
-				'is_required' => FALSE,
-				'is_gui' => TRUE,
-				'module' => 'shop',
-				'order' => 740
-				),	
-
-
 			'shop_maps_api_key' => array(
 				'title' => 'Maps API Key', 
 				'description' => 'Your Bing Maps API key',

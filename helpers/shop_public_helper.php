@@ -1,13 +1,26 @@
 <?php if (!defined('BASEPATH'))  exit('No direct script access allowed');
-
 /*
+ * SHOP for PyroCMS
  * 
+ * Copyright (c) 2013, Salvatore Bordonaro
+ * All rights reserved.
+ *
+ * Author: Salvatore Bordonaro
+ * Version: 1.0.0.051
  *
  *
  *
+ * 
+ * See Full license details on the License.txt file
+ */
+ 
+/**
+ * SHOP			A full featured shopping cart system for PyroCMS
  *
- *
- *
+ * @author		Salvatore Bordonaro
+ * @version		1.0.0.051
+ * @website		http://www.inspiredgroup.com.au/
+ * @system		PyroCMS 2.1.x
  *
  */
 if (!function_exists('url_domain')) 
@@ -534,7 +547,7 @@ if (!function_exists('_get_pagination_limit'))
 	
 		# Get the default limit in settings if no limit is set by session
 		if ($default_limit==null)
-		$default_limit = Settings::get('nc_qty_perpage_limit'); # get the default limit defined in settings (Pagination)
+		$default_limit = Settings::get('ss_qty_perpage_limit'); # get the default limit defined in settings (Pagination)
 			
 		# get filter qty by session
 		$pag_qty = $CI->session->userdata('user_display_qty_filter');
@@ -712,15 +725,15 @@ if (!function_exists('sf_get_product_cover'))
 }
 
 
-if (!function_exists('nc_currency_symbol')) 
+if (!function_exists('ss_currency_symbol')) 
 {
 
-	function nc_currency_symbol() 
+	function ss_currency_symbol() 
 	{
 		
 		$symbols = array(0=>'',1=>'L',2=>'&#36;', 3=>'&#163;', 4=>'&#165;', 5=> 'Rp' ,6=> '&#128;');
 		
-		return $symbols[Settings::get('nc_currency_symbol')];
+		return $symbols[Settings::get('ss_currency_symbol')];
 		
 	}
 
@@ -739,10 +752,10 @@ if (!function_exists('nc_format_price'))
 		$seperators = array( 0=> ',', 1=> '.', 2=> ' ');
 		$symbols = array(0=>'',1=>'L',2=>'&#36;', 3=>'&#163;', 4=>'&#165;', 5=> 'Rp' ,6=> '&#128;');
 		
-		$layout 		= Settings::get('nc_currency_layout');
-		$symbol 		= $symbols[Settings::get('nc_currency_symbol')];
-		$thous 			= $seperators[Settings::get('nc_currency_thousand_sep')];
-		$dec_point 		= $seperators[Settings::get('nc_currency_decimal_sep')];
+		$layout 		= Settings::get('ss_currency_layout');
+		$symbol 		= $symbols[Settings::get('ss_currency_symbol')];
+		$thous 			= $seperators[Settings::get('ss_currency_thousand_sep')];
+		$dec_point 		= $seperators[Settings::get('ss_currency_decimal_sep')];
 		
 
 		$price_value = number_format($price_value,  $decimal_points,  $dec_point,  $thous);	

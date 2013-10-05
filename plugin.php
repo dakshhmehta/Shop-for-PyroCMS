@@ -39,7 +39,7 @@ class Plugin_Shop extends Plugin
 
 		if($option == 'symbol')
 		{
-			return nc_currency_symbol();
+			return ss_currency_symbol();
 		}
 
 		return "";
@@ -139,7 +139,7 @@ class Plugin_Shop extends Plugin
 		if($use_https_option == 'YES')
 		{
 			
-			if ( Settings::get('nc_ssl_required') == SettingMode::Enabled) 
+			if ( Settings::get('ss_ssl_required') == SettingMode::Enabled) 
 			{
 				$use_https = TRUE;
 			}
@@ -430,7 +430,7 @@ class Plugin_Shop extends Plugin
 	
 		$arr = "";
 		$class_v = 'sf_qty';
-		$class_z = 'nc_name';
+		$class_z = 'ss_name';
 		$class_x = 'sf_price';
 		
 		foreach ($this->sfcart->contents() as $item)

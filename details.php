@@ -13,6 +13,17 @@
  * 
  * See Full license details on the License.txt file
  */
+
+
+/*
+ * 1.0.0.0510 - initial release
+ * 1.0.0.0511 - updated setting names, removed unused settings - moved more views to LEX tags, removed redundant widget (cart), fixed minor bugs
+
+ *
+ *
+ * 1.0.1.0000 - Target release for patch 
+ * 
+ */
  
 /**
  * SHOP			A full featured shopping cart system for PyroCMS
@@ -26,7 +37,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '0.1.8';  
+	public $version = '1.0.0.0512';  
 	private $language_file = 'shop/shop';
 	private $setting_en_brands = 0; //default to off;
 
@@ -177,16 +188,10 @@ class Module_Shop extends Module
 	{
 	
 		//Cache
-		$tables = $this->details_library->clear_cache();
+		$cache_list = $this->details_library->get_cache_list();
 
-		// Clear Cache
-		$this->pyrocache->delete_all('products_m');
-		$this->pyrocache->delete_all('products_admin_m');
-		$this->pyrocache->delete_all('products_front_m');
-		$this->pyrocache->delete_all('categories_m');
-		$this->pyrocache->delete_all('brands_m');
-		$this->pyrocache->delete_all('options_m');
 
+		$this->_delete_cache($cache_list);
 
 
 		// Delete / Drop all tables  
@@ -217,130 +222,43 @@ class Module_Shop extends Module
 
 		switch ($old_version) 
 		{
-			case '0.1.7':
+			case '1.0.0.0512':
+			case '1.0.0.0511':
+			case '1.0.0.0510':
 
+				//
+				// removed un-used settings
+				//
+				$this->_delete_setting('nc_currency_api_key');
+				$this->_delete_setting('sf_profiler');
+				$this->_delete_setting('nc_enable_wishlist');
+				$this->_delete_setting('nc_support_email');
 
-				$tbls = $this->install_tables( 
-
-					array('shop_trust_data' => array(
-						'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-						'score' =>  array('type' => 'INT', 'constraint' => '1', 'default' => 1), /*product group */
-						'category' => array('type' => 'VARCHAR', 'constraint' => '50', 'default' => ''),   /*user group*/
-						'word' => array('type' => 'VARCHAR', 'constraint' => '200', 'default' => ''), /*product group */
-						'count' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'default' => 1),  /*times used*/
-						'enabled' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'default' => 1),  
-					)) 
-
-				);
-			
-
-
-				$data = array();
-
-				foreach($this->details_library->get_array('trust_score') as $key => $value)
-				{
-					$data[] = array(
-							'score' => $value['score'],
-							'category' => $value['category'],
-							'word' => $value['word'],
-							'count' => 0,
-							'enabled' => 1,
-							);
-				}
-
-				$this->db->insert_batch('shop_trust_data', $data);
-
+				//
+				// rename old settings to new name
+				//
+				$this->_rename_setting('nc_name','ss_name');
+				$this->_rename_setting('nc_slogan','ss_slogan');
+				$this->_rename_setting('nc_currency_code'			,'ss_currency_code'		);
+				$this->_rename_setting('nc_currency_symbol'			,'ss_currency_symbol'	);
+				$this->_rename_setting('nc_currency_layout'			,'ss_currency_layout'	);
+				$this->_rename_setting('nc_currency_thousand_sep'	,'ss_currency_thousand_sep');
+				$this->_rename_setting('nc_currency_decimal_sep'	,'ss_currency_decimal_sep');
+				$this->_rename_setting('nc_dist_loc'				,'ss_distribution_loc');
+				$this->_rename_setting('nc_enable_brands'			,'ss_enable_brands');
+				$this->_rename_setting('nc_qty_perpage_limit'		,'ss_qty_perpage_limit');
+				$this->_rename_setting('nc_require_login'			,'ss_require_login');
+				$this->_rename_setting('nc_ssl_required'			,'ss_ssl_required');
 
 				break;
-			case '0.1.6':
-				$tbls = $this->install_tables( 
-
-					array('shop_group_prices' => array(
-						'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-						'pgroup_id' => array('type' => 'VARCHAR', 'constraint' => '150'), /*product group */
-						'ugroup_id' => array('type' => 'VARCHAR', 'constraint' => '2'),  /*user group*/
-						'min_qty' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0),  
-						'price' => array('type' => 'DECIMAL(10,2)', 'null' => TRUE, 'default' => 0),
-					)) 
-
-				);
-				break;
-			case '0.1.5':
-
-					$this->db->insert('email_templates', array(
-						'slug' => 'sf_admin_blacklist',
-						'name' => 'Shop: An attempt to place order was blocked',
-						'description' => 'This email will be sent to Administrators when an attempt to place an order for a user or group that has been blacklisted',
-						'subject' => 'An attempt to place order was blocked',
-						'body' => '<h1>Details</h1>
-							<b>Date:</b> {{ date }}<br />
-							<b>User Email:</b> {{ email }}<br />
-							<b>IP Address:</b> {{ ip_address }}<br /><br />
-							<p><b>Order Total:</b>{{ cost_total }}</p><br />		
-							<p><b>Shipping Address:</b>{{ shipping_address }}</p><br />		
-							',
-						'lang' => 'en',
-						'is_default' => 1,
-						'module' => 'shop'
-					));
-				break;
-
-			case '0.1.4':
-
-				$data = array();
-
-				foreach($this->countryList as $key => $value)
-				{
-					$data[] = array(
-							'name' => $value,
-							'code2' => $key,
-							'code3' => '',
-							'enabled' => 0,
-							);
-				}
-
-				$this->db->insert_batch('shop_countries', $data);
-				break;
-
-
-			case '0.1.3':
-				$tbls = $this->install_tables( 
-
-				
-					array('shop_countries' => array(
-						'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-						'name' => array('type' => 'VARCHAR', 'constraint' => '150'),
-						'code2' => array('type' => 'VARCHAR', 'constraint' => '2'), 
-						'code3' => array('type' => 'VARCHAR', 'constraint' => '3', 'default' => ''), /*not used in this ver*/
-						'enabled' => array('type' => 'INT', 'constraint' => '1', 'default' => 0),
-					)) 
-
-				);
-				break;
-
-
-			case '0.1.2':
-				$tbls = $this->install_tables( 
-
-				
-					array('shop_blacklist' => array(
-						'id' => 			array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-						'name' => 			array('type' => 'VARCHAR', 'constraint' => '200'),
-						'method' => 		array('type' => 'INT', 'constraint' => '4', 'default' => 2), 
-						'value' => 			array('type' => 'VARCHAR', 'constraint' => '300', 'default' => ''), 
-						'enabled' => 		array('type' => 'INT', 'constraint' => '1', 'default' => 1), 
-					)) );
-
-				break;
-			case '0.1.1':
+			case '1.0.0.0509':
 				break;
 			default:
-				//nothing to upgrade
-				return TRUE;
 				break;
 		}
 
 
+		//below here you can run a script that updates for all versions
 
 
 
@@ -382,8 +300,8 @@ class Module_Shop extends Module
 			'slug' => 'sf_user_order_notification',
 			'name' => 'shop: User Lodged Order',
 			'description' => 'Email sent to user when order is submitted',
-			'subject' => '{{ settings:nc_name }} - Order has been submitted',
-			'body' => '<h1>You have successfully created an order with {{ settings:nc_name }}</h1>
+			'subject' => '{{ settings:ss_name }} - Order has been submitted',
+			'body' => '<h1>You have successfully created an order with {{ settings:ss_name }}</h1>
 
 				<b>Order ID:</b> {{ order_id }}<br />
 				<b>Order Date:</b> {{ order_date }}<br />
@@ -442,6 +360,93 @@ class Module_Shop extends Module
 		return TRUE;
 	}
 
+
+
+
+	/*
+	 * some helpful function to deal with upgrading settings
+	 * as this is a new product many of the fields change names
+	 * 
+	 */
+	private function _delete_setting($slug)
+	{
+
+		$where = array('module' => 'shop', 'slug' => $slug);
+		return $this->db->delete('settings', $where );
+
+	}
+
+	private function _create_setting($slug, $title, $description, $type ='text', $default = '', $value ='' ,$options ='', $is_required = TRUE, $is_gui = TRUE, $order = 900)
+	{
+
+
+		 $setting = array( 
+			'slug' => $slug,
+			'title' => $title, 
+			'description' => $description,
+			'type' => $type, 
+			'default' => $default, 
+			'value' => $value, 
+			'options' => $options, 
+			'is_required' => $is_required,
+			'is_gui' => $is_gui, 
+			'module' => 'shop', 
+			'order' => $order
+		);	
+
+
+		if($this->db->insert('settings', $setting))	
+		{
+			return TRUE;
+		}	
+
+		return FALSE;
+
+	}
+
+	private function _copy_setting($old_setting, $new_setting)
+	{
+
+		//$old =  $this->db->get('settings', array('slug' => $old_setting) );
+		$this->load->model('settings_m');
+
+		$old = $this->settings_m->get_by(array('slug' => $old_setting, 'module'=>'shop'));
+
+		//if exist then we create
+		if($old)
+		{
+			return $this->_create_setting($new_setting, $old->title, $old->description, $old->type, $old->default, $old->value,$old->options, $old->is_required, $old->is_gui, $old->order);
+		}
+
+		return FALSE;
+
+
+	}
+
+
+	private function _rename_setting($old_setting, $new_setting)
+	{
+		if($this->_copy_setting($old_setting, $new_setting))
+		{
+			//only if we find the setting to we add the new one
+			return $this->_delete_setting($old_setting);
+		}
+
+		return FALSE;
+	}
+
+	private function _delete_cache($cache_name_array = array() )
+	{
+
+		foreach ($cache_name_array as $cache_name ) 
+		{
+			// Clear Cache
+			$this->pyrocache->delete_all($cache_name);
+		}
+
+		return TRUE;
+
+	}
 
 
 }

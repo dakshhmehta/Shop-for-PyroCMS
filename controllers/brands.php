@@ -33,8 +33,8 @@ class Brands extends Public_Controller
 
 		// Retrieve some core settings
 		$this->use_css =  Settings::get('nc_css');
-		$this->shop_title = Settings::get('nc_name');		//Get the shop name
-		$this->shopsubtitle = Settings::get('nc_slogan');		//Get the shop subtitle
+		$this->shop_title = Settings::get('ss_name');		//Get the shop name
+		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 		
 		// Load required classes
 		$this->load->model('brands_m');
@@ -78,7 +78,7 @@ class Brands extends Public_Controller
 
 
    /**
-	* List all products by a category
+	* List all products by a brand
 	*
 	*
 	*/
@@ -169,5 +169,6 @@ class Brands extends Public_Controller
 
 	}	
 	
-  
+	
+ 
 }

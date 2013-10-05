@@ -40,10 +40,10 @@ class Checkout extends Public_Controller
 		// Retrieve some core settings
 		$this->use_css =  Settings::get('nc_css');
 		$this->use_jq =  Settings::get('nc_jq');
-		$this->shop_title = Settings::get('nc_name');		//Get the shop name
-		$this->shopsubtitle = Settings::get('nc_slogan');		//Get the shop subtitle
-		$this->distribution_location =  Settings::get('nc_dist_loc');  // for shipping calcs
-		$this->nc_require_login =  Settings::get('nc_require_login');  // for shipping calcs
+		$this->shop_title = Settings::get('ss_name');		//Get the shop name
+		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
+		$this->distribution_location =  Settings::get('ss_distribution_loc');  // for shipping calcs
+		$this->ss_require_login =  Settings::get('ss_require_login');  // for shipping calcs
 
 		// Set the theme layout path - This allows us to have muiltiple checkout themes
 		$this->theme_layout_path =  'checkout/'.$this->theme_name.'/master';
@@ -54,7 +54,7 @@ class Checkout extends Public_Controller
 
 		$this->_session = session_id();
 		// Require SSL
-		if ($this->settings->nc_ssl_required and strtolower(substr(current_url(), 4, 1)) != 's') 
+		if ($this->settings->ss_ssl_required and strtolower(substr(current_url(), 4, 1)) != 's') 
 		{
 			redirect(str_replace('http:', 'https:', current_url()) . '?session=' . session_id());
 			die;
@@ -242,7 +242,7 @@ class Checkout extends Public_Controller
 	private function _check_to_continue() 
 	{
 		// This is not a duplicate of check /validate user, only if not allowed check
-		if($this->nc_require_login && (! $this->current_user) )
+		if($this->ss_require_login && (! $this->current_user) )
 		{ 
 			redirect('users/login');
 		}
@@ -315,7 +315,7 @@ class Checkout extends Public_Controller
 		
 	
 		// User is not logged in - but we dont require auth - then thats ok too
-		if (!$this->nc_require_login )
+		if (!$this->ss_require_login )
 		{
 		
 			// Check if guest is selected store the guest id
@@ -771,7 +771,7 @@ class Checkout extends Public_Controller
         $params = array_merge(
         	array(
 	        	'amount' =>  (float) $order->cost_total,
-	    		'currency' =>  Settings::get('nc_currency_code'),
+	    		'currency' =>  Settings::get('ss_currency_code'),
 	          ), $this->input->post() , $params 
         		/*,array(
         				'name' => 'sal',

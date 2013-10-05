@@ -49,7 +49,7 @@
 						</div>
 					</li>
 					
-					<?php if (Settings::get('nc_enable_brands') == 1) :?>
+					<?php if (Settings::get('ss_enable_brands') == 1) :?>
 					<li class="<?php echo alternator('', 'even'); ?>">
 						<label for="brand_id"><?php echo lang('brand'); ?></label>
 						<div class="input">
@@ -93,7 +93,7 @@
 						</label>
 					<div class="input">
 						<div class=''>
-								<?php echo nc_currency_symbol() . ' ' .  sf_text('price',$price); ?>
+								<?php echo ss_currency_symbol() . ' ' .  sf_text('price',$price); ?>
 						</div>
 					</div>
 				</li>
@@ -123,7 +123,7 @@
 					</label>
 					<div class="input">
 						<div class=''>
-								<?php echo nc_currency_symbol().' '.sf_text('price_base',$price_base);?>
+								<?php echo ss_currency_symbol().' '.sf_text('price_base',$price_base);?>
 						</div>
 					</div>
 				</li>					
@@ -133,7 +133,7 @@
 					</label>
 					<div class="input">
 						<div class=''>
-								<?php echo nc_currency_symbol().' '.sf_text('rrp',$rrp);?>
+								<?php echo ss_currency_symbol().' '.sf_text('rrp',$rrp);?>
 						</div>
 					</div>
 				</li>							

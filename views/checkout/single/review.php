@@ -39,7 +39,7 @@
 							Shipping
 						</td>
 						 
-						<td class="subtotal"><?php echo nc_currency_symbol(); ?> <span id="s_shipping_total"><?php echo $this->sfcart->shipping_total() ; ?></span></td>
+						<td class="subtotal"><?php echo ss_currency_symbol(); ?> <span id="s_shipping_total"><?php echo $this->sfcart->shipping_total() ; ?></span></td>
 					</tr>
 				</tbody>
 				
@@ -47,7 +47,7 @@
 					<tr>
 						<td class="quantity"></td>
 						<td class="desc"><strong><?php echo lang('total'); ?></strong></td>
-						<td class="subtotal"><?php echo nc_currency_symbol(); ?> <span id="s_cart_total"><?php echo $this->sfcart->total(); ?></span></td>
+						<td class="subtotal"><?php echo ss_currency_symbol(); ?> <span id="s_cart_total"><?php echo $this->sfcart->total(); ?></span></td>
 					</tr>
 				</tfoot>
 

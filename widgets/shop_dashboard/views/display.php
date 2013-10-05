@@ -27,7 +27,7 @@
 $(window).load(function () 
 {
     $.ajax({
-        url: SITE_URL+'shop/admin/stats/7',
+        url: SITE_URL+'shop/admin/stats/1',
         dataType: 'json',
         success: buildGraph
     });

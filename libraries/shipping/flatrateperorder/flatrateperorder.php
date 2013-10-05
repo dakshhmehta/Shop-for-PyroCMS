@@ -58,11 +58,15 @@ class FlatratePerOrder_ShippingMethod {
 
 	public function run($options)  { return $options; }
 
-	public function calc($options, $parcels, $from_address = array(), $to_address = array() )
+	public function calc($options, $packages, $from_address = array(), $to_address = array() )
 	{
+		
 		$handling = floatval($options['handling']);
 		$cost = floatval($options['amount']);
 		
+		//
+		// This is the simplest, just return the amount set by the admin
+		//
 		return array($this->id,'Flat Rate Shipping','',$cost ,$handling,0); // == $0 total
 
 	}

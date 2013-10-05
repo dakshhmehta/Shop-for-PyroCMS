@@ -1,43 +1,70 @@
-<!--- FILE.START:VIEW.PRODUCTS --->
-<div>
-
-		<div>
+		<div class="page-title">
 			<h2>
-			  <?php echo (isset($shop_title))?$shop_title:""; ?>
+			 {{shop_title}}
 			</h2>
 		</div>
 
 
-		
 		{{ if pagination:links }} 
-			<div> 
+		<div>
+			<!-- Pagination -->
+			<div class='pagination'> 
 				{{ pagination:links }}
 			</div>
-		{{ endif}}
-		
+		</div>
+		{{ endif }}
+
+
+		{{items}}
+
+			<div class="product">
+		 
+				<div class="product-image">
+					<a id="" class="" href="{{ url:site }}shop/product/{{slug}}">
+						<img src="{{ url:site }}files/thumb/{{cover_id}}/245/" />
+					</a>
+				</div>
+				
+				<div class="product-details">
+				
+					<h2>
+						<a id="" class="ItemName" href="{{ url:site }}shop/product/{{slug}}">{{name}}</a>
+					</h2>
+					
+						<ul class="product-spec">
+
+							<li>
+								<span class='price-tag'>{{price_at}}</span>
+							</li>					
+							
+							<li class='categories'>
+								<span class='label'><?php echo lang('category'); ?></span>
+								<a href="{{url:site}}shop/category/{{category_slug}}">{{category_name}}</a>
+							</li>
+						
+							<li class='actions'>
+								
+								<a class="ncbtn list" href="{{ url:site }}shop/my/wishlist/add/{{id}}">
+									<?php echo lang('add_to_wishlist'); ?>
+								</a>
 			
-		<div style="clear:both;" />
+								<a class="ncbtn atc" href="{{ url:site }}shop/cart/add/{{id}}" >
+									<?php echo lang('add_to_cart'); ?>
+								</a>
+						
+							</li>
 
+						</ul>
+				</div>
 
-		<div>
-		
-			<div><?php echo $this->session->flashdata('feedback');?></div>
-		
-			<?php 
-				if (isset($items) && count($items) > 0 ) 
-				{
-					$this->load->view('products/'.$nc_layout.'/line_item');
-				} 
-			?>
+		  	</div>
+		{{/items}}
+
+		<div class="products-filter">
+			<!-- Pagination -->
+			<div class='pagination'> 
+				{{ pagination:links }}
+			</div>
 		</div>
 
-		
-		{{ if pagination:links }} 
-			<div> 
-				{{ pagination:links }}
-			</div>
-		{{ endif}}
-
-
-</div>
-<!--- FILE.END:VIEW.PRODUCTS --->
+	

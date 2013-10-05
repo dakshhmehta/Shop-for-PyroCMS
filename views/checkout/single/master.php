@@ -22,15 +22,10 @@
 
 					echo form_open('shop/checkout/place', $attributes);
 
-					if(!$this->current_user)
-					{
-						//$this->load->view('shop/checkout/single/register');
-					}
-					else
-					{					
-						$this->load->view('shop/checkout/single/existing_addr');
-						$this->load->view('shop/checkout/single/existing_addr_shipping');
-					}
+
+					$this->load->view('shop/checkout/single/existing_addr');
+					$this->load->view('shop/checkout/single/existing_addr_shipping');
+					
 
 					$this->load->view('shop/checkout/single/new_addr'); 
 					$this->load->view('shop/checkout/single/new_addr_shipping'); 

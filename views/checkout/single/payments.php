@@ -26,7 +26,7 @@
 					
 						<?php echo form_radio('gateway_method_id', $item->id, set_radio('gateway_method_id', $item->id, TRUE)) . $item->title; ?>
 
-						<?php echo $item->image ? '<img src="'.$item->image.'" alt="'.$item->title.'" style="float:right;" /><br class="clear" />' : ''; ?>
+						<?php /*echo $item->image ? '<img src="'.$item->image.'" alt="'.$item->title.'" style="float:right;" /><br class="clear" />' : ''; */ ?>
 
 					</label>
 

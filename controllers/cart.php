@@ -34,9 +34,9 @@ class Cart extends Public_Controller
 
 		// Retrieve some core settings
 		$this->use_css =  Settings::get('nc_css');
-		$this->shop_title = Settings::get('nc_name');		//Get the shop name
-		$this->shopsubtitle = Settings::get('nc_slogan');		//Get the shop subtitle
-		$this->login_required = Settings::get('nc_require_login');
+		$this->shop_title = Settings::get('ss_name');		//Get the shop name
+		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
+		$this->login_required = Settings::get('ss_require_login');
 		$this->has_logged_in_user =  ($this->current_user)? TRUE : FALSE ;
 		
 		

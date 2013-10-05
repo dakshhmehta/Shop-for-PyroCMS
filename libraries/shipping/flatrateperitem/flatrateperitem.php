@@ -58,34 +58,30 @@ class FlatratePerItem_ShippingMethod {
 
 	public function run($options)  { return $options; }
 
-	public function calc($options, $parcels, $from_address = array(), $to_address = array() )
+	public function calc($options, $packages, $from_address = array(), $to_address = array() )
 	{
 		
-		$pi  = floatval($options['amount']); //multiplier
-		
+		//
+		//	In the options we store the multiplier
+		//
+		$pi  = floatval($options['amount']); 
 		$cost = 0;
 		$handling =  floatval($options['handling']);
 		$discount = 0;
 		
-		//parcels_array[]
-		//0 = package_id,
-		//1 = package_count
-		//2 = MAX this package can hold
-		//3 = Qty of items in this package
-		//4 = height
-		//5 = width
-		//6 = depth
-		//7 = weight
-		//8 = max_weight_allowed
-		//9 = Ignor shipping
 		
-		//Now lets just loop through the parcels
-		foreach ($parcels as $package)
+		//
+		// Each package contains a set of items
+		// We count the items multiply by the amount per item
+		//
+		foreach ($packages as $package)
 		{
-			$cost  += ( $package[3] * $pi ) ;
+			$cost += ($package->item_count * $pi);
 		}
 		
-		
+		//
+		// Then simply return the total cost
+		//
 		return array($this->id,'Flat Rate Shipping Per Item','', $cost ,$handling,$discount); // == $0 total
 
 	}

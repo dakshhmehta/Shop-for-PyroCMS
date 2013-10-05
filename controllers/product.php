@@ -33,13 +33,11 @@ class Product extends Public_Controller
 	{
 		parent::__construct();
 		
-
-		//$this->output->enable_profiler( Settings::get('sf_profiler') );
 		
 		// Retrieve some core settings
 		$this->use_css =  Settings::get('nc_css');
-		$this->shop_title = Settings::get('nc_name');		//Get the shop name
-		$this->shopsubtitle = Settings::get('nc_slogan');		//Get the shop subtitle
+		$this->shop_title = Settings::get('ss_name');		//Get the shop name
+		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 
 		
 

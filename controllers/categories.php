@@ -32,9 +32,9 @@ class Categories extends Public_Controller
 		
 		// Retrieve some core settings
 		$this->use_css =  Settings::get('nc_css');
-		$this->shop_title = Settings::get('nc_name');		//Get the shop name
-		$this->shopsubtitle = Settings::get('nc_slogan');		//Get the shop subtitle
-		$this->limit = Settings::get('nc_qty_perpage_limit');
+		$this->shop_title = Settings::get('ss_name');		//Get the shop name
+		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
+		$this->limit = Settings::get('ss_qty_perpage_limit');
 		
 		// NC Markup theme
 		$this->nc_page_layout = Settings::get('nc_markup_theme'); /*standard or legacy*/

@@ -20,29 +20,31 @@
  * @author		Salvatore Bordonaro
  * @version		1.0.0.051
  * @website		http://www.inspiredgroup.com.au/
- * @system		PyroCMS 2.2.x
+ * @system		PyroCMS 2.1.x
  *
  */
-class Widget_Shop_Dashboard extends Widgets
+class Widget_Shop_My_Cart extends Widgets
 {
 	public $title		= array(
-		'en' => 'Shop - Dashboard',
+		'en' => 'Shop - My Cart',
 	);
 	public $description	= array(
-		'en' => 'Creates a Dashboard widget with recent orders',
+		'en' => 'Display a list of items user added to cart',
 	);
-	public $author		= 'Salvatore Bordonaro';
-	public $website		= 'http://inspiredgroup.com.au/';
+	public $author		= '';
+	public $website		= '';
 	public $version		= '1.2';
-	
-	/**
-	 * Fixed bug to show 1 day by default
-	 * @param  [type] $options [description]
-	 * @return [type]          [description]
-	 */
+
+
+	public $fields = array();
+
 	public function run($options)
 	{
 
-	}
+		return array(
+				'total' => $this->sfcart->total(),
+				'contents' => $this->sfcart->contents(),
 
+		);
+	}	
 }
