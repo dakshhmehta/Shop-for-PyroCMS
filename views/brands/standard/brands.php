@@ -20,14 +20,14 @@
 		{{ brands }}
 
 			<div>
-				<a href="{{ url:site }}shop/category/{{slug}}">
+				<a href="{{ url:site }}shop/brand/{{slug}}">
 					<img src="{{ url:site }}files/thumb/{{image_id}}/245/" />
 				</a>
 			</div>
 
 			<div>
 				<h2>
-					<a id="" class="" href="{{ url:site }}shop/brands/{{slug}}">{{name}}</a>
+					<a id="" class="" href="{{ url:site }}shop/brand/{{slug}}">{{name}}</a>
 				</h2>
 			</div>
 

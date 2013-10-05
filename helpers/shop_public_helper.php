@@ -79,6 +79,8 @@ if (!function_exists('nc_prepare_price'))
 
 		$product_price = 0; //lets start at ZERO
 
+		if($options === null)
+			return;
 
 		//
 		// pre-check t see if any options are variarion option where price = amount
@@ -136,7 +138,9 @@ if (!function_exists('nc_options_price'))
 		$product_price = 0; //lets start at ZERO
 
 
-		
+		if($options === null)
+			return $item;
+
 		//
 		// Adjust the total price by the option values
 		//

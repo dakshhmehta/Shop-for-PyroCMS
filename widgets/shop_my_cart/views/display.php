@@ -11,6 +11,9 @@
 	{{ /contents }} 
 
 	<li> Total: {{ total }} </li>
+
+	<li> Total Items: {{ items_count }} </li>
+
 	
 </ul>
 

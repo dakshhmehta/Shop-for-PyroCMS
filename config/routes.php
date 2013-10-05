@@ -39,8 +39,8 @@ $route['shop/admin(/:any)?']			  	= 'admin/shop$1';
  *
  * 
  */
-$route['shop/brand(/:any)?']  				= 'brands/brand2$1';
-$route['shop/brands(/:any)?']  				= 'brands/brand$1';
+$route['shop/brand(/:any)?']  				= 'brands/brand$1';
+$route['shop/brands(/:any)?']  				= 'brands/index$1';
 $route['shop/product(/:any)?']		 		= 'product/index$1';
 $route['shop/category(/:any)?']  			= 'categories/category$1';
 $route['shop/products(/:any)?']		 		= 'products/index$1';

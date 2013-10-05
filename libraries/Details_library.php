@@ -110,7 +110,7 @@ class Details_library
 
 			}
 
-			if(isset($this->setting_en_brands))
+			if(Settings::get('ss_enable_brands'))
 			{	
 				if(group_has_role('shop', 'brands'))
 				{
@@ -249,7 +249,7 @@ class Details_library
 		//
 		// Check if brands is enabled
 		//
-		if(isset($this->setting_en_brands))
+		if(Settings::get('ss_enable_brands'))
 		{	
 			if(group_has_role('shop', 'brands'))
 			{

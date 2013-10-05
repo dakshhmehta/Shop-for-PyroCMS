@@ -18,7 +18,7 @@
 /*
  * 1.0.0.0510 - initial release
  * 1.0.0.0511 - updated setting names, removed unused settings - moved more views to LEX tags, removed redundant widget (cart), fixed minor bugs
-
+ * 1.0.0.0512 - fixed bug with enable brands menu item, fixed bug with displaying brand data, fixed option issue #6
  *
  *
  * 1.0.1.0000 - Target release for patch 

@@ -52,17 +52,16 @@ class Brands extends Public_Controller
 
 	
 	/**
-	 * http://stackoverflow.com/questions/14165895/how-to-load-a-controller-from-another-controller-in-codeigniter
 	 */
 	public function index($offset = 0, $limit = 5) 
 	{
 		  
 		$data->brands = $this->brands_m->get_all();
 
-		$total_rows =  count( $data->brands );
+		$total_rows =  $this->brands_m->count_all();
 		
-		$pagination = create_pagination('shop/brands/', $total_rows, $limit, 3); /*$limit replaced by qty */
-		
+		$data->pagination = create_pagination('shop/brands/', $total_rows, $limit, 3); /*$limit replaced by qty */
+
 		//
 		// Pass the layout name as views may require it for includes
 		//
@@ -72,7 +71,6 @@ class Brands extends Public_Controller
 		$this->template
 			->set_breadcrumb('Brands')
 			->title($this->module_details['name'])
-			->set('pagination',$pagination)
 			->build($this->nc_page_layout_path, $data);
 	}
 
@@ -82,80 +80,20 @@ class Brands extends Public_Controller
 	*
 	*
 	*/
-	public function brand( $brand = 0, $offset = 0, $limit = 6 ) 
+	public function brand( $brand = 0 ) 
 	{
 	
-
-
-		if (!(is_numeric($brand) ) )
+		if (is_numeric($brand) )
 		{
-			$brand = $this->pyrocache->model('brands_m', 'get_by', array('slug',$brand));
+			$data->brand = $this->pyrocache->model('brands_m', 'get', $brand);
 		}
 		else
 		{
-			$brand = $this->pyrocache->model('brands_m', 'get', $brand);
+			$data->brand = $this->pyrocache->model('brands_m', 'get_by', array('slug',$brand));
 		}
 	
 
 
-
-		$filter['brand_id'] = $brand->id;
-
-		$this->index($offset, $limit, $filter , "brand/".$brand->slug);
-
-
-
-		//
-		// Set up the (override) filters - this must be set for front end
-		//
-		$filter['shop_products.public'] = 1;
-		$filter['shop_products.deleted'] = 0;
-
-
-
-
-		// Count the items
-		$total_items = $this->products_front_m->count_by($filter);
-
-
-
-
-		//Get the items for the display
-		$data->items = $this->products_front_m->shop_filter($filter, $limit, $offset);		
-
-
-
-		/*
-		 Using CI pagination library until the Pyro one is fixed
-		 */
-		$this->load->library('pagination');
-		$config['base_url'] = base_url() . 'shop/brand/'. $brand->slug ;
-		$config['total_rows'] = $total_items;
-
-		$config['uri_segment'] = 4;
-		$config['num_links'] = 5;
-		//$config['use_page_numbers'] = FALSE;
-		//$config['page_query_string'] = FALSE;
-		$config['per_page'] = $limit;
-
-
-		$this->pagination->initialize($config);
-		$data->pagination2 = $this->pagination->create_links();
-
-
-
-
-
-		//
-		// Create pagination link data
-		//
-		//$data->pagination = create_pagination( 'shop/products/', $total_items, $limit, 3, TRUE);  
-
-
-
-		//
-		// Pass the layout name as views may require it for includes
-		//
 		$data->nc_layout =  $this->nc_page_layout;
 		
 		
@@ -165,7 +103,7 @@ class Brands extends Public_Controller
 		$this->template
 			->title($this->module_details['name'].' |' .lang('products'))
 			->set_breadcrumb($this->shop_title)
-			->build('products/'.$this->nc_page_layout.'/products', $data);
+			->build('brands/'.$this->nc_page_layout.'/brand', $data);
 
 	}	
 	

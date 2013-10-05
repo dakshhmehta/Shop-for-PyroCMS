@@ -43,6 +43,7 @@ class Widget_Shop_My_Cart extends Widgets
 
 		return array(
 				'total' => $this->sfcart->total(),
+				'items_count' => $this->sfcart->total_items(),
 				'contents' => $this->sfcart->contents(),
 
 		);
