@@ -143,6 +143,37 @@ class Shop extends Admin_Controller
 		echo "Complete..";die;
 		//echo json_encode(array('status' => 'complete')) ;die;
     }
+
+
+    public function run_lang()
+    {
+
+    	$this->load->library('shop/core_library');
+    	$data->lang_data = build_lang();
+
+		$this->load->library('shop/core_basiks/core_debug_library');
+
+		$this->core_debug_library->write_lang($data->lang_data);
+
+
+		echo "program completed";die;
+
+    }
+
+
+    public function run_re_index()
+    {
+
+    	$this->load->library('shop/core_library');
+		$this->load->library('shop/core_basiks/core_debug_library');
+
+		$count = $this->core_debug_library->re_index_search();
+
+
+		echo "Indexed " . $count . ' products';die;
+
+    }
+    
 	
 
 }

@@ -218,7 +218,7 @@ class Wishlist extends Public_Controller
 		//
 		// Check product validady (visible or deleted)
 		//
-		if ( ($product->deleted) || ($product->public == 0))
+		if ( is_deleted($product) || ($product->public == 0))
 		{
 			$this->session->set_flashdata('feedback', lang('wishlist_not_avail') );
 			return FALSE;

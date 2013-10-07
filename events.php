@@ -39,8 +39,10 @@ class Events_Shop
 		
 		$this->ci->load->library('shop/enums');
 
+		//trigger the global event - before all other events
+		$this->evt_global();		
 
-	
+
 		// Register the events
 		Events::register('evt_audit', array($this, 'evt_audit')); /*debuging event */
 		Events::register('evt_clear_cache', array($this, 'evt_clear_cache'));
@@ -61,7 +63,14 @@ class Events_Shop
 		Events::register('evt_product_stock_low', array($this, 'evt_product_stock_low')); 
 		Events::register('post_user_register', array($this, 'resume_checkout'));
 
+
+
 		
+	}
+
+	private function evt_global()
+	{
+		$this->ci->lang->load('shop/shop_global');  
 	}
 	
 	
@@ -129,6 +138,8 @@ class Events_Shop
 		//Lang
 		$this->ci->lang->load('shop/shop_front');  
 
+
+
 	}
 
 	// This gets fired upon oading a public controller
@@ -141,9 +152,6 @@ class Events_Shop
 		// Lang
 		$this->ci->lang->load('shop/shop_admin');
 		$this->ci->lang->load('shop/shop_admin_cp');
-		$this->ci->lang->load('shop/shop_admin_pgroups');
-		$this->ci->lang->load('shop/shop_admin_products');
-		$this->ci->lang->load('shop/shop_admin_dashboard');
 
 
 

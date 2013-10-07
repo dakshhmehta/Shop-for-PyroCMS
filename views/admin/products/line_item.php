@@ -1,16 +1,16 @@
-<!--- FILE.START:VIEW.ADMIN.PRODUCTS.LINE_ITEM -->
+
 			<table>
 				<thead>		
 					<tr>
 						<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
-						<th><?php echo lang('id');?></th>
-						<th><?php echo lang('image');?></th>
-						<th><?php echo lang('product_name'); ?></th>
-						<th class="collapse"><?php echo lang('on_hand');?></th>
-						<th class="collapse"><?php echo lang('visibility');?></th>
-						<th class="collapse"><?php echo lang('category'); ?></th>
-						<th class="collapse"><?php echo lang('date'); ?></th>
-						<th class="collapse"><?php echo lang('price'); ?></th>
+						<th><?php echo shop_lang('shop:products:id');?></th>
+						<th><?php echo shop_lang('shop:products:image');?></th>
+						<th><?php echo shop_lang('shop:products:name');?></th>
+						<th class="collapse"><?php echo shop_lang('shop:products:on_hand');?></th>
+						<th class="collapse"><?php echo shop_lang('shop:products:visibility');?></th>
+						<th class="collapse"><?php echo shop_lang('shop:products:category'); ?></th>
+						<th class="collapse"><?php echo shop_lang('shop:products:date'); ?></th>
+						<th class="collapse"><?php echo shop_lang('shop:products:price'); ?></th>
 						<th width="220"></th>
 					</tr>
 				</thead>
@@ -44,7 +44,7 @@
 								<?php 
 									if($post->inventory_type == 1)
 									{
-										echo "UNLIMITED"; 
+										echo shop_lang('shop:products:unlimited');
 									}
 									else
 									{
@@ -56,9 +56,9 @@
 							</td>
 							<td class="collapse">
 							 		<?php if ($post->public == 1):?> 
-									<a href="javascript:sell(<?php echo $post->id;?>)" class="tooltip-s img_icon img_visible " title="<?php echo lang('click_to_change');?>" status="1" pid="<?php echo $post->id;?>" id="sf_ss_<?php echo $post->id;?>"></a>	
+									<a href="javascript:sell(<?php echo $post->id;?>)" class="tooltip-s img_icon img_visible " title="<?php echo shop_lang('shop:products:click_to_change');?>" status="1" pid="<?php echo $post->id;?>" id="sf_ss_<?php echo $post->id;?>"></a>	
 									<?php else:?>
-									<a href="javascript:sell(<?php echo $post->id;?>)" class="tooltip-s img_icon img_invisible "  title="<?php echo lang('click_to_change');?>" status="0" pid="<?php echo $post->id;?>" id="sf_ss_<?php echo $post->id;?>"></a>		
+									<a href="javascript:sell(<?php echo $post->id;?>)" class="tooltip-s img_icon img_invisible "  title="<?php echo shop_lang('shop:products:click_to_change');?>" status="0" pid="<?php echo $post->id;?>" id="sf_ss_<?php echo $post->id;?>"></a>		
 									<?php endif;?>
 							</td>
 							<td class="collapse"><a href="admin/shop/categories/edit/<?php echo $post->category_id; ?>" class="category"><?php echo $post->category_name; ?></a></td>
@@ -66,9 +66,9 @@
 							<td class="collapse"><?php echo nc_format_price($post->price); ?></td>
 							<td>
 								<span style="float:right">
-								<?php echo anchor('admin/shop/products/edit/' . $post->id, ' ', array('title'=>'Edit', 'class'=>'img_icon img_edit tooltip-s')); ?>
-								<?php echo anchor('admin/shop/products/duplicate/' . $post->id, ' ', array('title'=>'Duplicate', 'class'=>'img_icon img_copy tooltip-s')); ?>
-								<?php echo anchor('admin/shop/products/delete/' . $post->id, ' ', array('title'=>'Delete', 'class'=>'img_icon img_delete confirm tooltip-s')); ?>
+								<?php echo anchor('admin/shop/product/edit/' . $post->id, ' ', array('title'=>'Edit', 'class'=>'img_icon img_edit tooltip-s')); ?>
+								<?php echo anchor('admin/shop/product/duplicate/' . $post->id, ' ', array('title'=>'Duplicate', 'class'=>'img_icon img_copy tooltip-s')); ?>
+								<?php echo anchor('admin/shop/product/delete/' . $post->id, ' ', array('title'=>'Delete', 'class'=>'img_icon img_delete confirm tooltip-s')); ?>
 								</span>
 							</td>
 						</tr>
@@ -88,4 +88,4 @@
 					</tr>
 				</tfoot>				
 			</table>
-<!--- FILE.END:VIEW.ADMIN.PRODUCTS.LINE_ITEM -->			
+		

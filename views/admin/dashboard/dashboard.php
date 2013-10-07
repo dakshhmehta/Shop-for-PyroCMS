@@ -5,8 +5,8 @@
 
 	    <section class="chart-tabs">
 	        <ul class="tab-menu">
-	            <li class="ui-state-active"><a href="admin/shop/stats/1" class="chart-data"><span><?php echo lang('shop:dashboard:day');?></span></a></li>
-	            <li class=""><a href="admin/shop/stats/7" class="chart-data"><span><?php echo lang('shop:dashboard:week');?></span></a></li>
+	            <li class="ui-state-active"><a href="admin/shop/stats/1" class="chart-data"><span><?php echo shop_lang('shop:dashboard:day');?></span></a></li>
+	            <li class=""><a href="admin/shop/stats/7" class="chart-data"><span><?php echo shop_lang('shop:dashboard:week');?></span></a></li>
 	        </ul>
 	    </section>
 
@@ -22,47 +22,47 @@
 		
 	<div class="one_half last" id="">
 		<section class="title">
-			<h4><?php echo lang('shop:dashboard:alerts'); ?></h4>
+			<h4><?php echo shop_lang('shop:dashboard:alerts'); ?></h4>
 			<a class="" title=""></a>
 		</section>
 		<section class="item">
 			<div class="content">
 				<div class="tabs">
 					<ul class="tab-menu">
-						<li><a href="#a5"><?php echo lang('shop:dashboard:catalogue'); ?></a></li>	
+						<li><a href="#a5"><?php echo shop_lang('shop:dashboard:catalogue'); ?></a></li>	
 						<?php $not_count = count($stock_products_data['lowstock']);?>
 						<?php $oos_count = count($stock_products_data['outofstock']);?>
 						<?php
 							$not_color = ($not_count > 0) ? " ( <span style='color:#e22;font-weight:bold'> ". $not_count." </span> )" : ""  ;
 							$oos_color = ($oos_count > 0) ? " ( <span style='color:#e22;font-weight:bold'> ". $oos_count." </span> )" : ""  ;
 						?>
-						<li><a href="#stock-low"><?php echo lang('shop:dashboard:low_stock').$not_color;?></a></li>
-						<li><a href="#stock-out"><?php echo lang('shop:dashboard:out_of_stock').$oos_color;?></a></li>
-						<li><a href="#order-messages"><?php echo lang('shop:dashboard:messages')?></a></li>
-						<li><a href="#recent-orders"><?php echo lang('shop:dashboard:recent_orders')?></a></li>
+						<li><a href="#stock-low"><?php echo shop_lang('shop:dashboard:low_stock').$not_color;?></a></li>
+						<li><a href="#stock-out"><?php echo shop_lang('shop:dashboard:out_of_stock').$oos_color;?></a></li>
+						<li><a href="#order-messages"><?php echo shop_lang('shop:dashboard:messages')?></a></li>
+						<li><a href="#recent-orders"><?php echo shop_lang('shop:dashboard:recent_orders')?></a></li>
 					</ul>
 					<div id="a5" class="form_inputs">
 						
 						<fieldset>	
 								<table>
 									<tr>
-										<th><?php echo lang('shop:dashboard:metric');?></th>
-										<th><?php echo lang('shop:dashboard:value');?></th>
+										<th><?php echo shop_lang('shop:dashboard:metric');?></th>
+										<th><?php echo shop_lang('shop:dashboard:value');?></th>
 									</tr>
 
 									<?php 
-									echo "<tr><td>".lang('shop:dashboard:total_products')." : </td><td>". $shop_products_count['total_products']."</td></tr>";
-									echo "<tr><td>".lang('shop:dashboard:total_online_products')."  : </td><td>".  $shop_products_count['total_live_products']."</td></tr>";
+									echo "<tr><td>".shop_lang('shop:dashboard:total_products')." : </td><td>". $shop_products_count['total_products']."</td></tr>";
+									echo "<tr><td>".shop_lang('shop:dashboard:total_online_products')."  : </td><td>".  $shop_products_count['total_live_products']."</td></tr>";
 
 									?>
 									<tr>
-										<th><?php echo lang('shop:dashboard:metric');?></th>
-										<th><?php echo lang('shop:dashboard:value');?></th>
+										<th><?php echo shop_lang('shop:dashboard:metric');?></th>
+										<th><?php echo shop_lang('shop:dashboard:value');?></th>
 									</tr>
 									<?php
-									echo "<tr><td>".lang('shop:dashboard:total_offline_products')."  : </td><td>".  $shop_products_count['total_offline_products']."</td></tr>";
-									echo "<tr><td>".lang('shop:dashboard:total_categories')."  : </td><td>".  $shop_products_count['total_categories']."</td></tr>";
-									echo "<tr><td>".lang('shop:dashboard:total_brands')."  : </td><td>". $shop_products_count['total_brands']."</td></tr>"; ?>
+									echo "<tr><td>".shop_lang('shop:dashboard:total_offline_products')."  : </td><td>".  $shop_products_count['total_offline_products']."</td></tr>";
+									echo "<tr><td>".shop_lang('shop:dashboard:total_categories')."  : </td><td>".  $shop_products_count['total_categories']."</td></tr>";
+									echo "<tr><td>".shop_lang('shop:dashboard:total_brands')."  : </td><td>". $shop_products_count['total_brands']."</td></tr>"; ?>
 								</table>
 						</fieldset>
 						
@@ -71,22 +71,22 @@
 						<fieldset>
 							<table>
 								<?php if (empty($stock_products_data['lowstock'])): ?>
-									<div class="no_data"><?php echo lang('low_stock_level_ok'); ?></div>
+									<div class="no_data"><?php echo shop_lang('shop:dashboard:low_stock_level_ok'); ?></div>
 								<?php else: ?>			
 									<tr>
-										<th><?php echo lang('shop:dashboard:id'); ?></th>
-										<th><?php echo lang('shop:dashboard:product'); ?></th>
-										<th><?php echo lang('shop:dashboard:on_hand'); ?></th>
-										<th><?php echo lang('shop:dashboard:low_level'); ?></th>
+										<th><?php echo shop_lang('shop:dashboard:id'); ?></th>
+										<th><?php echo shop_lang('shop:dashboard:product'); ?></th>
+										<th><?php echo shop_lang('shop:dashboard:on_hand'); ?></th>
+										<th><?php echo shop_lang('shop:dashboard:low_level'); ?></th>
 										<th></th>
 									</tr>				
 								<?php foreach ($stock_products_data['lowstock'] as $low_stock) : ?>
 									<tr>
 										<th><?php echo $low_stock->id; ?></th>
-										<td><a class="nc_links" href="admin/shop/products/edit/<?php echo $low_stock->id;?>"><?php echo $low_stock->name; ?></a></td>
+										<td><a class="nc_links" href="admin/shop/product/edit/<?php echo $low_stock->id;?>"><?php echo $low_stock->name; ?></a></td>
 										<td><em><?php echo $low_stock->inventory_on_hand; ?></em></td>
 										<td><em><?php echo $low_stock->inventory_low_qty; ?></em></td>
-										<td><a class="nc_links" href="admin/shop/products/edit/<?php echo $low_stock->id;?>"><?php echo lang('shop:dashboard:edit'); ?></a></td>
+										<td><a class="nc_links" href="admin/shop/product/edit/<?php echo $low_stock->id;?>"><?php echo shop_lang('shop:dashboard:edit'); ?></a></td>
 									</tr>
 								<?php endforeach; ?>
 								<?php endif; ?>
@@ -97,20 +97,20 @@
 						<fieldset>			
 							<table>
 								<?php if (empty($stock_products_data['outofstock'])): ?>
-									<div class="no_data"><?php echo lang('shop:dashboard:desc_out_stock_level_ok'); ?></div>
+									<div class="no_data"><?php echo shop_lang('shop:dashboard:desc_out_stock_level_ok'); ?></div>
 								<?php else: ?>			
 									<tr>
-										<th><?php echo lang('shop:dashboard:id'); ?></th>
-										<th><?php echo lang('shop:dashboard:product'); ?></th>
-										<th><?php echo lang('shop:dashboard:low_level'); ?></th>
+										<th><?php echo shop_lang('shop:dashboard:id'); ?></th>
+										<th><?php echo shop_lang('shop:dashboard:product'); ?></th>
+										<th><?php echo shop_lang('shop:dashboard:low_level'); ?></th>
 										<th></th>
 									</tr>				
 									<?php foreach ($stock_products_data['outofstock'] as $low_stock) : ?>
 										<tr>
 											<th><?php echo $low_stock->id; ?></th>
-											<td><a class="nc_links" href="admin/shop/products/edit/<?php echo $low_stock->id;?>"><?php echo $low_stock->name; ?></a></td>
+											<td><a class="nc_links" href="admin/shop/product/edit/<?php echo $low_stock->id;?>"><?php echo $low_stock->name; ?></a></td>
 											<td><em><?php echo $low_stock->inventory_low_qty; ?></em></td>
-											<td><a class="nc_links" href="admin/shop/products/edit/<?php echo $low_stock->id;?>"><?php echo lang('shop:dashboard:edit'); ?></a></td>
+											<td><a class="nc_links" href="admin/shop/product/edit/<?php echo $low_stock->id;?>"><?php echo shop_lang('shop:dashboard:edit'); ?></a></td>
 										</tr>
 									<?php endforeach; ?>
 								<?php endif; ?>
@@ -121,13 +121,13 @@
 						<fieldset>
 							<table>
 								<?php if (empty($order_messages)): ?>
-									<div class="no_data"><?php echo lang('shop:dashboard:no_messages'); ?></div>
+									<div class="no_data"><?php echo shop_lang('shop:dashboard:no_messages'); ?></div>
 								<?php else: ?>			
 									<tr>					
-										<th><?php echo lang('shop:dashboard:id'); ?></th>
-										<th><?php echo lang('shop:dashboard:product'); ?></th>
-										<th><?php echo lang('shop:dashboard:notification_date'); ?></th>
-										<th><?php echo lang('shop:dashboard:message'); ?></th>
+										<th><?php echo shop_lang('shop:dashboard:id'); ?></th>
+										<th><?php echo shop_lang('shop:dashboard:product'); ?></th>
+										<th><?php echo shop_lang('shop:dashboard:notification_date'); ?></th>
+										<th><?php echo shop_lang('shop:dashboard:message'); ?></th>
 									</tr>				
 								<?php foreach ($order_messages as $message) : ?>
 									<tr>
@@ -147,14 +147,14 @@
 							
 							<?php echo form_open('admin/shop/delete'); ?>
 							<?php if (empty($order_items)): ?>
-								<div class="no_data"><?php echo lang('shop:dashboard:nodata_recent_orders'); ?></div>
+								<div class="no_data"><?php echo shop_lang('shop:dashboard:nodata_recent_orders'); ?></div>
 							<?php else: ?>
 								<table class="table-list" border="0" cellspacing="0">
 									<thead>
 										<tr>
-											<th><?php echo lang('shop:dashboard:customer'); ?></th>
-											<th class="collapse"><?php echo lang('shop:dashboard:total'); ?></th>
-											<th class="collapse"><?php echo lang('shop:dashboard:city'); ?></th>
+											<th><?php echo shop_lang('shop:dashboard:customer'); ?></th>
+											<th class="collapse"><?php echo shop_lang('shop:dashboard:total'); ?></th>
+											<th class="collapse"><?php echo shop_lang('shop:dashboard:city'); ?></th>
 											<th width="80"></th>
 										</tr>
 									</thead>
@@ -167,8 +167,8 @@
 													<a href="admin/shop/orders/map/<?php echo $order->shipping_id;?>" class="nc_links modal"><?php echo $order->city; ?></a>
 												</td>
 												<td>
-													<?php echo anchor('admin/shop/orders/order/' . $order->id, ' ', 'title="'.lang('shop:dashboard:view').'" class="tooltip-s img_icon img_view" style="float:right"'); ?>
-													<?php echo anchor('admin/shop/orders/order/' . $order->id.'#message-tab', ' ', 'title="'.lang('shop:dashboard:message').'" class="tooltip-s img_icon img_message" style="float:right"'); ?>
+													<?php echo anchor('admin/shop/orders/order/' . $order->id, ' ', 'title="'.shop_lang('shop:dashboard:view').'" class="tooltip-s img_icon img_view" style="float:right"'); ?>
+													<?php echo anchor('admin/shop/orders/order/' . $order->id.'#message-tab', ' ', 'title="'.shop_lang('shop:dashboard:message').'" class="tooltip-s img_icon img_message" style="float:right"'); ?>
 												</td>
 											</tr>
 										<?php endforeach; ?>
@@ -187,11 +187,10 @@
 	
 
 
-
 	<div class="one_full" style="margin-top:10px;">
 
 		<section class="title">
-			<h4><?php echo lang('shop:dashboard:extra');?></h4>
+			<h4><?php echo shop_lang('shop:dashboard:extra');?></h4>
 		</section>
 		<section class="item">
 
@@ -200,18 +199,18 @@
 
 				<fieldset>
 					<label>
-						Software
+						<?php echo lang('shop:global:software:label');?>
 					</label>
 				
 					<div>
-						<a href="#" class="btn blue"><?php echo lang('shop:dashboard:run');?></a>
-						<a href="#" class="btn green"><?php echo lang('shop:dashboard:run');?></a>
-						<a href="#" class="btn gray"><?php echo lang('shop:dashboard:run');?></a>
+						<a href="admin/shop/blacklist" class="tooltip-s img_button img_blacklist" title="Blacklist"></a>
+						<a href="admin/shop/blacklist" class="tooltip-s img_button status_img_paid" title="Price Groups"></a>
+
 						<ul>
 							<li>
 								
-								<label>version</label>
-								<div class="input">1</div>
+								<label><?php echo lang('shop:global:software:name');?></label>
+								<div class="input"><?php echo lang('shop:global:software:version:label');?> <?php echo lang('shop:global:software:version:value');?></div>
 							</li>
 						</ul>
 					</div> 
@@ -220,12 +219,15 @@
 				</fieldset>
 				<fieldset>
 					<label>
-						<?php echo lang('shop:dashboard:cache');?>
+						<?php echo shop_lang('shop:dashboard:cache');?>
 					</label>
 					<div>
-						<a href="admin/shop/cache/categories" class="btn orange tooltip-s modal" title="This will clear cache for categories" ><?php echo lang('shop:dashboard:clear_categories_cache');?></a>
-						<a href="admin/shop/cache/products" class="btn red tooltip-s modal" title="This will clear products cache ONLY" ><?php echo lang('shop:dashboard:clear_product_cache');?></a>
-						<a href="admin/shop/cache/all" class="btn black tooltip-w modal" title="This wil clear all SYSTEM cache"><?php echo lang('shop:dashboard:clear_all_cache');?></a>
+						<a href="admin/shop/run_lang" class="btn blue modal"><?php echo shop_lang('shop:dashboard:run_lang_generator');?></a>
+						<a href="admin/shop/run_re_index" class="btn green modal"><?php echo shop_lang('shop:dashboard:re_index_search');?></a>
+
+						<a href="admin/shop/cache/categories" class="btn orange tooltip-s modal" title="This will clear cache for categories" ><?php echo shop_lang('shop:dashboard:clear_categories_cache');?></a>
+						<a href="admin/shop/cache/products" class="btn red tooltip-s modal" title="This will clear products cache ONLY" ><?php echo shop_lang('shop:dashboard:clear_product_cache');?></a>
+						<a href="admin/shop/cache/all" class="btn black tooltip-w modal" title="This wil clear all SYSTEM cache"><?php echo shop_lang('shop:dashboard:clear_all_cache');?></a>
 					<div>
 				</fieldset>
 

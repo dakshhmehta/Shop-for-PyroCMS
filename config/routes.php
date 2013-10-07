@@ -25,10 +25,10 @@ $route['shop/admin/gateways(:any)?']		= 'admin/gateways$1';
 $route['shop/admin/categories(:any)?']		= 'admin/categories$1';
 $route['shop/admin/brands(:any)?']			= 'admin/brands$1';
 $route['shop/admin/orders(/:any)?']			= 'admin/orders$1';
+$route['shop/admin/product(/:any)?']		= 'admin/product$1';
 $route['shop/admin/products(/:any)?']		= 'admin/products$1';
 $route['shop/admin/tax(:any)?']				= 'admin/tax$1';
 $route['shop/admin/blacklist(/:any)?']		= 'admin/blacklist$1';
-
 $route['shop/admin(/:any)?']			  	= 'admin/shop$1';
 
 

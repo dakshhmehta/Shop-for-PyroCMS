@@ -49,7 +49,14 @@ class Details_library
 			'backend' => TRUE,
 			'menu' => FALSE, 
 			'author' => 'Salvatore Bordonaro',
-            'roles' => array('products', 'admin_edit_products', 'admin_create_products', 'advanced_products', 'orders', 'shipping', 'gateways', 'pgroups', 'options', 'blacklist', 'tax', 'categories', 'brands', 'packages'),
+            'roles' => array(
+            	'products', 'admin_edit_products', 'admin_create_products', 
+            	'advanced_products', 'orders', 'shipping', 'gateways', 'pgroups', 
+            	'options', 'blacklist', 'tax', 'categories', 'brands', 'packages',
+            	'developer_fields', 
+
+            	//new granular level security
+            	'admin_product_seo', 'admin_product_options' ),
 
 
 			'sections' => array(
@@ -300,6 +307,8 @@ class Details_library
 				$menu['lang:nc:admin:nitro']['lang:nc:admin:tax'] = 'admin/shop/tax';
 			}
 
+			$menu['lang:nc:admin:nitro']['View Shop'] = 'shop/';
+
 
 		}
 	
@@ -325,10 +334,10 @@ class Details_library
 				'package_id' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
 				
 				'description' => 	array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),
-				'short_desc' => 	array('type' => 'VARCHAR', 'constraint' => '255', 'default' => NULL), /*new*/
+				//'short_desc' => 	array('type' => 'VARCHAR', 'constraint' => '255', 'default' => NULL), /*new*/
 				'keywords' => 		array('type' => 'VARCHAR', 'constraint' => '32', 'null' => TRUE, 'default' => NULL),
 				'meta_desc' => 		array('type' => 'VARCHAR', 'constraint' => '255', 'null' => TRUE, 'default' => NULL), /*seo short description*/
-				'product_type' => 	array('type' => "VARCHAR", 'constraint' => '50', 'default' => ''),
+				//'product_type' => 	array('type' => "VARCHAR", 'constraint' => '50', 'default' => ''),
 				
 				
 				# default package ing data - not required but if enetered it is used.
@@ -360,11 +369,11 @@ class Details_library
 
 				//admin user id
 				'created_by' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
-				'deleted' => 		array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 0),	/*if TRUE - CAN NEVER be undeleted but we keep the data*/
+				//'deleted' => 		array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 0),	/*if TRUE - CAN NEVER be undeleted but we keep the data*/
 				
-				'date_created' => 		array('type' => 'DATETIME', 'null' => TRUE, 'default' => NULL), /* this is deleted products*/  	  
-				'date_updated' => 		array('type' => 'TIMESTAMP'),
-				'date_archived' => 		array('type' => 'DATETIME', 'null' => TRUE, 'default' => NULL), /* this is deleted products*/  
+				'date_created' => 		array('type' => 'DATETIME', 'null' => TRUE, 'default' => NULL), 	  
+				'date_updated' => 		array('type' => 'DATETIME', 'null' => TRUE, 'default' => NULL), 
+				'date_archived' => 		array('type' => 'DATETIME', 'null' => TRUE, 'default' => NULL), 
 				
 			),  
 			'shop_discounts' => array(
@@ -626,8 +635,14 @@ class Details_library
 				'word' => array('type' => 'VARCHAR', 'constraint' => '200', 'default' => ''), /*product group */
 				'count' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'default' => 1),  /*times used*/
 				'enabled' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'default' => 1),  
-			)
-			);
+			),
+			'shop_lang' => array(
+				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
+				'module' =>   array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
+				'area' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
+				'key' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
+				'value' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
+			) );
 
 
 
@@ -926,18 +941,6 @@ class Details_library
 				'is_gui' => TRUE, 
 				'module' => 'shop', 
 				'order' => 680
-			),	
-			'nc_markup_theme' => array(
-				'title' => 'Markup Theme', 
-				'description' => 'Will you use Nitro&apos;s Standard or Legacy Markup',
-				'type' => 'select', 
-				'default' => 'standard', 
-				'value' =>  'standard', 
-				'options' => 'legacy=Legacy|standard=Standard',
-				'is_required' => TRUE,
-				'is_gui' => TRUE, 
-				'module' => 'shop', 
-				'order' => 700
 			),			
 		
 		);

@@ -5,8 +5,8 @@
 
 	    <section class="chart-tabs">
 	        <ul class="tab-menu">
-	            <li class="ui-state-active"><a href="admin/shop/stats/7" class="chart-data"><span>Sales</span></a></li>
-	            <li class=""><a href="admin/shop/stats/7" class="chart-data"><span>Orders</span></a></li>
+	            <li class="ui-state-active"><a href="admin/shop/stats/7" class="chart-data"><span><?php echo shop_lang('shop:admin:sales');?></span></a></li>
+	            <li class=""><a href="admin/shop/stats/7" class="chart-data"><span><?php echo shop_lang('shop:admin:orders');?></span></a></li>
 	        </ul>
 	    </section>
 
@@ -29,7 +29,7 @@
 			<div class="content">
 				<div class="tabs">
 					<ul class="tab-menu">
-						<li><a href="#a5"><?php echo lang('catalogue'); ?></a></li>	
+						<li><a href="#a5"><?php echo lang('shop:admin:catalogue'); ?></a></li>	
 						<?php $not_count = count($stock_products_data['lowstock']);?>
 						<?php $oos_count = count($stock_products_data['outofstock']);?>
 						<?php

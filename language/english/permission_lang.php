@@ -27,6 +27,11 @@ $lang['shop:role_product_visibility'] = 'Change Product Visibility';
 //
 $lang['shop:role_admin_create_products'] = 'Create new products';
 $lang['shop:role_admin_edit_products'] = 'Edit existing products';
+$lang['shop:role_admin_product_seo'] = 'Edit product SEO';
+$lang['shop:role_admin_product_options'] = 'Edit product OPTIONS';
+$lang['shop:role_developer_fields'] = 'Developer Fields';
+
+
 
 
 

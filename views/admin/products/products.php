@@ -1,14 +1,15 @@
-<!--- FILE.START:VIEW.ADMIN.PRODUCTS.PRODUCTS -->
+
+
 <section class="title">
 
-	<h4><?php echo lang('products'); ?></h4>
+	<h4><?php echo shop_lang('shop:products:products');?></h4>
 	
 	<span style="float:right;">
 	
 		<?php //if ($products) : ?>
-		<a id="flink" href="javascript:toggle_filter()" class='tooltip-s img_icon_title img_filter' title='<?php echo lang('filter'); ?>'></a>
+		<a id="flink" href="javascript:toggle_filter()" class='tooltip-s img_icon_title img_filter' title='<?php echo shop_lang('shop:products:filter');?>'></a>
 		<?php //endif; ?>
-		<a href="admin/shop/products/create" class='tooltip-s img_icon_title img_create' title='<?php echo lang('new'); ?>'></a>
+		<a href="admin/shop/product/create" class='tooltip-s img_icon_title img_create' title='<?php echo shop_lang('shop:products:new');?>'></a>
 		
 	</span>
 	
@@ -38,7 +39,7 @@
 		
 			<div class="no_data">
 				<p></p>
-				<?php echo lang('nodata_products'); ?>
+				<?php echo shop_lang('shop:products:no_data');?>
 			</div>
 			
 		<?php endif; ?>

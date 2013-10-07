@@ -69,6 +69,7 @@ class Tax_m extends MY_Model {
 	public function calc_price($input) 
 	{
 
+		//var_dump($input);die;
 
 		$price = $input['price'];
 		$direction = $input['tax_dir'];

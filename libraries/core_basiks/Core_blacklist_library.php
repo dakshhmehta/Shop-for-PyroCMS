@@ -1,7 +1,11 @@
 <?php if (!defined('BASEPATH'))  exit('No direct script access allowed');
 
-
-/*
+/**
+ * 
+ * CoreBasiks::Blacklist - Admins can blacklist IP/country or email. This No orders can be made by a blacklisted user
+ *
+ * TODO:Implement a white list to override possible an email or IP address. As if a IP is blacklisted, but we know there is a user
+ *  that is allowed to make orders
  *
  * Other classes loaded from here donot need to include Core_library as this file includes it.
  *
@@ -52,24 +56,24 @@ class Core_blacklist_library extends Core_library
 	
 		if(isset($order_data['country']))
 		{
-				$country = $order_data['country'];
+			$country = $order_data['country'];
 
-				if(trim($country) != '')
-				{
-					$this->_user_country[] = $this->prep_country($country);
-				}
+			if(trim($country) != '')
+			{
+				$this->_user_country[] = $this->prep_country($country);
+			}
 
 		}
 
 		
 		if(isset($order_data['shipping_country']))
 		{
-				$country = $order_data['shipping_country'];
+			$country = $order_data['shipping_country'];
 
-				if(trim($country) != '')
-				{
-					$this->_user_country[] = $this->prep_country($country);
-				}
+			if(trim($country) != '')
+			{
+				$this->_user_country[] = $this->prep_country($country);
+			}
 
 		}
 
@@ -84,23 +88,23 @@ class Core_blacklist_library extends Core_library
 		// Check billing email		
 		if(isset($order_data['email']))
 		{
-				$email = $order_data['email'];
+			$email = $order_data['email'];
 
-				if(trim($email) != '')
-				{
-					$this->_user_emails[] = $email;
-				}
+			if(trim($email) != '')
+			{
+				$this->_user_emails[] = $email;
+			}
 
 		}
 
 		if(isset($order_data['shipping_email']))
 		{
-				$email = $order_data['shipping_email'];
+			$email = $order_data['shipping_email'];
 
-				if(trim($email) != '')
-				{
-					$this->_user_emails[] = $email;
-				}
+			if(trim($email) != '')
+			{
+				$this->_user_emails[] = $email;
+			}
 
 		}
 
@@ -117,24 +121,24 @@ class Core_blacklist_library extends Core_library
 		// Check billing email		
 		if(isset($order_data['existing_address_id']))
 		{
-				$addr = $this->addresses_m->get($order_data['existing_address_id']);
+			$addr = $this->addresses_m->get($order_data['existing_address_id']);
 
-				if($addr)
-				{
-					$this->_user_emails[] =$addr->email;
-				}
+			if($addr)
+			{
+				$this->_user_emails[] =$addr->email;
+			}
 
 		}
 
 		// Check Shipping email		
 		if(isset($order_data['existing_address_shipping_id']))
 		{
-				$addr = $this->addresses_m->get($order_data['existing_address_shipping_id']);
+			$addr = $this->addresses_m->get($order_data['existing_address_shipping_id']);
 
-				if($addr)
-				{
-					$this->_user_emails[] = $addr->email;
-				}
+			if($addr)
+			{
+				$this->_user_emails[] = $addr->email;
+			}
 		}
 
 	}

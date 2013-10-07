@@ -49,7 +49,7 @@ class Widget_Shop_Recently_Added extends Widgets {
 		$this->load->model('shop/products_front_m');
 		
 		//Get the last added record from the products table that is active
-		$this->products_front_m->where('public', 1)->where('deleted',0)->order_by("id", "desc");
+		$this->products_front_m->where('public', 1)->where('date_archived', NULL)->order_by("id", "desc");
 	   
 		$max = ($options['max'] > 0) ? $options['max']  : 1 ;
 

@@ -31,15 +31,16 @@ class Core_library
 	 * 
 	 * @var [type]
 	 */
-	private $core_basiks_path;
-
+	protected $core_basiks_path;
+	protected $lib_path;
 
 	public function __construct() 
 	{
 
 		log_message('debug', "Class Initialized");
 
-		$this->core_basiks_path =  dirname(__FILE__) . '/core_basiks/';
+		$this->lib_path =  dirname(__FILE__); //path to lib
+		$this->core_basiks_path =  dirname(__FILE__) . '/core_basiks/';		
 	}
 
 

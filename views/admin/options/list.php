@@ -1,14 +1,19 @@
 <section class="title">
-	<h4><?php echo lang('options'); ?></h4>
-	<h4 style="float:right"><a title='<?php echo lang('new'); ?>' href="admin/shop/options/create" class='tooltip-s modal img_icon_title img_create'></a></h4>
+	<h4><?php echo shop_lang('shop:options:options'); ?></h4>
+	<h4 style="float:right">
+	<a title='<?php echo shop_lang('shop:options:new'); ?>' href="admin/shop/options/create" class='tooltip-s modal img_icon_title img_create'></a>
+	</h4>
 </section>
 <?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
 <section class="item">
 	<div class="content">
 		<?php if (empty($options)): ?>
 			<div class="no_data">
-			<p><?php echo lang('options_description'); ?></p>
-			<?php echo lang('no_items'); ?></div>
+				<p>
+					<?php echo shop_lang('shop:options:description'); ?>
+				</p>
+				<?php echo shop_lang('shop:options:no_data'); ?>
+			</div>
 		</section>
 	<?php else: ?>
 		<table>			
@@ -16,9 +21,9 @@
 				<tr>
 					<th><input type="checkbox" name="action_to_all" value="" class="check-all" /></th>
 					<th></th>
-					<th><?php echo lang('nc:options:title');?></th>
-					<th><?php echo lang('name');?></th>
-					<th><?php echo lang('type');?></th>
+					<th><?php echo shop_lang('shop:options:title'); ?></th>
+					<th><?php echo shop_lang('shop:options:name'); ?></th>
+					<th><?php echo shop_lang('shop:options:type'); ?></th>
 					<th style="width: 120px"></th>
 				</tr>
 			</thead>
@@ -36,9 +41,9 @@
 						<td><?php echo $item->type; ?></td>
 						<td>
 							<span style="float:right;">
-								<a title='<?php echo lang('edit'); ?>' class="tooltip-s img_icon img_edit " href="<?php echo site_url('admin/shop/options/edit/' . $item->id); ?>"> </a>
-								<a title='<?php echo lang('copy'); ?>' class="tooltip-s img_icon img_copy" href="<?php echo site_url('admin/shop/options/duplicate/' . $item->id); ?>"> </a>
-								<a title='<?php echo lang('delete'); ?>' class="tooltip-s img_icon img_delete confirm" href="<?php echo site_url('admin/shop/options/delete/' . $item->id); ?>"> </a>
+								<a title='<?php echo shop_lang('shop:options:edit'); ?>' class="tooltip-s img_icon img_edit " href="<?php echo site_url('admin/shop/options/edit/' . $item->id); ?>"> </a>
+								<a title='<?php echo shop_lang('shop:options:copy'); ?>' class="tooltip-s img_icon img_copy" href="<?php echo site_url('admin/shop/options/duplicate/' . $item->id); ?>"> </a>
+								<a title='<?php echo shop_lang('shop:options:delete'); ?>' class="tooltip-s img_icon img_delete confirm" href="<?php echo site_url('admin/shop/options/delete/' . $item->id); ?>"> </a>
 							</span>
 						</td>
 					</tr>

@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo lang('product_groups'); ?></h4>
+	<h4><?php echo shop_lang('shop:pgroups:product_groups'); ?></h4>
 	<h4 style="float:right"><a href="admin/shop/pgroups/create" class='img_icon_title img_create'></a></h4>
 </section>
 <?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
@@ -7,16 +7,16 @@
 	<div class="content">
 	<?php if (empty($productgroups)): ?>
 		<div class="no_data">
-		<?php echo lang('no_items'); ?></div>
+		<?php echo shop_lang('shop:pgroups:no_data'); ?></div>
 	</div></section>
 <?php else: ?>
 	<table>			
 		<thead>
 			<tr>
 				<th><input type="checkbox" name="action_to_all" value="" class="check-all" /></th>
-				<th></th>
-				<th><?php echo lang('product_group'); ?></th>
-				<th style="width: 120px"></th>
+				<th><?php echo shop_lang('shop:pgroups:name'); ?></th>
+				<th><?php echo shop_lang('shop:pgroups:product_group'); ?></th>
+				<th style="width: 120px"><?php echo shop_lang('shop:pgroups:actions'); ?></th>
 			</tr>
 		</thead>
 		<tbody>

@@ -1,9 +1,9 @@
 
 <section class="title">
-	<h4><?php echo lang('order'); ?> - ( <?php echo lang('account'); ?>: <?php echo  $customer->display_name; ?> )</h4>
+	<h4><?php echo shop_lang('shop:orders:order'); ?> - ( <?php echo shop_lang('shop:orders:account'); ?>: <?php echo  $customer->display_name; ?> )</h4>
 	<h4 style="float:right">
-		<a href="{{ url:site }}shop/" class='button'><?php echo lang('new'); ?></a>
-		<?php echo anchor('admin/shop/orders', lang('view_all'), 'class="button"'); ?>
+		<a href="{{ url:site }}shop/" class='button'><?php echo shop_lang('shop:orders:new'); ?></a>
+		<?php echo anchor('admin/shop/orders', shop_lang('shop:orders:view_all'), 'class="button"'); ?>
 	</h4>		
 </section>
 <section class="item">
@@ -13,9 +13,9 @@
 		<ul>
 			<li>
 				<label>
-					<?php echo lang('order_id'); ?>:
+					<?php echo shop_lang('shop:orders:order_id'); ?>:
 					<small>
-						<?php echo lang('order_id_desc'); ?>:
+						<?php echo shop_lang('shop:orders:order_id_description'); ?>:
 					</small>
 				</label>
 				<div class="value">
@@ -24,13 +24,13 @@
 			</li>   
 			<li>
 				<label>
-					<?php echo lang('order_status'); ?>:
+					<?php echo shop_lang('shop:orders:order_status'); ?>:
 					<small>
-						<?php echo lang('order_status_desc'); ?>:
+						<?php echo shop_lang('shop:orders:order_status_description'); ?>:
 					</small>
 				</label>
 				<div class="value">
-					<?php echo lang($order->status); ?>
+					<?php echo shop_lang('shop:orders:'.$order->status); ?>
 				</div>
 			</li>					  
 		 </ul>	
@@ -39,65 +39,65 @@
 	<div class="tabs">
 
 		<ul class="tab-menu">
-			<li><a href="#order-tab"><span><?php echo lang('details'); ?></span></a></li>
-			<li><a href="#billing-tab"><span><?php echo lang('billing'); ?></span></a></li>
-			<li><a href="#delivery-tab"><span><?php echo lang('shipping'); ?></span></a></li>
-			<li><a href="#contents-tab"><span><?php echo lang('items'); ?></span></a></li>
-			<li><a href="#message-tab"><?php echo lang('messages'); ?></a></li>
-			<li><a href="#transactions-tab"><span><?php echo lang('transactions'); ?></span></a></li>
-			<li><a href="#notes-tab"><span><?php echo lang('notes'); ?></span></a></li>
-			<li><a href="#actions-tab"><span><?php echo lang('actions'); ?></span></a></li>
+			<li><a href="#order-tab"><span><?php echo shop_lang('shop:orders:details'); ?></span></a></li>
+			<li><a href="#billing-tab"><span><?php echo shop_lang('shop:orders:billing'); ?></span></a></li>
+			<li><a href="#delivery-tab"><span><?php echo shop_lang('shop:orders:shipping'); ?></span></a></li>
+			<li><a href="#contents-tab"><span><?php echo shop_lang('shop:orders:items'); ?></span></a></li>
+			<li><a href="#message-tab"><?php echo shop_lang('shop:orders:messages'); ?></a></li>
+			<li><a href="#transactions-tab"><span><?php echo shop_lang('shop:orders:transactions'); ?></span></a></li>
+			<li><a href="#notes-tab"><span><?php echo shop_lang('shop:orders:notes'); ?></span></a></li>
+			<li><a href="#actions-tab"><span><?php echo shop_lang('shop:orders:actions'); ?></span></a></li>
 		</ul>
 		<div id="order-tab" class="form_inputs">
 			<fieldset>
 				<ul>			
 					<?php if ($order->user_id && $customer): ?>
 						<li>
-							<label><?php echo lang('customer'); ?></label>
+							<label><?php echo shop_lang('shop:orders:customer'); ?>:</label>
 							<div class="value">
 								<?php echo anchor('user/' . $customer->id, $customer->display_name,array('class'=>'nc_links')); ?>
 							</div>
 						</li>
 					<?php endif; ?>
 					<li>
-						<label><?php echo lang('items_amount'); ?></label>
+						<label><?php echo shop_lang('shop:orders:items_amount'); ?></label>
 						<div class="value">
 							<?php echo nc_format_price($order->cost_items ); ?><br />
 						</div>
 					</li>
 					<li>
-						<label><?php echo lang('shipping_amount'); ?></label>
+						<label><?php echo shop_lang('shop:orders:shipping_amount'); ?></label>
 						<div class="value">
 							<?php echo nc_format_price($order->cost_shipping); ?><br />
 						</div>
 					</li>		
 					<li>
-						<label><?php echo lang('total'); ?></label>
+						<label><?php echo shop_lang('shop:orders:order_total'); ?></label>
 						<div class="value">
 							<?php echo nc_format_price($order->cost_total); ?><br />
 						</div>
 					</li>									
 					<li>
-						<label><?php echo lang('date_order_placed'); ?></label>
+						<label><?php echo shop_lang('shop:orders:date_order_placed'); ?></label>
 						<div class="value">
-							 <strong> <?php echo date('d / M / Y ', $order->order_date); ?> </strong> @ <?php echo date('H:i:s',$order->order_date) ;?> <small><em>{ <?php echo timespan($order->order_date); ?> <?php echo lang('ago'); ?> }</em></small>
+							 <strong> <?php echo date('d / M / Y ', $order->order_date); ?> </strong> @ <?php echo date('H:i:s',$order->order_date) ;?> <small><em>{ <?php echo timespan($order->order_date); ?> <?php echo shop_lang('shop:orders:ago'); ?> }</em></small>
 						</div>
 					</li>
 					<li>
 					
-						<label><?php echo lang('payment_type'); ?></label>
+						<label><?php echo shop_lang('shop:orders:payment_type'); ?></label>
 						<div class="value">
 							<a href="./admin/shop/gateways/edit/<?php echo $order->gateway_id; ?>"  title="Click to view <?php echo $payments->title; ?>"  class="tooltip-s nc_links"><?php echo $payments->title; ?></a>
 						</div>
 					</li>
 					<li>
-						<label><?php echo lang('shipping_method'); ?></label>
+						<label><?php echo shop_lang('shop:orders:shipping_method'); ?></label>
 						<div class="value">
 							<a href="./admin/shop/shipping/edit/<?php echo $order->shipping_id; ?>" title="Click to view <?php echo $shipping_method->title; ?>" class="tooltip-s nc_links"><?php echo $shipping_method->title; ?></a>
 						</div>
 					</li>	
 					<li>
-						<label>IP Address</label>
+						<label><?php echo shop_lang('shop:orders:ip_address'); ?></label>
 						<div class="value">
 							 <strong><div id="ip_of_order"><?php echo $order->ip_address ;?></div></strong> <br/><a href="#" class="nc_links add_to_blacklist">Add this to the BlackList</a>
 						</div>
@@ -109,47 +109,47 @@
 			<fieldset>
 				<ul>
 					<li>
-						<label><?php echo lang('email'); ?></label>
+						<label><?php echo shop_lang('shop:orders:email'); ?></label>
 						<div class="value">
 							<?php echo $invoice->email; ?>
 						</div>
 					</li>
 					<li>
-						<label><?php echo lang('first_name'); ?></label>
+						<label><?php echo shop_lang('shop:orders:first_name'); ?></label>
 						<div class="value">
 							<?php echo $invoice->first_name; ?>
 						</div>
 					</li>
 					<li>
-						<label><?php echo lang('last_name'); ?></label>
+						<label><?php echo shop_lang('shop:orders:last_name'); ?></label>
 						<div class="value">
 							<?php echo $invoice->last_name; ?>
 						</div>
 					</li>
 					<?php if ($invoice->company != ""): ?>
 					<li>
-						<label><?php echo lang('company'); ?></label>
+						<label><?php echo shop_lang('shop:orders:company'); ?></label>
 						<div class="value">
 							<?php echo $invoice->company; ?>
 						</div>
 					</li>
 					<?php endif; ?>
 					<li>
-						<label><?php echo lang('address'); ?></label>
+						<label><?php echo shop_lang('shop:orders:address'); ?></label>
 						<div class="value">
 							<?php echo $invoice->address1; ?> , 
 							<?php echo $invoice->address2; ?>
 						</div>
 					</li>
 					<li>
-						<label><?php echo lang('city'); ?></label>
+						<label><?php echo shop_lang('shop:orders:city'); ?></label>
 						<div class="value">
 							<?php echo $invoice->city; ?>
 						</div>
 					</li>
 					<?php if ($invoice->state != ""): ?>
 					<li>
-						<label><?php echo lang('state'); ?></label>
+						<label><?php echo shop_lang('shop:orders:state'); ?></label>
 						<div class="value">
 							<?php echo $invoice->state; ?>
 						</div>
@@ -157,20 +157,20 @@
 					<?php endif; ?>
 					<?php if ($invoice->country != ""): ?>
 					<li>
-						<label><?php echo lang('country'); ?></label>
+						<label><?php echo shop_lang('shop:orders:country'); ?></label>
 						<div class="value">
 							<?php echo $invoice->country; ?>
 						</div>
 					</li>
 					<?php endif; ?>
 					<li>
-						<label><?php echo lang('zip'); ?></label>
+						<label><?php echo shop_lang('shop:orders:zip'); ?></label>
 						<div class="value">
 							<?php echo $invoice->zip; ?>
 						</div>
 					</li>
 					<li>
-						<label><?php echo lang('phone'); ?></label>
+						<label><?php echo shop_lang('shop:orders:phone'); ?></label>
 						<div class="value">
 							<?php echo $invoice->phone; ?>
 						</div>
@@ -182,19 +182,19 @@
 			<fieldset>
 				<ul>
 					<li>
-						<label><?php echo lang('email'); ?></label>
+						<label><?php echo shop_lang('shop:orders:email'); ?></label>
 						<div class="value">
 							<?php echo $shipping_address->email; ?>
 						</div>
 					</li>
 					<li>
-						<label><?php echo lang('first_name'); ?></label>
+						<label><?php echo shop_lang('shop:orders:first_name'); ?></label>
 						<div class="value">
 							<?php echo $shipping_address->first_name; ?>
 						</div>
 					</li>
 					<li>
-						<label><?php echo lang('last_name'); ?></label>
+						<label><?php echo shop_lang('shop:orders:last_name'); ?></label>
 						<div class="value">
 							<?php echo $shipping_address->last_name; ?>
 						</div>
@@ -202,7 +202,7 @@
 					
 					<?php if ($shipping_address->company != ""): ?>
 					<li>
-						<label><?php echo lang('company'); ?></label>
+						<label><?php echo shop_lang('shop:orders:company'); ?></label>
 						<div class="value">
 							<?php echo $shipping_address->company; ?>
 						</div>
@@ -210,38 +210,38 @@
 					<?php endif; ?>
 
 					<li>
-						<label><?php echo lang('address'); ?></label>
+						<label><?php echo shop_lang('shop:orders:address'); ?></label>
 						<div class="value">
 							<?php echo $shipping_address->address1; ?>,
 							<?php echo $shipping_address->address2; ?>
 						</div>
 					</li>
 					<li>
-						<label><?php echo lang('city'); ?></label>
+						<label><?php echo shop_lang('shop:orders:city'); ?></label>
 						<div class="value">
 							<?php echo $shipping_address->city; ?>
 						</div>
 					</li>
 					<li>
-						<label><?php echo lang('state'); ?></label>
+						<label><?php echo shop_lang('shop:orders:state'); ?></label>
 						<div class="value">
 							<?php echo $shipping_address->state; ?>
 						</div>
 					</li>
 					<li>
-						<label><?php echo lang('country'); ?></label>
+						<label><?php echo shop_lang('shop:orders:country'); ?></label>
 						<div class="value">
 							<?php echo $shipping_address->country; ?>
 						</div>
 					</li>
 					<li>
-						<label><?php echo lang('zip'); ?></label>
+						<label><?php echo shop_lang('shop:orders:zip'); ?></label>
 						<div class="value">
 							<?php echo $shipping_address->zip; ?>
 						</div>
 					</li>
 					<li>
-						<label><?php echo lang('phone'); ?></label>
+						<label><?php echo shop_lang('shop:orders:phone'); ?></label>
 						<div class="value">
 							<?php echo $shipping_address->phone; ?>
 						</div>
@@ -255,13 +255,13 @@
 				<table>
 					<thead>
 						<tr>
-							<th><?php echo lang('image'); ?></th>
-							<th><?php echo lang('item'); ?></th>
-							<th><?php echo lang('item_code'); ?></th>
-							<th><?php echo lang('price_base'); ?></th>
-							<th><?php echo lang('quantity'); ?></th>
-							<th><?php echo lang('price'); ?></th>
-							<th><?php echo lang('subtotal'); ?></th>
+							<th><?php echo shop_lang('shop:orders:image'); ?></th>
+							<th><?php echo shop_lang('shop:orders:item'); ?></th>
+							<th><?php echo shop_lang('shop:orders:item_code' ,'item_'); ?></th>
+							<th><?php echo shop_lang('shop:orders:price_base', 'price_'); ?></th>
+							<th><?php echo shop_lang('shop:orders:qty'); ?></th>
+							<th><?php echo shop_lang('shop:orders:price'); ?></th>
+							<th><?php echo shop_lang('shop:orders:subtotal'); ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -301,16 +301,16 @@
 		<div id="message-tab" class="form_inputs">
 			
 			<fieldset>
-			 	<strong><?php echo lang('message_history'); ?></strong>
+			 	<strong><?php echo shop_lang('shop:orders:messages'); ?></strong>
 			 	
 			 	<table class='fixed' >
 					<thead class='fixed'>
 							<tr>
-								<th><?php echo lang('from'); ?></th>
-								<th><?php echo lang('date'); ?></th>
-								<th><?php echo lang('status'); ?></th>
-								<th><?php echo lang('subject'); ?></th>
-								<th><?php echo lang('message'); ?></th>
+								<th><?php echo shop_lang('shop:orders:from'); ?></th>
+								<th><?php echo shop_lang('shop:orders:date'); ?></th>
+								<th><?php echo shop_lang('shop:orders:status'); ?></th>
+								<th><?php echo shop_lang('shop:orders:subject'); ?></th>
+								<th><?php echo shop_lang('shop:orders:message'); ?></th>
 							</tr>
 					</thead>
 				</table>	   
@@ -332,13 +332,13 @@
 				</div>
 
 				<div style="display:none;">
-					<h4><?php echo lang('view_message'); ?>:</h4>
+					<h4><?php echo shop_lang('shop:orders:view_message'); ?></h4>
 					<div id="message_preview_window">
-					   load message here...
+					   <?php echo shop_lang('shop:orders:loading_messages'); ?>
 					</div>
 				</div>
 
-				<strong><?php echo lang('compose'); ?></strong> <br /><br /><br />
+				<strong><?php echo shop_lang('shop:orders:compose'); ?></strong> <br /><br /><br />
 				<?php echo form_open('admin/shop/orders/messages'); ?>
 				<?php echo form_hidden('order_id', $order->id); ?>
 				<?php echo form_hidden('user_name', ''.$user->username); ?>
@@ -346,20 +346,20 @@
 				<div class="form_inputs">
 					<ul>
 						<li>
-							<?php echo lang('subject'); ?>
+							<?php echo shop_lang('shop:orders:subject'); ?>
 							<div class="">
 								<?php echo form_input(array( 'name' => 'subject', 'value' => set_value('subject'))); ?>
 							</div>
 						</li>
 						<li>
-							<?php echo lang('message'); ?>
+							<?php echo shop_lang('shop:orders:message'); ?>
 							<div class="">
 								<?php echo form_textarea(array( 'name' => 'message', 'value' => set_value('message'), 'rows' => 3)); ?>
 							</div>
 						</li>
 						<li>
 							<div class="">
-								<?php echo form_submit('save', lang('send')); ?>
+								<?php echo form_submit('save', shop_lang('shop:brands:send')); ?>
 							</div>
 						</li>
 					</ul>
@@ -373,13 +373,13 @@
 					<table>
 						<thead>
 							<tr>
-								<th><?php echo lang('status'); ?></th>
-								<th><?php echo lang('reason'); ?></th>
-								<th><?php echo lang('received'); ?></th>
-								<th><?php echo lang('refunded'); ?></th>
-								<th><?php echo lang('user'); ?></th>
-								<th><?php echo lang('date'); ?></th>
-								<th><?php echo lang('action'); ?></th>
+								<th><?php echo shop_lang('shop:orders:status'); ?></th>
+								<th><?php echo shop_lang('shop:orders:reason'); ?></th>
+								<th><?php echo shop_lang('shop:orders:received'); ?></th>
+								<th><?php echo shop_lang('shop:orders:refunded'); ?></th>
+								<th><?php echo shop_lang('shop:orders:user'); ?></th>
+								<th><?php echo shop_lang('shop:orders:date'); ?></th>
+								<th><?php echo shop_lang('shop:orders:action'); ?></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -423,7 +423,7 @@
 						</li>
 						<li>
 							<div class="">
-								<?php echo form_submit('save', lang('save')); ?>
+								<?php echo form_submit('save', shop_lang('shop:orders:save')); ?>
 							</div>
 						</li>
 					</ul>
@@ -453,36 +453,36 @@
 							case 'placed';
 							case 'pending';
 							case 'processing';												
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/paid', lang('mark_as_paid') ,'class="button blue"')."</div></li>";
+								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/paid', shop_lang('shop:orders:mark_as_paid') ,'class="button blue"')."</div></li>";
 								break;
 							case 'closed';
 							case 'cancelled';
 								$show_cancel = FALSE;
 								$show_close = FALSE;
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/reopen', lang('open_set_as_pending') ,'class="button blue"')."</div></li>";
+								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/reopen', shop_lang('shop:orders:open_and_set_to_pending') ,'class="button blue"')."</div></li>";
 								break;
 							case 'complete':
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/cancelled', lang('mark_as_cancelled'),'class="button blue"')."</div></li>";
+								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/cancelled', shop_lang('shop:orders:mark_as_cancelled'),'class="button blue"')."</div></li>";
 								break;
 							case 'paid':
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/shipped',lang('mark_as_shipped') ,'class="button blue"')."</div></li>";
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/processing',"Mark as Processing" ,'class="button blue"')."</div></li>";
+								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/shipped',shop_lang('shop:orders:mark_as_shipped') ,'class="button blue"')."</div></li>";
+								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/processing',shop_lang('shop:orders:mark_as_processing') ,'class="button blue"')."</div></li>";
 								break;
 							case 'shipped':
 								$show_cancel = FALSE;
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/returned',lang('mark_as_returned') ,'class="button blue"')."</div></li>";
+								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/returned',shop_lang('shop:orders:mark_as_returned') ,'class="button blue"')."</div></li>";
 								break;
 							case 'returned':
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/shipped',lang('mark_as_shipped') ,'class="button blue"')."</div></li>";
+								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/shipped',shop_lang('shop:orders:mark_as_shipped') ,'class="button blue"')."</div></li>";
 								break;																															
 			
 						}
 						
 						if ($show_cancel) {
-							echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/cancelled', lang('cancel_order'), 'class="button red delete"')."</div></li>";
+							echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/cancelled', shop_lang('shop:orders:cancel_order'), 'class="button red delete"')."</div></li>";
 						}
 						if ($show_close) {
-							echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/closed',  lang('close_order'), 'class="button red delete"')."</div></li>";
+							echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/closed',  shop_lang('shop:orders:close_order'), 'class="button red delete"')."</div></li>";
 						}						
  
 						?>				
@@ -494,4 +494,3 @@
 	
 </div>
 </section>
-<!--- FILE.END:VIEW.ADMIN.ORDERS.ORDER --->

@@ -1,7 +1,7 @@
 <div id="sortable">
 	<div class="" id="">
 		<section class="draggable title">
-			<h4><?php echo lang('manage_shipping'); ?></h4>
+			<h4><?php echo shop_lang('shop:shipping:shipping'); ?></h4>
 			<a class="tooltip-s toggle" title="Toggle this element"></a>
 		</section>
 		<section class="item">
@@ -9,8 +9,8 @@
 
 				<div class="tabs">
 					  <ul class="tab-menu">
-						<li><a href="#installed"><?php echo lang('installed'); ?></a></li>
-						<li><a href="#available"><?php echo lang('available'); ?></a></li>
+						<li><a href="#installed"><?php echo shop_lang('shop:shipping:installed'); ?></a></li>
+						<li><a href="#available"><?php echo shop_lang('shop:shipping:available'); ?></a></li>
 						<li><a href="#countries">Country List</a></li>
 					  </ul>
 						<div id="installed" class="form_inputs">
@@ -19,9 +19,9 @@
 										<table>
 											<thead>
 												<tr>
-													<th><?php echo lang('name'); ?></th>
-													<th><?php echo lang('image'); ?></th>
-													<th><?php echo lang('desc'); ?></th>
+													<th><?php echo shop_lang('shop:shipping:name'); ?></th>
+													<th><?php echo shop_lang('shop:shipping:image'); ?></th>
+													<th><?php echo shop_lang('shop:shipping:description'); ?></th>
 													<th></th>
 												</tr>
 											</thead>
@@ -34,14 +34,14 @@
 														<td class="actions">
 															<span style='float:right'>
 															<?php if ($item->enabled) {
-																echo anchor('admin/shop/shipping/disable/' . $item->id, ' ',  array('title' => lang('setinvisible') , 'class' => 'tooltip-s img_icon img_visible') );
+																echo anchor('admin/shop/shipping/disable/' . $item->id, ' ',  array('title' => shop_lang('shop:shipping:disable') , 'class' => 'tooltip-s img_icon img_visible') );
 															} else {
-																echo anchor('admin/shop/shipping/enable/' . $item->id, ' ', array('title' => lang('setvisible') , 'class' => 'tooltip-s img_icon img_invisible') );
+																echo anchor('admin/shop/shipping/enable/' . $item->id, ' ', array('title' => shop_lang('shop:shipping:enable')  , 'class' => 'tooltip-s img_icon img_invisible') );
 															}; ?>
 															<?php
 															echo
-															anchor('admin/shop/shipping/edit/' . $item->id, ' ', array('title' => lang('edit') , 'class' => 'tooltip-s img_icon img_edit')) . ' ' .
-															anchor('admin/shop/shipping/uninstall/' . $item->id, ' ', array('title'=>lang('uninstall'), 'class' => 'tooltip-s img_icon img_delete confirm'));
+															anchor('admin/shop/shipping/edit/' . $item->id, ' ', array('title' => shop_lang('shop:shipping:edit')  , 'class' => 'tooltip-s img_icon img_edit')) . ' ' .
+															anchor('admin/shop/shipping/uninstall/' . $item->id, ' ', array('title'=>shop_lang('shop:shipping:uninstall') , 'class' => 'tooltip-s img_icon img_delete confirm'));
 															?>
 															</span>
 														</td>
@@ -57,7 +57,7 @@
 											</tfoot>
 										</table>
 									<?php else: ?>
-										<div class="no_data"><?php echo lang('no_items'); ?></div>
+										<div class="no_data"><?php echo shop_lang('shop:shipping:no_data') ; ?></div>
 									<?php endif; ?>
 
 									<?php echo form_close(); ?>
@@ -70,9 +70,9 @@
 										<table>
 											<thead>
 												<tr>
-													<th><?php echo lang('name'); ?></th>
-													<th><?php echo lang('image'); ?></th>
-													<th><?php echo lang('desc'); ?></th>
+													<th><?php echo lang('shop:admin:name'); ?></th>
+													<th><?php echo lang('shop:admin:image'); ?></th>
+													<th><?php echo lang('shop:admin:description'); ?></th>
 													<th></th>
 												</tr>
 											</thead>
@@ -98,7 +98,7 @@
 										</table>
 
 									<?php else: ?>
-										<div class="no_data"><?php echo lang('no_items'); ?></div>
+										<div class="no_data"><?php echo lang('shop:shipping:no_data'); ?></div>
 									<?php endif; ?>
 
 									<?php echo form_close(); ?>
@@ -111,10 +111,10 @@
 										<table>
 											<thead>
 												<tr>
-													<th><?php echo lang('id'); ?></th>
-													<th><?php echo lang('name'); ?></th>
-													<th>code</th>
-													<th>Enabled</th>
+													<th><?php echo lang('shop:admin:id'); ?></th>
+													<th><?php echo lang('shop:admin:name'); ?></th>
+													<th><?php echo lang('shop:admin:code'); ?></th>
+													<th><?php echo lang('shop:admin:enabled'); ?></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -143,7 +143,7 @@
 										</table>
 
 									<?php else: ?>
-										<div class="no_data"><?php echo lang('no_items'); ?></div>
+										<div class="no_data"><?php echo lang('shop:shipping:no_data'); ?></div>
 									<?php endif; ?>
 
 									<?php echo form_close(); ?>

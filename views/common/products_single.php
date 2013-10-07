@@ -61,14 +61,6 @@
 			   		</tr>			   		
 			   		<tr>
 				   		<td>
-				   			Short Desc
-				   		</td>
-				   		<td>
-				   			{{product:short_desc}}
-				   		</td>				   		
-			   		</tr>
-			   		<tr>
-				   		<td>
 				   			Meta Desc
 				   		</td>
 				   		<td>

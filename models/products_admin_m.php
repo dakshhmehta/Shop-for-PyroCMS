@@ -35,7 +35,7 @@ class Products_admin_m extends Products_m
 	private $_description_tags = '<b><div><strong><em><i><u><ul><ol><li><p><span><a><br><br />';
 
 	
-	
+
 	public function __construct() 
 	{
 		parent::__construct();
@@ -61,44 +61,71 @@ class Products_admin_m extends Products_m
 		$to_insert = array(
 				'name' => $input['name'],
 				'meta_desc' => strip_tags($input['meta_desc']),
-				'short_desc' => strip_tags($input['short_desc']),
 				'description' =>  strip_tags($input['description'], $this->_description_tags),
 				'slug' => $new_slug,
 				'keywords' => '',
-				'price' =>  $input['price'] ,
-				'price_bt' =>  $input['price_bt'] ,
-				'price_at' =>  $input['price_at'] ,
-				'price_base' =>  $input['price_base'],
-				'rrp' =>  $input['rrp'], 
+				'price' => $input['price'] ,
+				'price_bt' =>  $input['price'], /*price_bt is deprecated*/ 
+				'price_at' => $input['price'] , /*price_at is deprecated*/ 
+				'price_base' => $input['price_base'], // $input['price_base'],
+				'rrp' => $input['price'], 
 				'tax_id' => $input['tax_id'],
 				'tax_dir' => $input['tax_dir'],
 				 //'cover_id' => $input['cover_id'],
 				'pgroup_id' => NULL,
 				'status' => 0,
-				'category_id' => $input['category_id'],
-				'brand_id' => $input['brand_id']!=''?$input['brand_id']:NULL,
-				'package_id' => $input['pckg_id']!=''?$input['pckg_id']:NULL,
-				
+				'category_id' => 0,
+				'brand_id' => NULL,
+				'package_id' => NULL,			
 				'created_by' => $user_id,
-	
-				'product_type' =>'',
 				'inventory_low_qty' => 5,
 				'inventory_on_hand' => 0,
 				'inventory_type' => 0, 
 				'featured' => 0,
 				'searchable' => 1,
 				'public' => 0, 
-				'deleted' => 0, 
+				//'deleted' => 0, 
 				'date_created' => date("Y-m-d H:i:s"),
 				'date_updated' => date("Y-m-d H:i:s"),
-				'code' =>  $input['code'],
+				'code' =>  '',
 		);
 	
 		$id =  $this->insert($to_insert); 
+
+		if($id)
+		{ 
+			$this->add_to_search($id, $input['name'], strip_tags($input['description']) );
+		}
 	
 
 		return $id;
 		
+	}
+
+
+	private function add_to_search($id, $name,$desc)
+	{
+		// Load the search index model
+		$this->load->model('search/search_index_m');
+
+
+		$this->search_index_m->index(
+		    'shop', 
+		    'shop:product', 
+		    'shop:products', 
+		    $id,
+		    'shop/product/edit/'.$id,
+		    $name,
+		    $desc, 
+		    array(
+		        'cp_edit_uri'   => 'admin/shop/product/edit/'.$id,
+		        'cp_delete_uri' => 'admin/shop/product/delete/'.$id,
+		        'keywords'      => NULL,
+		    )
+		);
+
+		return TRUE;
+
 	}
 
 	/** 
@@ -114,41 +141,28 @@ class Products_admin_m extends Products_m
 		// Start the transaction
 		$this->trans_begin();
 
-		$slug = sf_clean_slug($input['slug']);
 
-		$slug = $this->get_unique_slug($slug, $id);
-		
-		$update_record = array(
-			'name' => $input['name'],
-			'meta_desc' => strip_tags($input['meta_desc']),
-			'short_desc' => strip_tags($input['short_desc']),
-			'slug' => $slug,
-			'keywords' => $input['keywords'],
-			'price' =>  $input['price'] ,
-			'price_bt' =>  $input['price_bt'],
-			'price_at' =>  $input['price_at'] ,	   
-			'price_base' =>  $input['price_base'],
-			'rrp' => $input['rrp'] , 
-			'tax_id' => $input['tax_id'],
-			'tax_dir' => $input['tax_dir'],
-			'pgroup_id' => ($input['pgroup_id']=='')?NULL:$input['pgroup_id'],
-			'status' => $input['status'],
-			'category_id' => $input['category_id'],
-			'brand_id' => $input['brand_id']!=''?$input['brand_id']:NULL,
-			'package_id' => $input['pckg_id']!=''?$input['pckg_id']:NULL,				
-			'description' => strip_tags($input['description'], $this->_description_tags),
-			'product_type' =>'',				
-			'inventory_on_hand' => $input['inventory_on_hand'],
-			'inventory_low_qty' => $input['inventory_low_qty'],
-			'inventory_type' => $input['inventory_type'],
-			'featured' => (isset($input['featured']))?1:0,	
-			'searchable' => (isset($input['searchable']))?1:0,	
-			'date_updated' => date("Y-m-d H:i:s"),
-			'code' =>  $input['code'],		
-		);
 
-		
-		
+		$update_record = array();
+
+		foreach($input as $key => $value)
+		{
+			$out_value = null;
+
+			// we need to check for each field as they need to be handled
+			if($this->check_field_req($key,$value, $out_value, $id))
+			{
+				$update_record[$key] = $out_value;
+			}
+			 
+		}
+
+		//always do this
+		//$update_record['featured'] = (isset($input['featured']))?1:0;	
+		//$update_record['searchable'] = (isset($input['searchable']))?1:0;						
+		$update_record['date_updated'] = date("Y-m-d H:i:s");
+
+				
 			
 		$result =  $this->update($id, $update_record); 
 		
@@ -173,6 +187,77 @@ class Products_admin_m extends Products_m
 		// Return value
 		return $result;
 
+	}
+
+	/**
+	 * [check_field_req description]
+	 * @param  [type] $key   [description]
+	 * @param  [type] $value [description]
+	 * @param  [type] $out   [description]
+	 * @param  [type] $id    [The Id is needed to check for existing records for slug field that do not match the same ID]
+	 * @return [type]        [description]
+	 */
+	private function check_field_req($key, $value, &$out, $id)
+	{
+		$pass = FALSE;	
+
+		switch ($key) 
+		{
+			case 'meta_desc':
+				$out = strip_tags($value);
+				$pass = TRUE;
+				break;		
+
+
+			case 'description':		
+				$out = strip_tags($value, $this->_description_tags);
+				$pass = TRUE;
+				break;	
+
+			case 'slug':
+				$slug = sf_clean_slug($value);
+				$out = $this->get_unique_slug($slug, $id);
+				$pass = TRUE;
+				break;
+
+			case 'inventory_on_hand':
+			case 'inventory_low_qty':
+			case 'inventory_type':	
+			case 'status':		
+			case 'category_id':
+			case 'featured':
+			case 'searchable':
+			case 'name':
+			case 'price':		
+			case 'price_bt':
+			case 'price_at':
+			case 'price_base':
+			case 'rrp':
+			case 'tax_id':
+			case 'tax_dir':			
+			case 'keywords':
+			case 'code':		
+				$out = $value;
+				$pass = TRUE;
+				break;
+
+
+			case 'brand_id':
+			case 'package_id':
+			case 'pgroup_id':
+				$out = ($value=='')?NULL:$value;
+				$pass = TRUE;	
+				break;
+
+			default:
+				$pass = FALSE;	
+				break;
+
+		}
+
+		return $pass;
+
+		
 	}
 
 
@@ -216,7 +301,6 @@ class Products_admin_m extends Products_m
 		$to_insert = array(
 				'name' => $product->name.$suffix,
 				'meta_desc' => $product->meta_desc,
-				'short_desc' => $product->short_desc,
 				'slug' => $new_slug,
 				'keywords' => $product->keywords,
 				'price' => $product->price,
@@ -233,12 +317,12 @@ class Products_admin_m extends Products_m
 				'brand_id' => $product->brand_id,
 				'package_id' => $product->package_id,
 				'description' => $product->description,
-				'product_type' => $product->product_type,
+				//'product_type' => $product->product_type,
 				'inventory_low_qty' => $product->inventory_low_qty,
 				'inventory_on_hand' => $product->inventory_on_hand,
 				'inventory_type' => $product->inventory_type,
 				'public' =>  0, 
-				'deleted' =>  0, 
+				//'deleted' =>  0, 
 				'featured' => $product->featured,
 				'searchable' => $product->searchable,
 				'date_created' => date("Y-m-d H:i:s"),
@@ -248,6 +332,13 @@ class Products_admin_m extends Products_m
 		
 		
 		$new_id =  $this->insert($to_insert); //returns id
+
+
+		if($new_id)
+		{ 
+			$this->add_to_search($new_id, $product->name.$suffix, strip_tags($product->description) );
+		}
+
 
 		$this->options_product_m->duplicate_product_options( $id, $new_id );
 
@@ -292,11 +383,10 @@ class Products_admin_m extends Products_m
 	public function delete($product_id)
 	{	
 	
-
 		//$this->update($product_id, array('date_updated' => date("Y-m-d H:i:s") ) );
-		$this->update($product_id, array('date_archived' => date("Y-m-d H:i:s") ) );
+		return $this->update($product_id, array('date_archived' => date("Y-m-d H:i:s") ) );
 		
-		return $this->update($product_id, array('deleted' => 1) ); //returns id
+		//return $this->update($product_id, array('deleted' => 1) ); //returns id
 		
 	}
 	
@@ -379,7 +469,7 @@ class Products_admin_m extends Products_m
 		}
 
 
-		$new_filter['deleted'] = 0 ;
+		//$new_filter['deleted'] = 0 ;
 
 
 		return $new_filter;
@@ -406,14 +496,18 @@ class Products_admin_m extends Products_m
 
 		// Get the count
 		$this->like('name', trim($filter['search']));
+
 		foreach ($new_filter as $key => $value) 
 		{
 			$this->where($key,$value);
 		}
 
+		$this->where('date_archived', NULL);
+
 		return $this->count_by($new_filter);
 		
 	}
+
 	
 	public function admin_filter_get($filter = array() , $limit, $offset = 0) 
 	{
@@ -427,10 +521,14 @@ class Products_admin_m extends Products_m
 		// Get the paged results
 		$this->reset_query();		
 		$this->like('name', trim($filter['search']));
+		
 		foreach ($new_filter as $key => $value) 
 		{
 			$this->where($key,$value);
 		}		
+		
+		$this->where('date_archived', NULL);
+
 		$this->db->order_by($filter['order_by']);
 		$this->db->limit( $limit , $offset );
 

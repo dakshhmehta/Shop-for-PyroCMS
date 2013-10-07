@@ -274,7 +274,7 @@ class Plugin_Shop extends Plugin
 			return array();
 
 		//if we have used the products_front_m we shouldnt have to check this.
-		if (($product->deleted) || ($product->public == 0)) 
+		if (is_deleted($product) || ($product->public == 0)) 
 			return array();
 
 		return (array) $product;	

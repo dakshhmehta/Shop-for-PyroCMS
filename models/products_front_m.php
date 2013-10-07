@@ -139,8 +139,8 @@ class Products_front_m extends Products_m
 			$product = $this->pyrocache->model('products_m', 'get_product', $parm); 
 		}
 		
-		
-		if (($product->deleted) || ($product->public === ProductVisibility::Invisible ))
+
+		if (($product->date_archived != NULL) || ($product->public === ProductVisibility::Invisible ))
 		{
 			return NULL;
 		}
@@ -189,13 +189,21 @@ class Products_front_m extends Products_m
 		// 
 		if( isset($filter['category_id']) )
 		{
+			
 			// Get by category or sub categories
-			$this->where('category_id', $cat_id )->where('public', ProductVisibility::Visible )->where('deleted', ProductStatus::Active )->where('searchable', 1 ); 
+			$this->where('category_id', $cat_id )
+				->where('public', ProductVisibility::Visible )
+				->where('date_archived', NULL )
+				->where('searchable', 1 ); 
 
 
 			foreach($categories as $category)
 			{
-				$this->or_where('category_id', $category->id )->where('public', ProductVisibility::Visible )->where('deleted', ProductStatus::Active )->where('searchable', 1 );
+				$this
+					->or_where('category_id', $category->id )
+					->where('public', ProductVisibility::Visible )
+					->where('date_archived', NULL )
+					->where('searchable', 1 );
 
 			}
 
@@ -205,7 +213,9 @@ class Products_front_m extends Products_m
 		//
 		// Get the filtered Count
 		//
-		$items = $this->where('public', ProductVisibility::Visible )->where('deleted', ProductStatus::Active )->where('searchable', 1 )
+		$items = $this->where('public', ProductVisibility::Visible )
+					->where('date_archived', NULL )
+					->where('searchable', 1 )
 					->order_by('id' , 'desc')
 					->limit( $limit , $offset )
 					->get_all();
@@ -215,6 +225,26 @@ class Products_front_m extends Products_m
 
 	}
 
+	/*count by that counts al products within subcategories as well*/
+	public function get_all_public( )
+	{
+
+		//
+		//	we need to do this as we have now collected the categories
+		//
+		$this->db->reset_query();	
+
+
+
+
+		$data =  $this->where(array('public' => 1, 'date_archived' => NULL ) )->get_all();
+
+
+		return $data;
+
+
+
+	}
 
 
 
@@ -223,7 +253,6 @@ class Products_front_m extends Products_m
 	{
 
 		
-
 		//
 		//
 		// add to the existing filter the settings for all front end items
@@ -233,7 +262,7 @@ class Products_front_m extends Products_m
 		//
 		//
 		$filter['public'] = ProductVisibility::Visible;
-		$filter['deleted'] = ProductStatus::Active;
+		//$filter['deleted'] = ProductStatus::Active;
 		$filter['searchable'] = 1;
 
 
@@ -242,7 +271,6 @@ class Products_front_m extends Products_m
 		//
 		$count = 0;
 		$categories = array();
-
 
 
 
@@ -269,6 +297,8 @@ class Products_front_m extends Products_m
 		$this->db->reset_query();	
 
 
+		$this->where('date_archived', NULL );
+
 		//count all products by first category and standard fields
 		$count = $this->count_by($filter);
 
@@ -280,10 +310,8 @@ class Products_front_m extends Products_m
 
 			$filter['category_id'] = $category->id ;
 
+			$count += $this->where('date_archived', NULL )->count_by($filter);
 
-			$count += $this->count_by($filter);
-
-				
 		}		
 
 
@@ -318,7 +346,6 @@ class Products_front_m extends Products_m
 							//important
 							->like('shop_products.name', $term)
 							->or_like('shop_products.description',$term,'after')
-							->or_like('shop_products.short_desc',$term)
 							->or_like('shop_products.meta_desc',$term)
 							->or_like('shop_products.code',$term)
 							->or_like('shop_products.id',$term)

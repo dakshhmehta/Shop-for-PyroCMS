@@ -1,0 +1,67 @@
+
+				<fieldset>
+					<ul>
+						<li>
+							<label>
+								<?php echo shop_lang('shop:products:inventory'); ?>
+								<small>
+									<?php echo shop_lang('shop:products:inventory_description'); ?>
+								</small>
+							</label>
+							<div class="input">
+							</div>
+						</li>	
+						<li>
+							<label><?php echo shop_lang('shop:products:unlimited_stock'); ?>
+								<small>
+									<?php echo shop_lang('shop:products:unlimited_stocky_description'); ?>
+								</small>
+							</label>
+							<div class="input">
+							
+							<?php
+									echo form_dropdown('inventory_type', array(
+										'1' => shop_lang('shop:products:yes'), 
+										'0' => shop_lang('shop:products:no'), 
+										), set_value('inventory_type', $inventory_type), 'class="width-15"');
+									?>
+							</div>
+						</li>						
+						<li>
+							<label><?php echo shop_lang('shop:products:on_hand') ; ?></label>
+							<div class="input">
+								<?php echo form_input('inventory_on_hand', $inventory_on_hand, 'class="width-15" id="inventory_on_hand"'); ?>
+							</div>
+						</li>
+						<li>
+							<label>
+								<?php echo shop_lang('shop:products:low_qty') ; ?>
+								<small>
+									<?php echo shop_lang('shop:products:low_qty_description') ; ?>
+								</small>
+							</label>
+							<div class="input">
+								<?php echo form_input('inventory_low_qty', $inventory_low_qty, 'class="width-15" '); ?>
+							</div>
+						</li>	
+						<li class="<?php echo alternator('', 'even'); ?>">
+							<label for="status">
+								<?php echo shop_lang('shop:products:stock_status') ;?>
+								<small>
+									<?php echo shop_lang('shop:products:stock_status_description') ; ?>
+								</small>							
+							</label>
+							<div class="input">
+								<?php
+									echo form_dropdown('status', array(
+										'in_stock' => shop_lang('shop:products:stock_status_in_stock', 'stock_status_') , 
+										'soon_available' => shop_lang('shop:products:stock_status_available_soon', 'stock_status_') , 
+										'discontinued'=> shop_lang('shop:products:stock_status_discontinued', 'stock_status_') , 
+										'out_of_stock' => shop_lang('shop:products:stock_status_out_of_stock', 'stock_status_') , 
+										), set_value('status', $status), 'class="width-15"');
+								?>
+							</div>
+						</li>	
+					</ul>
+				</fieldset>
+			

@@ -141,9 +141,9 @@ class Products_m extends MY_Model
 
 		foreach($product->images as $image)
 		{
-				$afile = $this->files->get_file($image->file_id);
+			$afile = $this->files->get_file($image->file_id);
 				
-				$image->name = $afile['data']->name;
+			$image->name = $afile['data']->name;
 		}
 
 

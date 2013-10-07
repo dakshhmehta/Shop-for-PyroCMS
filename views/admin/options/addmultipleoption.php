@@ -8,25 +8,25 @@
 
 							<!--- -->
 							<li>
-								<label>Option Value</label>        
+								<label><?php echo shop_lang('shop:options:option_value'); ?></label>        
 								<div class="input">         
 									<?php echo form_input('value1'); ?>
 								</div>
 							</li>
 							<li>
-								<label>Option Value</label>        
+								<label><?php echo shop_lang('shop:options:option_value'); ?></label>        
 								<div class="input">         
 									<?php echo form_input('value2'); ?>
 								</div>
 							</li>							
 							<li>
-								<label>Option Value</label>        
+								<label><?php echo shop_lang('shop:options:option_value'); ?></label>        
 								<div class="input">         
 									<?php echo form_input('value3'); ?>
 								</div>
 							</li>
 							<li>
-								<label>Option Value</label>        
+								<label><?php echo shop_lang('shop:options:option_value'); ?></label>        
 								<div class="input">         
 									<?php echo form_input('value4'); ?>
 								</div>

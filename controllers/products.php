@@ -139,7 +139,7 @@ class Products extends Public_Controller
 			$item->category_name = '';
 			$item->category_slug = '';
 			
-			if( ($item->deleted == 1)||($item->public == 0) )
+			if( ($item->date_archived != NULL)||($item->public == 0) )
 			{
 				//unset from bad search
 				unset($search_results[$key]);
@@ -150,7 +150,7 @@ class Products extends Public_Controller
 		$data->items = $search_results;
 				
 		// Clear limit
-		$limit = null;
+		$limit = NULL;
 		
 		
 		// set the layout to FALSE and load the view

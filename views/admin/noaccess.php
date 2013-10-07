@@ -1,4 +1,3 @@
-<!--- FILE.START:VIEW.ADMIN.NOACCESS --->
 <div id="sortable">
 	<div class="" id="">
 		<section class="title no_data">
@@ -6,4 +5,3 @@
 		</section>
 	</div>
 </div>
-<!--- FILE.END:VIEW.ADMIN.NOACCESS --->

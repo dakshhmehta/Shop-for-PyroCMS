@@ -257,7 +257,7 @@ class Cart extends Public_Controller
 		//
 		//check product validady (visible or deleted)
 		//
-		if( $item->deleted || ($item->public === ProductVisibility::Invisible ) )
+		if( is_deleted($item) || ($item->public === ProductVisibility::Invisible ) )
 		{
 			$this->session->set_flashdata('feedback', lang('product_not_avail') );
 			return FALSE;

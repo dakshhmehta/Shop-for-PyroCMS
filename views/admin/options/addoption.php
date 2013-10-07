@@ -3,7 +3,7 @@
 	<?php echo form_hidden('id', $id ); ?>
 	
 		<section class="title">
-				<h4><?php echo lang('nc:admin:add_option_value');  ?></h4>
+				<h4>d<?php echo shop_lang('shop:options:add_option_value'); ?></h4>
 		</section>
 
 		<section class="item form_inputs">
@@ -15,16 +15,16 @@
 
 							<!--- -->
 							<li>
-								<label>Option Value</label>        
+								<label><?php echo shop_lang('shop:options:option_value'); ?></label>        
 								<div class="input">         
 									<?php echo form_input('value'); ?>
 								</div>
 							</li>
 							<li>
-								<label for="operator"><?php echo lang('nc:admin:operator'); ?> 
+								<label for="operator"><?php echo shop_lang('shop:options:operator'); ?> 
 									<span>*</span>
 									<small>
-										<?php echo lang('operator_description'); ?> 
+										<?php echo shop_lang('shop:options:operator_description'); ?>
 									</small>					
 								</label>
 								<div class="input">
@@ -32,16 +32,16 @@
 								</div>
 							</li>
 							<li>
-								<label for="operator_value"><?php echo lang('operator_value'); ?> <span>*</span></label>
+								<label for="operator_value"><?php echo shop_lang('shop:options:operator_value'); ?> <span>*</span></label>
 								<div class="input">
 									<?php echo form_input('operator_value'); ?>
 								</div>
 							</li>	
 							<li>
-								<label for="max_qty"><?php echo lang('max_qty'); ?> 
+								<label for="max_qty"><?php echo shop_lang('shop:options:max_qty'); ?> 
 									<span>*</span>
 									<small>
-										<?php echo lang('nc:admin:max_qty_desc'); ?> 
+										<?php echo shop_lang('shop:options:max_qty_description'); ?> 
 									</small>						
 								</label>
 								<div class="input">
@@ -50,15 +50,15 @@
 							</li>
 							<li>
 								<label for="ignor_shipping">
-									<span>Ignor Shipping</span>
-									<small>if the customer selects this option then we ignor shipping for this item <small>
+									<span><?php echo shop_lang('shop:options:ignor_shipping'); ?></span>
+									<small><?php echo shop_lang('shop:options:ignor_shipping_description'); ?><small>
 								</label>
 								<div class="input">
 									<?php echo form_checkbox('ignor_shipping'); ?>
 								</div>
 							</li>								
 							<li>
-								<label for="default"><?php echo lang('nc:admin:default'); ?> 
+								<label for="default"><?php echo shop_lang('shop:options:default'); ?> 
 									<span></span>
 								</label>
 								<div class="input">
@@ -68,10 +68,10 @@
 							
 							<li>
 								<a href="admin/shop/options/add/" class="btn blue" id="add_another_option" >
-									<?php echo lang('nc:admin:save'); ?>
+									<?php echo shop_lang('shop:options:save'); ?>
 								</a>
 								<a href="#" data-id="<?php echo $id;?>" class="btn gray" id="btn_cancel_edit" >
-									<?php echo lang('nc:admin:cancel'); ?>
+									<?php echo shop_lang('shop:options:cancel'); ?>
 								</a>									
 							</li>
 					</ul>	

@@ -75,7 +75,7 @@ class Statistics_m extends MY_Model
 				$this->where('inventory_on_hand < inventory_low_qty')
 					 ->where('inventory_on_hand > 0')
 					 ->where('public = 1')
-					 ->where('deleted = 0')
+					 ->where('date_archived', NULL)
 					 ->where('inventory_type != 1')
 					 ->limit($limit)
 					 ->get_all();
@@ -83,7 +83,7 @@ class Statistics_m extends MY_Model
 		// Get out of stock products
 		$stok_products['outofstock'] = $this->where('inventory_on_hand <= 0')
 											->where('public = 1')
-											->where('deleted = 0')
+											->where('date_archived', NULL)
 											->where('inventory_type != 1')
 											->limit($limit)
 											->get_all();						 

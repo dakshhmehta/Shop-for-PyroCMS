@@ -13,7 +13,113 @@
  * 
  * See Full license details on the License.txt file
  */
- 
+
+
+
+
+if (!function_exists('shop_lang')) 
+{
+
+	/**
+	 * [url_domain description]
+	 * @param  boolean $show_protocol [description]
+	 * @param  string  $protocol      [description]
+	 * @return [type]                 [description]
+	 */
+	function shop_lang( $string='', $trim_from_value = null ) 
+	{
+
+		
+
+		$test = lang($string);
+
+		if(trim($test) != "" )
+			return $test;
+
+		$result = explode(':', $string );
+
+
+
+		if(sizeof($result) >=2 )
+		{		
+
+			$area  = strtolower(trim($result[1]) ); 
+			$value  = $result[2];
+
+			$module ='shop';
+			//key
+			$key = strtolower(trim($value));
+			$value = ucfirst( $key );
+
+
+			if(sizeof($result) > 3 )
+			{	
+				$value = $result[3];
+			}
+
+			//fix value
+			$value = ucfirst( $value );
+
+			//trim a value from the value text if requested
+			if($trim_from_value != null)
+			{
+				$value = ucfirst( str_replace(strtolower($trim_from_value), '', strtolower($value)) );
+			}
+
+			$value = str_replace('_', ' ', $value);
+
+
+			$record = array(
+				'module' => $module, 
+				'area' => $area,
+				'key' => $key, 
+				'value' => $value, 			
+			);
+
+			$ci = & get_instance();
+
+			$exist = $ci->db
+				->where('module',$module)
+				->where('area',$area)
+				->where('key',$key)
+				->get('shop_lang')->num_rows() ;
+
+			if($exist)
+			{
+
+			}
+			else
+			{
+				$ci->db->insert('shop_lang', $record);
+			}
+
+			return $value;
+
+		}
+
+		return lang($string);
+
+	}
+}
+
+if (!function_exists('build_lang')) 
+{
+
+	/**
+	 * [url_domain description]
+	 * @param  boolean $show_protocol [description]
+	 * @param  string  $protocol      [description]
+	 * @return [type]                 [description]
+	 */
+	function build_lang() 
+	{
+
+			$ci = & get_instance();
+		return $ci->db->order_by('module', 'asc')->order_by('area', 'asc')->order_by('key', 'asc')->get('shop_lang')->result();
+
+	}
+
+}
 /**
  * SHOP			A full featured shopping cart system for PyroCMS
  *
@@ -526,16 +632,20 @@ if (!function_exists('sf_string_to_decimal'))
 
 	/*
 	 * This is mainly used at the db models level to clean values before they are entered
-	 */
+	 */ 
 	function sf_string_to_decimal($value) 
 	{
 	
-		if (trim($value) == '') return 0.00;
+	
+		if (trim($value) == '') 
+		{
+			$value = '0.00';
+		}
 		
-		# Else
-		$value = floatval($value);
+
+		return number_format((float) $value, 2, '.', '');
+
 		
-		return $value; 
 	}
 }
 
@@ -831,5 +941,40 @@ if (!function_exists('nc_pagination'))
 
 
 	}
+	
+	/**
+	 * This is a tmp function until  product->deleted is safely removed
+	 */
+	if (!function_exists('is_deleted')) 
+	{
+		function is_deleted( &$product_object ) 
+		{
 
+
+			if($product_object->date_archived == NULL)
+			{
+				return FALSE;
+			}
+			
+			return TRUE;
+		}
+
+	}
+
+
+	if (!function_exists('set_if_not')) 
+	{
+		function set_if_not( &$object, $value ) 
+		{
+
+			if(isset( $object))
+			{
+				return ;
+			}
+
+			$object = $value;
+			return;
+		}
+
+	}
 }

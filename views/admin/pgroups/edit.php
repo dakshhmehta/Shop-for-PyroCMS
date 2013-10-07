@@ -5,9 +5,9 @@
 
 		<section class="title">
 			<?php if (isset($id) AND $id > 0): ?>
-				<h4><?php echo sprintf(lang('edit'), $name); ?></h4>
+				<h4><?php echo sprintf(shop_lang('shop:pgroups:edit'), $name); ?></h4>
 			<?php else: ?>
-				<h4><?php echo lang('new'); ?></h4>
+				<h4><?php echo shop_lang('shop:pgroups:new'); ?></h4>
 			<?php endif; ?>
 		</section>		
 		
@@ -26,14 +26,14 @@
 					<fieldset>
 						<ul>
 							<li class="<?php echo alternator('even', ''); ?>">
-								<label for="name"><?php echo lang('name'); ?> <span>*</span></label>
+								<label for="name"><?php echo shop_lang('shop:pgroups:name'); ?><span>*</span></label>
 								<div class="input">
 									<?php echo form_input('name', set_value('name', $name), 'id="name" '); ?>
 								</div>
 							</li>	  	
 							<li class="<?php echo alternator('', 'even'); ?>">
 								<label for="cover">
-									<?php echo lang('description'); ?>
+									<?php echo shop_lang('shop:pgroups:description'); ?>
 								</label>			
 								<div class="input">
 										<?php echo form_textarea('description', set_value('description', isset($description)?$description:""), 'class="wysiwyg-simple"'); ?>
@@ -54,12 +54,13 @@
 
 
 	<?php if (isset($id) AND $id > 0): ?>
+
 	<div class="one_half last" id="" >
 	
 		<section class="title">
-				<h4><?php echo lang('nc:pgroups:prices');  ?></h4>
+				<h4><?php echo shop_lang('shop:pgroups:prices'); ?></h4>
 				
-				<h4 style="float:right"><a id="add-price" title="new tier" class="tooltip-s img_icon img_create" href="#"></a></h4>
+				<h4 style="float:right"><a id="add-price" title="<?php echo shop_lang('shop:pgroups:add_new_tier'); ?>" class="tooltip-s img_icon img_create" href="#"></a></h4>
 
 		</section>
 		
@@ -76,9 +77,9 @@
 
 						
 						<tr>
-							  <th class='tooltip-s' title="<?php echo lang('min_purchase_req');?>"><?php echo lang('min_qty'); ?></th>
-							  <th class='tooltip-s' title="<?php echo lang('discounted_retail_price');?>"><?php echo lang('price'); ?></th>
-							  <th class='tooltip-s' title="<?php echo lang('remove');?>"><?php echo lang('actions'); ?></th>
+							  <th class='tooltip-s' title="<?php echo shop_lang('shop:pgroups:min_purchase_required');?>"><?php echo shop_lang('shop:pgroups:min_qty'); ?></th>
+							  <th class='tooltip-s' title="<?php echo shop_lang('shop:pgroups:discounted_retail_price');?>"><?php echo shop_lang('shop:pgroups:price'); ?></th>
+							  <th class='tooltip-s' title="<?php echo shop_lang('shop:pgroups:remove');?>"><?php echo shop_lang('shop:pgroups:actions'); ?></th>
 						</tr>	
 
 
@@ -119,7 +120,7 @@
 
 		<section class="title">
 
-				<h4>Actions</h4>
+				<h4><?php echo shop_lang('shop:pgroups:actions')?></h4>
 
 		</section>		
 		

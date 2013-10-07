@@ -37,7 +37,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.069';  
+	public $version = '1.0.0.080';  
 	private $language_file = 'shop/shop';
 	private $setting_en_brands = 0; //default to off;
 
@@ -222,10 +222,51 @@ class Module_Shop extends Module
 
 		switch ($old_version) 
 		{
-			case '1.0.0.068':			
-			case '1.0.0.062':
-			case '1.0.0.051':
+			
+			case '1.0.0.079': break;
+			case '1.0.0.076': break;
+			case '1.0.0.073': break;
+			case '1.0.0.072': break;
+			case '1.0.0.071': 
+			case '1.0.0.070': 	
+				break;
+			case '1.0.0.069':
 
+
+				//remove short_desc
+				$table = 'shop_products';
+
+
+				//$field = 'deleted';
+				//$this->_remove_field($table,$field);
+				
+				//$field = 'product_type';
+				//$this->_remove_field($table,$field);
+				
+
+				//$field = 'short_desc';
+				//$this->_remove_field($table,$field);
+				
+				//$this->_delete_setting('nc_markup_theme');
+
+				break;
+
+			case '1.0.0.051':
+				//
+				// tmp install lang table
+				//
+				$tbls = $this->install_tables( 
+
+					array('shop_lang' => array(
+						'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
+						'module' =>   array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
+						'area' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
+						'key' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
+						'value' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
+					)) 
+
+				);
+				
 				//
 				// removed un-used settings
 				//
@@ -249,6 +290,8 @@ class Module_Shop extends Module
 				$this->_rename_setting('nc_qty_perpage_limit'		,'ss_qty_perpage_limit');
 				$this->_rename_setting('nc_require_login'			,'ss_require_login');
 				$this->_rename_setting('nc_ssl_required'			,'ss_ssl_required');
+
+
 
 				break;
 			case '1.0.0.050':
@@ -445,6 +488,13 @@ class Module_Shop extends Module
 		return TRUE;
 
 	}
+
+	private function _remove_field($table,$field)
+	{
+		return $this->dbforge->drop_column($table, $field);
+	}		
+
+				
 
 
 }

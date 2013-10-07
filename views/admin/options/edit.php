@@ -2,7 +2,7 @@
 	<div class="one_half" id="">
 	
 		<section class="title">
-				<h4><?php echo lang('nc:admin:option');  ?></h4>
+				<h4><?php echo shop_lang('shop:options:option'); ?></h4>
 		</section>
 		
 			<?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
@@ -14,10 +14,11 @@
 					<fieldset>
 						<ul>
 							<li class="<?php echo alternator('even', ''); ?>">
-								<label for="name"><?php echo lang('nc:options:name'); ?> 
+								<label for="name">
+									<?php echo shop_lang('shop:options:name'); ?>
 									<span>*</span>
 									<small>
-										<?php echo lang('nc:options:name_desc'); ?> 
+										<?php echo shop_lang('shop:options:name_description'); ?>
 									</small>
 								</label>
 								<div class="input">
@@ -25,10 +26,11 @@
 								</div>
 							</li>							
 							<li class="<?php echo alternator('even', ''); ?>">
-								<label for="title"><?php echo lang('nc:options:title'); ?> 
+								<label for="title">
+									<?php echo shop_lang('shop:options:title'); ?>
 									<span>*</span>
 									<small>
-										<?php echo lang('nc:options:title_desc'); ?> 
+										<?php echo shop_lang('shop:options:title_description'); ?>
 									</small>
 								</label>
 								<div class="input">
@@ -36,24 +38,24 @@
 								</div>
 							</li>	
 							<li class="<?php echo alternator('even', ''); ?>">
-								<label for="description"><?php echo lang('description'); ?> <span></span></label>
+								<label for="description"><?php echo shop_lang('shop:options:description'); ?><span></span></label>
 								<div class="input">
 									<?php echo form_input('description', set_value('description', $description), 'id="description" '); ?>
 								</div>
 							</li>				
 							<li class="<?php echo alternator('even', ''); ?>">
-								<label for="type"><?php echo lang('type'); ?> 
+								<label for="type"><?php echo shop_lang('shop:options:type'); ?> 
 									<span></span>
-									<small>You can not modify the type after you create it</small>
+									<small><?php echo shop_lang('shop:options:type_can_not_be_modified'); ?></small>
 								</label>
 								<div class="input">
 									<?php echo $option_types; ?>
 								</div>
 							</li>
 							<li class="<?php echo alternator('even', ''); ?>">
-								<label for="show_title"><?php echo lang('nc:admin:show_title'); ?> 
+								<label for="show_title"><?php echo shop_lang('shop:options:show_title'); ?> 
 									<span></span>
-									<small><?php echo lang('nc:admin:show_title_desc'); ?></small>
+									<small><?php echo shop_lang('shop:options:show_title_description'); ?></small>
 								</label>
 								<div class="input">
 									<?php echo form_checkbox('show_title', $show_title ,$show_title ); ?>
@@ -86,7 +88,7 @@
 	<div class="one_half last" id="" >
 	
 		<section class="title">
-				<h4><?php echo lang('nc:admin:option_values');  ?></h4>
+				<h4><?php echo shop_lang('shop:options:option_values'); ?></h4>
 				<h4 style="float:right"><a class="modal img_icon img_create" href="shop/admin/options/addoption/<?php echo $id;?>"></a></h4>
 		</section>
 		
@@ -144,7 +146,7 @@
 	<div class="one_half last" id="" >
 	
 		<section class="title">
-				<h4><?php echo lang('nc:admin:option_values');  ?></h4>
+				<h4><?php echo shop_lang('shop:options:option_values'); ?></h4>
 				<h4 style="float:right"></h4>
 		</section>
 		
@@ -152,7 +154,7 @@
 			
 			<div class="content">
 
-				<p><?php echo lang('nc:admin:options_not_optional_desc');  ?></p>
+				<p><?php echo shop_lang('shop:options:no_option_values_description'); ?></p>
 				
 			</div>
 			

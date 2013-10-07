@@ -28,4 +28,4 @@
 </ul>
 
 
-<a href="{{ url:site }}shop/my/wishlist">View all items</a>
+<a href="{{ url:site }}shop/my/wishlist"><?php echo shop_lang('shop:front:view_all_items');?></a>
