@@ -65,29 +65,33 @@ class Products extends Public_Controller
 	{
 	
 
-
-		// Count the items
-		$total_items = $this->products_front_m->count_by_filter($filter);
-
-
-
-		$uri = 'shop/products';
+		// 
+		//  Count total items by the given filter
+		// 
+		$total_items = $this->products_front_m->filter_count($filter);
 
 
-		//$data->pagination2 = nc_pagination( base_url() . $uri  , $total_items, $limit);
-		$data->pagination = create_pagination( $uri, $total_items, $limit, 3);
+		// 
+		//  Build pagination for these items
+		// 
+		$data->pagination = create_pagination( 'shop/products' , $total_items, $limit, 3);
 
 
-		$data->products =  $this->products_front_m->shop_filter($filter , $data->pagination['limit'] , $data->pagination['offset']);
+
+		// 
+		//  Filter and select only a subset of the items based on input data
+		// 
+		$data->products =  $this->products_front_m->filter($filter , $data->pagination['limit'] , $data->pagination['offset']);
 		
 
 		//
-		// 
+		// finally
 		//
 		$this->template
 			->title($this->module_details['name'].' |' .lang('products'))
 			->set_breadcrumb($this->shop_title)
 			->build('common/products_list', $data);
+			
 	}
 	
 	

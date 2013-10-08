@@ -29,12 +29,6 @@ class Products_admin_m extends Products_m
 {
 
 	
-	//
-	// All tags that are ok for description fields
-	//
-	private $_description_tags = '<b><div><strong><em><i><u><ul><ol><li><p><span><a><br><br />';
-
-	
 
 	public function __construct() 
 	{
@@ -42,7 +36,19 @@ class Products_admin_m extends Products_m
 
 	}
 
-	
+	/**
+	 * Get all public and non deleted products
+	 * 
+	 * @return Array Products Array
+	 */
+	public function get_all()
+	{
+		return parent::get_all('admin');
+	}
+
+
+
+
 	/**
 	 * Create a new product, only some fields are required, the rest uses the default fields, 
 	 * when creating a new product, you must first enter the first few req values, save-> then edit the newly created product.
@@ -352,27 +358,7 @@ class Products_admin_m extends Products_m
 	}
 
 
-	private function get_unique_slug($slug, $id = -1)
-	{
 
-
-		//
-		// We want to ommit the current record if we are editing.
-		//
-		$slug_count = $this->db->where('id !=',$id)->where('slug', $slug )->get('shop_products')->num_rows();
-
-		if($slug_count > 0)
-		{
-
-			$new_slug = $slug.'-'.$slug_count;
-
-			return $this->get_unique_slug($new_slug, $id);
-
-		}
-
-		return $slug;
-
-	}
 	
 
 	/**
@@ -477,7 +463,27 @@ class Products_admin_m extends Products_m
 	}
 
 
+	private function get_unique_slug($slug, $id = -1)
+	{
 
+
+		//
+		// We want to ommit the current record if we are editing.
+		//
+		$slug_count = $this->db->where('id !=',$id)->where('slug', $slug )->get('shop_products')->num_rows();
+
+		if($slug_count > 0)
+		{
+
+			$new_slug = $slug.'-'.$slug_count;
+
+			return $this->get_unique_slug($new_slug, $id);
+
+		}
+
+		return $slug;
+
+	}
 
 
 	/**
@@ -486,7 +492,7 @@ class Products_admin_m extends Products_m
 	 * @param  array  $filter [description]
 	 * @return [type]         [description]
 	 */
-	public function admin_filter_count($filter = array()) 
+	public function filter_count($filter = array()) 
 	{
 
 		$this->reset_query();	
@@ -509,7 +515,7 @@ class Products_admin_m extends Products_m
 	}
 
 	
-	public function admin_filter_get($filter = array() , $limit, $offset = 0) 
+	public function filter($filter = array() , $limit, $offset = 0) 
 	{
 
 		$this->reset_query();	

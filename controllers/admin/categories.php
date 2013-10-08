@@ -172,6 +172,7 @@ class Categories extends Admin_Controller
 				$input_to_add['image_id'] = 0;
 				$input_to_add['parent_id'] = $id;
 				$input_to_add['order'] = $order;
+				$input_to_add['user_data'] = '';
 
 				$this->categories_m->create($input_to_add); //create simple just adds name/value not other optins
 				$order++;

@@ -133,6 +133,8 @@ class Events_Shop
 		
 		// Load the Common libraries
 		$this->ci->load->helper('shop/shop_public');
+		$this->ci->load->helper('shop/shop_debug'); //only for debugging ??
+
 		$this->ci->load->library('shop/SFCart');
 		
 		//Lang
@@ -148,6 +150,7 @@ class Events_Shop
 
 		$this->ci->load->helper('shop/shop_admin');
 		$this->ci->load->helper('shop/shop_public');
+		$this->ci->load->helper('shop/shop_debug'); //only for debugging ??
 
 		// Lang
 		$this->ci->lang->load('shop/shop_admin');

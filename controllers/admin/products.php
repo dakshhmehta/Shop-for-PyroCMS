@@ -85,7 +85,7 @@ class Products extends Products_util
 		// 
 		// Get the count of items
 		// 
-		$total_items = $this->products_admin_m->admin_filter_count($filter);
+		$total_items = $this->products_admin_m->filter_count($filter);
 
 
 		//
@@ -98,7 +98,7 @@ class Products extends Products_util
 		//
 		// Get the results
 		//
-		$data->products =  $this->products_admin_m->admin_filter_get($filter , $data->pagination['limit'] , $data->pagination['offset']);
+		$data->products =  $this->products_admin_m->filter($filter , $data->pagination['limit'] , $data->pagination['offset']);
 
 
 
@@ -199,7 +199,7 @@ class Products extends Products_util
 		// 
 		// Get the count of items
 		// 
-		$total_items = $this->products_admin_m->admin_filter_count($filter);
+		$total_items = $this->products_admin_m->filter_count($filter);
 
 
 		//
@@ -212,7 +212,7 @@ class Products extends Products_util
 		//
 		// Get the results
 		//
-		$data->products =  $this->products_admin_m->admin_filter_get($filter , $data->pagination['limit'] , $data->pagination['offset']);
+		$data->products =  $this->products_admin_m->filter($filter , $data->pagination['limit'] , $data->pagination['offset']);
 
 				
 	

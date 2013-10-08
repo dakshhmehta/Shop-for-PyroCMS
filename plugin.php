@@ -253,9 +253,6 @@ class Plugin_Shop extends Plugin
 
 
 
-
-
-
 	 
 	function product() 
 	{
@@ -264,10 +261,7 @@ class Plugin_Shop extends Plugin
 		$this->load->model('shop/products_front_m');
 	  	
 		//we shouldnt fetch the product twice. - the get_plugin should work by slug too
-		$tmp =  $this->products_front_m->get_by_slug($slug);
-
-		$product =  $this->products_front_m->get_plugin($tmp->id);
-
+		$product =  $this->products_front_m->get_product($slug, 'slug');
 
 
 		if ($product==NULL) 
@@ -482,7 +476,7 @@ class Plugin_Shop extends Plugin
 		$CI =& get_instance();
 		$CI->load->model('shop/products_front_m');
 
-		$product =  $CI->products_front_m->get_plugin($id);
+		$product =  $CI->products_front_m->get($id);
 
 
 		return img(site_url('files/thumb/'.$product->cover_id.'/100/100'));

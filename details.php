@@ -215,6 +215,9 @@ class Module_Shop extends Module
 	}
 	
 
+	/*
+	 * add user data to categories
+	 */
 	public function upgrade($old_version) 
 	{
 		
@@ -225,7 +228,9 @@ class Module_Shop extends Module
 			
 			case '1.0.0.079': break;
 			case '1.0.0.076': break;
-			case '1.0.0.073': break;
+			case '1.0.0.073': 
+ 				//$this->_add_field('user_data', 'TEXT', 'shop_categories');
+			break;
 			case '1.0.0.072': break;
 			case '1.0.0.071': 
 			case '1.0.0.070': 	
@@ -492,6 +497,16 @@ class Module_Shop extends Module
 	private function _remove_field($table,$field)
 	{
 		return $this->dbforge->drop_column($table, $field);
+	}
+
+	private function _add_field($name, $type='TEXT', $table)
+	{
+
+		$fields = array(
+                        $name => array('type' => $type)
+		);
+
+		$this->dbforge->add_column( $table, $fields);
 	}		
 
 				

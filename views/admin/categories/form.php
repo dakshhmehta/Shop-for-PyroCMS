@@ -37,7 +37,7 @@
 			</li>		
 				  
 			<li>
-				<label>Image</label>
+				<label><?php echo shop_lang('shop:categories:image');?></label>
 				<input type='hidden' value='' id='image_id' name='image_id' />
 				<div id='cover_img' name='cover_img'>
 				 <?php 	 if ($image_id > 0) 
@@ -53,7 +53,7 @@
 				</div>   
 			</li>	
 			<li>
-				<label>Change Image</label><br />
+				<label><?php echo shop_lang('shop:categories:change_image');?></label><br />
 				 <?php echo form_dropdown('folder_id', $folders, $folder_id, 'id="folder_id"'); ?>	   
 			</li>																	
 			<li>
@@ -63,8 +63,11 @@
 					<div id='img_view' style="overflow-y:scroll;min-height:50px;max-height:300px;">
 							<!-- This is where the response from search folder images goes -->
 					</div>		
-				</li>									
-												   
+			</li>									
+			<li class="<?php echo alternator('', 'even'); ?>">
+				<label for="user_data"><?php echo shop_lang('shop:admin:user_data');?><span>*</span></label>
+				<div class="input"><?php echo form_input('user_data', set_value('user_data', $user_data)); ?></div>
+			</li>								   
 			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="cover">
 					<?php echo lang('description'); ?>

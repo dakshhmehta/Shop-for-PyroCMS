@@ -98,17 +98,31 @@ class Cart extends Public_Controller
 			
 			// The POST must contain the QTY
 			$qty = intval( $this->input->post('quantity') );
+
+			if($qty)
+			{
+
+			}
+			else
+			{	
+				//
+				// Accept either qty or quantity
+				//
+				$qty = intval( $this->input->post('qty') );
+			}
+
 			
 		}
 		
 		
-		
+
 		
 		//
 		// pre-Add checks
 		//
 		if( ! $product = $this->_add($id, $qty) )
 		{
+		
 			// if the product/ request faled to validate just redirect now
 			redirect($url_redir);
 		}
@@ -239,8 +253,8 @@ class Cart extends Public_Controller
 		
 
 		// Get product from DB
-		$item = $this->pyrocache->model('products_front_m', 'shop_get', array( $id, 'id' ) );  
-		//$item = $this->products_front_m->shop_get( intval($id) );
+		$item = $this->pyrocache->model('products_front_m', 'get', array( $id, 'id' ) );  
+
 
 		
 		

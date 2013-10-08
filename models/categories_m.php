@@ -111,6 +111,7 @@ class Categories_m extends MY_Model
 			'image_id' =>  $input['image_id'],
 			'parent_id' => $input['parent_id'],
 			'order' => $input['order'],
+			'user_data' => $input['user_data'],
 		);		
 
 		return $this->insert($to_insert);
@@ -132,6 +133,7 @@ class Categories_m extends MY_Model
 			'image_id' =>  $input['image_id'],
 			'parent_id' => $input['parent_id'],
 			'order' => $input['order'],
+			'user_data' => $input['user_data'],
 		);
 		
 		return $this->update($id, $to_update);

@@ -17,109 +17,7 @@
 
 
 
-if (!function_exists('shop_lang')) 
-{
 
-	/**
-	 * [url_domain description]
-	 * @param  boolean $show_protocol [description]
-	 * @param  string  $protocol      [description]
-	 * @return [type]                 [description]
-	 */
-	function shop_lang( $string='', $trim_from_value = null ) 
-	{
-
-		
-
-		$test = lang($string);
-
-		if(trim($test) != "" )
-			return $test;
-
-		$result = explode(':', $string );
-
-
-
-		if(sizeof($result) >=2 )
-		{		
-
-			$area  = strtolower(trim($result[1]) ); 
-			$value  = $result[2];
-
-			$module ='shop';
-			//key
-			$key = strtolower(trim($value));
-			$value = ucfirst( $key );
-
-
-			if(sizeof($result) > 3 )
-			{	
-				$value = $result[3];
-			}
-
-			//fix value
-			$value = ucfirst( $value );
-
-			//trim a value from the value text if requested
-			if($trim_from_value != null)
-			{
-				$value = ucfirst( str_replace(strtolower($trim_from_value), '', strtolower($value)) );
-			}
-
-			$value = str_replace('_', ' ', $value);
-
-
-			$record = array(
-				'module' => $module, 
-				'area' => $area,
-				'key' => $key, 
-				'value' => $value, 			
-			);
-
-			$ci = & get_instance();
-
-			$exist = $ci->db
-				->where('module',$module)
-				->where('area',$area)
-				->where('key',$key)
-				->get('shop_lang')->num_rows() ;
-
-			if($exist)
-			{
-
-			}
-			else
-			{
-				$ci->db->insert('shop_lang', $record);
-			}
-
-			return $value;
-
-		}
-
-		return lang($string);
-
-	}
-}
-
-if (!function_exists('build_lang')) 
-{
-
-	/**
-	 * [url_domain description]
-	 * @param  boolean $show_protocol [description]
-	 * @param  string  $protocol      [description]
-	 * @return [type]                 [description]
-	 */
-	function build_lang() 
-	{
-
-			$ci = & get_instance();
-		return $ci->db->order_by('module', 'asc')->order_by('area', 'asc')->order_by('key', 'asc')->get('shop_lang')->result();
-
-	}
-
-}
 /**
  * SHOP			A full featured shopping cart system for PyroCMS
  *
@@ -651,28 +549,6 @@ if (!function_exists('sf_string_to_decimal'))
 
 
 
-if (!function_exists('_get_pagination_limit')) 
-{
-	
-	function _get_pagination_limit($default_limit=null) 
-	{
-		
-		$CI =& get_instance();
-	
-		# Get the default limit in settings if no limit is set by session
-		if ($default_limit==null)
-		$default_limit = Settings::get('ss_qty_perpage_limit'); # get the default limit defined in settings (Pagination)
-			
-		# get filter qty by session
-		$pag_qty = $CI->session->userdata('user_display_qty_filter');
-			
-		$pag_qty = ($pag_qty)?$pag_qty:$default_limit;
-					
-		return $pag_qty;
-					
-	}
-}
-
 if (!function_exists('orderby_helper')) 
 {
 	/**
@@ -702,18 +578,6 @@ if (!function_exists('orderby_helper'))
 }
 
 
-// Capture vardump
-if (!function_exists('sf_dump')) 
-{
-	
-	# we do this because ''$dump = print_r($variable, true);'' doesnt work for objects
-	function sf_dump($yourarray) 
-	{
-		ob_start();
-		var_dump($yourarray);
-		return ob_get_clean();
-	}
-}
 
 
 if (!function_exists('sf_text'))
@@ -795,49 +659,6 @@ if (!function_exists('get_country_from_iso2alpha'))
 
 
 
-/*
- *
- *
- * @deprecated - please do not use anymore
- */
-if (!function_exists('sf_prep_taxes')) 
-{
-
-	function sf_prep_taxes($tax_groups) 
-	{
-	
-		$tax_array = array();
-		
-		foreach ($tax_groups as $tax) 
-		{
-			$tax_array[$tax->id] = $tax->name;
-		}
-		
-		return $tax_array;
-		
-	}
-	
-}
-
-
-
-if (!function_exists('sf_get_product_cover')) 
-{
-
-	function sf_get_product_cover($product_id, $w = 55, $h = 55, $image_list_id = 0) 
-	{
-	
-		$ci = & get_instance();
-		
-		$product = $ci->db->select('cover_id')->where('id', $product_id)->limit(1)->get('shop_products')->row();
-
-		if ($product) 
-			return img(site_url('files/thumb/'.$product->cover_id.'/'.$w.'/'.$h));
-		return '';
-
-	}
-}
-
 
 if (!function_exists('ss_currency_symbol')) 
 {
@@ -911,70 +732,40 @@ if (!function_exists('nc_format_date'))
 
 
 
-if (!function_exists('nc_pagination')) 
+
+
+/**
+ * This is a tmp function until  product->deleted is safely removed
+ */
+if (!function_exists('is_deleted')) 
 {
-
-	function nc_pagination($uri, $total_items, $limit, $uri_segment = 4)
+	function is_deleted( &$product_object ) 
 	{
 
 
-		$ci =& get_instance();
-		$ci->load->library('pagination');
-
-		$config['base_url'] = $uri;
-		$config['total_rows'] = $total_items;
-		$config['per_page'] = $limit;
-
-
-		$config['uri_segment'] = $uri_segment;
-		//$config['num_links'] = 5;
-		$config['use_page_numbers'] = FALSE;
-		//$config['page_query_string'] = FALSE;
-
-
-
-		$ci->pagination->initialize($config);
-
-		return $ci->pagination->create_links();
-
-
-
-
-	}
-	
-	/**
-	 * This is a tmp function until  product->deleted is safely removed
-	 */
-	if (!function_exists('is_deleted')) 
-	{
-		function is_deleted( &$product_object ) 
+		if($product_object->date_archived == NULL)
 		{
+			return FALSE;
+		}
+		
+		return TRUE;
+	}
+
+}
 
 
-			if($product_object->date_archived == NULL)
-			{
-				return FALSE;
-			}
-			
-			return TRUE;
+if (!function_exists('set_if_not')) 
+{
+	function set_if_not( &$object, $value ) 
+	{
+
+		if(isset( $object))
+		{
+			return ;
 		}
 
+		$object = $value;
+		return;
 	}
 
-
-	if (!function_exists('set_if_not')) 
-	{
-		function set_if_not( &$object, $value ) 
-		{
-
-			if(isset( $object))
-			{
-				return ;
-			}
-
-			$object = $value;
-			return;
-		}
-
-	}
 }

@@ -27,14 +27,16 @@ class Products_m extends MY_Model
 {
 
 
+	//
+	// Table name
+	//
 	public $_table = 'shop_products';
 	
 	//
 	// All tags that are ok for description fields
 	//
-	private $_description_tags = '<b><div><strong><em><i><u><ul><ol><li><p><span><a><br><br />';
+	protected $_description_tags = '<b><div><strong><em><i><u><ul><ol><li><p><span><a><br><br />';
 
-	
 	
 	
 	public function __construct() 
@@ -64,7 +66,6 @@ class Products_m extends MY_Model
 
 	/**
  	 * Core get function, used for both admin and front side
-	 * This should be made private and we should use admin_get() and shop_get()
 	 */
 	public function get($id) 
 	{
@@ -78,36 +79,54 @@ class Products_m extends MY_Model
 
 
 	/**
-	 * gets the product record without fetching for additional data, i.e category name ect.
-	 * @param  [type] $id [description]
-	 * @return [type]     [description]
+	 *  
+	 * @param  string $mode [public|admin]
+	 * @return [Array]       [of products]
 	 */
-	public function get_plugin($id) 
+	public function get_all($mode = 'public') 
 	{
-		return parent::get($id);
-	}	
+		
 
-
-
-
-	
-	/**
-	 *
-	 *
-	 */
-	public function get_all() 
-	{
 		$this->load->model('categories_m');
 
+		$this->db->select('shop_products.*,');
+
+		if($mode=='public')
+		{
+			$this->db->where('shop_products.public',1);
+		}
+
+
+		//we do not want this even in admin, at least not in this current version. Deleted is deleted.
+		//We only keep for referencing
+		$this->db->where('shop_products.date_archived',NULL);
 		$products = parent::get_all();
+
+
+		//var_dump($products);die;
 
 		//bug if the product has no category we get some errors
 		foreach( $products as $product )
 		{
 			$category					= $this->categories_m->get( $product->category_id ); 
-			$product->category_name		= $category->name; 
-			$product->category_slug		= $category->slug; 
-			$product->category_id		= $category->id;			
+
+			if($category)
+			{
+				$product->category_name		= $category->name; 
+				$product->category_slug		= $category->slug; 
+				$product->category_id		= $category->id;	
+				$product->category_user_data= $category->user_data;	
+				$product->category = $category;
+			}
+			else
+			{
+				$product->category_name		= ''; 
+				$product->category_slug		= ''; 
+				$product->category_id		= 0;
+				$product->category_user_data= '';	
+				$product->category = array();		
+			}
+
 		}
 
 		return $products;
@@ -125,16 +144,31 @@ class Products_m extends MY_Model
 	 * @param  [type] $id [description]
 	 * @return [type]     [description]
 	 */
-	public function get_product($id, $method='id') 
+	public function get_product($parm, $method='id') 
 	{	
-		$this->load->library('files/files');
-	
-		$product 					= $this->pyrocache->model('products_m', 'get', $id); 
 
-		$product->images 			= $this->pyrocache->model('products_m', 'get_images', $id);  
-		$product->properties_array 	= $this->product_attributes_m->get_product_attributes($id); 	
-		$product->prod_options		= $this->options_product_m->get_prod_options($id); 
-		$product->discounts 		= $this->product_prices_m->get_discounts_by_product($id);
+		$this->load->library('files/files');
+
+
+		if($method=='slug')
+		{
+			$product = parent::get_by(array('slug' => $parm) );
+
+		}
+		else
+		{
+			$product = $this->get($parm); 
+		}
+
+
+
+
+		//have we found it ?
+
+		$product->images 			= $this->get_images($product->id);  
+		$product->properties_array 	= $this->product_attributes_m->get_product_attributes($product->id); 	
+		$product->prod_options		= $this->options_product_m->get_prod_options($product->id); 
+		$product->discounts 		= $this->product_prices_m->get_discounts_by_product($product->id);
 		$product->keywords 			= Keywords::get_string($product->keywords); //prepare keywords
 		$product->group				= $this->pgroups_m->get($product->pgroup_id);
 
@@ -154,6 +188,27 @@ class Products_m extends MY_Model
 		}
 	
 
+
+
+		$this->load->model('categories_m');
+		$category					= $this->categories_m->get( $product->category_id ); 
+		if($category)
+		{
+			$product->category_name		= $category->name; 
+			$product->category_slug		= $category->slug; 
+			$product->category_id		= $category->id;
+			$product->category_user_data= $category->user_data;	
+			$product->category = $category;			
+		}
+		else
+		{
+			$product->category_name		= ''; 
+			$product->category_slug		= ''; 
+			$product->category_id		= 0;
+			$product->category_user_data= '';	
+			$product->category = array();		
+		}
+
 		return $product;
 
 
@@ -161,24 +216,9 @@ class Products_m extends MY_Model
 
 
 
-	/**
-	 * shop/product/product-slug
-	 *
-	 * @param unknown_type $slug
-	 * @return object
-	 */
-	public function get_by_slug($slug)
-	{
-
-		$product = parent::get_by('slug', $slug);
-		
-		return $this->get_product($product->id); /*get_product*/
-	
-	}
 
 
-
-	public function image_exist($file_id,$product_id) 
+	public function image_exist( $file_id, $product_id ) 
 	{
 		
 		$result = $this->db
@@ -218,7 +258,15 @@ class Products_m extends MY_Model
 	{		
 		return $this->update($product_id, array($property => $value ) ); 		
 	}
-	
 
+
+
+
+
+
+	protected function filter() { }
+	
+	protected function filter_count() { }
+	
 
 }

@@ -38,6 +38,52 @@ class Products_front_m extends Products_m
 
 
 	/**
+	 * Also it adds to the view count.
+	 * 
+	 * @param  [type] $parm   [description]
+	 * @param  string $method [description]
+	 * @return [type]         [description]
+	 */
+	public function get($parm, $method = 'slug') 
+	{
+		
+
+		$product = $this->get_product($parm,$method); 
+
+
+		//
+		// Make sure product is NOT deleted and is visible to public
+		//
+		if (($product->date_archived != NULL) || ($product->public === ProductVisibility::Invisible ))
+		{
+			return NULL;
+		}
+			
+
+		//
+		// Add the view count
+		//
+		$this->viewed($product->id);
+		
+
+		return $product;
+	}
+	
+	
+	/**
+	 * Get all public and non deleted products
+	 * 
+	 * @return Array Products Array
+	 */
+	public function get_all()
+	{
+		return parent::get_all('public');
+	}
+
+
+
+
+	/**
 	 * Add view counter
 	 * 
 	 * @param  [type] $product_id [description]
@@ -122,36 +168,6 @@ class Products_front_m extends Products_m
 
 	
 
-	/**
-	 * @description Same as $this->get_by_slug($slug) but for the public site, which will only get the item if it is made public
-	 * @param unknown_type $slug
-	 */
-	public function shop_get($parm, $method = 'slug') 
-	{
-		
-		if($method == 'slug')
-		{
-			$product = $this->get_by_slug($parm);
-
-		}
-		else
-		{
-			$product = $this->pyrocache->model('products_m', 'get_product', $parm); 
-		}
-		
-
-		if (($product->date_archived != NULL) || ($product->public === ProductVisibility::Invisible ))
-		{
-			return NULL;
-		}
-			
-
-		$this->viewed($product->id);
-		
-		return $product;
-	}
-	
-	
 
 
 	/**
@@ -161,7 +177,7 @@ class Products_front_m extends Products_m
 	 * @param unknown_type $limit
 	 * @param unknown_type $offset
 	 */
-	public function shop_filter( $filter, $limit, $offset ) 
+	public function filter( $filter, $limit, $offset ) 
 	{
 		 
 		$this->load->model('categories_m');
@@ -220,36 +236,21 @@ class Products_front_m extends Products_m
 					->limit( $limit , $offset )
 					->get_all();
 
+		foreach($items as $product)
+		{
+			$this->meta_data($product);
+		}
+
 
 		return $items;
 
 	}
 
-	/*count by that counts al products within subcategories as well*/
-	public function get_all_public( )
-	{
-
-		//
-		//	we need to do this as we have now collected the categories
-		//
-		$this->db->reset_query();	
-
-
-
-
-		$data =  $this->where(array('public' => 1, 'date_archived' => NULL ) )->get_all();
-
-
-		return $data;
-
-
-
-	}
 
 
 
 	/*count by that counts al products within subcategories as well*/
-	public function count_by_filter($filter = array() )
+	public function filter_count($filter = array() )
 	{
 
 		
@@ -320,9 +321,6 @@ class Products_front_m extends Products_m
 	}
 
 
-	
-
-
 
 
 
@@ -358,6 +356,37 @@ class Products_front_m extends Products_m
 
 
 		return $r_results;
+	}
+
+
+
+	private function meta_data(&$product)
+	{
+		$product->prod_options		= $this->options_product_m->get_prod_options($product->id); 
+		$product->group				= $this->pgroups_m->get($product->pgroup_id);
+
+
+
+		$this->load->model('categories_m');
+		$category					= $this->categories_m->get( $product->category_id ); 
+		if($category)
+		{
+			$product->category_name		= $category->name; 
+			$product->category_slug		= $category->slug; 
+			$product->category_id		= $category->id;
+			$product->category_user_data= $category->user_data;	
+			$product->category = $category;			
+		}
+		else
+		{
+			$product->category_name		= ''; 
+			$product->category_slug		= ''; 
+			$product->category_id		= 0;
+			$product->category_user_data= '';	
+			$product->category = array();		
+		}
+
+
 	}
 
 }

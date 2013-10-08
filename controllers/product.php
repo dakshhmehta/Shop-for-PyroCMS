@@ -85,16 +85,15 @@ class Product extends Public_Controller
 		//
 		// Get the product and all its goodness
 		//
-		$data->product = $this->pyrocache->model('products_front_m', 'shop_get', array($param,$method) );
+		$data->product = $this->products_front_m->get($param, $method );
 		
 
-		
+
 		//
 		// redirect if not found
 		//
 		if ($data->product === NULL) redirect('shop/special/notfound');
 		
-
 
 		//
 		// Display the product

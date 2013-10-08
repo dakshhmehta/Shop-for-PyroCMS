@@ -98,20 +98,18 @@ class Categories extends Public_Controller
 		if($category)
 		{
 
+			$uri = 'shop/category/' . $category->slug;
+
 			$filter['category_id'] = $category->id;
 
 			// Count the items
-			$total_items = $this->products_front_m->count_by_filter($filter);
+			$total_items = $this->products_front_m->filter_count($filter);
+
+			$data->pagination = create_pagination( $uri, $total_items, $limit, 4);
 
 			//Get the items for the display
-			$data->products = $this->products_front_m->shop_filter($filter, $limit, $offset);		
+			$data->products = $this->products_front_m->filter($filter, $data->pagination['limit'] , $data->pagination['offset']);		
 
-			//build the uri path
-			$uri = base_url() . 'shop/category/' . $category->slug;
-			//$uri2 =  'shop/category/' . $category->slug ;
-
-			//$data->pagination = create_pagination( $uri2, $total_items, $limit, 4);
-			$data->pagination2 = nc_pagination( $uri , $total_items, $limit);
 
 		}
 		else

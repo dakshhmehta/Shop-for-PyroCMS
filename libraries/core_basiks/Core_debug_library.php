@@ -49,7 +49,8 @@ class Core_debug_library extends Core_library
 		
 		$this->load->model('products_front_m');
 
-		$results = $this->products_front_m->get_all_public();
+		$results = $this->products_front_m->get_all();
+		
 		$count =0;
 		
 		foreach($results as $product)
