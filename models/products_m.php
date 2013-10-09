@@ -105,32 +105,14 @@ class Products_m extends MY_Model
 		$this->db->where('shop_products.date_archived',NULL);
 		$products = parent::get_all();
 
-	
-		//var_dump($products);die;
 
 		//bug if the product has no category we get some errors
 		foreach( $products as $product )
 		{
 			$category					= $this->categories_m->get( $product->category_id ); 
-			$product->category = $category;
-			/*
-			if($category)
-			{
-				$product->category_name		= $category->name; 
-				$product->category_slug		= $category->slug; 
-				$product->category_id		= $category->id;	
-				$product->category_user_data= $category->user_data;	
-				$product->category = $category;
-			}
-			else
-			{
-				$product->category_name		= ''; 
-				$product->category_slug		= ''; 
-				$product->category_id		= 0;
-				$product->category_user_data= '';	
-				$product->category = array();		
-			}
-			*/
+			$product->category 			= $category;
+
+			$product->related 			= json_decode($product->related );
 
 		}
 
@@ -168,6 +150,9 @@ class Products_m extends MY_Model
 		{
 			$product = parent::get($parm); 
 		}
+
+
+		$product->related = json_decode($product->related );
 
 		if($simple) return $product;
 

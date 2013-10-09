@@ -337,6 +337,8 @@ class Details_library
 				//'short_desc' => 	array('type' => 'VARCHAR', 'constraint' => '255', 'default' => NULL), /*new*/
 				'keywords' => 		array('type' => 'VARCHAR', 'constraint' => '32', 'null' => TRUE, 'default' => NULL),
 				'meta_desc' => 		array('type' => 'VARCHAR', 'constraint' => '255', 'null' => TRUE, 'default' => NULL), /*seo short description*/
+				'related' => 		array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),
+				'user_data' => 		array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),
 				//'product_type' => 	array('type' => "VARCHAR", 'constraint' => '50', 'default' => ''),
 				
 				

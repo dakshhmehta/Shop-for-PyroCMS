@@ -217,6 +217,7 @@ class Module_Shop extends Module
 
 	/*
 	 * add user data to categories
+	 * add user data to products 
 	 */
 	public function upgrade($old_version) 
 	{
@@ -229,9 +230,12 @@ class Module_Shop extends Module
 			case '1.0.0.079': break;
 			case '1.0.0.076': break;
 			case '1.0.0.073': 
- 				//$this->_add_field('user_data', 'TEXT', 'shop_categories');
+ 				
 			break;
-			case '1.0.0.072': break;
+			case '1.0.0.072': 
+					$this->_add_field('related', 'TEXT', 'shop_products');
+					$this->_add_field('user_data', 'TEXT', 'shop_products');
+					break;
 			case '1.0.0.071': 
 			case '1.0.0.070': 	
 				break;

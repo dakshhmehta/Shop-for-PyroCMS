@@ -122,7 +122,30 @@ class Products_util extends Admin_Controller
 
 
 
+	/*manage product properties*/
+	public function ajax_find_product()
+	{
 
+		$this->load->model('products_admin_m');
+
+		$response['status'] = JSONStatus::Error;
+		$response['results'] = array();
+
+
+
+		if( $term = $this->input->post('term') ) 
+		{
+
+			$response['status'] = JSONStatus::Success;
+			$response['results'] = $this->products_admin_m->find_related($term);
+
+		}
+
+		//
+		// Send the info back to JS/Client
+		//
+		echo json_encode($response);
+	}
 	
 	/**
 	 *

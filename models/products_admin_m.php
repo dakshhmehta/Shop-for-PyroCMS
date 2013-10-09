@@ -47,6 +47,28 @@ class Products_admin_m extends Products_m
 	}
 
 
+	public function find_related($term)
+	{
+
+
+		return $this->db->select('shop_products.id, shop_products.name')
+						->where('shop_products.date_archived', NULL)	
+						->where('shop_products.searchable',1)
+						->like('shop_products.name', $term)
+						->or_like('shop_products.meta_desc',$term)
+						->or_like('shop_products.code',$term)
+						->or_like('shop_products.id',$term)
+						->limit(4)
+						->get('shop_products')->result();	
+						
+
+	}
+
+	public function get_product_name($id)
+	{
+		return $this->select('name,id')->get($id);
+	}
+
 
 
 	/**
@@ -68,6 +90,8 @@ class Products_admin_m extends Products_m
 				'name' => $input['name'],
 				'meta_desc' => strip_tags($input['meta_desc']),
 				'description' =>  strip_tags($input['description'], $this->_description_tags),
+				'related' =>  '', //strip_tags($input['related']),
+				'user_data' => '',
 				'slug' => $new_slug,
 				'keywords' => '',
 				'price' => $input['price'] ,
@@ -209,6 +233,12 @@ class Products_admin_m extends Products_m
 
 		switch ($key) 
 		{
+			case 'related':
+			case 'related[]':	
+				$out = json_encode($value);
+				$pass = TRUE;
+				break;	
+			case 'user_data':
 			case 'meta_desc':
 				$out = strip_tags($value);
 				$pass = TRUE;
@@ -246,7 +276,6 @@ class Products_admin_m extends Products_m
 				$out = $value;
 				$pass = TRUE;
 				break;
-
 
 			case 'brand_id':
 			case 'package_id':
@@ -307,6 +336,9 @@ class Products_admin_m extends Products_m
 		$to_insert = array(
 				'name' => $product->name.$suffix,
 				'meta_desc' => $product->meta_desc,
+				'description' => $product->description,				
+				'related' => $product->related,
+				'user_data' => $product->user_data,
 				'slug' => $new_slug,
 				'keywords' => $product->keywords,
 				'price' => $product->price,
@@ -322,7 +354,6 @@ class Products_admin_m extends Products_m
 				'category_id' => $product->category_id,
 				'brand_id' => $product->brand_id,
 				'package_id' => $product->package_id,
-				'description' => $product->description,
 				'inventory_low_qty' => $product->inventory_low_qty,
 				'inventory_on_hand' => $product->inventory_on_hand,
 				'inventory_type' => $product->inventory_type,

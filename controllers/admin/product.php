@@ -186,6 +186,7 @@ class Product extends Products_util
 			
 		}
 		
+
 		
 
 		// Build Template
@@ -348,6 +349,25 @@ class Product extends Products_util
 			$data->tax_groups 		= $this->tax_m->get_all();
 		}
 
+		if($panel =='related')
+		{
+			$data->rel_names = array();
+			foreach($data->related as $related_product)
+			{
+				$data->rel_names[] = $this->products_admin_m->get_product_name($related_product);
+
+			}			
+		}
+
+		
+
+
+
+
+
+
+
+
 
 
 		$this->load->view('admin/products/partials/'.$panel, $data); 
@@ -373,7 +393,7 @@ class Product extends Products_util
 		// 
 		$input = $this->input->post();
 
-
+		//var_dump($input);die;
 
 		foreach($this->_validation_rules as $key => $field_to_check)
 		{
@@ -401,6 +421,11 @@ class Product extends Products_util
 		// Now set the rules
 		//
 		$this->form_validation->set_rules($this->_validation_rules);
+
+
+		//We have to check if there are any rules to check, as if there isnt it will return false when run
+		if($this->form_validation->_validation_rules == NULL)
+			return TRUE;
 
 
 		//

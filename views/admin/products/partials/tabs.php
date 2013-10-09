@@ -10,7 +10,7 @@
 				<li><a class="tab-loader"  data-load="attributes" href="#attributes-tab"><span><?php echo shop_lang('shop:products:attributes'); ?></span></a></li>
 				
 
-
+				<li><a class="tab-loader"  data-load="related" href="#related-tab"><span><?php echo shop_lang('shop:products:related_products'); ?></span></a></li>
 
 				<?php if(group_has_role('shop', 'admin_product_options')): ?>
 					<li><a class="tab-loader"  data-load="options" href="#options-tab"><span><?php echo shop_lang('shop:products:options'); ?></span></a></li>
