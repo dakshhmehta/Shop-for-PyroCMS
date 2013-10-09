@@ -125,4 +125,23 @@
 				</fieldset>
 
 
-		
+			<script>
+
+				pyro.generate_slug('input[name="name"]', 'input[name="slug"]');
+
+				/**
+				* 
+				* @param  {[type]} e [description]
+				* @return {[type]}   [description]
+				*/
+				$('input[name="name"]').live('change', function(e) 
+				{
+
+					var new_name = $(this).val();
+
+					$("#title_product_name").html(new_name);
+
+					return false;
+				}); 
+
+			</script>

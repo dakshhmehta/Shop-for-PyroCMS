@@ -61,7 +61,7 @@
 									<a href="javascript:sell(<?php echo $post->id;?>)" class="tooltip-s img_icon img_invisible "  title="<?php echo shop_lang('shop:products:click_to_change');?>" status="0" pid="<?php echo $post->id;?>" id="sf_ss_<?php echo $post->id;?>"></a>		
 									<?php endif;?>
 							</td>
-							<td class="collapse"><a href="admin/shop/categories/edit/<?php echo $post->category_id; ?>" class="category"><?php echo $post->category_name; ?></a></td>
+							<td class="collapse"><a href="admin/shop/categories/edit/<?php echo $post->category_id; ?>" class="category"><?php echo $post->category->name; ?></a></td>
 							<td class="collapse"><?php echo nc_format_date($post->date_created); ?></td>
 							<td class="collapse"><?php echo nc_format_price($post->price); ?></td>
 							<td>

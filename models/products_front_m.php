@@ -44,11 +44,10 @@ class Products_front_m extends Products_m
 	 * @param  string $method [description]
 	 * @return [type]         [description]
 	 */
-	public function get($parm, $method = 'slug') 
+	public function get($parm, $method = 'id', $simple = FALSE) 
 	{
 		
-
-		$product = $this->get_product($parm,$method); 
+		$product = $this->get_product($parm,$method,$simple); 
 
 
 		//
@@ -59,12 +58,10 @@ class Products_front_m extends Products_m
 			return NULL;
 		}
 			
-
 		//
 		// Add the view count
 		//
 		$this->viewed($product->id);
-		
 
 		return $product;
 	}
@@ -170,6 +167,44 @@ class Products_front_m extends Products_m
 
 
 
+
+	/**
+	 * This privides a basic search over the products table
+	 *
+	 * @param String $search_param The text to search the db by
+	 */
+	public function shop_search_products($search_term_array = array() ) 
+	{
+		
+		$r_results = array();
+
+		foreach($search_term_array as $term)
+		{
+			$results = $this->db->select('shop_products.*')
+							->where('shop_products.public',1) 	//important
+							->where('shop_products.deleted',0)	
+							->where('shop_products.searchable',1)
+
+							//important
+							->like('shop_products.name', $term)
+							->or_like('shop_products.description',$term,'after')
+							->or_like('shop_products.meta_desc',$term)
+							->or_like('shop_products.code',$term)
+							->or_like('shop_products.id',$term)
+							->get('shop_products')->result();	
+							
+			//merge
+			$r_results = array_merge( $r_results , $results ); 
+
+		}	
+
+
+		return $r_results;
+	}
+
+
+
+
 	/**
 	 * @description This is used for the front end shop, do not use products_m->filter() at the Public site
 	 *
@@ -235,11 +270,6 @@ class Products_front_m extends Products_m
 					->order_by('id' , 'desc')
 					->limit( $limit , $offset )
 					->get_all();
-
-		foreach($items as $product)
-		{
-			$this->meta_data($product);
-		}
 
 
 		return $items;
@@ -320,73 +350,5 @@ class Products_front_m extends Products_m
 		return $count;
 	}
 
-
-
-
-
-	/**
-	 * This privides a basic search over the products table
-	 *
-	 * @param String $search_param The text to search the db by
-	 */
-	public function shop_search_products($search_term_array = array() ) 
-	{
-		
-		$r_results = array();
-
-		foreach($search_term_array as $term)
-		{
-			$results = $this->db->select('shop_products.*')
-							->where('shop_products.public',1) 	//important
-							->where('shop_products.deleted',0)	
-							->where('shop_products.searchable',1)
-
-							//important
-							->like('shop_products.name', $term)
-							->or_like('shop_products.description',$term,'after')
-							->or_like('shop_products.meta_desc',$term)
-							->or_like('shop_products.code',$term)
-							->or_like('shop_products.id',$term)
-							->get('shop_products')->result();	
-							
-			//merge
-			$r_results = array_merge( $r_results , $results ); 
-
-		}	
-
-
-		return $r_results;
-	}
-
-
-
-	private function meta_data(&$product)
-	{
-		$product->prod_options		= $this->options_product_m->get_prod_options($product->id); 
-		$product->group				= $this->pgroups_m->get($product->pgroup_id);
-
-
-
-		$this->load->model('categories_m');
-		$category					= $this->categories_m->get( $product->category_id ); 
-		if($category)
-		{
-			$product->category_name		= $category->name; 
-			$product->category_slug		= $category->slug; 
-			$product->category_id		= $category->id;
-			$product->category_user_data= $category->user_data;	
-			$product->category = $category;			
-		}
-		else
-		{
-			$product->category_name		= ''; 
-			$product->category_slug		= ''; 
-			$product->category_id		= 0;
-			$product->category_user_data= '';	
-			$product->category = array();		
-		}
-
-
-	}
 
 }

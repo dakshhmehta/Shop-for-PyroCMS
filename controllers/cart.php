@@ -109,6 +109,10 @@ class Cart extends Public_Controller
 				// Accept either qty or quantity
 				//
 				$qty = intval( $this->input->post('qty') );
+
+				//final check, if not set then set as 1 as the qty
+				$qty = ($qty)?$qty:1;
+				
 			}
 
 			
@@ -235,7 +239,7 @@ class Cart extends Public_Controller
 	public function _add($id = 0, $qty = 1) 
 	{
 	
-
+	
 
 		//
 		// Check id the product ID and QTY values are OK
@@ -253,8 +257,7 @@ class Cart extends Public_Controller
 		
 
 		// Get product from DB
-		$item = $this->pyrocache->model('products_front_m', 'get', array( $id, 'id' ) );  
-
+		$item = $this->products_front_m->get($id,'id');  
 
 		
 		
@@ -267,7 +270,7 @@ class Cart extends Public_Controller
 		}
 
 		
-		
+	
 		//
 		//check product validady (visible or deleted)
 		//
@@ -277,7 +280,7 @@ class Cart extends Public_Controller
 			return FALSE;
 		}
 		
-		
+			
 		//
 		// Check for inventory levels
 		//
@@ -286,7 +289,8 @@ class Cart extends Public_Controller
 			$this->session->set_flashdata('feedback', lang('product_not_avail') );
 			return FALSE;
 		}
-		
+	
+
 		// 
 		// If we have reached this point then we can validate successfully
 		//
@@ -465,11 +469,11 @@ class Cart extends Public_Controller
 		// If unlimited stock - no further validation required
 		if (($item->inventory_type == InventoryType::Unlimited )) return TRUE;
 
-		
+					
 		// Everything below here is subject to Qty availability
 		if (($item->inventory_on_hand >= $qty)) return TRUE;
 
-		
+				
 		// Anything below here we just dont have the stock!!
 		$this->session->set_flashdata('feedback', "Sorry we only have :". $item->inventory_on_hand. ' available.');
 

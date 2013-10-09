@@ -199,60 +199,9 @@ jQuery(function($){
 		});	
 
 
-		//
-        //
-        // Remove image from gallery
-        //
-        //
-		$('.remove_image').click(function() {
-			
-
-            img = $(this).attr('data-image');
-            var parent = $(this).attr('data-parent');               /*get the parent container id - this is what we remove*/  
-            var pid = $("#static_product_id").attr('data-pid');     /*get the product id*/
-            
-
-            $.post('shop/admin/products/gallery_remove', { image:img, product_id:pid  } ).done(function(data) 
-            {			
-                var obj = jQuery.parseJSON(data);
-                
-                if (obj.status == 'success') 
-                {
-                    $('#' + parent).remove();
-                }
-
-            });
-            
-			return false;
-		
-		});		
 		
 
 	   
-
-
-
-
-		
-
-
-		/**
-		 * 
-		 * @param  {[type]} e [description]
-		 * @return {[type]}   [description]
-		 */
-		$('input[name="name"]').live('change', function(e) 
-		{
-
-			var new_name = $(this).val();
-
-			$("#title_product_name").html(new_name);
-			
-			return false;
-		}); 
-
-
-
 
 	});
 

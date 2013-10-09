@@ -261,7 +261,7 @@ class Plugin_Shop extends Plugin
 		$this->load->model('shop/products_front_m');
 	  	
 		//we shouldnt fetch the product twice. - the get_plugin should work by slug too
-		$product =  $this->products_front_m->get_product($slug, 'slug');
+		$product =  $this->products_front_m->get_product($slug, 'slug', TRUE);
 
 
 		if ($product==NULL) 
@@ -271,6 +271,7 @@ class Plugin_Shop extends Plugin
 		if (is_deleted($product) || ($product->public == 0)) 
 			return array();
 
+		//var_dump($product);die;
 		return (array) $product;	
 
 	}

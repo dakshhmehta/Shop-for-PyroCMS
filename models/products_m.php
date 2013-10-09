@@ -64,18 +64,21 @@ class Products_m extends MY_Model
 
 
 
-	/**
+	/*
  	 * Core get function, used for both admin and front side
-	 */
+	 *
 	public function get($id) 
 	{
+
+		$this->db->select('shop_products.*');
+		return parent::get_by('shop_products.id', $id);
 
 		$this->db->select('shop_products.*, shop_categories.name as category_name, shop_categories.slug as category_slug, shop_categories.id as category_id');
 		$this->db->join('shop_categories', 'shop_products.category_id = shop_categories.id', 'left');
 		$this->db->join('shop_brands', 'shop_products.brand_id = shop_brands.id', 'left');
 		return parent::get_by('shop_products.id', $id);
 	}
-
+*/
 
 
 	/**
@@ -102,14 +105,15 @@ class Products_m extends MY_Model
 		$this->db->where('shop_products.date_archived',NULL);
 		$products = parent::get_all();
 
-
+	
 		//var_dump($products);die;
 
 		//bug if the product has no category we get some errors
 		foreach( $products as $product )
 		{
 			$category					= $this->categories_m->get( $product->category_id ); 
-
+			$product->category = $category;
+			/*
 			if($category)
 			{
 				$product->category_name		= $category->name; 
@@ -126,6 +130,7 @@ class Products_m extends MY_Model
 				$product->category_user_data= '';	
 				$product->category = array();		
 			}
+			*/
 
 		}
 
@@ -138,13 +143,17 @@ class Products_m extends MY_Model
 
 
 
+
+	
 	/**
 	 * 	same as get but this gets al data, images, attributes, options wheras get just gets the core info about a product 
 	 * 	
-	 * @param  [type] $id [description]
-	 * @return [type]     [description]
+	 * @param  [type]  $parm   [ID or the slug to get]
+	 * @param  string  $method  
+	 * @param  boolean $simple [TRUE or FALSE, true will only get the product row from DB, FALSE will get all data]
+	 * @return [type]          [description]
 	 */
-	public function get_product($parm, $method='id') 
+	public function get_product($parm, $method='id', $simple = FALSE) 
 	{	
 
 		$this->load->library('files/files');
@@ -157,9 +166,10 @@ class Products_m extends MY_Model
 		}
 		else
 		{
-			$product = $this->get($parm); 
+			$product = parent::get($parm); 
 		}
 
+		if($simple) return $product;
 
 
 
@@ -184,12 +194,13 @@ class Products_m extends MY_Model
 
 		if( Settings::get('ss_enable_brands') )
 		{
-			$product->brand 		= $this->pyrocache->model('brands_m', 'get', $product->brand_id); 
+			$product->brand 		= $this->brands_m->get($product->brand_id); 
 		}
 	
 
+		return $product;
 
-
+		/*
 		$this->load->model('categories_m');
 		$category					= $this->categories_m->get( $product->category_id ); 
 		if($category)
@@ -210,7 +221,7 @@ class Products_m extends MY_Model
 		}
 
 		return $product;
-
+		*/
 
 	}
 
