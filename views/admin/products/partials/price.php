@@ -47,6 +47,25 @@
 						</div>
 					</li>					
 				</ul>
+				Or set a Price group
+				<ul>
+
+					<li class="<?php echo alternator('', 'even'); ?>">
+						<label for="pgroup_id">
+								<?php echo shop_lang('shop:products:pgroup'); ?>
+							<small>
+							<?php echo shop_lang('shop:products:pgroup_description'); ?>
+							</small>						
+						</label>
+						<div class="input">
+							<select name="pgroup_id" id="pgroup_id">
+								<option value=""><?php echo lang('global:select-pick'); ?></option>
+								<?php echo $group_select; ?> 
+							</select>
+						</div>
+					</li>		
+
+				</ul>
 
 			</fieldset>			
 	

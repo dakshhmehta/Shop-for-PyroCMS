@@ -61,6 +61,35 @@ class Products_m extends MY_Model
 	}
 
 
+	public function filter_minimal($term)
+	{
+
+
+		return $this->db->select('shop_products.id, shop_products.name, shop_products.cover_id')
+						->where('shop_products.date_archived', NULL)	
+						->where('shop_products.searchable',1)
+						->like('shop_products.name', $term)
+						->or_like('shop_products.meta_desc',$term)
+						->or_like('shop_products.code',$term)
+						->or_like('shop_products.id',$term)
+						->limit(15)
+						->get('shop_products')->result();	
+						
+
+	}
+
+	/**
+	 * This function simply gets the minimal data of a product
+	 * ID/Name and the cover id. 
+	 * Generally  used for related products or any area where we just need a name, or cover_id
+	 * 
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
+	public function get_minimal($id)
+	{
+		return $this->select('id,name,cover_id')->get($id);
+	}
 
 
 

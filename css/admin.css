@@ -170,6 +170,8 @@ a.nc_links           { list-style:none;  float:left; padding:4px; 	-webkit-borde
 a.nc_links           { color:#888; }
 a.nc_links:hover     { color:#444;background-color:#eee;}
 
+
+/*
 a.nc_action_links           
 { 
         list-style:none;  
@@ -184,7 +186,7 @@ a.nc_action_links
 }
 a.nc_action_links           { color:#333; background-color:#eee;}
 a.nc_action_links:hover     { color:#eee;background-color:#555;}
-
+*/
 
 .clickable_row        { cursor:pointer; color:#f00; }
 tr.clickable_row:hover td , .clickable_row td:hover     { color:#444; }

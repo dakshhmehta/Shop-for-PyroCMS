@@ -47,27 +47,6 @@ class Products_admin_m extends Products_m
 	}
 
 
-	public function find_related($term)
-	{
-
-
-		return $this->db->select('shop_products.id, shop_products.name')
-						->where('shop_products.date_archived', NULL)	
-						->where('shop_products.searchable',1)
-						->like('shop_products.name', $term)
-						->or_like('shop_products.meta_desc',$term)
-						->or_like('shop_products.code',$term)
-						->or_like('shop_products.id',$term)
-						->limit(4)
-						->get('shop_products')->result();	
-						
-
-	}
-
-	public function get_product_name($id)
-	{
-		return $this->select('name,id')->get($id);
-	}
 
 
 
@@ -80,14 +59,15 @@ class Products_admin_m extends Products_m
 	 */	 
 	public function create($input, $user_id) 
 	{
-
+		$_name = strip_tags($input['name']);
 
 		$slug = sf_clean_slug($input['slug']);
-		$new_slug = $this->get_unique_slug($slug);
+		
+		$new_slug = $this->get_unique_slug($slug,-1,$_name);
 
 
 		$to_insert = array(
-				'name' => $input['name'],
+				'name' => $_name,
 				'meta_desc' => strip_tags($input['meta_desc']),
 				'description' =>  strip_tags($input['description'], $this->_description_tags),
 				'related' =>  '', //strip_tags($input['related']),
@@ -124,7 +104,7 @@ class Products_admin_m extends Products_m
 
 		if($id)
 		{ 
-			$this->add_to_search($id, $input['name'], strip_tags($input['description']) );
+			$this->add_to_search($id, $_name, strip_tags($input['description']) );
 		}
 	
 
@@ -219,81 +199,7 @@ class Products_admin_m extends Products_m
 
 	}
 
-	/**
-	 * [check_field_req description]
-	 * @param  [type] $key   [description]
-	 * @param  [type] $value [description]
-	 * @param  [type] $out   [description]
-	 * @param  [type] $id    [The Id is needed to check for existing records for slug field that do not match the same ID]
-	 * @return [type]        [description]
-	 */
-	private function check_field_req($key, $value, &$out, $id)
-	{
-		$pass = FALSE;	
 
-		switch ($key) 
-		{
-			case 'related':
-			case 'related[]':	
-				$out = json_encode($value);
-				$pass = TRUE;
-				break;	
-			case 'user_data':
-			case 'meta_desc':
-				$out = strip_tags($value);
-				$pass = TRUE;
-				break;		
-
-
-			case 'description':		
-				$out = strip_tags($value, $this->_description_tags);
-				$pass = TRUE;
-				break;	
-
-			case 'slug':
-				$slug = sf_clean_slug($value);
-				$out = $this->get_unique_slug($slug, $id);
-				$pass = TRUE;
-				break;
-
-			case 'inventory_on_hand':
-			case 'inventory_low_qty':
-			case 'inventory_type':	
-			case 'status':		
-			case 'category_id':
-			case 'featured':
-			case 'searchable':
-			case 'name':
-			case 'price':		
-			case 'price_bt':
-			case 'price_at':
-			case 'price_base':
-			case 'rrp':
-			case 'tax_id':
-			case 'tax_dir':			
-			case 'keywords':
-			case 'code':		
-				$out = $value;
-				$pass = TRUE;
-				break;
-
-			case 'brand_id':
-			case 'package_id':
-			case 'pgroup_id':
-				$out = ($value=='')?NULL:$value;
-				$pass = TRUE;	
-				break;
-
-			default:
-				$pass = FALSE;	
-				break;
-
-		}
-
-		return $pass;
-
-		
-	}
 
 
 	/**
@@ -405,6 +311,121 @@ class Products_admin_m extends Products_m
 		
 	}
 	
+	/**
+	 * 
+	 * @param  [type]  $slug   [description]
+	 * @param  integer $id     [description]
+	 * @param  string  $prefix Prefix is only used if the slug is blank, usually we pass the product name
+	 * @return [type]          [description]
+	 */
+	private function get_unique_slug($slug, $id = -1, $prefix = '')
+	{
+
+
+		//
+		// now make sure slug isn not blank
+		// we want to pass the name into prefix rather than a random string so it has more contextual meaning
+		//
+		if(trim($slug) == "")
+		{
+			$slug = $prefix.$slug; 
+		}
+
+		//
+		// We want to ommit the current record if we are editing.
+		//
+		$slug_count = $this->db->where('id !=',$id)->where('slug', $slug )->get('shop_products')->num_rows();
+
+		if($slug_count > 0)
+		{
+
+			$new_slug = $slug.'-'.$slug_count;
+
+			return $this->get_unique_slug($new_slug, $id, $prefix);
+
+		}
+
+		return $slug;
+
+	}
+
+
+	/**
+	 * [check_field_req description]
+	 * @param  [type] $key   [description]
+	 * @param  [type] $value [description]
+	 * @param  [type] $out   [description]
+	 * @param  [type] $id    [The Id is needed to check for existing records for slug field that do not match the same ID]
+	 * @return [type]        [description]
+	 */
+	private function check_field_req($key, $value, &$out, $id)
+	{
+		$pass = FALSE;	
+
+		switch ($key) 
+		{
+			case 'related':
+			case 'related[]':	
+				$out = json_encode($value);
+				$pass = TRUE;
+				break;	
+			case 'user_data':
+			case 'meta_desc':
+				$out = strip_tags($value);
+				$pass = TRUE;
+				break;		
+
+
+			case 'description':		
+				$out = strip_tags($value, $this->_description_tags);
+				$pass = TRUE;
+				break;	
+
+			case 'slug':
+				$slug = sf_clean_slug($value);
+				$out = $this->get_unique_slug($slug, $id);
+				$pass = TRUE;
+				break;
+
+			case 'inventory_on_hand':
+			case 'inventory_low_qty':
+			case 'inventory_type':	
+			case 'status':		
+			case 'category_id':
+			case 'featured':
+			case 'searchable':
+			case 'name':
+			case 'price':		
+			case 'price_bt':
+			case 'price_at':
+			case 'price_base':
+			case 'rrp':
+			case 'tax_id':
+			case 'tax_dir':			
+			case 'keywords':
+			case 'code':		
+				$out = $value;
+				$pass = TRUE;
+				break;
+
+			case 'brand_id':
+			case 'package_id':
+			case 'pgroup_id':
+				$out = ($value=='')?NULL:$value;
+				$pass = TRUE;	
+				break;
+
+			default:
+				$pass = FALSE;	
+				break;
+
+		}
+
+		return $pass;
+
+		
+	}
+
 
 
 	/**
@@ -492,27 +513,6 @@ class Products_admin_m extends Products_m
 	}
 
 
-	private function get_unique_slug($slug, $id = -1)
-	{
-
-
-		//
-		// We want to ommit the current record if we are editing.
-		//
-		$slug_count = $this->db->where('id !=',$id)->where('slug', $slug )->get('shop_products')->num_rows();
-
-		if($slug_count > 0)
-		{
-
-			$new_slug = $slug.'-'.$slug_count;
-
-			return $this->get_unique_slug($new_slug, $id);
-
-		}
-
-		return $slug;
-
-	}
 
 
 	/**

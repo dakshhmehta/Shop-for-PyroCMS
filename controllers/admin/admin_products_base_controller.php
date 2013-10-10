@@ -23,7 +23,7 @@
  * @system		PyroCMS 2.1.x
  *
  */
-class Products_util extends Admin_Controller 
+class Admin_Products_base_Controller extends Admin_Controller 
 {
 
 	protected $section = 'products';
@@ -137,7 +137,7 @@ class Products_util extends Admin_Controller
 		{
 
 			$response['status'] = JSONStatus::Success;
-			$response['results'] = $this->products_admin_m->find_related($term);
+			$response['results'] = $this->products_admin_m->filter_minimal($term);
 
 		}
 

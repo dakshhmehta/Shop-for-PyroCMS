@@ -1,5 +1,14 @@
 
 			<table>
+				<thead>
+					<tr>
+						<td colspan="10">
+							<div class="inner" style="float:left;">
+									<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>	
+							</div>
+						</td>
+					</tr>
+				</thead>		
 				<thead>		
 					<tr>
 						<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
@@ -77,13 +86,32 @@
 				<tfoot>
 					<tr>
 						<td colspan="10">
-							<div class="inner" style="float:left;">
-								<ul>
-									<li>
-										<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
-									</li>
-								</ul>
+							<div class="inner" style="float:none;">
+								
+									<div class="buttons">
+										<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete'))); ?>
+
+										<span>|||</span>
+										<button class="btn blue confirm" value="visible" name="btnAction" type="submit">
+											<span>Put Online</span>
+										</button>
+
+
+										<button class="btn orange" value="invisible" name="btnAction" type="submit">
+											<span>Put offline</span>
+										</button>
+								
+
+									</div>
+							
+							</div>							
+							<div class="inner" style="float:none;">
+								
+									<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
+								
+							
 							</div>
+						
 						</td>
 					</tr>
 				</tfoot>				

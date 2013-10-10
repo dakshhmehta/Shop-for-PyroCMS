@@ -24,9 +24,9 @@
  *
  */
 
-include_once('products_util.php');
+include_once('Admin_Products_base_Controller.php');
 
-class Products extends Products_util 
+class Products extends Admin_Products_base_Controller 
 {
 
 	protected $section = 'products';
@@ -226,6 +226,74 @@ class Products extends Products_util
 	
 
 
+
+	public function action()
+	{
+		
+		//
+		// Check for multi delete
+		//
+		if( $action = $this->input->post('btnAction')  )
+		{ 
+			if($this->input->post('action_to')  )
+			{
+
+				$products = $this->input->post('action_to');
+
+				switch($action)
+				{
+					case PostAction::Delete:
+						$this->delete($products);
+						break;
+
+					case 'visible':
+						$this->change_visibility($products,  1) ;
+						break;
+
+					case 'invisible':
+						$this->change_visibility($products,  0) ;
+						break;					
+
+				}
+			}
+
+
+		}
+
+		// Redirect after done
+		redirect('admin/shop/products');		
+				
+	}
+
+
+	private function delete($products = array()) 
+	{
+		
+		foreach($products as $key =>$id)
+		{
+
+			if( $this->products_admin_m->delete($id) )
+			{
+				Events::trigger('evt_product_deleted', $id );
+			}
+			
+		}
+		
+	}
+
+
+	private function change_visibility($products, $new_value = 0) 
+	{
+
+		foreach($products as $key =>$id)
+		{
+
+			if( $this->products_admin_m->update_property($id, 'public', $new_value ) )
+			{
+				//Events::trigger('evt_product_deleted', $id );
+			}
 	
-	
+		}
+
+	}
 }

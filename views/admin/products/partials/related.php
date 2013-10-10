@@ -19,7 +19,9 @@
 
  									foreach ($rel_names as $key => $_related) 
  									{
- 										echo "<li>".$_related->id. ' ' . $_related->name .  "<input type='hidden' value='" . $_related->id . "' name='related[]'></li>";
+ 										echo 	"<li><img src='files/thumb/$_related->cover_id/100/'>" .
+
+ 												$_related->id. ' ' . $_related->name .  "<input type='hidden' value='" . $_related->id . "' name='related[]'> <a href='#' class='remove_related_product'>remove</a></li>";
  									}
 
 
@@ -60,21 +62,14 @@
 
 
 
-				function add_related_id(id)
-				{
- 					
 
- 					content = "<li>" + id +
- 								"" + 
- 								"<input type='hidden' name='related[]' value='" + id + "' > " +
- 								"" +
- 								"" +
- 								"</li>";
+				$(".remove_related_product").live('click', function(e)  {
 
- 					$('#related-list').append(content);
-				}
+					//$(this).remove();
+					$(this).parent().remove();
 
-
+					return false;
+				}); 
 
 				$("#related_search_btn").on('click', function(e)  {
 
@@ -96,7 +91,10 @@
 	                        for(i=0;i< obj.results.length;i++)
 	                        {
 
-	                        	content = "<li>" + obj.results[i].id + " - " + obj.results[i].name + " <a href='javascript:add_related_id("+ obj.results[i].id +");' style='float:right' class='related_results img_icon img_create'></a></li>";
+	                        	content = 	"<li>"  + _js_create_img(obj.results[i].cover_id) + 
+	                        	" " + obj.results[i].id + " - " + obj.results[i].name + 
+	                        	"<a id='related_search_result_"+ obj.results[i].id + 
+	                        	"' href='javascript:add_related_id("+obj.results[i].id + ");' style='float:right' class='related_results img_icon img_create' data-id='"+ obj.results[i].id + "' data-cover='"+ obj.results[i].cover_id + "' data-name='"+ obj.results[i].name  + "'></a></li>";
 
 	          
 	                  			$('#related-search-results').append(content);
@@ -116,9 +114,37 @@
 				}); 
 
 
-				
 
-					//$("#related_results").trigger("chosen:updated");
+
+
+				function _js_create_img(cover_id)
+				{
+
+
+					return "<img src='files/thumb/" + cover_id + "/100/' />";
+				}
+
+
+				function add_related_id(_id)
+				{
+
+					_id = "#" + "related_search_result_" + _id;
+ 					cover = $(_id).attr('data-cover');
+ 					name = $(_id).attr('data-name');
+ 					id = $(_id).attr('data-id');
+
+ 					content = "<li>" +
+ 								" <img src='files/thumb/"+cover+"/100'>" + 
+ 								" <input type='hidden' name='related[]' value='" + id + "' > " +
+ 								" " + id +
+ 								" " + name + 
+								" <a href='#' class='remove_related_product'>remove</a> " +
+ 								"</li>";
+
+ 					$('#related-list').append(content);
+				}
+
 
 
 				</script>
+

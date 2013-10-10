@@ -54,23 +54,10 @@
 						
 						<?php if(group_has_role('shop', 'advanced_products')): ?>
 
-								<li class="<?php echo alternator('', 'even'); ?>">
-									<label for="pgroup_id">
-											<?php echo shop_lang('shop:products:pgroup'); ?>
-										<small>
-										<?php echo shop_lang('shop:products:pgroup_description'); ?>
-										</small>						
-									</label>
-									<div class="input">
-										<select name="pgroup_id" id="pgroup_id">
-											<option value=""><?php echo lang('global:select-pick'); ?></option>
-											<?php echo $group_select; ?> 
-										</select>
-									</div>
-								</li>						
+				
 								
 								<li class="<?php echo alternator('', 'even'); ?>">
-									<label for="brand_id"><?php echo shop_lang('shop:products:package_description'); ?> <span>*</span>
+									<label for="brand_id"><?php echo shop_lang('shop:products:package'); ?> <span>*</span>
 										<small>
 											<?php echo shop_lang('shop:products:package_description'); ?>
 										</small>

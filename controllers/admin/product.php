@@ -24,9 +24,9 @@
  *
  */
 
-include_once('products_util.php');
+include_once('Admin_Products_base_Controller.php');
 
-class Product extends Products_util 
+class Product extends Admin_Products_base_Controller 
 {
 
 	protected $section = 'products';
@@ -61,10 +61,9 @@ class Product extends Products_util
 
 		// Prepare for postback
 		// Setup extra validation rules not applied to the main set
-		$this->form_validation->set_rules($this->item_validation_rules);
-		//$this->form_validation->set_rules('code', 'Product Code', 'trim|is_unique[shop_products.code]');
+		$this->form_validation->set_rules($this->_validation_rules);
 		$this->form_validation->set_rules('slug', 'lang:slug', 'trim|max_length[100]|required|is_unique[shop_products.slug]');
-		
+
 		// If postback validate the form
 		if ($this->form_validation->run()) 
 		{
@@ -214,12 +213,15 @@ class Product extends Products_util
 	 */
 	public function delete($id = 0)
 	{
+
 		if (is_numeric($id)) 
 		{
 			$result = $this->products_admin_m->delete($id);
 			if ($result)
 				Events::trigger('evt_product_deleted', $id);
+
 		}
+
 		redirect('admin/shop/products');
 	}
 	
@@ -328,7 +330,7 @@ class Product extends Products_util
 		{
 			$data->category_select 	= $this->categories_m->build_tree_select(array('current_parent' => $data->category_id ));
 			$data->brand_select 	= $this->brands_m->build_dropdown($data->brand_id);
-			$data->group_select 	= $this->pgroups_m->build_list_select(array('current_id' => $data->pgroup_id));	
+			
 			$data->package_select 	= $this->package_library->build_list_select(array('current_id' => $data->package_id));			
 		}	
 			
@@ -347,6 +349,7 @@ class Product extends Products_util
 		{
 			//$data->folders = $this->get_folders();
 			$data->tax_groups 		= $this->tax_m->get_all();
+			$data->group_select 	= $this->pgroups_m->build_list_select(array('current_id' => $data->pgroup_id));	
 		}
 
 		if($panel =='related')
@@ -354,7 +357,7 @@ class Product extends Products_util
 			$data->rel_names = array();
 			foreach($data->related as $related_product)
 			{
-				$data->rel_names[] = $this->products_admin_m->get_product_name($related_product);
+				$data->rel_names[] = $this->products_admin_m->get_minimal($related_product);
 
 			}			
 		}

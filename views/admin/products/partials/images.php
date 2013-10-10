@@ -22,9 +22,9 @@
 										</div>
 										<div id='img_actions' style="margin-top:12px">
 											<!-- This is where the submit button to save the gallery goes -->
-											<a href='#' class="nc_action_links"  id='btn_select_all_images'><?php echo shop_lang('shop:products:select_all'); ?></a> 
-											<a href='#' class="nc_action_links"  id='btn_select_none_images'><?php echo shop_lang('shop:products:select_none'); ?></a> 
-											<a href='#' class="nc_action_links"  id='btn_add_images' pid='<?php echo $id; ?>'><?php echo shop_lang('shop:products:add_to_gallery'); ?></a>
+											<a href='#' class="btn orange"  id='btn_select_all_images'><?php echo shop_lang('shop:products:select_all'); ?></a> 
+											<a href='#' class="btn orange"  id='btn_select_none_images'><?php echo shop_lang('shop:products:select_none'); ?></a> 
+											<a href='#' class="btn green"  id='btn_add_images' pid='<?php echo $id; ?>'><?php echo shop_lang('shop:products:add_to_gallery'); ?></a>
 										</div>	
 	  
 							</div>
@@ -92,18 +92,17 @@
 				
 					//show the image action buttons	
 					var current_images = $('#scrollable_images_panel').html();	
+
 					
 					for (var i = 0; i < obj.added.length; i++) {
 
 						//Generate a unique (ish) id for jQ to remove the image when needed
 						dom_id = 'js_img_id_' + obj.added[i];
 						
-						current_images += "<div class='container' id='" + dom_id + "'>";
-						current_images += "<a class='img_icon img_delete remove_image gall_cover' data-image='" + obj.added[i] + "' data-parent='" + dom_id + "'></a>";
-						current_images += "<a href='javascript:set_cover(\"" + obj.added[i] + "\")' class='img_icon img_home gall_cover'></a>";
-
-
-						current_images += "<img class='tooltip-s' title='" + obj.name + "' src='" + obj.url + "files/thumb/" + obj.added[i] + "/100/100' alt='' style=''>";
+						current_images += "<div class='tooltip-s container' id='" + dom_id + "'>";
+						current_images += "  <a title='" + obj.name + "' class='img_icon img_delete remove_image gall_cover2' data-image='"+obj.added[i]+"' data-parent='" + dom_id + "'></a>"
+						current_images += "  <a title='" + obj.name + "' href='javascript:set_cover(\""+obj.added[i]+"\")'  class='tooltip-s img_icon img_home gall_cover3'></a>";
+						current_images += "  <img title='" + obj.name + "' class='tooltip-s' src='" + obj.url + "files/thumb/" + obj.added[i] + "/100/100'>";
 						current_images += "</div>";
 					}
 					
@@ -180,7 +179,8 @@
 		        // Remove image from gallery
 		        //
 		        //
-				$('.remove_image').click(function() {
+				//$('.remove_image').click(function() {
+				$(".remove_image").live('click', function(e)  {					
 					
 
 		            img = $(this).attr('data-image');
