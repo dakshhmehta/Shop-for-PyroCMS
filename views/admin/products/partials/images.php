@@ -13,7 +13,7 @@
 								</small>
 							</label>
 							<div class="input">
-								<?php echo form_dropdown('folder_id', $folders, $folder_id, 'id="folder_id"'); ?>
+								<?php echo form_dropdown('folder_id', $folders, $folder_id, 'id="folder_id" style="width:400px;"'); ?>
 								
 								<?php echo "<a href='#' id='load_folder' name='load_folder' style='display:none;'>Load</a>";  ?>
 

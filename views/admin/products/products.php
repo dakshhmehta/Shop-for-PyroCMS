@@ -47,4 +47,7 @@
 	</div>
 	
 </section>
-<!--- FILE.END:VIEW.ADMIN.PRODUCTS.PRODUCTS --->
+
+<script>
+
+</script>

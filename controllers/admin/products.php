@@ -36,6 +36,10 @@ class Products extends Admin_Products_base_Controller
 	{
 		parent::__construct();
 
+		//$this->template
+					//->append_js('module::lib/jquery.dropdown.min.js')
+					//->append_css('module::jquery.dropdown.css');		
+
 	}
 
 

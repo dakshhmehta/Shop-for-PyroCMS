@@ -12,6 +12,7 @@
 						</li>	
 
 					</ul>
+					<input type='hidden' value='d0n0tr3m0v3th1sf13ld' name='related[]'>
 					<ul id="related-list">
 
 

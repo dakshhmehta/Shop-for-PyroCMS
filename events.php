@@ -47,6 +47,7 @@ class Events_Shop
 		Events::register('evt_audit', array($this, 'evt_audit')); /*debuging event */
 		Events::register('evt_clear_cache', array($this, 'evt_clear_cache'));
 		Events::register('evt_order_lodged', array($this, 'evt_order_lodged')); 
+
 		Events::register('admin_controller', array($this, 'evt_admin_controller'));		
 		Events::register('public_controller', array($this, 'evt_public_controller'));
 		Events::register('evt_cart_item_added', array($this, 'evt_cart_item_added'));
@@ -62,7 +63,7 @@ class Events_Shop
 		Events::register('evt_blacklist_attempt', array($this, 'evt_blacklist_attempt'));
 		Events::register('evt_product_stock_low', array($this, 'evt_product_stock_low')); 
 		Events::register('post_user_register', array($this, 'resume_checkout'));
-
+		Events::register('evt_send_admin_email', array($this, 'evt_send_admin_email')); 	
 
 
 		
@@ -204,6 +205,18 @@ class Events_Shop
 		
 
 	}
+	
+
+	// Send Admin and User Email notification that order has been placed
+	public function evt_send_admin_email($input = array()) 
+	{
+	
+
+ 
+		
+		
+	}
+
 
 	// Send Admin and User Email notification that order has been placed
 	public function evt_order_lodged($id) 

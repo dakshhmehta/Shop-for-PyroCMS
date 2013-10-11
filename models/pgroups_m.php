@@ -81,8 +81,14 @@ class Pgroups_m extends MY_Model
 		
 		if ($result) 
 		{
+			
+			if(!(isset($input['prices'])) )
+			{
+				$input['prices'] = array();
+			}
+
 			// Create Discount qty items
-			$this->pgroups_prices_m->create($id,$input['prices']);
+			$this->pgroups_prices_m->create($id,$input['prices']);			
 
 			return TRUE;
 						

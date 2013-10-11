@@ -26,6 +26,43 @@
 class Plugin_Shop extends Plugin 
 {
 
+
+	function related()
+	{
+		//$ci =& get_instance();
+		$this->load->model('products_front_m');
+
+		$id = $this->attribute( 'id' , '0' );  
+		$max = $this->attribute( 'max' , '0' );
+
+		$product = $this->products_front_m->get_product($id, 'id', TRUE);
+
+
+		if ($product==NULL) 
+			return array();
+
+		//if we have used the products_front_m we shouldnt have to check this.
+		if (is_deleted($product) || ($product->public == 0)) 
+			return array();
+
+		//var_dump($product->related);die;
+		$related =  $product->related;	
+
+		$count = 0;
+		$ret = array();
+		foreach($related as $_id)
+		{	$count++;
+			if(($max > 0))
+			{
+				if($count > $max) break;
+			}
+			$ret[] = $product = $this->products_front_m->get_minimal($_id);
+		}
+
+		return $ret;
+
+	}
+
 	/**
 	 * For now we only retrieve the symbol, but we should add options for 2 letter code, etc..
 	 * @return [type] [description]
@@ -280,46 +317,78 @@ class Plugin_Shop extends Plugin
 
 	/**
 	 *  Displays all the prices of a product
+	 *
 	 * 
-	 * {{ shop:prices id="<?php echo $product->id;?>" lookup="product|pricegroup" }}
+	 * {{ shop:price id="5" }}
+	 * 
 	 *		{{if min_qty == '1' }}
-	 *
-	 *				${{price}} for 1 card <br />
-	 *
+	 *				${{price}} for 1 <br />
 	 *		{{ else }}
-	 *
-	 *				${{price}} for {{min_qty}} or more cards <br />
-	 *
+	 *				${{price}} for {{min_qty}} or more <br />
 	 *		{{ endif }}
-	 *  {{ /shop:prices }}
+	 *		
+	 *  {{ /shop:price }}
+	 *  
 	 *
 	 *
 	 */
-	function prices()
+	function price()
 	{
 
 		$id = $this->attribute('id', -1);
-		$lookup = $this->attribute('lookup', 'pricegroup');
 
-		//group
-		$model = 'pgroups_prices_m';
-		$method = 'get_by_pgroup';
-
-
-		if(strtolower(trim($lookup)) == 'product')
+		if($id=="")
 		{
-			$model = 'product_prices_m';
-			$method = 'get_discounts_by_product';
+			return array();
 		}
 
+
+		//lookup product price
+		$this->load->model('products_front_m');
+		$_prod = $this->products_front_m->get_product($id,'id',TRUE);
+
+
+		// 
+		// MID_Discount
+		// 
+		if($_prod->pgroup_id > 0)
+		{
+			//group
+			$model = 'pgroups_prices_m';
+			$method = 'get_by_pgroup';
+
+		  	$this->load->model('shop/'. $model);
+			$prices =  $this->$model->$method($_prod->pgroup_id);
+
+			if(sizeof($prices) > 0)
+			{
+				return $prices;		
+			}
+
+		}
+
+
+		// 
+		// Qty_Discount
+		// 
+		$model = 'product_prices_m';
+		$method = 'get_discounts_by_product';
 	  	$this->load->model('shop/'. $model);
 		$prices =  $this->$model->$method($id);
-			
+
+
+		//
+		// Product Price
+		//
+		if(sizeof($prices) == 0)
+		{
+			return( array(array( 'price' => $_prod->price, 'min_qty' => 1 ))  ); 
+		}
+
+
 		return $prices;
 		
-
 	}
-
 
 
 	/**

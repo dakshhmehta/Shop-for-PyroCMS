@@ -147,9 +147,24 @@ class Products_admin_m extends Products_m
 	public function edit($id, $input) 
 	{
 		
+		//var_dump($input);die;
 
 		// Start the transaction
 		$this->trans_begin();
+
+
+		//clean
+		//d0n0tr3m0v3th1sf13ld
+		if(isset($input['related']) )
+		{
+			foreach ($input['related'] as $key => $value) 
+			{
+				if($value == 'd0n0tr3m0v3th1sf13ld')
+				{
+					unset($input['related'][$key]) ;
+				}
+			}
+		}
 
 
 
@@ -158,6 +173,7 @@ class Products_admin_m extends Products_m
 		foreach($input as $key => $value)
 		{
 			$out_value = null;
+		
 
 			// we need to check for each field as they need to be handled
 			if($this->check_field_req($key,$value, $out_value, $id))

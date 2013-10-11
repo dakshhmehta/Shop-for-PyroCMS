@@ -56,6 +56,8 @@ class Options_library
 	
 	public static function Process( $options, $txtClass = '' )
 	{
+		$file_count = 0;
+		$text_count = 0;
 
 
 			foreach($options as $option)
@@ -101,14 +103,25 @@ class Options_library
 						$option->display =  form_dropdown('prod_options['.$option->slug.']',$items); 
 						
 						break;	
-						
-					case 'text':													
+
+					case 'file':
+						$file_count++;
+						//$option->display = "<input type='file' name='prod_options[".$option->slug."]' >";
+						$option->display = "<input type='file' name='fileupload' ><input type='hidden' value='donotremove' name='prod_options[".$option->slug."]' >";						
+						//$option->display = "<input type='file' name='file' data >";
+						break;	
+
+
+					case 'text':
+						$text_count++;													
+						$class = ' class="'.$txtClass.'" ';					
+						$option->display = "<input type='".$option->type."' name='prod_options[".$option->slug."]'  ".$class."  />";
+						break;
+
+			
 					case 'checkbox':													
 					case 'default':
-						$class = ($option->type == "text")? $txtClass : '';
-						$class = ($option->type == "checkbox")? '' : $txtClass ;
-						$class = ' class="'.$class.'" ';
-						
+						$class = ' class="" ';
 						$option->display = "<input type='".$option->type."' name='prod_options[".$option->slug."]'  ".$class."  />";
 						break;
 				}

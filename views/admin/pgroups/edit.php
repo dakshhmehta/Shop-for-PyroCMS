@@ -58,7 +58,7 @@
 	<div class="one_half last" id="" >
 	
 		<section class="title">
-				<h4><?php echo shop_lang('shop:pgroups:prices'); ?></h4>
+				<h4><?php echo shop_lang('shop:pgroups:mid_prices'); ?></h4>
 				
 				<h4 style="float:right"><a id="add-price" title="<?php echo shop_lang('shop:pgroups:add_new_tier'); ?>" class="tooltip-s img_icon img_create" href="#"></a></h4>
 
@@ -69,6 +69,9 @@
 			<div class="content">
 
 				<fieldset>
+					<div class="input">
+							<h4><?php echo shop_lang('shop:pgroups:mid_prices_description'); ?></h4>
+					</div>
 				
 					<br />
 

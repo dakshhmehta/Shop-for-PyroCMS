@@ -41,7 +41,7 @@
 								<?php endif;?> 
 								
 								<?php if ($post->cover_id): ?>
-									<img src="files/thumb/<?php echo $post->cover_id;?>/50/50" alt="" class="<?php echo $_hclass;?>"  id="sf_img_<?php echo $post->id;?>" />
+									<img data-dropdown="#dropdown-1"  src="files/thumb/<?php echo $post->cover_id;?>/50/50" alt="" class="<?php echo $_hclass;?>"  id="sf_img_<?php echo $post->id;?>" />
 								<?php else: ?>
 									<div class="img_48 img_noimg"></div>
 									<?php //echo $post->cover_id ;?>
@@ -74,7 +74,9 @@
 							<td class="collapse"><?php echo nc_format_date($post->date_created); ?></td>
 							<td class="collapse"><?php echo nc_format_price($post->price); ?></td>
 							<td>
-								<span style="float:right">
+
+
+								<span style="float:right;">
 								<?php echo anchor('admin/shop/product/edit/' . $post->id, ' ', array('title'=>'Edit', 'class'=>'img_icon img_edit tooltip-s')); ?>
 								<?php echo anchor('admin/shop/product/duplicate/' . $post->id, ' ', array('title'=>'Duplicate', 'class'=>'img_icon img_copy tooltip-s')); ?>
 								<?php echo anchor('admin/shop/product/delete/' . $post->id, ' ', array('title'=>'Delete', 'class'=>'img_icon img_delete confirm tooltip-s')); ?>
@@ -116,4 +118,11 @@
 					</tr>
 				</tfoot>				
 			</table>
-		
+
+
+<style>
+
+</style>
+<script>
+
+</script>

@@ -5,7 +5,7 @@
 				<li><a class="tab-loader"  data-load="product" href="#product-tab"><span><?php echo shop_lang('shop:products:product'); ?></span></a></li>
 				<li><a class="tab-loader"  data-load="description" href="#description-tab"><span><?php echo shop_lang('shop:products:description'); ?></span></a></li>
 				<li><a class="tab-loader"  data-load="price" href="#price-tab"><span><?php echo shop_lang('shop:products:price'); ?></span></a></li>
-				<li><a class="tab-loader"  data-load="discounts" href="#discounts-tab"><span><?php echo shop_lang('shop:products:discounts'); ?></span></a></li>
+				<li><a class="tab-loader"  data-load="discounts" href="#discounts-tab"><span><?php echo shop_lang('shop:products:qty_discounts'); ?></span></a></li>
 				<li><a class="tab-loader"  data-load="images" href="#images-tab"><span><?php echo shop_lang('shop:products:images'); ?></span></a></li>
 				<li><a class="tab-loader"  data-load="attributes" href="#attributes-tab"><span><?php echo shop_lang('shop:products:attributes'); ?></span></a></li>
 				

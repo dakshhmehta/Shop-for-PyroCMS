@@ -37,7 +37,7 @@ class Options_m extends MY_Model
 	//
 	// Array of option types
 	//
-	public $option_types = array('text'=>'TextBox', 'checkbox'=>'CheckBox','select'=>'Dropdown','radio'=>'RadioButton' ); 
+	public $option_types = array('file' =>'File Upload', 'text'=>'TextBox', 'checkbox'=>'CheckBox','select'=>'Dropdown','radio'=>'RadioButton' ); 
 	
 
 	protected $option_operators = array(
@@ -323,36 +323,31 @@ class Options_m extends MY_Model
 	public function get_option_value_by_slug( $slug, $value)
 	{
 	
+	
 		$option = $this->where( array('slug' => $slug) )->get_all(); 			
 		
 		if(count($option))
 		{
-		
-			if( $option[0]->type == 'text' )
-			{
-				//get the records
-				//$values = $this->options_values_m->get_all_options($option[0]->id);  
-				//$option[0]->values = array( 'max_qty' => 0 ,'operator' => '+=' , 'operator_value' => '0');
 
-				return $option[0];
+			switch($option[0]->type)
+			{
+				case 'file':
+				case 'hidden':				
+				case 'text':
+					return $option[0];
+					break;
+				default:
+					$values = $this->db->where('value',$value)->where('shop_options_id',$option[0]->id)->get('shop_option_values')->result();
+					break;
+
 
 			}
-			else
-			{
-				$values = $this->db->where('value',$value)->where('shop_options_id',$option[0]->id)->get('shop_option_values')->result();
-			}
 
-			//
-			// we have to check if it exist ? 
-			//
-			
+
 			//get the values //get first in the stack
 			$option[0]->values =  $values[0];
 			
-			
-			//
-			//
-			//
+		
 			return $option[0];
 		}
 		

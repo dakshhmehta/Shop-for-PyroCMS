@@ -62,31 +62,19 @@ if (!function_exists('hlp_get_price'))
 		$ci->load->model('shop/pgroups_prices_m');
 
 
+
 		//
 		// We arerequesting the MID price by passing the new_qty and the price it already has
 		//
 		$price_level_1 = $ci->product_prices_m->get_discounted_price($product->id, $product_qty, $product->price_at);    
 
 
-		$price_level_2 = $ci->pgroups_prices_m->get_discounted_price($product->pgroup_id, $new_qty, $price_level_1);    
-
-
-		/*
-		 * it doesnt matter if pl2 is larger or smaller than pl 1, only if its different because of inheritance and hirachy
-		 * 
-		 */
-
-		if($price_level_1 == $price_level_2)
+		if($product->pgroup_id > 0)
 		{
-			$product->price_at = $price_level_1;
-		}
-		else
-		{
-			$product->price_at = $price_level_2;
+			$price_level_1 = $ci->pgroups_prices_m->get_discounted_price($product->pgroup_id, $new_qty, $price_level_1);    
 		}
 
-
-
+		$product->price_at = $price_level_1;
  
 
 	}

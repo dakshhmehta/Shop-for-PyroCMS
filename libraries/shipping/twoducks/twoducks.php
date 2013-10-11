@@ -81,10 +81,19 @@ class Twoducks_ShippingMethod
 			switch ($package->title) 
 			{
 
-				case 'invitation':
-					$func = 'calc_invitations';
-
+				case 'tags':
+					$func = 'calc_tags';
 					break;
+
+				case 'invitations':
+					$func = 'calc_invitations';
+					break;	
+
+				case 'invitation_pack':
+					$func = 'calc_invitation_pack';
+					break;	
+					
+
 				case 'posters':
 					$func = 'calc_posters';
 					break;
@@ -101,6 +110,9 @@ class Twoducks_ShippingMethod
 			$cost += $this->$func($package->item_count);
 
 		}
+
+
+
 
 		//
 		// trim shipping does 1 of 2 things.
@@ -143,6 +155,60 @@ class Twoducks_ShippingMethod
 
 
 
+	/**
+	 * Tags
+	 * 1-5 pack of tags $2 flat rate
+	 * 
+	 * @param  [type] $qty [description]
+	 * @return [type]      [description]
+	 */
+	private function calc_tags($qty)
+	{
+		$_COST= 5;
+
+		if($qty <= 0)
+			return 0;
+
+		$multiplier = ($qty /5);
+
+
+		$multiplier =ceil($multiplier);
+
+		$postage = ($multiplier * $_COST);
+
+		return $postage;
+	}
+
+	/**
+	 * Custom invitations
+	 * 10 flat rate
+	 * @param  [type] $qty [description]
+	 * @return [type]      [description]
+	 */
+	private function calc_invitations($qty)
+	{
+		return 10;
+	}
+
+
+	private function calc_invitation_pack($qty)
+	{
+		$_COST= 5;
+
+
+		if($qty <= 0)
+			return 0;
+
+		$multiplier = ($qty /2);
+
+
+		$multiplier =ceil($multiplier);
+
+		$postage = ($multiplier * $_COST);
+
+		return $postage;
+	}
+
 
 	/**
 	 *
@@ -181,6 +247,7 @@ class Twoducks_ShippingMethod
 	private function calc_posters($qty)
 	{
 
+
 		$max = 5;
 
 		if($qty < 5)
@@ -196,11 +263,6 @@ class Twoducks_ShippingMethod
 	}
 
 
-
-	private function calc_invitations($qty)
-	{
-		return 15;
-	}
 
 	/**
 	 * Trims shipping cost - only call after your shipping calcs

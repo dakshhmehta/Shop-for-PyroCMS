@@ -4,8 +4,8 @@
 					<div style="padding:10px;">
 						<ul>
 							<li>
-							<label for=""><?php echo shop_lang('shop:products:discounts'); ?><span></span>
-								<small><?php echo shop_lang('shop:products:discounts_description'); ?></small>
+							<label for=""><?php echo shop_lang('shop:products:qty_discounts'); ?><span></span>
+								<small><?php echo shop_lang('shop:products:qty_discounts_description'); ?></small>
 					
 							</label>
 							<label for=""><span></span><br />

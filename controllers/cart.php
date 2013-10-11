@@ -86,6 +86,9 @@ class Cart extends Public_Controller
 	
 		$url_redir = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'shop/cart';
 		
+		//var_dump($_FILES);
+
+		//var_dump($this->input->post());die;
 
 		// 
 		// Check the post header to see if the item come from a post or a direct link
@@ -527,7 +530,23 @@ class Cart extends Public_Controller
 	 */
 	private function _get_option_fields($product_id) 
 	{
+
 		
+		$data = $this->upload();
+		$has_file = false;
+
+		if($data == "")
+		{
+			//no file uploaded
+		}
+		else
+		{	
+			//we have a file
+			//and this is the file id.
+
+		}
+
+
 		$this->load->model('options_m');
 
 		//
@@ -546,21 +565,23 @@ class Cart extends Public_Controller
 		// Options will only come from a post - 
 		// if no post, then we have have no options
 		//
-		if ( !( $this->input->post() ) ) return $options;
+		if ( !( $this->input->post('prod_options') ) ) return array( $ignor_shipping, $options );
 
 
 		//
 		// Get the request
 		//
-		$input = $this->input->post();
+		$prod_options = $this->input->post('prod_options');
 		
+		//var_dump($prod_options);die;
 		
 
-		if (isset($input['prod_options'])) 
-		{
-			
-			$prod_options = (isset($input['prod_options']))? $input['prod_options'] :  'none' ;
-			
+		//if (isset($prod_options)) 
+		//{
+			 
+
+
+
 			
 			//key=delivery value = digital/postal
 			foreach ($prod_options as $key => $value) 
@@ -578,7 +599,7 @@ class Cart extends Public_Controller
 					continue; //skip to next
 				}
 
-				
+
 			
 
 
@@ -588,22 +609,46 @@ class Cart extends Public_Controller
 				// Text options can not alter price
 				//
 				$option = $this->options_m->get_option_value_by_slug($key,$value);	
+				
 
-
-		
+			
 
 
 				$options[$key] = array();
 
-
 				//we have to handle the text option as they do not have sub-options and do not alter the price
-				if($option->type =='text')
+				if($option->type == 'file')
+				{	
+
+					if($value == 'donotremove')
+					{
+						//var_dump($option);die;
+					}
+					//
+					// Trigger Event to Notify User of status (success/Failer)
+					//
+					//Events::trigger('evt_send_admin_email', array('attachment' => $value, 'product_id' => 'product_id') );
+
+								
+
+					//build the option array that will be sent to the cart
+					//array( 'max_qty' => 0 ,'operator' => '+=' , 'operator_value' => '0');
+					// Get the label from the db/cache
+					$options[$key] = array('name' => $option->name, 
+											'value' => $data, /* $option->values->value */
+											'label' => $data, /* $option->values->value */
+											'max_qty' => 0, 
+											'operator'=> 'n', //n = skip calc 
+											'operator_value' => 0, 
+											'type' => $option->type);
+
+				}
+				elseif($option->type =='text') //we have to handle the text option as they do not have sub-options and do not alter the price
 				{
 					
 					
-					
 					//build the option array that will be sent to the cart
-					array( 'max_qty' => 0 ,'operator' => '+=' , 'operator_value' => '0');
+					//array( 'max_qty' => 0 ,'operator' => '+=' , 'operator_value' => '0');
 					// Get the label from the db/cache
 					$options[$key] = array('name' => $option->name, 
 											'value' => $value, /* $option->values->value */
@@ -612,7 +657,6 @@ class Cart extends Public_Controller
 											'operator'=> 'n', //n = skip calc 
 											'operator_value' => 0, 
 											'type' => $option->type);
-
 
 				}
 				else
@@ -644,9 +688,28 @@ class Cart extends Public_Controller
 
 			}
 
-		}
+		//}
 	
 		return array( $ignor_shipping, $options );
 		
 	}
+
+	public function upload($file_option_slug=null)
+	{
+
+		$this->load->library('files/files');
+
+		$folder_id = 57;
+
+	    $upload = Files::upload($folder_id, 'file_for_order','fileupload');
+
+	    //var_dump($upload['data']['id']);die;
+
+	    $file_id = $upload['data']['id'];
+	
+		return $file_id;
+
+
+	   // $second_upload = Files::upload($folder_id, 'Some Name', 'secondfile');
+	}	
 }

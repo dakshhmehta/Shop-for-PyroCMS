@@ -69,6 +69,7 @@ class Products_m extends MY_Model
 						->where('shop_products.date_archived', NULL)	
 						->where('shop_products.searchable',1)
 						->like('shop_products.name', $term)
+						->like('shop_products.slug', $term)
 						->or_like('shop_products.meta_desc',$term)
 						->or_like('shop_products.code',$term)
 						->or_like('shop_products.id',$term)
@@ -88,7 +89,7 @@ class Products_m extends MY_Model
 	 */
 	public function get_minimal($id)
 	{
-		return $this->select('id,name,cover_id')->get($id);
+		return $this->select('id,name,cover_id,slug')->get($id);
 	}
 
 

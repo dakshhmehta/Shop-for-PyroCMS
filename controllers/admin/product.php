@@ -71,6 +71,8 @@ class Product extends Admin_Products_base_Controller
 			$input = $this->input->post();
 
 
+
+
 			// 
 			// sanitize prepares the fields for saving
 			// It also processes the keywords 
@@ -150,13 +152,16 @@ class Product extends Admin_Products_base_Controller
 			$input = $this->input->post();
 
 
+
+
+
 			// 
 			// sanitize prepares the fields for saving
 			// It also processes the keywords 
 			// 
 			$this->sanitize_fields($input, $data, 'edit');
 			
-			
+		
 			//
 			// save
 			//

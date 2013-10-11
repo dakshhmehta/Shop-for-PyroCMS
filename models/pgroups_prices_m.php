@@ -42,7 +42,7 @@ class Pgroups_prices_m extends MY_Model
 
 
 	// Create a new item
-	public function create($id, $input) 
+	public function create($id, $input = array()) 
 	{
 
 

@@ -269,17 +269,27 @@
 							<tr>
 								<td><?php echo img(site_url('files/thumb/' . $item->cover_id)); ?></td>
 								<td><?php echo anchor('shop/product/' . $item->slug, $item->name, array('class'=>'nc_links')); ?>
-								
+								<br /><br />
 									<?php 
 										
 										$opt = json_decode($item->options) ; 
 										
 										if ($opt !=NULL)
 										{
+									
 											foreach ($opt as $key=>$val)
 											{
-												echo "<br />";
-												echo $val->name. ' '. $val->value;
+												if($val->type == 'file')
+												{
+													echo "<br /><br />";
+													echo $val->name. ' : <a href="files/download/'.$val->value.'">'.shop_lang('shop:orders:download').'</a>';
+												}
+												else
+												{
+													echo "<br /><br />";
+													echo $val->name. ' : '. $val->value;
+												}
+
 											}
 
 										} 
