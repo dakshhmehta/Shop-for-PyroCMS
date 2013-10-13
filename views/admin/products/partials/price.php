@@ -47,7 +47,7 @@
 						</div>
 					</li>					
 				</ul>
-				Or set a Price group
+				<?php echo shop_lang('shop:products:or_set_a_price_group'); ?>
 				<ul>
 
 					<li class="<?php echo alternator('', 'even'); ?>">

@@ -33,7 +33,7 @@ class Cart extends Public_Controller
 		$this->load->helper('shop/shop_prices');
 
 		// Retrieve some core settings
-		$this->use_css =  Settings::get('nc_css');
+		//$this->use_css =  Settings::get('nc_css');
 		$this->shop_title = Settings::get('ss_name');		//Get the shop name
 		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 		$this->login_required = Settings::get('ss_require_login');
@@ -47,7 +47,7 @@ class Cart extends Public_Controller
 
 		
 		// Apply default CSS if required
-		if ($this->use_css) _setCSS($this->template);
+		//if ($this->use_css) _setCSS($this->template);
 
 
 
@@ -337,9 +337,11 @@ class Cart extends Public_Controller
 
 
 				hlp_get_price($item, $d_item['qty'], $mid_qty);
+
 				$update_item['price'] = $item->price_at;
 
 				$update_item['base'] = $item->price_base;
+
 			}
 			
 			$update_data[] = $update_item;
@@ -356,7 +358,58 @@ class Cart extends Public_Controller
 		redirect('shop/cart');
 	}
 
+	private function__update()
+	{
 
+		//apply possible qty changes and dletes
+		$result = $this->sfcart->update($update_data);
+
+
+		$this->run_mid_on_cart();
+		 
+		
+		redirect('shop/cart');
+		
+	}
+
+
+	private function _update() 
+	{
+	
+		// Lets get some validation here
+		$data = $this->input->post();
+		$update_data = array();
+		
+
+		foreach ($data as $key => $d_item) 
+		{
+			
+			$update_item = array();
+
+
+			if( isset($d_item['id']) )
+			{
+
+				if( isset($d_item['rowid']) )
+				{
+					if( isset($d_item['qty']) )
+					{
+						continue;
+					}
+
+				}
+
+			}
+
+			//unset invalid update data
+			unset($data[$key]); 
+
+		}
+
+		return $data;
+
+
+	}
 
 	/**
 	 * To keep all cart iotems in sync with MID

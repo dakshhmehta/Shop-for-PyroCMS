@@ -130,6 +130,7 @@ if (!function_exists('sf_dump'))
 }
 
 
+/*
 if (!function_exists('nc_pagination')) 
 {
 
@@ -158,3 +159,4 @@ if (!function_exists('nc_pagination'))
 
 	}
 }
+*/

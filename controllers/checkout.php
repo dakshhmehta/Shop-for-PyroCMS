@@ -38,7 +38,7 @@ class Checkout extends Public_Controller
 		$this->lang->load('merchant');
 		
 		// Retrieve some core settings
-		$this->use_css =  Settings::get('nc_css');
+		//$this->use_css =  Settings::get('nc_css');
 		$this->use_jq =  Settings::get('nc_jq');
 		$this->shop_title = Settings::get('ss_name');		//Get the shop name
 		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
@@ -74,7 +74,7 @@ class Checkout extends Public_Controller
 		$this->return_validation['message'] = array();	
 		
 		// Apply CSS or JS Libraries if required
-		if ($this->use_css) _setCSS($this->template);
+		//if ($this->use_css) _setCSS($this->template);
 		if ($this->use_jq) _setJQ($this->template);
 		
 	}

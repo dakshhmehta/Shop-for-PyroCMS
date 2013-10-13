@@ -31,7 +31,7 @@ class Categories extends Public_Controller
 		parent::__construct();
 		
 		// Retrieve some core settings
-		$this->use_css =  Settings::get('nc_css');
+		//$this->use_css =  Settings::get('nc_css');
 		$this->shop_title = Settings::get('ss_name');		//Get the shop name
 		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 		$this->limit = Settings::get('ss_qty_perpage_limit');
@@ -42,7 +42,7 @@ class Categories extends Public_Controller
 		$this->load->model('categories_m');
 		
 		// Apply default CSS if required
-		if ($this->use_css) _setCSS($this->template);
+		//if ($this->use_css) _setCSS($this->template);
 		
 	}
 

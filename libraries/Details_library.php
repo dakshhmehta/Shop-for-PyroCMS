@@ -91,16 +91,16 @@ class Details_library
         //
         // if we only want the light menu then just return now
         //
-		if ( Settings::get('nc_menu_style') == AdminMenu::Light) 
-		{
+		//if ( Settings::get('nc_menu_style') == AdminMenu::Light) 
+		//{
 			return $info;
-		}
+		//}
 
 
 		//
 		// Othewise continue to add more items
 		//
-
+			/*
 		if (function_exists('group_has_role'))
 		{
 
@@ -225,6 +225,7 @@ class Details_library
 
 
 		return $info;
+		*/
 
 
 	}
@@ -883,19 +884,7 @@ class Details_library
 				'is_gui' => TRUE, 
 				'module' => 'shop', 
 				'order' => 750
-			),   
-			'nc_css' => array(
-				'title' => 'Use Built-IN CSS style',
-				'description' => 'By default the Shop will include a default style for the Shop, you can turn this off and implement your own.',
-				'type' => 'radio',
-				'default' => 1,
-				'value' => '',
-				'options' => '1=On|0=Off',
-				'is_required' => FALSE,
-				'is_gui' => TRUE,
-				'module' => 'shop',
-				'order' => 740
-				),			
+			),   		
 			'nc_jq' => array(
 				'title' => 'Include jQuery for Checkout page',
 				'description' => 'The default checkout page requires jQuery - If you have it in your sites template you do not need to re-ad this library. Otherwise please leave it on.',

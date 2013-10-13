@@ -37,7 +37,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.080';  
+	public $version = '1.0.0.081';  
 	private $language_file = 'shop/shop';
 	private $setting_en_brands = 0; //default to off;
 
@@ -226,8 +226,10 @@ class Module_Shop extends Module
 
 		switch ($old_version) 
 		{
-			
-			case '1.0.0.079': break;
+			case '1.0.0.081': break;
+			case '1.0.0.080': 
+				$this->_delete_setting('nc_css');
+				break;
 			case '1.0.0.076': break;
 			case '1.0.0.073': 
  				

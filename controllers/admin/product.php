@@ -335,8 +335,6 @@ class Product extends Admin_Products_base_Controller
 		{
 			$data->category_select 	= $this->categories_m->build_tree_select(array('current_parent' => $data->category_id ));
 			$data->brand_select 	= $this->brands_m->build_dropdown($data->brand_id);
-			
-			$data->package_select 	= $this->package_library->build_list_select(array('current_id' => $data->package_id));			
 		}	
 			
 		if($panel =='images')
@@ -367,6 +365,10 @@ class Product extends Admin_Products_base_Controller
 			}			
 		}
 
+		if($panel =='shipping')
+		{
+			$data->package_select 	= $this->package_library->build_list_select(array('current_id' => $data->package_id));			
+		}	
 		
 
 

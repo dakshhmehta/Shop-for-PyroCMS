@@ -32,7 +32,7 @@ class Brands extends Public_Controller
 		parent::__construct();
 
 		// Retrieve some core settings
-		$this->use_css =  Settings::get('nc_css');
+		//$this->use_css =  Settings::get('nc_css');
 		$this->shop_title = Settings::get('ss_name');		//Get the shop name
 		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 		
@@ -41,7 +41,7 @@ class Brands extends Public_Controller
 		
 
 		// Apply default CSS if required
-		if ($this->use_css) _setCSS($this->template);
+		//if ($this->use_css) _setCSS($this->template);
 		
 	}
 

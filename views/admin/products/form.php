@@ -108,6 +108,14 @@
 				</div>		
 			<?php endif; ?>
 
+
+
+			<div class="form_inputs" id="shipping-tab">
+				<div class='not-loaded'></div>
+				<?php //$this->load->view('admin/products/partials/shipping'); ?>		
+			</div>
+
+
 			<?php if(group_has_role('shop', 'developer_fields')): ?>
 				<div class="form_inputs" id="console-tab">
 				<?php $this->load->view('admin/products/partials/console'); ?>		

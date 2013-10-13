@@ -306,35 +306,6 @@ if (!function_exists('_setJQ'))
 }
 
 
-if (!function_exists('_setCSS')) 
-{
-	
-	/**
-	 * This will set the CSS to the template when required
-	 *
-	 * @param unknown_type $template
-	 * @param unknown_type $ps Include the jquery.plusshift.js javascript module
-	 */
-	function _setCSS($template,$ps =0) 
-	{
-	
-		$template->append_metadata("<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>")
-				 ->append_metadata("<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>")
-				 ->append_css('module::nc_global.css')
-				 ->append_css('module::nc_cartinfo.css')
-				 ->append_css('module::nc_carttable.css')
-				 ->append_css('module::shop.css');
-		
-		if ($ps) 
-		{
-			$template->append_metadata('<script src="http://code.jquery.com/jquery-1.9.1.js"></script>')
-			 		 ->append_js('module::lib/jquery.plusshift.js');
-		}
-		
-		return $template;
-	}
-}
-
 
 if (!function_exists('sf_parcel_is_smaller')) 
 {
@@ -598,6 +569,23 @@ if (!function_exists('sf_text'))
 	}
 }
 
+if (!function_exists('form_currency_textbox'))
+ {
+	
+	/**
+	 * Creates a textbox that shows currency symbol on the side for that currency setting
+	 */
+	function form_currency_textbox($name,$value, $option = '')
+	{
+		
+		$currency_symbol = "$";
+		$c_before = $currency_symbol;
+		$c_after = "";
+
+		return $c_before. form_input($name, $value, 'id="'.$name.'" '.$option) . $c_after;
+			
+	}
+}
 
 
 

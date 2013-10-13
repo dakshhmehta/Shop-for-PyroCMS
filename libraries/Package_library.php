@@ -178,7 +178,7 @@ class Package_library extends Core_library
 		//check if already installed
 		if(!$this->nc_multiple)
 		{
-			$allo = $this->db->where('module',$this->module_name)->where('slug',$slug)->get($this->db_table)->num_rows();
+			$allo = $this->db->where('slug',$slug)->get($this->db_table)->num_rows();
 			if($allo >= 1) return TRUE;
 		}
 
@@ -494,7 +494,7 @@ class Package_library extends Core_library
 		
 		
 		$html = '';
-		if ($packages = $this->db->where('module',$this->module_name)->order_by('title')->get($this->db_table)->result()) 
+		if ($packages = $this->db->order_by('title')->get($this->db_table)->result()) 
 		{
 			
 			foreach ($packages as $item) {
@@ -567,7 +567,7 @@ class Package_library extends Core_library
 	{
 
 		// Get from DB
-		$items = $this->db->where('module',$this->module_name)->where('enabled',1)->get($this->db_table)->result();
+		$items = $this->db->where('enabled',1)->get($this->db_table)->result();
 	
 		//Set image
 		foreach ($items as $item)   $item->image = $this->get_object_image($item->slug);
@@ -586,7 +586,7 @@ class Package_library extends Core_library
 	{
 	
 	
-		$items = $this->db->where('module',$this->module_name)->get($this->db_table)->result();
+		$items = $this->db->get($this->db_table)->result();
 	
 		//Set image
 		foreach ($items as $item)$item->image = $this->get_object_image($item->slug);	
@@ -604,7 +604,7 @@ class Package_library extends Core_library
 	public function get_all_merge() 
 	{
 	
-		$items = $this->db->where('module',$this->module_name)->get($this->db_table)->result();
+		$items = $this->db->get($this->db_table)->result();
 	
 		$ret = array(); 
 		foreach ($items as &$item)   
@@ -624,7 +624,7 @@ class Package_library extends Core_library
 	 */
 	public function get_all_installed() 
 	{
-		$items = $this->db->where('module',$this->module_name)->get($this->db_table)->result();
+		$items = $this->db->get($this->db_table)->result();
 		return $items;
 	}		
 	

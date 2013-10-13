@@ -35,7 +35,7 @@ class Product extends Public_Controller
 		
 		
 		// Retrieve some core settings
-		$this->use_css =  Settings::get('nc_css');
+		//$this->use_css =  Settings::get('nc_css');
 		$this->shop_title = Settings::get('ss_name');		//Get the shop name
 		$this->shop_subtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 
@@ -55,7 +55,7 @@ class Product extends Public_Controller
 
 		
 		// Apply default CSS if required - 
-		if ($this->use_css) _setCSS($this->template,TRUE); 
+		//if ($this->use_css) _setCSS($this->template,TRUE); 
 
 		// Setup default crumbs
 		$this->template->set_breadcrumb($this->shop_title,'shop');

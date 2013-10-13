@@ -26,7 +26,25 @@
 class Plugin_Shop extends Plugin 
 {
 
-
+							
+	/**
+	 * {{shop:related id="{{product:id}}" max="1" }}
+	 *
+	 *		<li>
+	 *  			<a href="{{ url:site }}shop/product/{{slug}}" class="" thumbnail-url="{{ url:site }}files/thumb/{{cover_id}}/100/">
+	 *		</li>
+	 *
+	 * 
+	 * 	{{slug}}
+	 *  {{id}}
+	 *  {{cover_id}}
+	 *
+	 * {{/shop:related}}
+	 *
+	 *
+	 * 
+	 * @return [type] [description]
+	 */
 	function related()
 	{
 		//$ci =& get_instance();
@@ -331,6 +349,11 @@ class Plugin_Shop extends Plugin
 	 *  
 	 *
 	 *
+	 * Future enhancement - integerate format_price as option
+	 *
+	 *
+	 *
+	 * 
 	 */
 	function price()
 	{

@@ -1,4 +1,3 @@
-<!--- FILE.START:VIEW.ADMIN.PRODUCTS.FORM -->
 
 				<fieldset>
 					<ul id="options-list">

@@ -32,7 +32,7 @@ class My extends Public_Controller
 		parent::__construct();
 		
 		// Should we use the default CSS
-		$this->use_css =  Settings::get('nc_css');
+		//$this->use_css =  Settings::get('nc_css');
 
 		// If User Not logged in
 		if (!$this->current_user) 
@@ -108,7 +108,7 @@ class My extends Public_Controller
 		$this->template->set_breadcrumb(lang('shop'), 'shop');
 		
 		// Apply default CSS if required
-		if ($this->use_css) _setCSS($this->template);
+		//if ($this->use_css) _setCSS($this->template);
 
 	}
 	

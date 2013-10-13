@@ -380,6 +380,13 @@ class Products_admin_m extends Products_m
 
 		switch ($key) 
 		{
+			case 'height':
+			case 'width':	
+			case 'depth':				
+				$out = floatval($value);
+				$pass = TRUE;
+				break;	
+
 			case 'related':
 			case 'related[]':	
 				$out = json_encode($value);

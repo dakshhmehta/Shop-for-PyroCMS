@@ -40,16 +40,9 @@ if (!function_exists('hlp_get_price'))
 	 * There is also a heirachy as a product may have all or some of the prices added in these fields so  it
 	 * is important to know how the heirachy works.
 	 *
-	 *
-	 * 0 -> {{ product: price_at }} Product Price  
-	 * 1 -> {{ product_prices: price }} Product MID Price  (Multiple of the same item)
-	 * 2 -> {{ product_price_group: price }} Multiple Items can be assigned to the same group to offer a MID for multiple items
-	 * 3 -> {{ options: amount  }} If a product has options it will be treated as a seperate item and affect the price of the price directly above it
-	 *
-	 *
-	 * 
-	 * In the above list option "3" overrides both 0,1 and 2,
-	 * In the above list option "2" overrides both 0 and 1
+	 * 1: Product Price
+	 * 2: Qty Discount Price (tier levels)
+	 * 3: MultipleItems Discount (MID) (tier levels)
 	 * 
 	 */
 	function hlp_get_price(&$product, $product_qty, $new_qty) 

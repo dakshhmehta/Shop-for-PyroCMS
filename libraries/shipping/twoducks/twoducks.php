@@ -273,9 +273,17 @@ class Twoducks_ShippingMethod
 	private function trim_shipping($cost)
 	{
 
-		$min_shipping = 0.00;
+		$min_shipping = 2.00;
+		$max_shipping = 15.00;
 
-		return ($cost < $min_shipping)?  $min_shipping : $cost ;
+		//check min
+		$cost = ($cost < $min_shipping)?  $min_shipping : $cost ;
+
+		//check max
+		$cost =  ($cost > $max_shipping)?  $max_shipping : $cost ;
+
+
+		return $cost;
 
 	}
 
