@@ -24,9 +24,10 @@
  *
  */
 
-include_once('Admin_Products_base_Controller.php');
 
-class Products extends Admin_Products_base_Controller 
+include_once( dirname(__FILE__) . '/' . 'Products_admin_Controller.php');
+
+class Products extends Products_admin_Controller 
 {
 
 	protected $section = 'products';

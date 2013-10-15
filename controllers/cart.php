@@ -358,7 +358,7 @@ class Cart extends Public_Controller
 		redirect('shop/cart');
 	}
 
-	private function__update()
+	private function __update()
 	{
 
 		//apply possible qty changes and dletes

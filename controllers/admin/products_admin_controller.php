@@ -23,7 +23,7 @@
  * @system		PyroCMS 2.1.x
  *
  */
-class Admin_Products_base_Controller extends Admin_Controller 
+class Products_admin_Controller extends Admin_Controller 
 {
 
 	protected $section = 'products';
