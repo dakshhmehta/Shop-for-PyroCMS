@@ -651,7 +651,32 @@ class Details_library
 
 
 	}
+	public function get_install_tables_4()
+	{
 
+		return array(
+			'shop_test' => array(
+				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
+				'name' => array('type' => 'VARCHAR', 'constraint' => '100'),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => '100', 'unique' => TRUE, 'key' => true),
+				'description' => array('type' => 'TEXT'),
+				'image_id' => array('type' => 'CHAR', 'constraint' => 15, 'null' => TRUE, 'default' => NULL),
+				'parent_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0), /*structure for heirachial but not by default*/
+				'order' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0),  
+			),
+			'shop_test2' => array(
+				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
+				'name' => array('type' => 'VARCHAR', 'constraint' => '100'),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => '100', 'unique' => TRUE, 'key' => true),
+				'description' => array('type' => 'TEXT'),
+				'image_id' => array('type' => 'CHAR', 'constraint' => 15, 'null' => TRUE, 'default' => NULL),
+				'parent_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0), /*structure for heirachial but not by default*/
+				'order' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0),  
+			),
+			);	
+
+
+	}
 
 
 	public function get_cache_list()
@@ -837,6 +862,18 @@ class Details_library
 				'module' => 'shop', 
 				'order' => 820
 			),
+			'ss_qty_perpage_limit_front' => array(
+				'title' => 'Products per page',
+				'description' => 'How many products show in list view (front end only)',
+				'type' => 'text', 
+				'default' => 10, 
+				'value' => '', 
+				'options' => '', 
+				'is_required' => TRUE,
+				'is_gui' => TRUE, 
+				'module' => 'shop', 
+				'order' => 820
+			),			
 			'ss_require_login' => array(
 				'title' => 'Require login to use shop', 
 				'description' => 'Will you require your users to have an account to shop online..',
@@ -941,59 +978,10 @@ class Details_library
 
 
 
-	/**
-	 * 
-	 * Upgrade logics
-	 *
-	 *
-	 *
-	 * 
-	 */
-
-	public function upgrade_0_9_5_to_0_9_7()
-	{
-
-			$ci =& get_instance();
-			$ci->load->dbforge();
-
-			$tbl_products = $ci->dbforge->install_tables( 
-
-					array(
-						/*shipping,packages,gateways*/
-						'shop_gateways' =>array(
-						'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-						'title' => array('type' => 'VARCHAR', 'constraint' => '100'),
-						'slug' => array('type' => 'VARCHAR', 'constraint' => '100'), 
-						'desc' => array('type' => 'TEXT'),
-						'enabled' => array('type' => 'INT', 'constraint' => '1', 'default' => 0),
-						'options' => array('type' => 'TEXT')				
-						),	
-					)
-
-				);
-
-			return TRUE;
-		
-	}
 
 
 
 
-	public function upgrade_0_9_4_to_0_9_5()
-	{
-
-
-		$this->load->dbforge();
-
-
-		$fields = array('ignor_shipping' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'default' => 0 ) );
-
-		$this->dbforge->add_column('shop_option_values', $fields);
-
-
-		return TRUE;
-
-	}
 
 	public function get_array($name = 'trust_score')
 	{

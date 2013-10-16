@@ -28,11 +28,9 @@ class Options_library
 
 
 
-
 	// Private variables.  Do not change!
 	private $CI;
 	
-
 
 
 	public function __construct($params = array())
@@ -40,11 +38,6 @@ class Options_library
 	
 		// Set the super object to a local variable for use later
 		$this->CI =& get_instance();
-
-
-		// Load the Sessions class
-		//$this->CI->load->library('session', $config);
-
 
 		log_message('debug', "Options Library Class Initialized");
 		
@@ -54,8 +47,19 @@ class Options_library
 	
 	
 	
-	public static function Process( $options, $txtClass = '' )
+	public static function Process( $options, $settings_in = array() )
 	{
+
+		$_settings['radioBR'] 		= '<br />';
+		$_settings['radioLabel'] 	= ''; //before|after|<blank>|';
+		$_settings['radioCLASS'] 	= '';
+		$_settings['txtClass'] 		= '';
+
+		//combine
+		$_settings = array_merge($_settings,$settings_in);
+
+
+
 		$file_count = 0;
 		$text_count = 0;
 
@@ -77,20 +81,23 @@ class Options_library
 							
 							foreach($option->values as $option_value) 
 							{
-								
+								//var_dump($option_value);die;
 								// old
 								$str = ($option_value->default)? 'checked' :'';
-								$string_builder .=  form_radio('prod_options['.$option->slug.']',$option_value->value, $str ).' '.$option_value->value; 
+								$string_builder .=  form_radio('prod_options['.$option->slug.']',$option_value->value, $str ).' '.$option_value->value. '<br />'; 
 								
 								//better
 								$option_value->display = form_radio('prod_options['.$option->slug.']',$option_value->value, $str ); 
 
 							}
 							
+							
 
 						}
 						
 						$option->display = $string_builder;
+						$option->label = '';
+						$option->form = '';
 						
 						break;	
 					case 'select':
@@ -114,7 +121,7 @@ class Options_library
 
 					case 'text':
 						$text_count++;													
-						$class = ' class="'.$txtClass.'" ';					
+						$class = ' class="'.$_settings['txtClass'].'" ';					
 						$option->display = "<input type='".$option->type."' name='prod_options[".$option->slug."]'  ".$class."  />";
 						break;
 

@@ -89,8 +89,9 @@ class Pgroups extends Admin_Controller
 	
 		// Check for post data
 		$this->form_validation->set_rules($this->_validation_rules);
+
 		
-		
+
 		// if postback-validate
 		if ($this->form_validation->run()) 
 		{
@@ -124,7 +125,7 @@ class Pgroups extends Admin_Controller
 	{
 
 		// Get row
-		$row = $this->pgroups_m->get($id);
+		$row = $this->pgroups_m->get($id, TRUE);
 
 
 		
@@ -136,6 +137,12 @@ class Pgroups extends Admin_Controller
 		}
 		
 		$data = (object) $row;
+
+        $this->load->library('users/ion_auth');
+        $this->load->model('groups/group_m');
+		$data->user_groups = array_for_select($this->group_m->get_all(),'id', 'description');
+
+
 		$this->form_validation->set_rules($this->_validation_rules);
 
 		// if postback-validate

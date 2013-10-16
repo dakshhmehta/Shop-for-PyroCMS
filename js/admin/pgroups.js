@@ -18,21 +18,7 @@ jQuery(function($){
 
 
 
-		$('#add-price').click(function() 
-		{
 
-			var id = $("#price-list tr").length;
-			var content = '';
-			content += '<tr id="item_'+id+'">';
-			content += '   <td><input type="text" class="disc_qty" value="" name="prices['+id+'][min_qty]"></td>';
-			content += '   <td><input type="text" class="disc_price" value="" name="prices['+id+'][price]"></td>';		
-			content += '   <td><a class="img_delete img_icon remove" data-row="item_'+id+'"></a></td>';
-			content += '</tr>';
-			$('#price-list').append(content);
-			return false;
-
-		});
-        
 
     
         

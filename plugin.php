@@ -101,6 +101,10 @@ class Plugin_Shop extends Plugin
 	}
 
 
+	/**
+	 * Pricer help display prices and combines base price
+	 * @return [type] [description]
+	 */
 	function pricer() 
 	{
 
@@ -154,13 +158,18 @@ class Plugin_Shop extends Plugin
 		// Get the attributes
 		$product_id = $this->attribute( 'id', NULL ); // product ID - 
 		$txtClass = $this->attribute( 'txtBoxClass' , '' );  
+
+
+		$settings = array('txtClass'=> $txtClass);
+
+		
 		
 		$ci =& get_instance();
 		$ci->load->library('options_library');
 		$ci->load->model('options_m');
 		
 		$options = $ci->options_m->get_options( $product_id ); //Get the options
-		$options = Options_Library::Process( $options, $txtClass ); //process them so they can be used by lex
+		$options = Options_Library::Process( $options, $settings ); //process them so they can be used by lex
 		
 		return $options;
 
@@ -371,11 +380,13 @@ class Plugin_Shop extends Plugin
 		$_prod = $this->products_front_m->get_product($id,'id',TRUE);
 
 
+
 		// 
 		// MID_Discount
 		// 
 		if($_prod->pgroup_id > 0)
 		{
+
 			//group
 			$model = 'pgroups_prices_m';
 			$method = 'get_by_pgroup';
@@ -565,6 +576,8 @@ class Plugin_Shop extends Plugin
 	{
 		$id = $this->attribute('id', 0);
 
+		$height = $this->attribute('height', '100');
+		$width = $this->attribute('width', '100');
 
 		$CI =& get_instance();
 		$CI->load->model('shop/products_front_m');
@@ -572,7 +585,7 @@ class Plugin_Shop extends Plugin
 		$product =  $CI->products_front_m->get($id);
 
 
-		return img(site_url('files/thumb/'.$product->cover_id.'/100/100'));
+		return img(site_url('files/thumb/'.$product->cover_id.'/'.$height.'/'.$height));
 
 
 	}

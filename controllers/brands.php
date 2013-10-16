@@ -50,6 +50,8 @@ class Brands extends Public_Controller
 	 */
 	public function index($offset = 0, $limit = 5) 
 	{
+
+		$limit = (isset(Settings::get('ss_qty_perpage_limit_front')))? Settings::get('ss_qty_perpage_limit_front') :$limit;
 		  
 		$data->brands = $this->brands_m->get_all();
 

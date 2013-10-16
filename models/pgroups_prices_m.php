@@ -36,9 +36,23 @@ class Pgroups_prices_m extends MY_Model
 
 	public function get_by_pgroup($id)
 	{
+
+		$user_group = $this->_get_user_group();
+			
+		// First get all the results that may fit the part
+		$this->where('ugroup_id',$user_group);
+
+
 		return $this->where('pgroup_id',$id)->get_all();
 	}
 
+
+	public function get_by_pgroup_admin($id)
+	{
+
+
+		return $this->where('pgroup_id',$id)->order_by('ugroup_id','asc')->order_by('min_qty','asc')->get_all();
+	}
 
 
 	// Create a new item
@@ -60,8 +74,8 @@ class Pgroups_prices_m extends MY_Model
 
 
 			$to_insert = array(
-				'ugroup_id' => 1, //$input['user_group_id'],
 				'pgroup_id' => $id,
+				'ugroup_id' =>  $item['ugroup_id'],
 				'min_qty' => $item['min_qty'],
 				'price' => $item['price'],
 			);
@@ -79,11 +93,25 @@ class Pgroups_prices_m extends MY_Model
 	}
 
 
-
+	/**
+	 * Shop will expect a group called user
+	 * 
+	 * @param  [type] $pg_id     [description]
+	 * @param  [type] $qty       [description]
+	 * @param  [type] $def_price [description]
+	 * @return [type]            [description]
+	 */
 	public function get_discounted_price($pg_id, $qty, $def_price)
 	{
 	
+
+		$user_group = $this->_get_user_group();
+			
+
+		
+
 		// First get all the results that may fit the part
+		$this->db->where('ugroup_id',$user_group);
 		$this->db->where('pgroup_id',$pg_id);
 		$this->db->where('min_qty <= ',intval($qty) );
 		$this->db->order_by('min_qty desc');
@@ -98,7 +126,29 @@ class Pgroups_prices_m extends MY_Model
 	}	
 
 
+	/**
+	 * 
+	 * @return [INT] [The group ID associated with the price]
+	 *
+	 * Non logged in users will receive the users price.
+	 */
+	private function _get_user_group()
+	{
+		$this->load->model('shop/user_groups_m');
 
+		$group = $this->user_groups_m->get_group_by_name('user');
+
+
+		if($this->current_user)
+		{
+			return $this->current_user->group_id;
+			
+		}
+
+
+		return $group->id;
+		
+	}
 
 
 	

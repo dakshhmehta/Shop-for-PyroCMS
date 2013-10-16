@@ -61,20 +61,30 @@ class Products_m extends MY_Model
 	}
 
 
-	public function filter_minimal($term)
+	public function filter_minimal($term,$category=NULL)
 	{
 
 
-		return $this->db->select('shop_products.id, shop_products.name, shop_products.cover_id')
-						->where('shop_products.date_archived', NULL)	
-						->where('shop_products.searchable',1)
-						->like('shop_products.name', $term)
-						->like('shop_products.slug', $term)
-						->or_like('shop_products.meta_desc',$term)
-						->or_like('shop_products.code',$term)
-						->or_like('shop_products.id',$term)
-						->limit(15)
-						->get('shop_products')->result();	
+		$this->db->select('shop_products.id, shop_products.name, shop_products.cover_id,shop_products.category_id')
+				->where('shop_products.date_archived', NULL)	
+				->where('shop_products.searchable',1);
+
+				if((  $category != NULL) && (is_numeric($category)) && ($category > 0)  )
+				{
+
+					$this->db->where('shop_products.category_id',$category);
+						
+				}
+
+	   $this->db->like('shop_products.name', $term)
+				->like('shop_products.slug', $term)
+				->or_like('shop_products.meta_desc',$term)
+				->or_like('shop_products.code',$term)
+				->or_like('shop_products.id',$term);
+
+
+
+				return $this->db->limit(15)->get('shop_products')->result();	
 						
 
 	}

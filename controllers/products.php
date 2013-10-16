@@ -64,6 +64,7 @@ class Products extends Public_Controller
 	public function index( $offset = 0, $limit = 6, $filter = array() ) 
 	{
 	
+		$limit = Settings::get('ss_qty_perpage_limit_front');
 
 		// 
 		//  Count total items by the given filter

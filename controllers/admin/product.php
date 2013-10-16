@@ -357,6 +357,9 @@ class Product extends Products_admin_Controller
 
 		if($panel =='related')
 		{
+			
+			$data->category_select 	= $this->categories_m->build_tree_select();
+
 			$data->rel_names = array();
 			foreach($data->related as $related_product)
 			{

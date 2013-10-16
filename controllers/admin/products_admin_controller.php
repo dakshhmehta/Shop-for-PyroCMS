@@ -132,12 +132,23 @@ class Products_admin_Controller extends Admin_Controller
 		$response['results'] = array();
 
 
+		$category = NULL;
 
 		if( $term = $this->input->post('term') ) 
 		{
 
+			if($cat = $this->input->post('category'))
+			{
+				
+
+				if($cat > 0)
+				{
+					$category = $cat;
+				}
+			}
+
 			$response['status'] = JSONStatus::Success;
-			$response['results'] = $this->products_admin_m->filter_minimal($term);
+			$response['results'] = $this->products_admin_m->filter_minimal($term,$category);
 
 		}
 

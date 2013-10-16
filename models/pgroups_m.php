@@ -35,13 +35,21 @@ class Pgroups_m extends MY_Model
 		
 	}
 
-	public function get($id)
+	public function get($id,$admin=FALSE)
 	{
 		
 
 		$pgroup = parent::get($id);
 
-		$pgroup->prices = $this->pgroups_prices_m->get_by_pgroup($id);
+		//get all or get for shop
+		if($admin)
+		{
+			$pgroup->prices = $this->pgroups_prices_m->get_by_pgroup_admin($id);
+		}
+		else
+		{
+			$pgroup->prices = $this->pgroups_prices_m->get_by_pgroup($id);
+		}
 
 		return $pgroup;
 	}

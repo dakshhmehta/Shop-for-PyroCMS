@@ -37,7 +37,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.081';  
+	public $version = '1.0.0.083';  
 	private $language_file = 'shop/shop';
 	private $setting_en_brands = 0; //default to off;
 
@@ -226,93 +226,48 @@ class Module_Shop extends Module
 
 		switch ($old_version) 
 		{
-			case '1.0.0.081': break;
-			case '1.0.0.080': 
-				$this->_delete_setting('nc_css');
+			case '1.0.0.085': break;
+			case '1.0.0.084': break;
+			case '1.0.0.083': break;
+			case '1.0.0.082': 
+				//$array = $this->details_library->get_install_tables_4();
+
+
+				//$tbls = $this->install_tables( array('shop_test' => $array['shop_test']) );
+				break;			
+			case '1.0.0.081': 
+				/*
+				$this->_create_setting('ss_qty_perpage_limit_front', 
+									'Products per page(front)', 
+									'How many products show in list view (front end only)', 
+									'text', 
+									'10');
 				break;
-			case '1.0.0.076': break;
-			case '1.0.0.073': 
- 				
-			break;
-			case '1.0.0.072': 
-					$this->_add_field('related', 'TEXT', 'shop_products');
-					$this->_add_field('user_data', 'TEXT', 'shop_products');
-					break;
-			case '1.0.0.071': 
-			case '1.0.0.070': 	
-				break;
-			case '1.0.0.069':
+				*/
 
-
-				//remove short_desc
-				$table = 'shop_products';
-
-
-				//$field = 'deleted';
-				//$this->_remove_field($table,$field);
-				
-				//$field = 'product_type';
-				//$this->_remove_field($table,$field);
-				
-
-				//$field = 'short_desc';
-				//$this->_remove_field($table,$field);
-				
-				//$this->_delete_setting('nc_markup_theme');
-
-				break;
-
-			case '1.0.0.051':
-				//
-				// tmp install lang table
-				//
-				$tbls = $this->install_tables( 
-
-					array('shop_lang' => array(
-						'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-						'module' =>   array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
-						'area' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
-						'key' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
-						'value' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
-					)) 
-
-				);
-				
-				//
-				// removed un-used settings
-				//
-				$this->_delete_setting('nc_currency_api_key');
-				$this->_delete_setting('sf_profiler');
-				$this->_delete_setting('nc_enable_wishlist');
-				$this->_delete_setting('nc_support_email');
-
-				//
-				// rename old settings to new name
-				//
-				$this->_rename_setting('nc_name','ss_name');
-				$this->_rename_setting('nc_slogan','ss_slogan');
-				$this->_rename_setting('nc_currency_code'			,'ss_currency_code'		);
-				$this->_rename_setting('nc_currency_symbol'			,'ss_currency_symbol'	);
-				$this->_rename_setting('nc_currency_layout'			,'ss_currency_layout'	);
-				$this->_rename_setting('nc_currency_thousand_sep'	,'ss_currency_thousand_sep');
-				$this->_rename_setting('nc_currency_decimal_sep'	,'ss_currency_decimal_sep');
-				$this->_rename_setting('nc_dist_loc'				,'ss_distribution_loc');
-				$this->_rename_setting('nc_enable_brands'			,'ss_enable_brands');
-				$this->_rename_setting('nc_qty_perpage_limit'		,'ss_qty_perpage_limit');
-				$this->_rename_setting('nc_require_login'			,'ss_require_login');
-				$this->_rename_setting('nc_ssl_required'			,'ss_ssl_required');
-
-
-
-				break;
-			case '1.0.0.050':
-				break;
 			default:
 				break;
 		}
 
 
-		//below here you can run a script that updates for all versions
+		//add a field
+		//	
+		//	$this->_add_field('user_data', 'TEXT', 'shop_products');
+		//					
+		//					
+		//					
+		//remove short_desc
+		//
+		//$table = 'shop_products';
+		//$field = 'deleted';
+		//$this->_remove_field($table,$field);
+		//
+		//
+		//
+		// settings
+		//
+		//$this->_delete_setting('nc_currency_api_key');
+		//$this->_rename_setting('nc_name','ss_name');
 
 
 

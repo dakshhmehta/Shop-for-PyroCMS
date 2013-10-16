@@ -181,7 +181,7 @@ class Cart extends Public_Controller
 		// Get discounted price if it exist
 		// Override the item price - if the new quantaty (nq) changes and a lower price is available
 		//
-		//$product->price_at = $this->product_prices_m->get_discounted_price($product->id, $nq, $product->price_at);    
+		
 
 
 		

@@ -30,7 +30,7 @@ function buildGraph(result)
     {
         graph_data = result;
     }
-    
+
     $.plot($('#chart_div'), result, {
         lines: {
             show: true
@@ -59,7 +59,8 @@ function buildGraph(result)
             mode: "y"
         }
     });
-    
+
+     
     $("#chart_div").bind("plothover", function (event, pos, item) {
         $("#x").text(pos.x.toFixed(2));
         $("#y").text(pos.y.toFixed(2));
@@ -82,6 +83,8 @@ function buildGraph(result)
         }
     });
 }
+
+
 
 // re-create the analytics graph on window resize
 $(window).resize(function()

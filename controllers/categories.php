@@ -55,6 +55,8 @@ class Categories extends Public_Controller
 	public function index($offset =0, $limit = 6) 
 	{
 
+		$limit = Settings::get('ss_qty_perpage_limit_front');
+		
 		$data->categories = $this->categories_m
 							->limit($limit)
 							->offset($offset)
@@ -84,7 +86,11 @@ class Categories extends Public_Controller
 	*/
 	public function category( $category = 0, $offset = 0, $limit = 6 ) 
 	{
-	
+
+
+		$limit = Settings::get('ss_qty_perpage_limit_front');
+
+
 		//initialize
 		$data = (object) array();
 
