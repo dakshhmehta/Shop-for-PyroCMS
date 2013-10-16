@@ -1,40 +1,83 @@
 				
 
 				<fieldset>
-					<ul>
-						<li class="<?php echo alternator('', 'even'); ?>">
-							<label for="folder">
 
-								<?php echo shop_lang('shop:products:import_image'); ?>
-								<span>*</span> 
-								<br />
-								<small>
-									<?php echo shop_lang('shop:products:import_image_description'); ?>
-								</small>
-							</label>
-							<div class="input">
-								<?php echo form_dropdown('folder_id', $folders, $folder_id, 'id="folder_id" style="width:400px;"'); ?>
-								
-								<?php echo "<a href='#' id='load_folder' name='load_folder' style='display:none;'>Load</a>";  ?>
 
-										<div id='img_view' style="overflow-y:scroll;min-height:50px;max-height:300px;">
-											<!-- This is where the response from search folder images goes -->
-										</div>
-										<div id='img_actions' style="margin-top:12px">
-											<!-- This is where the submit button to save the gallery goes -->
-											<a href='#' class="btn orange"  id='btn_select_all_images'><?php echo shop_lang('shop:products:select_all'); ?></a> 
-											<a href='#' class="btn orange"  id='btn_select_none_images'><?php echo shop_lang('shop:products:select_none'); ?></a> 
-											<a href='#' class="btn green"  id='btn_add_images' pid='<?php echo $id; ?>'><?php echo shop_lang('shop:products:add_to_gallery'); ?></a>
-										</div>	
-	  
-							</div>
-						</li>				
-						<li class="<?php echo alternator('', 'even'); ?>">
+				<div class="tabs">		
+
+					<ul class="tab-menu">
+						<li><a class=""  data-load="" href="#files-tab"><span><?php echo shop_lang('shop:products:files'); ?></span></a></li>							
+						<li><a class=""  data-load="" href="#pc-tab"><span><?php echo shop_lang('shop:products:upload_from_computer'); ?></span></a></li>
+					</ul>					
+					<div class="form_inputs" id="files-tab">
+						<fieldset>
+							<ul>
+								<li class="<?php echo alternator('', 'even'); ?>">
+									<label for="folder">
+
+										<?php echo shop_lang('shop:products:import_from_files'); ?>
+										<span>*</span> 
+										<br />
+										<small>
+											<?php echo shop_lang('shop:products:import_image_description'); ?>
+										</small>
+									</label>
+									<div class="input">
+										<?php echo form_dropdown('folder_id', $folders, $folder_id, 'id="folder_id" style="width:400px;"'); ?>
+										
+										<?php echo "<a href='#' id='load_folder' name='load_folder' style='display:none;'>Load</a>";  ?>
+
+												<div id='img_view' style="overflow-y:scroll;min-height:50px;max-height:300px;">
+													<!-- This is where the response from search folder images goes -->
+												</div>
+												<div id='img_actions' style="margin-top:12px">
+													<!-- This is where the submit button to save the gallery goes -->
+													<a href='#' class="btn gray"  id='btn_select_all_images'><?php echo shop_lang('shop:products:select_all'); ?></a> 
+													<a href='#' class="btn gray"  id='btn_select_none_images'><?php echo shop_lang('shop:products:select_none'); ?></a> 
+													<a href='#' class="btn orange"  id='btn_add_images' pid='<?php echo $id; ?>'><?php echo shop_lang('shop:products:add_to_gallery'); ?></a>
+												</div>	
+			  
+									</div>
+								</li>				
+							</ul>
+						</fieldset>.
+					</div>
+					<div class="form_inputs" id="pc-tab">
+						<fieldset>
+
+						<ul>
+							<li>
+								<label for="">
+									<?php echo shop_lang('shop:products:upload_image'); ?>
+									<span></span>
+									<br />
+									<small><?php echo shop_lang('shop:products:upload_image_description'); ?></small>
+								</label>
+								<div class="input">		
+									<?php echo shop_lang('shop:products:you_must_select_an_upload_folder'); ?> <br />
+									<?php echo form_dropdown('upload_folder_id', $folders, $folder_id, 'id="upload_folder_id" style=""'); ?>	 <br />			
+									<input type='file' name='fileupload_1' > <br />
+									<input type='file' name='fileupload_2' > <br />
+									<input type='file' name='fileupload_3' > <br />
+									<input type='file' name='fileupload_4' > <br />								
+								</div>
+							</li>
+
+						</ul>
+						</fieldset>		
+					</div>					
+				</div>
+
+
+				<ul>
+					<li class="<?php echo alternator('', 'even'); ?>">
 							<label for="">
 								<?php echo shop_lang('shop:products:gallery_images'); ?>
 								<span></span>
 								<br />
-								<small><?php echo shop_lang('shop:products:gallery_images_description'); ?></small>
+								<small>
+									<?php echo shop_lang('shop:products:gallery_images_description'); ?>
+								</small>
 							</label>
 							<div class="input">
 
@@ -63,11 +106,11 @@
 
 							</div>
 						</li>
+				</ul>
 
-					</ul>
 				</fieldset>
 		
-			<script>
+	<script>
 
 			//will set in the db
 			$('#btn_add_images').click(function() {

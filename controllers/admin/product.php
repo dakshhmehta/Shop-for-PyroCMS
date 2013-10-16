@@ -131,6 +131,9 @@ class Product extends Products_admin_Controller
 		//
 		role_or_die('shop', 'admin_edit_products');
 
+
+
+
 		// 
 		// First get the product
 		//
@@ -150,6 +153,10 @@ class Product extends Products_admin_Controller
 		{
 			
 			$input = $this->input->post();
+
+
+			//upload files
+			$this->upload($id);
 
 
 
@@ -502,6 +509,69 @@ class Product extends Products_admin_Controller
 
 	}
 
+	/**
+	 * Upload images from the images tab
+	 * 
+	 * @return [INT] [ID of the image uploaded]
+	 */
+	public function upload($product_id)
+	{
 
-	
+		$this->load->library('files/files');
+
+
+		if($this->input->post('upload_folder_id'))
+		{
+			$folder_id = $this->input->post('upload_folder_id');
+		}
+		else
+		{
+			$folder_id = NULL; 
+		}
+
+
+		//counter
+		$_files_to_upload = 0;
+
+		foreach($_FILES as $key => $_file)
+		{
+
+			//check to see if tried to upload file
+			if($folder_id==NULL) 
+			{
+				if($_file['name'] != NULL)
+				{
+					$_files_to_upload++;
+				}
+
+				continue;
+			}
+			else
+			{
+				$upload = Files::upload($folder_id, $_file['name'], $key);
+
+		    	$image_id = $upload['data']['id'];	
+
+		    	$this->_upload_assign($image_id, $product_id);	
+	    	}	
+
+
+		}
+
+		if($_files_to_upload > 0)
+		{
+			return $this->session->set_flashdata('error', shop_lang('shop:products:no_upload_folder_set'));
+		}
+
+
+	}	
+
+	private function _upload_assign($image_id, $product_id)
+	{
+
+		if($image_id =="")
+			return FALSE;
+		
+		return $this->products_admin_m->add_image($image_id,$product_id);
+	}
 }

@@ -22,7 +22,7 @@
 
 								<?php echo form_input('add_attrib_label'); ?>
 								<?php echo form_input('add_attrib_value'); ?>
-								 <a class="button" id="add-property" >
+								 <a class="btn green" id="add-property" >
 										<?php echo shop_lang('shop:products:add'); ?>
 								</a>
 
