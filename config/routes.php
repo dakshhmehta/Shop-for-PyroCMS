@@ -34,6 +34,7 @@ $route['shop/admin(/:any)?']			  	= 'admin/shop$1';
 
 
 
+
 /*
  * Front end routes
  *

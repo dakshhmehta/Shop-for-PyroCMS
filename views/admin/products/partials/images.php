@@ -69,6 +69,20 @@
 				</div>
 
 
+
+				<?php
+				/**
+				 *
+				 *
+				 * Gallery Images
+				 *
+				 *
+				 *
+				 *
+				 * 
+				 */
+				?>
+
 				<ul>
 					<li class="<?php echo alternator('', 'even'); ?>">
 							<label for="">
@@ -96,7 +110,8 @@
 												echo "<div  class='tooltip-s container' id='$dom_id'>";
 												echo "  <a title='$rem' class='img_icon img_delete remove_image gall_cover2' data-image='$image->file_id' data-parent='$dom_id'></a>";
 												echo "  <a title='$cov' href='javascript:set_cover(\"$image->file_id\")'  class='tooltip-s img_icon img_home gall_cover3'></a>";
-												echo "  <img title='$image->name' class='tooltip-s' src='".site_url()."files/thumb/$image->file_id/100/100'>";
+												echo "  <a href='admin/shop/images/admin_view/$image->file_id' class='modal img_icon img_view gall_cover4' data-image='$image->file_id' data-parent='$dom_id'></a>";
+												echo "  <img large='".site_url()."files/thumb/$image->file_id/400' title='$image->name' class='tooltip-s' src='".site_url()."files/thumb/$image->file_id/100/100'>";
 												echo "</div>";
 											}
 										}
@@ -145,6 +160,7 @@
 						current_images += "<div class='tooltip-s container' id='" + dom_id + "'>";
 						current_images += "  <a title='" + obj.name + "' class='img_icon img_delete remove_image gall_cover2' data-image='"+obj.added[i]+"' data-parent='" + dom_id + "'></a>"
 						current_images += "  <a title='" + obj.name + "' href='javascript:set_cover(\""+obj.added[i]+"\")'  class='tooltip-s img_icon img_home gall_cover3'></a>";
+						current_images += "  <a href='admin/shop/images/admin_view/"+obj.added[i]+"' class='modal img_icon img_view gall_cover4'></a>";						
 						current_images += "  <img title='" + obj.name + "' class='tooltip-s' src='" + obj.url + "files/thumb/" + obj.added[i] + "/100/100'>";
 						current_images += "</div>";
 					}
@@ -244,5 +260,17 @@
 		            
 					return false;
 				
-				});						
+				});		
+
+
+				$(".popup_image").live('click', function(e)  {					
+					
+
+		            img_url = $(this).attr('large');
+		            
+					return false;
+				
+				});		
+
+
 			</script>

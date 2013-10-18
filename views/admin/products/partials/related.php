@@ -16,17 +16,27 @@
 					<ul id="related-list">
 
 
- 								<?php
+					<?php
 
- 									foreach ($rel_names as $key => $_related) 
- 									{
- 										echo 	"<li><img src='files/thumb/$_related->cover_id/100/'>" .
+						//var_dump($rel_names);
 
- 												$_related->id. ' ' . $_related->name .  "<input type='hidden' value='" . $_related->id . "' name='related[]'> <a href='#' class='remove_related_product'>remove</a></li>";
- 									}
+						foreach ($rel_names as $key => $_related) 
+						{
+							$out_str = 	"<li><img src='files/thumb/$_related->cover_id/100/'>" ;
+							$out_str .= " <a href='shop/product/".$_related->id."' target='_new_$_related->id' class=''>($_related->id)</a> | ";							
+							$out_str .= $_related->name ;
+							$out_str .= "<input type='hidden' value='" . $_related->id . "' name='related[]'> ";
+
+							$out_str .= " <a href='shop/product/".$_related->id."' target='_new' class=''>view</a> | ";
+							$out_str .= " <a href='#' class='remove_related_product'>remove</a>";
+
+							$out_str .= "</li>";
+
+							echo $out_str;
+						}
 
 
- 								?>
+					?>
 							
 
 					</ul>

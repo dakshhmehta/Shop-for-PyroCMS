@@ -68,13 +68,22 @@ class Options extends Admin_Controller
 		
 	}
 	
+
+		
+
+				
+
+
 	/**
 	 * List all items
 	 * @access public
 	 */
-	public function index() 
+	public function index($offset= 0) 
 	{
+
 	
+		$limit = 10;
+
 		//
 		// Check for multi delete
 		//
@@ -83,11 +92,26 @@ class Options extends Admin_Controller
 			$this->delete(NULL);
 		}
 		
+
+		//
+		// Count all
+		//
+		$total_rows = $this->options_m->count_all();
+
+
+		// 
+		// Create Pagination
+		// 
+		$data->pagination = create_pagination('admin/shop/options/index', $total_rows, $limit,5);
+
+
 		//
 		// Otherwise display list
 		//
-		$data->options = $this->options_m->get_all();
+		$data->options = $this->options_m->limit( $data->pagination['limit'], $data->pagination['offset'])->get_all();
 		
+
+
 		$this->template
 				->title($this->module_details['name'])
 				->build('admin/options/list', $data);
@@ -301,6 +325,9 @@ class Options extends Admin_Controller
 		// prepare for the view :: Get the option
 		//
 		$data = $this->options_m->get($id);
+
+
+
 	
 	
 		//
@@ -333,6 +360,7 @@ class Options extends Admin_Controller
 		//
 		$data->option_types = $this->options_m->build_option_types_dropdown( $data->type , RWMode::ReadOnly );
 		
+		$_PATH_TO_VIEWFILE = 'admin/options/edit';
 		
 		//
 		// Display the add form 
@@ -340,7 +368,7 @@ class Options extends Admin_Controller
 		$this->template	
 				->title($this->module_details['name'])
 				->append_js('module::admin/options.js')
-				->build('admin/options/edit', $data);
+				->build( $_PATH_TO_VIEWFILE , $data);
 
 	
 	}

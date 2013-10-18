@@ -51,7 +51,11 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="9"><div style="float:right;"></div></td>
+					<td colspan="9">
+					<div style="">
+						<?php echo $pagination['links'];?>
+						
+					</div></td>
 				</tr>
 			</tfoot>
 		</table>
@@ -65,6 +69,3 @@
 
 <?php echo form_close(); ?>
 
-<?php if (isset($pagination)): ?>
-	<?php echo $pagination; ?>
-<?php endif; ?>

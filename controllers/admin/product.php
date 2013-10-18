@@ -368,6 +368,7 @@ class Product extends Products_admin_Controller
 			$data->category_select 	= $this->categories_m->build_tree_select();
 
 			$data->rel_names = array();
+			
 			foreach($data->related as $related_product)
 			{
 				$data->rel_names[] = $this->products_admin_m->get_minimal($related_product);

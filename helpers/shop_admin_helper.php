@@ -157,3 +157,23 @@ if (!function_exists('sf_clean_slug'))
 		return $slug;
 	}
 }
+
+
+if (!function_exists('ss_category_name')) 
+{
+	
+	//make sure the slug is valid
+	function ss_category_name($id) 
+	{
+
+		$ci =& get_instance();
+		
+		$ci->load->model('shop/categories_m');
+
+		
+		$cat = $ci->categories_m->get($id);
+		
+		return $cat->name;	
+
+	}
+}

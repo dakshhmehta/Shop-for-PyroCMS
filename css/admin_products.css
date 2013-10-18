@@ -14,4 +14,8 @@
 .gall_cover2 { position: absolute; bottom: 0px; right: 0px; opacity:0.5; }
 .gall_cover2:hover {opacity:1; }	
 .gall_cover3 { position: absolute; top: 0px; left: 0px; opacity:0.5; }
-.gall_cover3:hover {opacity:1; }			
+.gall_cover3:hover {opacity:1; }	
+
+
+.gall_cover4 { position: absolute; bottom: 0px; left: 0px; opacity:0.5; }
+.gall_cover4:hover {opacity:1; }					

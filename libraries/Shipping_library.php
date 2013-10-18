@@ -35,7 +35,7 @@ class Shipping_library extends Core_library
 	/**  
 	 * @var Boolean: if true, allows multiple of the module to be installed
 	 */
-	public $nc_multiple = FALSE;
+	public $nc_multiple = TRUE;
 	
 	
 	/** fs_path
@@ -431,6 +431,9 @@ class Shipping_library extends Core_library
 				'desc' => $input['desc'],
 				'options' => serialize(""),		
 		);
+
+
+		//var_dump($input);die;
 
 
 		//not all gateways have options

@@ -38,7 +38,12 @@ class FreePost_ShippingMethod {
 	public $_discount = 0;
 
 
-	public $fields = array(	);
+	public $fields = array(	
+			array(
+			'field' => 'title',
+			'label' => 'Title',
+			'rules' => 'trim|required'
+		));
 	
 	
 	public function __construct() {		}
@@ -50,11 +55,10 @@ class FreePost_ShippingMethod {
 
 	public function calc($options, $packages, $from_address = array(), $to_address = array() )
 	{
-		//
-		// no charge for shipping
-		//
-		return array($this->id,'FreePost','Free postage special',0,0,0); // == $0 total
 
+		$cost = 0; $handling = 0; $discount = 0;
+
+		return array($this->id,$this->title,$this->desc, $cost, $handling, $discount); // == $0 total
 	}
 	
 

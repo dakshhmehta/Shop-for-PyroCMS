@@ -84,7 +84,7 @@ class Options_library
 								//var_dump($option_value);die;
 								// old
 								$str = ($option_value->default)? 'checked' :'';
-								$string_builder .=  form_radio('prod_options['.$option->slug.']',$option_value->value, $str ).' '.$option_value->value. '<br />'; 
+								$string_builder .=  form_radio('prod_options['.$option->slug.']',$option_value->value, $str ).' '.$option_value->label. '<br />'; 
 								
 								//better
 								$option_value->display = form_radio('prod_options['.$option->slug.']',$option_value->value, $str ); 
@@ -104,7 +104,7 @@ class Options_library
 						$items = array(); //reset
 						foreach ($option->values as $option_value)
 						{
-							$items[$option_value->value] = $option_value->value;
+							$items[$option_value->value] = $option_value->label;
 
 						}													
 						$option->display =  form_dropdown('prod_options['.$option->slug.']',$items); 

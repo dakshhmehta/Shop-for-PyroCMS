@@ -63,11 +63,12 @@ class FlatratePerOrder_ShippingMethod {
 		
 		$handling = floatval($options['handling']);
 		$cost = floatval($options['amount']);
+		$discount = 0;
 		
 		//
 		// This is the simplest, just return the amount set by the admin
 		//
-		return array($this->id,'Flat Rate Shipping','',$cost ,$handling,0); // == $0 total
+		return array($this->id,$this->title,$this->desc, $cost, $handling, $discount); // == $0 total
 
 	}
 	

@@ -23,7 +23,10 @@
  * @system		PyroCMS 2.1.x
  *
  */
-class Twoducks_ShippingMethod 
+
+include_once( dirname(__FILE__) . '/'. 'twoducks_base.php');
+
+class Twoducks_ShippingMethod extends Twoducks_base
 {
 
 	public $name = 'Two Ducks Custom Shipping'; 
@@ -39,7 +42,28 @@ class Twoducks_ShippingMethod
 	public $_discount = 0;
 
 
-	public $fields = array(	);
+	public $fields = array(	
+		array(
+			'field' => 'title',
+			'label' => 'Title',
+			'rules' => 'trim|required'
+		),
+		array(
+			'field' => 'options[shipping_min]',
+			'label' => 'Shipping Charge Per Order',
+			'rules' => 'trim|max_length[5]|is_numeric|required'
+		),
+		array(
+			'field' => 'options[shipping_max]',
+			'label' => 'Handling',
+			'rules' => 'trim|max_length[5]|is_numeric|required'
+		),
+		array(
+			'field' => 'options[handling]',
+			'label' => 'Handling',
+			'rules' => 'trim|max_length[5]|is_numeric|required'
+		)				
+	);
 	
 	
 	public function __construct() {		}
@@ -54,9 +78,11 @@ class Twoducks_ShippingMethod
 	public function calc($options, $packages, $from_address = array(), $to_address = array() )
 	{
 
+		$options['shipping_min'];
+		$options['shipping_max'];
 
 		$cost = 0;
-		$handling = 0;
+		$handling = $options['handling'];
 		$discount = 0;
 
 
@@ -69,7 +95,7 @@ class Twoducks_ShippingMethod
 			// Remove any unnessesary items from package,
 			// items that do not require shipping
 			//
-			$this->clean_package($package);
+			$this->prepare_package($package);
 
 
 
@@ -81,33 +107,62 @@ class Twoducks_ShippingMethod
 			switch ($package->title) 
 			{
 
-				case 'tags':
-					$func = 'calc_tags';
+
+				case 'cards':
+					$func = 'calc_cards';
 					break;
+
 
 				case 'invitations':
 					$func = 'calc_invitations';
 					break;	
 
-				case 'invitation_pack':
+
+				case 'invitation-pack':
 					$func = 'calc_invitation_pack';
 					break;	
+
+
+				case 'tags':
+					$func = 'calc_tags';
+					break;
+
+
+
+				case 'birth':
+					$func = 'calc_birth';
+					break;
+
 					
+				case 'name-charts':
+					$func = 'calc_name_charts';
+					break;
+
 
 				case 'posters':
 					$func = 'calc_posters';
 					break;
-				case 'cards':
+
+
+				case 'flash-cards':
+					$func = 'calc_flash_cards';
+					break;
+
+
+				case 'prints':
+					$func = 'calc_prints';
+					break;
+
+				case 'free-shipping':
 				default:
-					$func = 'calc_cards';
+					$func = 'calc_default';
 					break;
 
 			}
 
-			//var_dump($package->item_count);
 
 			//now we have the calc method, go there and calc
-			$cost += $this->$func($package->item_count);
+			$cost += $this->$func($package);
 
 		}
 
@@ -124,30 +179,55 @@ class Twoducks_ShippingMethod
 		//echo $cost;die;
 
 
-		return array($this->id,'Shipping','Australia Wide Shipping', $cost, $handling, $discount); // == $0 total
+		return array($this->id,$this->title,$this->desc, $cost, $handling, $discount); // == $0 total
 
 	}
 
+
+
 	/**
+	 * 
 	 * Remove items that do not require shipping
+	 *
+	 *
+	 * 
 	 * @param  [type] $package [description]
 	 * @return [type]          [description]
 	 */
-	private function clean_package(&$package)
+	private function prepare_package(&$package)
 	{
+
 
 
 		foreach($package->items as $key => $val)
 		{
+
 			if(isset($package->items[$key]['options']['delivery-type-inv']))
 			{
-				if($package->items[$key]['options']['delivery-type-inv']['value'] == 'digital_file')
+
+				if($package->items[$key]['options']['delivery-type-inv']['value'] == 'digital')
 				{
 					// Remove from package
 					unset($package->items[$key]);
 					
 				}
 			}
+
+			if(isset($package->items[$key]['options']['delivery-type-birth']))
+			{
+				
+
+				if($package->items[$key]['options']['delivery-type-birth']['value'] == 'digital')
+				{
+					// Remove from package
+					unset($package->items[$key]);
+					
+				}
+			}
+
+
+
+
 		}
 
 		return $package;
@@ -155,112 +235,6 @@ class Twoducks_ShippingMethod
 
 
 
-	/**
-	 * Tags
-	 * 1-5 pack of tags $2 flat rate
-	 * 
-	 * @param  [type] $qty [description]
-	 * @return [type]      [description]
-	 */
-	private function calc_tags($qty)
-	{
-		$_COST= 5;
-
-		if($qty <= 0)
-			return 0;
-
-		$multiplier = ($qty /5);
-
-
-		$multiplier =ceil($multiplier);
-
-		$postage = ($multiplier * $_COST);
-
-		return $postage;
-	}
-
-	/**
-	 * Custom invitations
-	 * 10 flat rate
-	 * @param  [type] $qty [description]
-	 * @return [type]      [description]
-	 */
-	private function calc_invitations($qty)
-	{
-		return 10;
-	}
-
-
-	private function calc_invitation_pack($qty)
-	{
-		$_COST= 5;
-
-
-		if($qty <= 0)
-			return 0;
-
-		$multiplier = ($qty /2);
-
-
-		$multiplier =ceil($multiplier);
-
-		$postage = ($multiplier * $_COST);
-
-		return $postage;
-	}
-
-
-	/**
-	 *
-	 * 
-	 * 1-4 cards $2 flat rate (so if they bought: one card for $5 + $2 postage would be $7 or if they bought  four cards for $16 + $2 postage would be $18)
-	 * 5-10 cards $5 flat rate
-	 * 11- 25 cards $10 flat rate
-	 * 26+ cards $15 flat rate
-	 *
-	 * @param  [type] $qty [description]
-	 * @return [type]      [description]
-	 */
-	private function calc_cards($qty)
-	{
-		if($qty <= 4) return 2.00;
-
-		if($qty <= 10) return 5.00;
-
-		if($qty <= 25) return 10.00;
-
-		//
-		//26 and larger
-		//
-		return 15.00;
-
-	}
-
-
-	/**
-	 * Posters
-     * 
-     * 1-5 posters $10 flat rate
-     * 
-	 * @return [type] [description]
-	 */
-	private function calc_posters($qty)
-	{
-
-
-		$max = 5;
-
-		if($qty < 5)
-		{
-			return 10.00;
-		}
-
-
-		$val = ceil($qty / 5);
-
-		return $val;
-
-	}
 
 
 

@@ -99,7 +99,20 @@ class Products_m extends MY_Model
 	 */
 	public function get_minimal($id)
 	{
-		return $this->select('id,name,cover_id,slug')->get($id);
+		$prod_min = $this->select('id,name,cover_id,slug')->get($id);
+
+		
+
+		if($prod_min->category->parent_id > 0)
+		{
+			$prod_min->category	= $this->categories_m->get( $prod_min->category_id ); 
+		}
+		else
+		{
+			$prod_min->category = NULL;
+		}
+
+		return $prod_min;
 	}
 
 
@@ -207,6 +220,12 @@ class Products_m extends MY_Model
 		$product->keywords 			= Keywords::get_string($product->keywords); //prepare keywords
 		$product->group				= $this->pgroups_m->get($product->pgroup_id);
 
+
+
+		$product->category			= $this->categories_m->get( $product->category_id ); 
+		//$product->related 			= json_decode($product->related );
+
+	
 
 		foreach($product->images as $image)
 		{

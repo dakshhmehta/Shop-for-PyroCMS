@@ -416,8 +416,9 @@ class Details_library
 			'shop_option_values' => array( 
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'shop_options_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE),
-				'label' => array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),	  /*default value*/
-				'value' => array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),	  /*default value*/				
+				'label' => array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),	 
+				'value' => array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),	  		
+				'user_data' => array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),	  	
 				'max_qty' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0 ),
 				'operator' => array('type' => 'VARCHAR', 'constraint' => '2', 'null' => TRUE, 'default' => NULL ),
 				'operator_value' => array('type' => 'DECIMAL(10,2)', 'null' => TRUE, 'default' => 0),

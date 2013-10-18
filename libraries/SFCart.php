@@ -616,6 +616,12 @@ class SFCart
 		return $this->shipping_total() + $this->items_total();
 	}
 
+
+	public function total_cost_contents()
+	{
+		return $this->items_total();
+	}
+
 	// --------------------------------------------------------------------
 
 	/**

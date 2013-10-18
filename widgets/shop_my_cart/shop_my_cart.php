@@ -41,9 +41,14 @@ class Widget_Shop_My_Cart extends Widgets
 	public function run($options)
 	{
 
+		$count = $this->sfcart->total_items();
+
+		if($count==NULL)
+			$count = 0;
+
 		return array(
-				'total' => $this->sfcart->total(),
-				'items_count' => $this->sfcart->total_items(),
+				'total' => $this->sfcart->total_cost_contents(),
+				'items_count' => $count,
 				'contents' => $this->sfcart->contents(),
 
 		);

@@ -37,7 +37,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.083';  
+	public $version = '1.0.0.085';  
 	private $language_file = 'shop/shop';
 	private $setting_en_brands = 0; //default to off;
 
@@ -226,10 +226,14 @@ class Module_Shop extends Module
 
 		switch ($old_version) 
 		{
-			case '1.0.0.085': break;
-			case '1.0.0.084': break;
-			case '1.0.0.083': break;
-			case '1.0.0.082': 
+			case '1.0.0.085': 
+
+
+
+			
+				break;
+			case '1.0.0.084': 
+				//$this->_add_field('user_data', 'TEXT', 'shop_option_values');
 				//$array = $this->details_library->get_install_tables_4();
 
 

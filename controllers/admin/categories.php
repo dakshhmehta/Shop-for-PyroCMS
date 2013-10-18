@@ -320,6 +320,45 @@ class Categories extends Admin_Controller
 		return $folders;
 		 
 	}
+
+
+
+	/*manage product properties*/
+	public function ajax_update_child_data()
+	{
+
+		//default
+		$response['status'] = JSONStatus::Error;
+
+
+
+		if( $parent_id = $this->input->post('parent_id') )   
+		{	
+		
+			if( $field = $this->input->post('field') )   
+			{		
+
+				if( $value = $this->input->post('value') ) 
+				{
+
+
+					$count =$this->categories_m->replicate_to_child($parent_id,$field,$value);
+
+					$response['status'] = JSONStatus::Success;
+					$response['message'] = 'Updated ' . $count . ' categories';
+
+
+				}
+
+			}
+
+		}
+
+		//
+		// Send the info back to JS/Client
+		//
+		echo json_encode($response);
+	}	
 	
 
 }

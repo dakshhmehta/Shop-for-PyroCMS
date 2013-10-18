@@ -28,7 +28,7 @@
 				}
 				
 				echo "<div class='container'><img id='prod_cover' src='".$src."'>"; 
-				echo "<a href='javascript:set_cover(0, 0)'  class='img_icon img_delete gall_cover'></a></div>";
+				echo "<a href='javascript:set_cover(0, 0)'  class='img_icon img_delete gall_cover2'></a></div>";
 				?>
 			</div> 
 

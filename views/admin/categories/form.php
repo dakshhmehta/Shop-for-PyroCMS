@@ -65,15 +65,18 @@
 					</div>		
 			</li>									
 			<li class="<?php echo alternator('', 'even'); ?>">
-				<label for="user_data"><?php echo shop_lang('shop:admin:user_data');?><span>*</span></label>
-				<div class="input"><?php echo form_input('user_data', set_value('user_data', $user_data)); ?></div>
+				<label for="user_data"><?php echo shop_lang('shop:admin:user_data');?><span></span></label>
+				<div class="input">
+					<?php echo form_input('user_data', set_value('user_data', $user_data)); ?><br />
+					<a href="admin/shop/categories/ajax_update_child_data" class="cat_update_userdata_children btn orange"><?php echo shop_lang('shop:admin:replicate_to_child_categories');?></a>
+				</div>
 			</li>								   
 			<li class="<?php echo alternator('', 'even'); ?>">
-				<label for="cover">
-					<?php echo lang('description'); ?>
-				</label>			
+				<label for="user_data"><?php echo shop_lang('shop:admin:description');?><span></span></label>		
 				<div class="input">
 						<?php echo form_textarea('description', set_value('description', isset($description)?$description:""), 'class="wysiwyg-simple"'); ?>
+						<br />
+						<a href="admin/shop/categories/ajax_update_child_data" class="cat_update_description_children btn orange"><?php echo shop_lang('shop:admin:replicate_to_child_categories');?></a>
 				</div>
 			</li>   
 		</ul>
@@ -123,3 +126,75 @@
 <?php endif; ?>
 
 </div>
+
+
+<script>
+
+
+
+
+
+
+	$(".cat_update_userdata_children").on('click', function(e)  
+	{					
+		postto =  $(this).attr('href');
+		parentid =  $('#cid').val();
+		val =  $('input[name="user_data"]').val();
+		fld = 'user_data';
+
+
+	    $.post( postto, { parent_id:parentid, field:fld, value:val  } ).done(function(data) 
+	    {			
+	        var obj = jQuery.parseJSON(data);
+	        
+	        if (obj.status == 'success') 
+	        {
+	            alert(obj.message);
+	            
+	        }
+	        else
+	        {
+	        	alert(obj.status);
+	        }
+
+	    });
+
+
+		return false;
+	
+	});	
+
+
+	$(".cat_update_description_children").on('click', function(e)  
+	{		
+		postto =  $(this).attr('href');
+		parentid =  $('#cid').val();
+		val =  $('textarea[name="description"]').val();
+		fld = 'description';
+
+
+	    $.post( postto, { parent_id:parentid, field:fld, value:val  } ).done(function(data) 
+	    {			
+	        var obj = jQuery.parseJSON(data);
+	        
+	        if (obj.status == 'success') 
+	        {
+	            alert(obj.message);
+	            
+	        }
+	        else
+	        {
+	        	alert(obj.status);
+	        }
+
+	    });
+
+
+		return false;
+	
+	});	
+
+
+
+
+</script>

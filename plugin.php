@@ -26,7 +26,34 @@
 class Plugin_Shop extends Plugin 
 {
 
-							
+	/*
+	* Parse Tags in shop
+	* Window llows us to create areas on the site simply be defining the html markup with these tags.
+	*
+	* Given that you assign a name, each window can take the content inside each tag and store it in a BD
+	* 
+	* Usage:
+	* {{ parse:tags }}Content to parse.{{ /parse:tags }}
+	*
+	* @return string
+	*
+	public function window()
+	{
+		$name = $this->attribute('name');
+		// We will either take the tag pair content as the
+		// parameter or we can take a "string" parameter
+		$content = ( ! $this->attribute('string')) ? $this->content() : $this->attribute('string');
+
+		$parser = new Lex_Parser();
+		$parser->scope_glue(':');
+
+		$content = $name;
+
+		return $parser->parse($content, array(), array($this->parser, 'parser_callback'));
+	}
+	*/	
+
+
 	/**
 	 * {{shop:related id="{{product:id}}" max="1" }}
 	 *

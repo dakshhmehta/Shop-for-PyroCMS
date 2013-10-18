@@ -140,6 +140,15 @@ class Categories_m extends MY_Model
 	}
 
 
+	public function update_property($id, $field,$value) 
+	{
+		// Prepare
+		$to_update = array(
+			$field => $value,
+		);
+		
+		return $this->update($id, $to_update);
+	}
 	
 	/**
 	 * make sure the slug is valid,Use the check_slug from the helper file
@@ -306,6 +315,30 @@ class Categories_m extends MY_Model
 
         // Return it
         return $drop;	
+	}
+
+
+	public function replicate_to_child($parent_id = NULL,$field = NULL, $value = '')
+	{
+
+		$failed = FALSE;
+		$count = 0;
+
+		$children = $this->get_children($parent_id);
+
+		foreach ($children as $key => $child) 
+		{
+			if($this->update_property($child->id, $field,$value))
+			{
+				$count++;
+			}
+			else
+			{
+				$failed = TRUE;
+			}
+		}
+
+		return $count;
 	}
 
 

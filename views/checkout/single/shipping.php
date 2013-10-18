@@ -1,4 +1,4 @@
-<!--- FILE.START:VIEW.CHECKOUT.SHIPPING -->
+
 <div id="ncShippingMethod" class="collapsable_checkout">
 
 <fieldset>
@@ -34,4 +34,3 @@
 </fieldset>
 
 </div>
-<!--- FILE.END:VIEW.CHECKOUT.SHIPPING -->
