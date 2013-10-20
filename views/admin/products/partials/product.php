@@ -36,10 +36,7 @@
 						<li class="<?php echo alternator('', 'even'); ?>">
 							<label for="category_id"><?php echo shop_lang('shop:products:category'); ?> <span>*</span></label>
 							<div class="input">
-								<select name="category_id" id="category_id">
-									<option value="0"><?php echo lang('global:select-pick'); ?></option>
 									<?php echo $category_select; ?> 
-								</select>
 							</div>
 						</li>
 						

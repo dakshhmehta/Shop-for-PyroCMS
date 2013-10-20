@@ -453,9 +453,10 @@ if (!function_exists('sf_sort_into_packages'))
  		//
 		// Now count the items in the packages
 		// 
-		$v = 0;
+		
 		foreach ($packages as $package) 
 		{	
+			$v = 0;
 			foreach ($package->items as $item) 
 			{
 				$v += $item['qty'];

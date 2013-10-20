@@ -115,7 +115,7 @@ class Categories extends Admin_Controller
 			}
 		}
 
-		$data->parent_category_select 	= $this->categories_m->build_parent_dropdown( );  
+		$data->parent_category_select 	= $this->categories_m->build_dropdown( );  
 
 
 		// prepare dropdown image folders
@@ -223,12 +223,23 @@ class Categories extends Admin_Controller
 			Events::trigger('evt_category_changed', $id );
 			
 			$this->session->set_flashdata('success', lang('success'));
-			redirect('admin/shop/categories');
+
+			if($input['btnAction']=='save_exit')
+			{
+				redirect('admin/shop/categories/');
+			}
+
+			redirect('admin/shop/categories/edit/'. $id);
 		} 
 
 
 
-		$data->parent_category_select 	= $this->categories_m->build_parent_dropdown( $data->id, $data->parent_id );
+		$data->parent_category_select 	= $this->categories_m->build_dropdown( 
+
+											array('field_property_id' =>'parent_id', 
+													'type'=>'parent', 
+													'current_id' => $data->parent_id) 
+											);
 
 		
 		//get children if a parent category

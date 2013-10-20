@@ -23,10 +23,15 @@
  * @system		PyroCMS 2.1.x
  *
  */
-class Pgroups_m extends MY_Model 
+require_once(dirname(__FILE__) . '/' .'shop_model.php');
+
+
+class Pgroups_m extends Shop_model 
 {
 
+
 	public $_table = 'shop_pgroups';
+
 
 	public function __construct() 
 	{
@@ -107,29 +112,20 @@ class Pgroups_m extends MY_Model
 	}
 
 
+
 	
-	
-	public function build_list_select($params) 
+	public function build_dropdown( $current_id = -1) 
 	{
+
+		$options = array();
+		$options['field_property_id'] = 'pgroup_id';
+		$options['current_id'] = $current_id;
+
+		$data_list = $this->db->order_by('name')->select('id, name')->get($this->_table)->result();
 		
-		$params = array_merge(array('current_id' => 0), $params);
-		extract($params);
-		
-		if ($brands = $this->db->order_by('name')->select('id, name')->get($this->_table)->result()) 
-		{
-			$html = '';
-			foreach ($brands as $item)
-			{
-				$html .= '<option value="' . $item->id . '"';
-				$html .= $current_id == $item->id ? ' selected="selected">' : '>';
-				$html .= $item->name . '</option>';
-			}
-			return $html;
-		}
-		return '';
+		return $this->_build_dropdown( $data_list , $options );
+
 	}
-
-
 
 
 

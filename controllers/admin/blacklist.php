@@ -94,7 +94,7 @@ class Blacklist extends Admin_Controller
 			}
 		}
 
-		$data->method_select = $this->blacklist_m->build_method_dropdown();
+		$data->method_select = $this->blacklist_m->build_dropdown();
 
 		// Build page
 		$this->template
@@ -136,7 +136,7 @@ class Blacklist extends Admin_Controller
 			redirect('admin/shop/blacklist');
 		} 
 
-		$data->method_select = $this->blacklist_m->build_method_dropdown($data->method);
+		$data->method_select = $this->blacklist_m->build_dropdown($data->method);
 
 
 		// Build page

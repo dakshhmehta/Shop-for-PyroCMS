@@ -23,9 +23,42 @@
  * @system		PyroCMS 2.1.x
  *
  */
-class Twoducks_base 
+class Twoducks_debug
+{
+	protected $buffer;
+	protected $evt_count;
+
+	public function __construct()
+	{
+		$this->buffer = "";
+
+	}
+
+	public function add($str)
+	{
+		$this->evt_count++;
+		$this->buffer .= "(".$this->evt_count.") -". $str . "<br />";
+		
+	}
+
+	public function show()
+	{	
+		$t = "<pre style='background-color:#000;color:#fff'>";
+		$t .= $this->buffer;
+		$t .= "</pre>";
+
+		return $t;
+	}	
+
+}
+
+class Twoducks_base extends Twoducks_debug
 {
 
+	public function __construct() 
+	{
+		parent::__construct();
+	}
 
 
 	/** The basic/default calculation method
@@ -56,18 +89,24 @@ class Twoducks_base
 	 */
 	protected function calc_cards($package)
 	{
-		$qty = $package->item_count;
 		
+
+		$qty = $package->item_count;
+
+		$this->add('cards-qty: '.$qty);
+
 		if($qty <= 4) return 2.00;
 
 		if($qty <= 10) return 5.00;
 
 		if($qty <= 25) return 10.00;
+		
 
 		//
 		//26 and larger
 		//
 		return 15.00;
+
 
 	}
 
@@ -80,7 +119,10 @@ class Twoducks_base
 	 */
 	protected function calc_invitations($package)
 	{
+
 		$qty = $package->item_count;
+		
+		$this->add('inv-qty: ' . $qty);		
 
 		return 10;
 	}
@@ -134,51 +176,97 @@ class Twoducks_base
 		$count_framed = 0;
 
 
-		
 		$qty = $package->item_count;
-		
 
-		foreach($package->items as $key => $value)
+
+		foreach($package->items as $item)
 		{
-			    //echo  $value['qty'];
-				//var_dump($package->items[$key]);die;
 
-			if(isset($package->items[$key]['options']['standard-namecharts']['value']))
+			foreach( $item['options'] as $option_key => $selected_option_value)
 			{
-				$str = $package->items[$key]['options']['standard-namecharts']['value'];
-				
 
-				if( substr($str,0,7) == 'print_1')
+				$_user_data = trim($selected_option_value['user_data']);
+
+				switch ( $_user_data ) 
 				{
-					$count_print_1 += $value['qty'];
+					case 'print_1':
+						$count_print_1 += $item['qty'];
+						break;
+					case 'print_2':
+						$count_print_2 += $item['qty'];
+						break;
+					case 'framed':					
+					default:
+						$count_framed += $item['qty'];
+						break;
 				}
-
-				if( substr($str,0,7) == 'print_2')
-				{
-					$count_print_2 += $value['qty'];
-				}
-
-				if( substr($str,0,6) == 'framed')
-				{
-					$count_framed += $value['qty'];
-				} 
 
 			}
 
 		}			
 
-
-
+ 
 		$cost += $this->calc_name_charts_unframed_8_10_and_8_12($count_print_1);
+ 
 		$cost += $this->calc_name_charts_unframed_10_14($count_print_2);
-		$cost += $this->calc_name_charts_framed($count_framed);
+ 
+		//$cost += $this->calc_name_charts_framed($count_framed);
 
-
+ 
 
 		return $cost;
 	}
 
 
+	protected function calc_framed_name_charts($package)
+	{
+
+		$cost = 0;
+		$count_print_1 = 0;
+		$count_print_2 = 0;		
+		$count_framed = 0;
+
+
+		$qty = $package->item_count;
+
+
+		foreach($package->items as $item)
+		{
+
+			foreach( $item['options'] as $option_key => $selected_option_value)
+			{
+
+				$_user_data = trim($selected_option_value['user_data']);
+
+				switch ( $_user_data ) 
+				{
+					case 'print_1':
+						$count_print_1 += $item['qty'];
+						break;
+					case 'print_2':
+						$count_print_2 += $item['qty'];
+						break;
+					case 'framed':					
+					default:
+						$count_framed += $item['qty'];
+						break;
+				}
+
+			}
+
+		}			
+
+ 
+		//$cost += $this->calc_name_charts_unframed_8_10_and_8_12($count_print_1);
+ 
+		//$cost += $this->calc_name_charts_unframed_10_14($count_print_2);
+ 
+		$cost += $this->calc_name_charts_framed($count_framed);
+
+ 
+
+		return $cost;
+	}
 
 
 	/**
@@ -268,17 +356,25 @@ class Twoducks_base
 
 	protected function calc_name_charts_unframed_8_10_and_8_12($qty)
 	{
-		return $this->_price_step($qty, 5, 5);		
+		if($qty == 0)
+			return 0.00;
+
+		return $this->_price_step($qty, 5.00, 5);		
 	}
 
 	protected function calc_name_charts_unframed_10_14($qty)
 	{
+		if($qty == 0)
+			return 0.00;
+
 		return $this->_price_step($qty, 10.00, 5);
 	}
 
 	protected function calc_name_charts_framed($qty)
 	{
-
+		if($qty == 0)
+			return 0.00;
+		
 		$cost = 0;
 
 

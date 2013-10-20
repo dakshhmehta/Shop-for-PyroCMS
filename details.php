@@ -37,7 +37,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.085';  
+	public $version = '1.0.0.102';  
 	private $language_file = 'shop/shop';
 	private $setting_en_brands = 0; //default to off;
 
@@ -84,23 +84,12 @@ class Module_Shop extends Module
 
 	public function install() 
 	{
- 
- 		$success = TRUE;
-
-		
-		//$this->uninstall();
-		
+ 		
 		# Install Product Tables
-		$tbl_products = $this->install_tables( $this->details_library->get_install_tables_1() );
+		$tables = $this->install_tables( $this->details_library->get_tables() );
 
 
-		$tbl_orders = $this->install_tables( $this->details_library->get_install_tables_2() );
-
-
-		$tbl_sys = $this->install_tables( $this->details_library->get_install_tables_3() );
-
-
-		if( $tbl_products && $tbl_orders && $tbl_sys )
+		if( $tables  )
 		{
 			$this->init_templates();
 			$this->init_settings();
@@ -112,6 +101,7 @@ class Module_Shop extends Module
 		return FALSE;
 
 	}
+
 
 	# Insert default data to tables
 	public function insertDefaultData() 
@@ -193,15 +183,8 @@ class Module_Shop extends Module
 
 		$this->_delete_cache($cache_list);
 
-
-		// Delete / Drop all tables  
-		$tables = $this->details_library->uninstall_tables();
-
-
-		foreach($tables as $table_name)
-		{
-			$this->dbforge->drop_table($table_name);
-		}
+		$tables = $this->details_library->get_tables();
+		$this->_uninstall_tables($tables);
 
 				
 		// Remove All settings for this module
@@ -209,9 +192,21 @@ class Module_Shop extends Module
 		
 		// Remove all email templartes installed by this module
 		$this->db->delete('email_templates', array('module' => 'shop'));
+
+
+		return TRUE;
+
+	}
+
+
+	private function _uninstall_tables($tables)
+	{
+		
+		foreach($tables as $table_name => $table_fields)
 		{
-			return TRUE;
+			$this->dbforge->drop_table($table_name);
 		}
+
 	}
 	
 
@@ -222,58 +217,18 @@ class Module_Shop extends Module
 	public function upgrade($old_version) 
 	{
 		
-		
-
+	
 		switch ($old_version) 
 		{
-			case '1.0.0.085': 
-
-
-
-			
+			case '1.0.0.101': 
+				//$this->_install_settings('shop_test');
 				break;
-			case '1.0.0.084': 
-				//$this->_add_field('user_data', 'TEXT', 'shop_option_values');
-				//$array = $this->details_library->get_install_tables_4();
 
-
-				//$tbls = $this->install_tables( array('shop_test' => $array['shop_test']) );
-				break;			
-			case '1.0.0.081': 
-				/*
-				$this->_create_setting('ss_qty_perpage_limit_front', 
-									'Products per page(front)', 
-									'How many products show in list view (front end only)', 
-									'text', 
-									'10');
-				break;
-				*/
-
+			case '1.0.0.084': break;			
+			case '1.0.0.081': break;
 			default:
 				break;
 		}
-
-
-		//add a field
-		//	
-		//	$this->_add_field('user_data', 'TEXT', 'shop_products');
-		//					
-		//					
-		//					
-		//remove short_desc
-		//
-		//$table = 'shop_products';
-		//$field = 'deleted';
-		//$this->_remove_field($table,$field);
-		//
-		//
-		//
-		// settings
-		//
-		//$this->_delete_setting('nc_currency_api_key');
-		//$this->_rename_setting('nc_name','ss_name');
-
-
 
 		return TRUE;
 
@@ -286,73 +241,47 @@ class Module_Shop extends Module
 	}
 
 
+
 	private function init_templates() 
 	{
 
-		$this->db->insert('email_templates', array(
-			'slug' => 'sf_admin_blacklist',
-			'name' => 'Shop: An attempt to place order was blocked',
-			'description' => 'This email will be sent to Administrators when an attempt to place an order for a user or group that has been blacklisted',
-			'subject' => 'An attempt to place order was blocked',
-			'body' => '<h1>Details</h1>
-				<b>Date:</b> {{ date }}<br />
-				<b>User Email:</b> {{ email }}<br />
-				<b>IP Address:</b> {{ ip_address }}<br /><br />
-				<p><b>Order Total:</b>{{ cost_total }}</p><br />		
-				<p><b>Shipping Address:</b>{{ shipping_address }}</p><br />		
-				',
-			'lang' => 'en',
-			'is_default' => 1,
-			'module' => 'shop'
-		));
+		 $em_tmp = $this->details_library->get_email_templates();
+
+		 foreach ($em_tmp as $email_array_data) 
+		 {
+		 	$this->db->insert('email_templates', $email_array_data );
+		 }
+
+		 return TRUE;
+
+	}
 
 
 
 
-		$this->db->insert('email_templates', array(
-			'slug' => 'sf_user_order_notification',
-			'name' => 'shop: User Lodged Order',
-			'description' => 'Email sent to user when order is submitted',
-			'subject' => '{{ settings:ss_name }} - Order has been submitted',
-			'body' => '<h1>You have successfully created an order with {{ settings:ss_name }}</h1>
+	/**
+	 * Install a single setting when upgrading
+	 * 
+	 * @param  [type] $sett_name [The key / slug of the settings in the main list]
+	 * @return [type]            [description]
+	 */
+	private function _install_settings($sett_name)
+	{
+		$settings = $this->details_library->get_settings($sett_name);
 
-				<b>Order ID:</b> {{ order_id }}<br />
-				<b>Order Date:</b> {{ order_date }}<br />
-				<b>Order Total:</b> {{ cost_total }}<br />
-				<p><a href="{{ url:site }}shop/my/">Login to your online account</a> to </p>
-				<p><a href="{{ url:site }}shop/my/orders/order/{{ order_id }}">view your full order.</a></p>',
-				
-			'lang' => 'en',
-			'is_default' => 1,
-			'module' => 'shop'
-		));
+		//set the settings name
+		$settings['slug'] = $sett_name;
 
-		$this->db->insert('email_templates', array(
-			'slug' => 'sf_admin_order_notification',
-			'name' => 'Shop: New order has been submitted',
-			'description' => 'This email will be sent to Administrators when new orders are submitted',
-			'subject' => 'A new order has been submitted',
-			'body' => '<h1>An order has just been submitted on your online shop</h1>
-				<b>Order ID:</b> {{ order_id }}<br />
-				<b>Order Date:</b> {{ order_date }}<br />
-				<b>IP Address:</b> {{ customer_ip }}<br /><br />
-				<p><b>Order Total:</b>{{ cost_total }}</p><br />		
-				<p><a href="{{ url:site }}admin/shop/orders/order/{{ order_id }}">view full order details online</a></p>
-				<p>{{ order_contents }}</p>
-				',
-			'lang' => 'en',
-			'is_default' => 1,
-			'module' => 'shop'
-		));
+		if (!$this->db->insert('settings', $settings)) 
+		{
+			return FALSE;
+		}
 
 		return TRUE;
 	}
 
-	/*
-	 *
-	 * TODO:Change all setttings to the sf_ prefix
-	 *	  Take care with this as setting are referenced through out the code
-	 */
+
+
 	private function init_settings() 
 	{
 
@@ -360,7 +289,7 @@ class Module_Shop extends Module
 
 		foreach ($settings as $slug => $setting) 
 		{
-
+			//set the settings name
 			$setting['slug'] = $slug;
 
 			if (!$this->db->insert('settings', $setting)) 
@@ -372,8 +301,6 @@ class Module_Shop extends Module
 
 		return TRUE;
 	}
-
-
 
 
 	/*
@@ -389,62 +316,8 @@ class Module_Shop extends Module
 
 	}
 
-	private function _create_setting($slug, $title, $description, $type ='text', $default = '', $value ='' ,$options ='', $is_required = TRUE, $is_gui = TRUE, $order = 900)
-	{
-
-		 $setting = array( 
-			'slug' => $slug,
-			'title' => $title, 
-			'description' => $description,
-			'type' => $type, 
-			'default' => $default, 
-			'value' => $value, 
-			'options' => $options, 
-			'is_required' => $is_required,
-			'is_gui' => $is_gui, 
-			'module' => 'shop', 
-			'order' => $order		);	
 
 
-		if($this->db->insert('settings', $setting))	
-		{
-			return TRUE;
-		}	
-
-		return FALSE;
-
-	}
-
-	private function _copy_setting($old_setting, $new_setting)
-	{
-
-		//$old =  $this->db->get('settings', array('slug' => $old_setting) );
-		$this->load->model('settings_m');
-
-		$old = $this->settings_m->get_by(array('slug' => $old_setting, 'module'=>'shop'));
-
-		//if exist then we create
-		if($old)
-		{
-			return $this->_create_setting($new_setting, $old->title, $old->description, $old->type, $old->default, $old->value,$old->options, $old->is_required, $old->is_gui, $old->order);
-		}
-
-		return FALSE;
-
-
-	}
-
-
-	private function _rename_setting($old_setting, $new_setting)
-	{
-		if($this->_copy_setting($old_setting, $new_setting))
-		{
-			//only if we find the setting to we add the new one
-			return $this->_delete_setting($old_setting);
-		}
-
-		return FALSE;
-	}
 
 	private function _delete_cache($cache_name_array = array() )
 	{

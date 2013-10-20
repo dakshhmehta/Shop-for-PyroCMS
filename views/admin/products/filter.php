@@ -45,10 +45,10 @@
 							<?php echo shop_lang('shop:products:category'); ?>
 						</label>
 						<div class="input">
-							<select name="f_category" id="f_category">
-								<option value="0"><?php echo lang('global:select-pick'); ?></option>
+
+
 								<?php echo $categories; ?> 
-							</select>
+	
 						</div>
 
 					</li>

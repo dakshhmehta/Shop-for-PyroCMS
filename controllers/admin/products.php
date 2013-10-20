@@ -60,7 +60,7 @@ class Products extends Products_admin_Controller
 		{
 			//since this is a full page built
 			$data->price_ranges = array(0 => lang('global:select-all'),1=>lang('range_0_50'), 2=>lang('range_25_75'), 3=>lang('range_100_0') );
-			$data->categories = $this->categories_m->build_tree_select();
+			$data->categories = $this->categories_m->build_dropdown( array('current_id' => $data->category, 'field_property_id' => 'f_category') );
 
 		}
 

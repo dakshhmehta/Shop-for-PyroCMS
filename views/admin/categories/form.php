@@ -15,78 +15,86 @@
 <?php endif; ?>
 <section class="item form_inputs">
 	<div class="content">
-	<fieldset>
-		<ul>
-			<li class="<?php echo alternator('even', ''); ?>">
-				<label for="name"><?php echo shop_lang('shop:admin:name');?><span>*</span></label>
-				<div class="input">
-					<?php echo form_input('name', set_value('name', $name), 'id="name" '); ?>
-				</div>
-			</li>
-			<li class="<?php echo alternator('', 'even'); ?>">
-				<label for="slug"><?php echo shop_lang('shop:admin:slug');?><span>*</span></label>
-				<div class="input"><?php echo form_input('slug', set_value('slug', $slug)); ?></div>
-			</li>		
-			<li class="<?php echo alternator('', 'even'); ?>">
-				<label for="slug"><?php echo shop_lang('shop:admin:order');?><span>*</span></label>
-				<div class="input"><?php echo form_input('order', set_value('order', $order)); ?></div>
-			</li>				
-			<li class="<?php echo alternator('', 'even'); ?>">
-				<label for="slug"><?php echo shop_lang('shop:categories:parent_category');?><span>*</span></label>
-				<div class="input"><?php echo $parent_category_select; ?></div>
-			</li>		
-				  
-			<li>
-				<label><?php echo shop_lang('shop:categories:image');?></label>
-				<input type='hidden' value='' id='image_id' name='image_id' />
-				<div id='cover_img' name='cover_img'>
-				 <?php 	 if ($image_id > 0) 
-						 {
-						 	echo '<img src="'.site_url().'files/thumb/'.$image_id.'/100/100">'; 
-						 }
-						 else
-						 {
-						 	echo '<div style="height:100px;width:100px;" />'; 
-						 }
-						  
-				 ?>
-				</div>   
-			</li>	
-			<li>
-				<label><?php echo shop_lang('shop:categories:change_image');?></label><br />
-				 <?php echo form_dropdown('folder_id', $folders, $folder_id, 'id="folder_id"'); ?>	   
-			</li>																	
-			<li>
-					<label></label>
-					<?php echo "<a href='#' id='load_folder' name='load_folder' style='display:none;'>Load</a>"; ?>
+		
+		<fieldset>
+			<ul>
+				<li class="<?php echo alternator('even', ''); ?>">
+					<label for="name"><?php echo shop_lang('shop:admin:name');?><span>*</span></label>
+					<div class="input">
+						<?php echo form_input('name', set_value('name', $name), 'id="name" '); ?>
+					</div>
+				</li>
+				<li class="<?php echo alternator('', 'even'); ?>">
+					<label for="slug"><?php echo shop_lang('shop:admin:slug');?><span>*</span></label>
+					<div class="input"><?php echo form_input('slug', set_value('slug', $slug)); ?></div>
+				</li>		
+				<li class="<?php echo alternator('', 'even'); ?>">
+					<label for="slug"><?php echo shop_lang('shop:admin:order');?><span>*</span></label>
+					<div class="input"><?php echo form_input('order', set_value('order', $order)); ?></div>
+				</li>				
+				<li class="<?php echo alternator('', 'even'); ?>">
+					<label for="slug"><?php echo shop_lang('shop:categories:parent_category');?><span>*</span></label>
+					<div class="input"><?php echo $parent_category_select; ?></div>
+				</li>		
+					  
+				<li>
+					<label><?php echo shop_lang('shop:categories:image');?></label>
+					<input type='hidden' value='' id='image_id' name='image_id' />
+					<div id='cover_img' name='cover_img'>
+					 <?php 	 if ($image_id > 0) 
+							 {
+							 	echo '<img src="'.site_url().'files/thumb/'.$image_id.'/100/100">'; 
+							 }
+							 else
+							 {
+							 	echo '<div style="height:100px;width:100px;" />'; 
+							 }
+							  
+					 ?>
+					</div>   
+				</li>	
+				<li>
+					<label><?php echo shop_lang('shop:categories:change_image');?></label><br />
+					 <?php echo form_dropdown('folder_id', $folders, $folder_id, 'id="folder_id"'); ?>	   
+				</li>																	
+				<li>
+						<label></label>
+						<?php echo "<a href='#' id='load_folder' name='load_folder' style='display:none;'>Load</a>"; ?>
 
-					<div id='img_view' style="overflow-y:scroll;min-height:50px;max-height:300px;">
-							<!-- This is where the response from search folder images goes -->
-					</div>		
-			</li>									
-			<li class="<?php echo alternator('', 'even'); ?>">
-				<label for="user_data"><?php echo shop_lang('shop:admin:user_data');?><span></span></label>
-				<div class="input">
-					<?php echo form_input('user_data', set_value('user_data', $user_data)); ?><br />
-					<a href="admin/shop/categories/ajax_update_child_data" class="cat_update_userdata_children btn orange"><?php echo shop_lang('shop:admin:replicate_to_child_categories');?></a>
-				</div>
-			</li>								   
-			<li class="<?php echo alternator('', 'even'); ?>">
-				<label for="user_data"><?php echo shop_lang('shop:admin:description');?><span></span></label>		
-				<div class="input">
-						<?php echo form_textarea('description', set_value('description', isset($description)?$description:""), 'class="wysiwyg-simple"'); ?>
-						<br />
-						<a href="admin/shop/categories/ajax_update_child_data" class="cat_update_description_children btn orange"><?php echo shop_lang('shop:admin:replicate_to_child_categories');?></a>
-				</div>
-			</li>   
-		</ul>
+						<div id='img_view' style="overflow-y:scroll;min-height:50px;max-height:300px;">
+								<!-- This is where the response from search folder images goes -->
+						</div>		
+				</li>									
+				<li class="<?php echo alternator('', 'even'); ?>">
+					<label for="user_data"><?php echo shop_lang('shop:admin:user_data');?><span></span></label>
+					<div class="input">
+						<?php echo form_input('user_data', set_value('user_data', $user_data)); ?><br />
+						<a href="admin/shop/categories/ajax_update_child_data" class="cat_update_userdata_children btn orange"><?php echo shop_lang('shop:admin:replicate_to_child_categories');?></a>
+					</div>
+				</li>								   
+				<li class="<?php echo alternator('', 'even'); ?>">
+					<label for="user_data"><?php echo shop_lang('shop:admin:description');?><span></span></label>		
+					<div class="input">
+							<?php echo form_textarea('description', set_value('description', isset($description)?$description:""), 'class="wysiwyg-simple"'); ?>
+							<br />
+							<a href="admin/shop/categories/ajax_update_child_data" class="cat_update_description_children btn orange"><?php echo shop_lang('shop:admin:replicate_to_child_categories');?></a>
+					</div>
+				</li>   
+			</ul>
 
 
-	</fieldset>
+		</fieldset>
 
-	<div class="buttons">
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel'))); ?>
-	</div>
+		<div class="buttons">
+				<button class="btn blue" value="save_exit" name="btnAction" type="submit">
+					<span><?php echo shop_lang('shop:products:save_and_exit');?></span>
+				</button>	
+
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save'))); ?>
+
+				<a href="admin/shop/categories/" class="btn gray">Cancel</a>
+		</div>
+
 	</div>
 </section>
 <?php echo form_close(); ?>
@@ -113,9 +121,9 @@
 
 					foreach ($children as $child) 
 					{
-						$editlink = " - <a href='admin/shop/categories/edit/"  .$child->id ."'>edit</a>";
-						$dellink = " -  <a class='modal' href='admin/shop/categories/delete/"  .$child->id . "/1'>delete</a>";
-						echo "<li>".$child->name.$editlink.$dellink."</li>";
+						$editlink = " <a href='admin/shop/categories/edit/"  .$child->id ."'>edit</a>";
+						$dellink = " <a class='modal' href='admin/shop/categories/delete/"  .$child->id . "/1'>delete</a>";
+						echo "<li class='li_sub_cat'><span class='li_sub_cat'>".$child->name."</span><span style='float:right'>".$editlink.$dellink."</span></li>";
 					}
 
 				?>
@@ -126,7 +134,28 @@
 <?php endif; ?>
 
 </div>
+<style>
+li.li_sub_cat {
+	border-radius: 4px;
 
+	border:1px solid #ddd;
+
+	padding:5px;
+	height:21px;
+	line-height:21px;
+
+	margin-top:5px;
+
+}
+span.li_sub_cat {
+
+	color:#999;
+	padding:5px;
+	height:21px;
+	line-height:21px;
+
+}
+</style>
 
 <script>
 

@@ -51,3 +51,8 @@
 <script>
 
 </script>
+
+
+<script>
+	qm_create(0,{showDelay:200,hideDelay:200,interaction:'hover',cnGlobalApplySubsLev2Plus:['qm-flush-top','qm-match-parent-sub-height'],autoResize:false});
+</script>

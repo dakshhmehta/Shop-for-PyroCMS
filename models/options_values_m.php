@@ -118,6 +118,7 @@ class Options_values_m extends MY_Model
 			'shop_options_id' => $id,
 			'label' => $value['label'],
 			'value' => $value['value'],
+			'user_data' => $value['user_data'],
 			'max_qty' => $value['max_qty'],
 			'ignor_shipping' => ((isset($value['ignor_shipping']))? 1 : 0 ),	
 			'operator' => $value['operator'],
@@ -177,6 +178,7 @@ class Options_values_m extends MY_Model
 			//'shop_options_id' => $id, //cant update this value
 			'label' => $value['label'],
 			'value' => $value['value'],
+			'user_data' => $value['user_data'],
 			'max_qty' => $value['max_qty'],
 			'ignor_shipping' => ((isset($value['ignor_shipping']))? 1 : 0 ),			
 			'operator' => $value['operator'],
@@ -244,7 +246,7 @@ class Options_values_m extends MY_Model
 	{
 	
 		return $this->where('value',$value)->where('shop_options_id',$option_id)->get();
-		
+	
 	}
 		
 

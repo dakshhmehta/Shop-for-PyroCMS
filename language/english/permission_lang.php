@@ -31,6 +31,17 @@ $lang['shop:role_admin_product_seo'] = 'Edit product SEO';
 $lang['shop:role_admin_product_options'] = 'Edit product OPTIONS';
 $lang['shop:role_developer_fields'] = 'Developer Fields';
 
+$lang['shop:role_admin_user_data'] = 'User-Data fields';
+
+
+///////////////////////////
+// Manage products       //
+// admin_products        //
+// admin_edit_products   //
+// admin_copy_products   //
+// admin_delete_products //
+///////////////////////////
+
 
 
 

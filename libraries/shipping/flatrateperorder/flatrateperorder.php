@@ -44,11 +44,6 @@ class FlatratePerOrder_ShippingMethod {
 			'label' => 'Shipping Charge Per Order',
 			'rules' => 'trim|max_length[5]|is_numeric|required'
 		),
-		array(
-			'field' => 'options[handling]',
-			'label' => 'Handling',
-			'rules' => 'trim|max_length[5]|is_numeric|required'
-		)	
 	);
 	
 	
@@ -61,10 +56,41 @@ class FlatratePerOrder_ShippingMethod {
 	public function calc($options, $packages, $from_address = array(), $to_address = array() )
 	{
 		
-		$handling = floatval($options['handling']);
-		$cost = floatval($options['amount']);
+
+		$handling = 0;
+		$cost = 0;
 		$discount = 0;
+
+		$shippable_item_count = 0; //if no shiipable items - return free shpping
 		
+		foreach ($packages as $package)
+		{	
+
+			//
+			// Remove any unnessesary items from package,
+			// items that do not require shipping
+			//
+			$this->prepare_package($package);
+
+
+			//
+			// If no items left in package - do not send it (do not calc)
+			//
+			if(!$package->item_count)
+			{
+				continue;
+			}
+
+			
+			$shippable_item_count += $package->item_count;
+
+
+		}			
+
+
+		$this->trim_shipping($cost, $options, $shippable_item_count);
+
+
 		//
 		// This is the simplest, just return the amount set by the admin
 		//
@@ -73,5 +99,54 @@ class FlatratePerOrder_ShippingMethod {
 	}
 	
 
+
+	private function prepare_package(&$package)
+	{
+
+		foreach($package->items as $key => $val)
+		{
+
+			if( ($val['ignor_shipping']==1) OR ($val['ignor_shipping']=='1') )
+			{
+
+				$package->item_count = ($package->item_count - 1);
+				unset($package->items[$key]);
+				continue;
+				
+			}
+		
+		}
+	
+	}
+
+
+
+	/**
+	 * Trims shipping cost - only call after your shipping calcs
+	 * 
+	 * @param  [type] $cost [description]
+	 * @return [type]       [description]
+	 */
+	private function trim_shipping(&$cost, $options, $items_count=0)
+	{
+
+		if($items_count == 0)
+		{
+			$cost = 0;
+		}
+		else
+		{
+
+			$cost = floatval($options['amount']);
+
+		}
+
+	}
+
+
 	
 }
+
+
+
+

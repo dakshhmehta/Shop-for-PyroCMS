@@ -35,7 +35,6 @@ class Product extends Public_Controller
 		
 		
 		// Retrieve some core settings
-		//$this->use_css =  Settings::get('nc_css');
 		$this->shop_title = Settings::get('ss_name');		//Get the shop name
 		$this->shop_subtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 
@@ -53,9 +52,6 @@ class Product extends Public_Controller
 		$this->load->library(array('keywords/keywords'));
 	
 
-		
-		// Apply default CSS if required - 
-		//if ($this->use_css) _setCSS($this->template,TRUE); 
 
 		// Setup default crumbs
 		$this->template->set_breadcrumb($this->shop_title,'shop');
@@ -88,12 +84,12 @@ class Product extends Public_Controller
 		$data->product = $this->products_front_m->get($param, $method );
 		
 
-
 		//
-		// redirect if not found
+		// if product does not exist, redirect away
 		//
-		if ($data->product === NULL) redirect('shop/special/notfound');
+		$data->product OR redirect('404');
 		
+	
 
 		//
 		// Display the product

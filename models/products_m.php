@@ -23,9 +23,11 @@
  * @system		PyroCMS 2.1.x
  *
  */
-class Products_m extends MY_Model
-{
 
+require_once(dirname(__FILE__) . '/' .'shop_model.php');
+
+class Products_m extends Shop_model
+{
 
 	//
 	// Table name
@@ -117,23 +119,6 @@ class Products_m extends MY_Model
 
 
 
-	/*
- 	 * Core get function, used for both admin and front side
-	 *
-	public function get($id) 
-	{
-
-		$this->db->select('shop_products.*');
-		return parent::get_by('shop_products.id', $id);
-
-		$this->db->select('shop_products.*, shop_categories.name as category_name, shop_categories.slug as category_slug, shop_categories.id as category_id');
-		$this->db->join('shop_categories', 'shop_products.category_id = shop_categories.id', 'left');
-		$this->db->join('shop_brands', 'shop_products.brand_id = shop_brands.id', 'left');
-		return parent::get_by('shop_products.id', $id);
-	}
-*/
-
-
 	/**
 	 *  
 	 * @param  string $mode [public|admin]
@@ -176,9 +161,6 @@ class Products_m extends MY_Model
 
 
 
-
-
-
 	
 	/**
 	 * 	same as get but this gets al data, images, attributes, options wheras get just gets the core info about a product 
@@ -203,6 +185,10 @@ class Products_m extends MY_Model
 		{
 			$product = parent::get($parm); 
 		}
+
+
+		if(!$product)
+			return FALSE;		
 
 
 		$product->related = json_decode($product->related );
@@ -302,26 +288,28 @@ class Products_m extends MY_Model
 	
 
 
-	
-	/**
-	 * Updates a single property of the product
-	 * -Used for changing to private/public
-	 * -updating cover id
-	 * -archiving/deleting a product etc..
-	 */
-	public function update_property($product_id, $property, $value ) 
-	{		
-		return $this->update($product_id, array($property => $value ) ); 		
-	}
-
-
-
-
-
 
 	protected function filter() { }
 	
 	protected function filter_count() { }
+
+
+	/**
+	 * Create a list of products by category id;
+	 * 
+	 * @param  [type] $cat_id [description]
+	 * @return [type]         [description]
+	 */
+	public function build_dropdown($cat_id)
+	{
+
+		$options =array();
+		$options['field_property_id'] = 'product_id';
+
+		$products = $this->db->where('category_id', $cat_id )->order_by('name')->select('id, name')->get($this->_table)->result();
+		return $this->_build_dropdown( $categories , $options );
+
+	}
 	
 
 }

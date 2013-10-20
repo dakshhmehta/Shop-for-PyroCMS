@@ -113,30 +113,7 @@ class Products_admin_m extends Products_m
 	}
 
 
-	private function add_to_search($id, $name,$desc)
-	{
-		// Load the search index model
-		$this->load->model('search/search_index_m');
 
-
-		$this->search_index_m->index(
-		    'shop', 
-		    'shop:product', 
-		    'shop:products', 
-		    $id,
-		    'shop/product/edit/'.$id,
-		    $name,
-		    $desc, 
-		    array(
-		        'cp_edit_uri'   => 'admin/shop/product/edit/'.$id,
-		        'cp_delete_uri' => 'admin/shop/product/delete/'.$id,
-		        'keywords'      => NULL,
-		    )
-		);
-
-		return TRUE;
-
-	}
 
 	/** 
 	 * Store/Edit existing product to db
@@ -271,11 +248,21 @@ class Products_admin_m extends Products_m
 				'rrp' => $product->rrp,
 				'tax_dir' => $product->tax_dir,
 				'pgroup_id' => $product->pgroup_id,
+
+
 				'cover_id' => $product->cover_id,
 				'status' => $product->status,
 				'category_id' => $product->category_id,
 				'brand_id' => $product->brand_id,
+
+				//shipping
 				'package_id' => $product->package_id,
+				'height' => $product->height,
+				'width' => $product->width,
+				'depth' => $product->depth,
+				'weight' => $product->weight,
+
+
 				'inventory_low_qty' => $product->inventory_low_qty,
 				'inventory_on_hand' => $product->inventory_on_hand,
 				'inventory_type' => $product->inventory_type,
@@ -320,50 +307,12 @@ class Products_admin_m extends Products_m
 	public function delete($product_id)
 	{	
 	
-		//$this->update($product_id, array('date_updated' => date("Y-m-d H:i:s") ) );
 		return $this->update($product_id, array('date_archived' => date("Y-m-d H:i:s") ) );
-		
-		//return $this->update($product_id, array('deleted' => 1) ); //returns id
+	
 		
 	}
 	
-	/**
-	 * 
-	 * @param  [type]  $slug   [description]
-	 * @param  integer $id     [description]
-	 * @param  string  $prefix Prefix is only used if the slug is blank, usually we pass the product name
-	 * @return [type]          [description]
-	 */
-	private function get_unique_slug($slug, $id = -1, $prefix = '')
-	{
 
-
-		//
-		// now make sure slug isn not blank
-		// we want to pass the name into prefix rather than a random string so it has more contextual meaning
-		//
-		if(trim($slug) == "")
-		{
-			$slug = $prefix.$slug; 
-		}
-
-		//
-		// We want to ommit the current record if we are editing.
-		//
-		$slug_count = $this->db->where('id !=',$id)->where('slug', $slug )->get('shop_products')->num_rows();
-
-		if($slug_count > 0)
-		{
-
-			$new_slug = $slug.'-'.$slug_count;
-
-			return $this->get_unique_slug($new_slug, $id, $prefix);
-
-		}
-
-		return $slug;
-
-	}
 
 
 	/**
@@ -380,6 +329,7 @@ class Products_admin_m extends Products_m
 
 		switch ($key) 
 		{
+			case 'weight':			
 			case 'height':
 			case 'width':	
 			case 'depth':				

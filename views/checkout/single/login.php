@@ -1,4 +1,4 @@
-<!--- FILE.START:VIEW.CHECKOUT.SINGLE.NO_USER -->
+
 <div id="ncNoUser" class="collapsable_checkout">	
 
 	<h3>Login or Register</h3>		
@@ -61,4 +61,3 @@
 
 
 </div>
-<!--- FILE.END:VIEW.CHECKOUT.SINGLE.NO_USER -->

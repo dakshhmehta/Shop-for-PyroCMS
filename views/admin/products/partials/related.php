@@ -45,10 +45,7 @@
 						<li class="<?php echo alternator('', 'even'); ?>">
 							<label for="related_products_category_filter"><?php echo shop_lang('shop:products:search_category'); ?> <span>*</span></label>
 							<div class="input">
-								<select name="related_products_category_filter" id="related_products_category_filter">
-									<option value="0"><?php echo lang('global:select-pick'); ?></option>
 									<?php echo $category_select; ?> 
-								</select>
 							</div>
 						</li>
 												
@@ -97,8 +94,6 @@
 
 					var search_term = $('input[name="related_filter"]').val();
 					var cat = $('select[name="related_products_category_filter"]').val();
-
-					related_products_category_filter
 
 					var postto = "admin/shop/products/ajax_find_product/";
 

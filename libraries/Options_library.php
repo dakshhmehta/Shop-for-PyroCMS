@@ -84,10 +84,10 @@ class Options_library
 								//var_dump($option_value);die;
 								// old
 								$str = ($option_value->default)? 'checked' :'';
-								$string_builder .=  form_radio('prod_options['.$option->slug.']',$option_value->value, $str ).' '.$option_value->label. '<br />'; 
+								$string_builder .=  form_radio('prod_options['.$option->id.']',$option_value->id, $str ).' '.$option_value->label. '<br />'; 
 								
 								//better
-								$option_value->display = form_radio('prod_options['.$option->slug.']',$option_value->value, $str ); 
+								$option_value->display = form_radio('prod_options['.$option->id.']',$option_value->id, $str ); 
 
 							}
 							
@@ -104,17 +104,17 @@ class Options_library
 						$items = array(); //reset
 						foreach ($option->values as $option_value)
 						{
-							$items[$option_value->value] = $option_value->label;
+							$items[$option_value->id] = $option_value->label;
 
 						}													
-						$option->display =  form_dropdown('prod_options['.$option->slug.']',$items); 
+						$option->display =  form_dropdown('prod_options['.$option->id.']',$items); 
 						
 						break;	
 
 					case 'file':
 						$file_count++;
 						//$option->display = "<input type='file' name='prod_options[".$option->slug."]' >";
-						$option->display = "<input type='file' name='fileupload' ><input type='hidden' value='donotremove' name='prod_options[".$option->slug."]' >";						
+						$option->display = "<input type='file' name='fileupload' ><input type='hidden' value='donotremove' name='prod_options[".$option->id."]' >";						
 						//$option->display = "<input type='file' name='file' data >";
 						break;	
 
@@ -122,14 +122,14 @@ class Options_library
 					case 'text':
 						$text_count++;													
 						$class = ' class="'.$_settings['txtClass'].'" ';					
-						$option->display = "<input type='".$option->type."' name='prod_options[".$option->slug."]'  ".$class."  />";
+						$option->display = "<input type='".$option->type."' name='prod_options[".$option->id."]'  ".$class."  />";
 						break;
 
 			
 					case 'checkbox':													
 					case 'default':
 						$class = ' class="" ';
-						$option->display = "<input type='".$option->type."' name='prod_options[".$option->slug."]'  ".$class."  />";
+						$option->display = "<input type='".$option->type."' name='prod_options[".$option->id."]'  ".$class."  />";
 						break;
 				}
 				

@@ -66,10 +66,58 @@ class Events_Shop
 		Events::register('evt_send_admin_email', array($this, 'evt_send_admin_email')); 	
 
 
+
+		Events::register('post_user_login', array($this, 'evt_user_login'));
+		Events::register('post_admin_login', array($this, 'evt_admin_login')); 	
+
+
+
 		
 	}
+	public function evt_user_login($data=NULL)
+	{
+		//echo "user";
 
-	private function evt_global()
+	}
+
+	/**
+	 * Login strait to shop dashboard
+	 * 
+	 * @param  [type] $data [description]
+	 * @return [type]       [description]
+	 */
+	public function evt_admin_login($data=NULL)
+	{
+
+		$redir = Settings::get('shop_admin_login_location');
+
+		switch ($redir) 
+		{
+			case '0':
+				$redir = 'admin';
+				break;
+			case '1':
+				$redir = 'admin/shop';
+				break;	
+			case '2':
+				$redir = 'admin/shop/products';
+				break;	
+			case '3':
+				$redir = 'admin/shop/orders';
+				break;															
+			default:
+				$redir = 'admin/shop';
+				break;
+		}
+
+	
+
+		redirect($redir);
+
+	}
+
+
+	public function evt_global()
 	{
 		$this->ci->lang->load('shop/shop_global');  
 	}
@@ -96,7 +144,7 @@ class Events_Shop
 	 */
 	public function resume_checkout($id) 
 	{
-
+ 
 		//
 		// first decide if it is a standard user or stockist group
 		/*

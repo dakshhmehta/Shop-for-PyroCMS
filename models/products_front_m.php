@@ -49,6 +49,8 @@ class Products_front_m extends Products_m
 		
 		$product = $this->get_product($parm,$method,$simple); 
 
+		if(!$product)
+			return FALSE;
 
 		//
 		// Make sure product is NOT deleted and is visible to public

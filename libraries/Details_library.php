@@ -56,7 +56,10 @@ class Details_library
             	'developer_fields', 
 
             	//new granular level security
-            	'admin_product_seo', 'admin_product_options' ),
+            	'admin_product_seo', 'admin_product_options',
+
+            	'admin_user_data'
+            	 ),
 
 
 			'sections' => array(
@@ -91,16 +94,16 @@ class Details_library
         //
         // if we only want the light menu then just return now
         //
-		//if ( Settings::get('nc_menu_style') == AdminMenu::Light) 
-		//{
+		if ( Settings::get('nc_menu_style') == AdminMenu::Light) 
+		{
 			return $info;
-		//}
+		}
 
 
 		//
 		// Othewise continue to add more items
 		//
-			/*
+
 		if (function_exists('group_has_role'))
 		{
 
@@ -223,10 +226,7 @@ class Details_library
 
 		}
 
-
 		return $info;
-		*/
-
 
 	}
 
@@ -254,24 +254,27 @@ class Details_library
 		}
 
 
-		//
-		// Check if brands is enabled
-		//
-		if(Settings::get('ss_enable_brands'))
-		{	
-			if(group_has_role('shop', 'brands'))
-			{
-				if ( Settings::get('ss_enable_brands') == SettingMode::Enabled) 
-				{ 
-					$menu['lang:nc:admin:nitro']['lang:nc:admin:brands'] = 'admin/shop/brands';
-				}
-			}	
-			
-		}
-		
 
 		if (function_exists('group_has_role'))
 		{
+
+
+			//
+			// Check if brands is enabled
+			//
+			if(Settings::get('ss_enable_brands'))
+			{	
+				if(group_has_role('shop', 'brands'))
+				{
+					if ( Settings::get('ss_enable_brands') == SettingMode::Enabled) 
+					{ 
+						$menu['lang:nc:admin:nitro']['lang:nc:admin:brands'] = 'admin/shop/brands';
+					}
+				}	
+				
+			}
+		
+
 			//
 			// Add the rest of the items
 			//
@@ -317,7 +320,7 @@ class Details_library
 	}	
 
 
-	public function get_install_tables_1()
+	public function get_tables()
 	{
 
 		return array(
@@ -445,14 +448,7 @@ class Details_library
 				'order' => array('type' => 'INT', 'constraint' => '4', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 0), /* order todisplay - not needed for v1 */
 				'cover' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 0), /*is this the cover image */
 				'scope' => array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL), /* Products/Category/Brands*/
-			)		
-		); 
-	}
-	
-
-	public function get_install_tables_2()
-	{
-		return array(
+			),
 			'shop_transactions' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'order_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE),
@@ -532,15 +528,7 @@ class Details_library
 				'method' => 		array('type' => 'INT', 'constraint' => '4', 'default' => 2), 
 				'value' => 			array('type' => 'VARCHAR', 'constraint' => '300', 'default' => ''), 
 				'enabled' => 		array('type' => 'INT', 'constraint' => '1', 'default' => 1), 
-			),							  
-		); 
-	}
-
-
-	public function get_install_tables_3()
-	{
-
-		return array(
+			),
 			'shop_categories' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'name' => array('type' => 'VARCHAR', 'constraint' => '100'),
@@ -646,16 +634,7 @@ class Details_library
 				'area' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
 				'key' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
 				'value' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
-			) );
-
-
-
-
-	}
-	public function get_install_tables_4()
-	{
-
-		return array(
+			),
 			'shop_test' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'name' => array('type' => 'VARCHAR', 'constraint' => '100'),
@@ -694,42 +673,6 @@ class Details_library
 
 	}
 
-	public function uninstall_tables()
-	{
-		return array(
-
-			'shop_attributes',
-			'shop_downloads',
-			'shop_products',
-			'shop_prod_options',
-			'shop_prod_prices',
-			'shop_fields',
-			'shop_options',
-			'shop_option_values',
-			'shop_discounts',
-			'shop_categories',
-			'shop_images',
-			'shop_transactions',
-			'shop_addresses',
-			'shop_orders',
-			'shop_order_items',
-			'shop_order_messages',
-			'shop_order_notes',
-			'shop_brands',
-			'shop_modules',
-			'shop_wishlist',
-			'shop_invoices',
-			'shop_tax',
-			'shop_pgroups',
-			'shop_group_prices',
-			'shop_blacklist',
-			'shop_gateways',
-			'shop_shipping',
-			'shop_countries',
-			'shop_packages'
-
-			);
-	}
 
 	/**
 	 * Settings
@@ -739,7 +682,7 @@ class Details_library
 	 * 
 	 * @return [type] [description]
 	 */
-	public function get_settings()
+	public function get_settings($get = 'all')
 	{
 		$settings = array(
 			'ss_distribution_loc' => array( /*distribution location ISO 2 letter country code*//*http://www.iso.org/iso/country_codes.htm*/
@@ -970,16 +913,102 @@ class Details_library
 				'is_gui' => TRUE, 
 				'module' => 'shop', 
 				'order' => 680
-			),			
-		
+			),		
+			'shop_admin_login_location' => array(
+				'title' => 'Default screen for admin', 
+				'description' => 'When an admin logs in, which screen should they see by default',
+				'type' => 'select', 
+				'default' => '0', 
+				'value' =>  '0', 
+				'options' => '0=Default|1=Shop Dashboard|2=Shop Products|3=Shop Orders',
+				'is_required' => TRUE,
+				'is_gui' => TRUE, 
+				'module' => 'shop', 
+				'order' => 680
+			),	
+			'shop_test' => array(
+				'title' => 'sometest', 
+				'description' => 'yetest',
+				'type' => 'select', 
+				'default' => '0', 
+				'value' =>  '0', 
+				'options' => '0=Default|1=Shop Dashboard|2=Shop Products|3=Shop Orders',
+				'is_required' => TRUE,
+				'is_gui' => TRUE, 
+				'module' => 'shop', 
+				'order' => 680
+			),					
+
 		);
+
+		if($get != 'all')
+		{
+			return $settings[$get];
+		}
 
 		return $settings;
 	}
 
 
 
+	public function get_email_templates()
+	{
 
+		return array(
+			 array(
+				'slug' => 'sf_admin_blacklist',
+				'name' => 'Shop: An attempt to place order was blocked',
+				'description' => 'This email will be sent to Administrators when an attempt to place an order for a user or group that has been blacklisted',
+				'subject' => 'An attempt to place order was blocked',
+				'body' => '<h1>Details</h1>
+					<b>Date:</b> {{ date }}<br />
+					<b>User Email:</b> {{ email }}<br />
+					<b>IP Address:</b> {{ ip_address }}<br /><br />
+					<p><b>Order Total:</b>{{ cost_total }}</p><br />		
+					<p><b>Shipping Address:</b>{{ shipping_address }}</p><br />		
+					',
+				'lang' => 'en',
+				'is_default' => 1,
+				'module' => 'shop'
+			),
+			array(
+				'slug' => 'sf_user_order_notification',
+				'name' => 'shop: User Lodged Order',
+				'description' => 'Email sent to user when order is submitted',
+				'subject' => '{{ settings:ss_name }} - Order has been submitted',
+				'body' => '<h1>You have successfully created an order with {{ settings:ss_name }}</h1>
+
+					<b>Order ID:</b> {{ order_id }}<br />
+					<b>Order Date:</b> {{ order_date }}<br />
+					<b>Order Total:</b> {{ cost_total }}<br />
+					<p><a href="{{ url:site }}shop/my/">Login to your online account</a> to </p>
+					<p><a href="{{ url:site }}shop/my/orders/order/{{ order_id }}">view your full order.</a></p>',
+					
+				'lang' => 'en',
+				'is_default' => 1,
+				'module' => 'shop'
+			),
+			array(
+				'slug' => 'sf_admin_order_notification',
+				'name' => 'Shop: New order has been submitted',
+				'description' => 'This email will be sent to Administrators when new orders are submitted',
+				'subject' => 'A new order has been submitted',
+				'body' => '<h1>An order has just been submitted on your online shop</h1>
+					<b>Order ID:</b> {{ order_id }}<br />
+					<b>Order Date:</b> {{ order_date }}<br />
+					<b>IP Address:</b> {{ customer_ip }}<br /><br />
+					<p><b>Order Total:</b>{{ cost_total }}</p><br />		
+					<p><a href="{{ url:site }}admin/shop/orders/order/{{ order_id }}">view full order details online</a></p>
+					<p>{{ order_contents }}</p>
+					',
+				'lang' => 'en',
+				'is_default' => 1,
+				'module' => 'shop'
+			)
+		);
+
+
+	}
 
 
 

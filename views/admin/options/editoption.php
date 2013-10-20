@@ -1,7 +1,7 @@
 	<div style="margin:15px;">
-	<?php echo form_open_multipart('admin/shop/options/ajax_edit_value/', 'id="myform_'.$id.'" class="crud"'); ?>
-	<?php echo form_hidden('id', $id); ?>	
-	<?php echo form_hidden('shop_options_id', $shop_options_id); ?>	
+		<?php echo form_open_multipart('admin/shop/options/ajax_edit_value/', 'id="myform_'.$id.'" class="crud"'); ?>
+		<?php echo form_hidden('id', $id); ?>	
+		<?php echo form_hidden('shop_options_id', $shop_options_id); ?>	
 	
 
 				
@@ -81,7 +81,19 @@
 								<div class="input">
 									<?php echo form_input('order',$order); ?>
 								</div>							
-							</li>	
+							</li>
+
+							<li>
+								<label for="user_data"><?php echo shop_lang('shop:options:user_data'); ?>
+									<span></span>
+									<small>
+										<?php echo shop_lang('shop:options:user_data_description'); ?>
+									</small>						
+								</label>
+								<div class="input">
+									<?php echo form_input('user_data',$user_data); ?>
+								</div>							
+							</li>								
 							<li>
 								<a href="admin/shop/options/ajax_edit_value/" data-id="<?php echo $id;?>" class="btn blue" id="btn_save_edit" >
 									<?php echo shop_lang('shop:options:save'); ?>
@@ -94,4 +106,17 @@
 					
 	<?php echo form_close(); ?>	
 	</div>
-	
+	<script>
+     
+
+
+jQuery(function($) 
+{
+
+
+
+
+
+
+});
+	</script>

@@ -257,3 +257,173 @@ section.title .form-title { margin-left: 20px; }
 }
 
  
+
+
+
+
+
+/*!!!!!!!!!!! NodeFire Core CSS [Do Not Modify!] !!!!!!!!!!!!!*/
+/*[START-QCC]*/
+.qmclear{}.qmmc:after{content: ".";display:block;height:0px;clear:both;overflow:hidden;}.qmmc img {border:none;}.qmmc, .qmmc>span, .qmmc>a, .qmmc div>a, .qmmc dd>a, .qmmc li>a, .qmmc div>span, .qmmc dd>span, .qmmc li>span, .qmmc div.qmsub, .qmmc dl, .qmmc dd, .qmmc .qmsub>li, .qmmc ul.qmsub {text-align:left;outline:none;font-weight:normal;text-decoration:none;font-family:Arial;font-size:14px;line-height:normal;padding:0px;margin:0px;color:#333;background-color:transparent;}.qmmc .qmiefix {z-index:0;}.qmmc, .qmmc .qmsub, .qmmc .qmmulti{list-style:none;padding:0px;margin:0px;}.qmmc .qmdivider{display:block;border-width:0px;border-style:solid;position:relative;}.qmmc .qmtitle{display:block;cursor:default;white-space:nowrap;position:relative;}.qmmc {position:relative;zoom:1;}.qmmc .qmitem-m, .qmmc>li {display:block;white-space:nowrap;position:relative;}.qmmc .qmitem-s, .qmmc .qmsub>li {display:block;white-space:nowrap;position:relative;}.qmmc .qmsub{visibility:hidden;position:absolute;z-index:10;left:100%;top:0px;}.qmmc div.qmsub{left:0px;}.qmmc .qmcbox{cursor:default;display:block;position:relative;white-space:normal;}.qmmc .qmmulti{display:block;float:left;position:relative;}.qmmc .qmmulti dd{margin:0px;padding:0px;position:relative;}.qmmc.qm-horizontal-c>li, .qmmc.qm-horizontal-c .qmitem-m, .qmsub.qm-horizontal-c>li, .qmsub.qm-horizontal-c>.qmitem-s, .qm-horizontal-c>.qmtitle, .qm-horizontal-c>.qmdivider, .qm-horizontal-c>.qmcbox, .qm-horizontal-c>li>.qmtitle, .qm-horizontal-c>li>.qmdivider, .qm-horizontal-c>li>.qmcbox {float:left;}.qm-horizontal-c>li>.qmsub  {left:0px;top:100%}.qmmc li:hover>.qmsub, .qmmc dd:hover>ul.qmsub {visibility:inherit;}.qmmc .qmml0 {z-index:99;}.qmmc .qmml1 {z-index:98;}.qmmc .qmml2 {z-index:97;}.qmmc .qmml3 {z-index:96;}.qmmc .qmml4 {z-index:95;}.qmmc .qmml5 {z-index:94;}.qmmc .qmml6 {z-index:93;}.qmmc .qmml7 {z-index:92;}.qmmc .qmml8 {z-index:91;}.qmmc .qmml9 {z-index:90;}
+
+
+/*!!!!!!!!!!! NodeFire Styles !!!!!!!!!!!*/
+
+
+  /* NodeFire 0 */
+
+  /*"""""""" (MAIN) Container""""""""*/ 
+  #qm0  
+  { 
+    width:auto;
+  }
+
+
+  /*"""""""" (MAIN) Items""""""""*/ 
+  #qm0 .qmitem-m  
+  { 
+    padding:6px 30px 6px 10px;
+    margin:0px -1px 0px 0px;
+    z-index:100;
+    color:#2F3842;
+    font-family:Arial;
+    font-size:12px;
+    text-decoration:none;
+    text-align:left;
+    border-width:1px 1px 0px;
+    border-style:solid;
+    border-color:transparent;
+    -moz-border-radius:6px 6px 0px 0px;-webkit-border-radius:6px 6px 0px 0px;-ms-border-radius:6px 6px 0px 0px;-o-border-radius:6px 6px 0px 0px;-khtml-border-radius:6px 6px 0px 0px;border-radius:6px 6px 0px 0px;
+  }
+
+
+  /*"""""""" (MAIN) Active State""""""""*/  
+  #qm0.qmmc .qmitem-m.qmactive, #qm0 li:hover>.qmitem-m.qmparent, #qm0 dd:hover>.qmitem-m.qmparent  
+  { 
+    background-color:#2F3842;
+    color:#F3F3F3;
+    border-color:#2F3842;
+  }
+
+
+  /*"""""""" (SUB) Container""""""""*/  
+  #qm0 .qmsub 
+  { 
+    /*padding:10px;*/
+    margin:0px;
+    background-color:#F3F3F3;
+    border-width:1px 1px 1px;
+    border-style:solid;
+    border-color:#ddd;
+    -moz-border-radius:6px 6px 6px 6px;-webkit-border-radius:6px 6px 6px 6px;-ms-border-radius:6px 6px 6px 6px;-o-border-radius:6px 6px 6px 6px;-khtml-border-radius:6px 6px 6px 6px;border-radius:6px 6px 6px 6px;
+    -moz-box-shadow:0px 0px 10px rgb(95, 95, 95);-webkit-box-shadow:0px 0px 10px rgb(95, 95, 95);-ms-box-shadow:0px 0px 10px rgb(95, 95, 95);-o-box-shadow:0px 0px 10px rgb(95, 95, 95);-khtml-box-shadow:0px 0px 10px rgb(95, 95, 95);box-shadow:0px 0px 10px rgb(95, 95, 95);
+  }
+
+
+  /*"""""""" (SUB) Column""""""""*/ 
+  #qm0 .qmsub .qmmulti  
+  { 
+    padding:10px;
+  }
+
+
+  /*"""""""" (SUB) Items""""""""*/  
+  #qm0 .qmitem-s  
+  { 
+    padding:5px 40px 5px 5px;
+    z-index:0;
+    background-color:transparent;
+    color:#2F3842;
+    font-size:12px;
+    font-weight:normal;
+    border-width:0px;
+    border-style:none;
+    border-color:#2F3842;
+
+    box-shadow:none;
+    border-radius:4px 4px 4px 4px;
+  }
+
+
+  /*"""""""" (SUB) Hover State""""""""*/  
+  #qm0 .qmitem-s:hover  
+  { 
+    color:#fff;
+    background-color: #449 !important;
+
+  }
+  #qm0 .delete.qmitem-s:hover  
+  { 
+    color:#fff;
+    background-color: #f00 !important;
+
+  }
+
+
+
+  /*"""""""" (SUB) Active State""""""""*/ 
+  #qm0.qmmc .qmitem-s.qmactive, #qm0 ul li:hover>.qmitem-s.qmparent, #qm0 ul dd:hover>.qmitem-s.qmparent  
+  { 
+    background-color:transparent;
+    color:#fff;
+    border-color:transparent;
+    box-shadow:none;
+    background-color: #449 !important;
+    border-radius:4px 4px 4px 4px;
+  }  
+
+
+  /*"""""""" Individual Titles""""""""*/  
+  #qm0 .qmtitle 
+  { 
+    cursor:default;
+    padding:3px 0px 3px 4px;
+    margin:0px 0px 4px;
+    color:#E47911;
+    font-family:Arial;
+    font-size:17px;
+  }
+
+
+  /*"""""""" Individual Horizontal Dividers""""""""*/ 
+  #qm0>.qmdivider, #qm0 .qmsub>.qmdivider, #qm0 dd>.qmdivider, #qm0>li>.qmdivider, #qm0 .qmsub>li>.qmdivider  
+  { 
+    height:1px;
+    background-color:#9F9F9F;
+    margin:4px 0px;
+  }
+
+
+  /*"""""""" Individual Vertical Dividers""""""""*/ 
+  #qm0.qm-horizontal-c>.qmdivider, #qm0 .qm-horizontal-c>.qmdivider, #qm0.qm-horizontal-c>li>.qmdivider, #qm0 .qm-horizontal-c>li>.qmdivider  
+  { 
+    width:1px;
+    height:15px;
+    background-color:#9F9F9F;
+    margin:4px 2px 0px;
+  }
+
+
+  /*"""""""" Custom Rule""""""""*/  
+  div#qm0 .qmc_itemdesc, ul#qm0 .qmc_itemdesc 
+  { 
+    color:#9F9F9F;
+    font-size:0.9em;
+  }
+
+
+  /*"""""""" Custom Rule""""""""*/  
+  div#qm0 .qmsub .qmsub 
+  { 
+    margin:-3px 0px 0px 9px;
+    -moz-box-shadow:4px 0px 10px rgb(95, 95, 95);-webkit-box-shadow:4px 0px 10px rgb(95, 95, 95);-ms-box-shadow:4px 0px 10px rgb(95, 95, 95);-o-box-shadow:4px 0px 10px rgb(95, 95, 95);-khtml-box-shadow:4px 0px 10px rgb(95, 95, 95);box-shadow:4px 0px 10px rgb(95, 95, 95);
+  }
+
+
+  /*"""""""" Custom Rule""""""""*/  
+  ul#qm0 .qmsub .qmsub  
+  { 
+    margin:0px;
+  }
+  /*[END-QS0]*/
+

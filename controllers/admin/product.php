@@ -340,7 +340,7 @@ class Product extends Products_admin_Controller
 		
 		if($panel =='product')
 		{
-			$data->category_select 	= $this->categories_m->build_tree_select(array('current_parent' => $data->category_id ));
+			$data->category_select 	= $this->categories_m->build_dropdown( array( 'field_property_id' => 'category_id', 'current_id' => $data->category_id ) );
 			$data->brand_select 	= $this->brands_m->build_dropdown($data->brand_id);
 		}	
 			
@@ -359,13 +359,13 @@ class Product extends Products_admin_Controller
 		{
 			//$data->folders = $this->get_folders();
 			$data->tax_groups 		= $this->tax_m->get_all();
-			$data->group_select 	= $this->pgroups_m->build_list_select(array('current_id' => $data->pgroup_id));	
+			$data->group_select 	= $this->pgroups_m->build_dropdown( $data->pgroup_id );	
 		}
 
 		if($panel =='related')
 		{
 			
-			$data->category_select 	= $this->categories_m->build_tree_select();
+			$data->category_select 	= $this->categories_m->build_dropdown( array( 'field_property_id' => 'related_products_category_filter' )   );
 
 			$data->rel_names = array();
 			

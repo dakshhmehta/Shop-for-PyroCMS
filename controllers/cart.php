@@ -661,13 +661,17 @@ class Cart extends Public_Controller
 				//
 				// Text options can not alter price
 				//
-				$option = $this->options_m->get_option_value_by_slug($key,$value);	
-				
+				//$option = $this->options_m->get_option_value_by_slug($key,$value);	
+				$option = $this->options_m->get_option_by_id($key,$value);	
 
+	
+				
+				//var_dump($option);;
 			
 
 
-				$options[$key] = array();
+				$options[$key] = array(); //initialize the option key
+
 
 				//we have to handle the text option as they do not have sub-options and do not alter the price
 				if($option->type == 'file')
@@ -675,8 +679,9 @@ class Cart extends Public_Controller
 
 					if($value == 'donotremove')
 					{
-						//var_dump($option);die;
+					
 					}
+					
 					//
 					// Trigger Event to Notify User of status (success/Failer)
 					//
@@ -690,6 +695,7 @@ class Cart extends Public_Controller
 					$options[$key] = array('name' => $option->name, 
 											'value' => $data, /* $option->values->value */
 											'label' => $data, /* $option->values->value */
+											'user_data' => '',  /*used in cart view*/
 											'max_qty' => 0, 
 											'operator'=> 'n', //n = skip calc 
 											'operator_value' => 0, 
@@ -706,6 +712,7 @@ class Cart extends Public_Controller
 					$options[$key] = array('name' => $option->name, 
 											'value' => $value, /* $option->values->value */
 											'label' => $value, /* $option->values->value */
+											'user_data' => 'text',  /*used in cart view*/
 											'max_qty' => 0, 
 											'operator'=> 'n', //n = skip calc 
 											'operator_value' => 0, 
@@ -716,13 +723,14 @@ class Cart extends Public_Controller
 				{
 					
 					
-					
+				
 					//build the option array that will be sent to the cart
 					
 					// Get the label from the db/cache
 					$options[$key] = array('name' => $option->name, 
 											'value' => $value, /* $option->values->value */
 											'label' => $option->values->label,  /*used in cart view*/
+											'user_data' => $option->values->user_data,  /*used in cart view*/
 											'max_qty' => $option->values->max_qty, 
 											'operator'=>$option->values->operator, 
 											'operator_value' => $option->values->operator_value, 
@@ -734,8 +742,9 @@ class Cart extends Public_Controller
 
 				}
 
+			
 
-										
+				//var_dump($options);die;				
 				
 
 
@@ -762,7 +771,5 @@ class Cart extends Public_Controller
 	
 		return $file_id;
 
-
-	   // $second_upload = Files::upload($folder_id, 'Some Name', 'secondfile');
 	}	
 }

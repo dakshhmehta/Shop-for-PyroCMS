@@ -61,9 +61,6 @@ class Blacklist_m extends MY_Model
 
 
 
-
-
-	
 	public function create($input)
 	{
 
@@ -97,9 +94,7 @@ class Blacklist_m extends MY_Model
 	
 
 	
-
-	
-	public function build_method_dropdown($current_id = -1) 
+	public function build_dropdown($current_id = -1) 
 	{
 
 		$items = array();

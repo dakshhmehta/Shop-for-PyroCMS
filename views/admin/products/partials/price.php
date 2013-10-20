@@ -105,10 +105,9 @@
 										</small>						
 									</label>
 									<div class="input">
-										<select name="pgroup_id" id="pgroup_id">
-											<option value=""><?php echo lang('global:select-pick'); ?></option>
-											<?php echo $group_select; ?> 
-										</select>
+										
+										<?php echo $group_select; ?> 
+										
 									</div>
 								</li>		
 							</ul>

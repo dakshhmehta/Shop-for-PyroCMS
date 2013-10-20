@@ -317,9 +317,51 @@ class Options_m extends MY_Model
 	
 	}
 
+		
 	
+	
+	public function get_option_by_id( $id , $value)
+	{
+		$this->load->model('options_values_m');
+	
+		//
+		// Get the option
+		//
+		$option = parent::get($id); 
 
+		//
+		// If we dont have an option lets return false
+		//
+		if(!$option) return FALSE;
+
+
+		//
+		// Depending on the option type we have diff actions
+		//
+		switch($option->type)
+		{
+			case 'file':
+			case 'hidden':				
+			case 'text':
+				break;
+			default:
+				//$option->values = $this->db->where('value',$value)->where('shop_options_id', $id )->get('shop_option_values')->result();
+				$option->values = $this->options_values_m->get_by('id',$value);
+				break;
+
+
+		}
+
+		return $option;
+	}
 	
+	/**
+	 * @deprecated
+	 * 
+	 * @param  [type] $slug  [description]
+	 * @param  [type] $value [description]
+	 * @return [type]        [description]
+	 */
 	public function get_option_value_by_slug( $slug, $value)
 	{
 	

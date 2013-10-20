@@ -23,8 +23,12 @@
  * @system		PyroCMS 2.1.x
  *
  */
-class Brands_m extends MY_Model 
+require_once(dirname(__FILE__) . '/' .'shop_model.php');
+
+
+class Brands_m extends Shop_model 
 {
+
 
     public $_table = 'shop_brands';
 	
@@ -32,6 +36,12 @@ class Brands_m extends MY_Model
 	public function __construct() 
 	{
 		parent::__construct();
+
+		$this->_pyrosearch_uri_edit = 'admin/shop/brands/edit/';
+		$this->_pyrosearch_uri_delete = 'admin/shop/brands/delete/';
+		$this->_pyrosearch_singular = 'brand';
+		$this->_pyrosearch_plural = 'brands';
+
 	}
 
 
@@ -48,7 +58,7 @@ class Brands_m extends MY_Model
 			'slug' => $this->_check_slug($input['slug'])
 		);
 
-		$input['id'] = $this->insert($to_insert);
+		$id = $this->insert($to_insert);
 
 
 		if ($this->db->trans_status() === FALSE)
@@ -58,7 +68,13 @@ class Brands_m extends MY_Model
 		}
 		
 		$this->db->trans_commit();
-		return $input['id'];
+
+		if($id)
+		{
+			$this->add_to_search($id, $input['name'], strip_tags($input['notes'] ) );
+		}
+
+		return $id;
 
 	}
 
@@ -85,61 +101,23 @@ class Brands_m extends MY_Model
 	}
 
 
-	// make sure the slug is valid
-	public function _check_slug($slug) 
-	{
-		$slug = strtolower($slug);
-		$slug = preg_replace('/\s+/', '-', $slug);
-		return $slug;
-	}
 
 
-	/**
-	 * This could be useful if using ajax calls to update a single property.
-	 * Will definiantly be needed with the API calls.
-	 * 
-	 * @param [id|slug|image_id] 	$field    
-	 * @param [Mixed] 				$value    [Mixed]
-	 * @param [INT] 				$brand_id [INT]
-	 */
-	public function set_field($field, $value, $brand_id ) 
-	{
-
-		$update_record = array(
-				$field => $value,
-		);
-	
-		return $this->update($brand_id, $update_record);
-	}
-	
-
-	/**
-	 * build_dropdown(INT)
-	 * 
-	 * @param INT $current_id (Optional) The selected brand to display as a default in the list
-	 * @return HTMLString	The string that represents the Select dropdown object of brands.
-	 * @access public
-	 *
-	 */
 	public function build_dropdown($current_id = 0) 
 	{
-		// Prepare
-		$items = array();
-		$items['0']  = 'None';
 
-		// Get brands	
-		$brands = $this->db->order_by('name')->select('id, name')->get($this->_table)->result();			
+		$options =array();
+		$options['field_property_id'] = 'brand_id';
+		$options['current_id'] = $current_id;
 
-		// Built list
-		foreach ($brands as $item)
-			$items[$item->id] = $item->name;
-		
-		// Create the drop down
-        $drop = form_dropdown('brand_id', $items, $current_id );
+		$brands = $this->db->order_by('name')->select('id, name')->get($this->_table)->result();
+		return $this->_build_dropdown( $brands , $options );
 
-        // Return it
-        return $drop;		
 	}
+
+
+
+
 
 
 }

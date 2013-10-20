@@ -41,8 +41,15 @@
 								 	<?php echo shop_lang('shop:products:user_data_description'); ?>
 								</small>
 							</label>
-							<div class="input"><?php echo form_input('user_data', set_value('user_data', $user_data)); ?></div>
+							<div class="input">
+								<?php if(group_has_role('shop', 'admin_user_data')): ?>
+									<?php echo form_input('user_data', set_value('user_data', $user_data)); ?>
+								<?php else: ?>
+									<?php echo form_hidden('user_data',$user_data).shop_lang('shop:products:permission_denied_to_edit_field')."<br />".$user_data; ?>
+								<?php endif; ?>
+							</div>
 						</li>	
+
 
 
 						<li class="<?php echo alternator('', 'even'); ?>">
@@ -74,6 +81,17 @@
 								</small>
 							</label>
 							<div class="input"><?php echo form_input('depth', set_value('depth', $depth)); ?></div>
+						</li>	
+
+
+						<li class="<?php echo alternator('', 'even'); ?>">
+							<label for="weight"><?php echo shop_lang('shop:products:max_weight_per_unit'); ?> 
+								<span></span>
+								<small>
+								 	<?php echo shop_lang('shop:products:width_description'); ?>
+								</small>
+							</label>
+							<div class="input"><?php echo form_input('weight', set_value('weight', $weight)); ?></div>
 						</li>	
 
 					</ul>

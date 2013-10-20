@@ -191,15 +191,11 @@ class Package_library extends Core_library
 			//prepare array
 			$insert = array(
 					'title' => $lib_object->title,
-					'module' => $this->module_name,
+					//'module' => $this->module_name,
 					'slug' => sf_clean_slug($slug),
 					'desc' => $lib_object->desc,
 					'enabled' => 0, /*disabled by default*/
 					'options' => '',
-					'price1' => 0, 
-					'price2' => 0, 
-					'price3' => 0, 
-					'core' => 0, 
 			);
 	
 	

@@ -23,7 +23,12 @@
  * @system		PyroCMS 2.1.x
  *
  */
-class Categories_m extends MY_Model 
+
+
+require_once(dirname(__FILE__) . '/' .'shop_model.php');
+
+
+class Categories_m extends Shop_model 
 {
 
 	private $_description_tags = '<b><div><strong><em><i><u><ul><ol><li><p><span><a><br><br />';
@@ -32,6 +37,13 @@ class Categories_m extends MY_Model
 	public function __construct() 
 	{
 		parent::__construct();
+
+		$this->_pyrosearch_uri_edit = 'admin/shop/categories/edit/';
+		$this->_pyrosearch_uri_delete = 'admin/shop/categories/delete/';
+		$this->_pyrosearch_singular = 'category';
+		$this->_pyrosearch_plural = 'categories';
+
+
 	}
 
 
@@ -104,8 +116,11 @@ class Categories_m extends MY_Model
 			$suffix = '';
 		}
 
+
+		$_name = strip_tags($input['name']);
+
 		$to_insert = array(
-			'name' => strip_tags($input['name']),
+			'name' => $_name,
 			'description' => strip_tags($input['description'], $this->_description_tags),
 			'slug' => $slug.$suffix,
 			'image_id' =>  $input['image_id'],
@@ -114,7 +129,14 @@ class Categories_m extends MY_Model
 			'user_data' => $input['user_data'],
 		);		
 
-		return $this->insert($to_insert);
+		$id = $this->insert($to_insert);
+
+		if($id)
+		{
+			$this->add_to_search($id, $_name, strip_tags($input['description']) );
+		}
+
+		return $id;
 
 	}
 
@@ -140,182 +162,68 @@ class Categories_m extends MY_Model
 	}
 
 
-	public function update_property($id, $field,$value) 
-	{
-		// Prepare
-		$to_update = array(
-			$field => $value,
-		);
-		
-		return $this->update($id, $to_update);
-	}
-	
-	/**
-	 * make sure the slug is valid,Use the check_slug from the helper file
-	 *
-	 * @access public
-	 */
-	public function _check_slug($slug) 
-	{
-		$slug = strtolower($slug);
-		$slug = preg_replace('/\s+/', '-', $slug);
-		return $slug;
-	}
-
-	/**
-	 * Builds
-	 * @return [type] [description]
-	 */
-	public function build_data_tree()
+	public function build_dropdown( $in_options = array() ) 
 	{
 
+		$options =array();
+		$options['field_property_id'] = 'category_id';
+		$options['current_id'] = -1;
+		$options['parent_id'] = -1;
+		$options['ommit_id'] = -1;
+		$options['type'] = 'all';
 
-	}
-	
 
-	/**
-	 *
-	 * @chached yes
-	 * @access public
-	 */
-	public function build_select_filter($optional = null) 
-	{
-		$array = $this->pyrocache->model('categories_m', 'get_all');//$array = $this->get_all();
-		$ret[0] =  lang('global:select-all');
-		 
-		foreach ($array as $ar) 
+		$options = array_merge($options,$in_options);
+
+		$categories = $this->db->where('parent_id',0)->order_by('parent_id')->select('id, name, parent_id')->get($this->_table)->result();
+
+		$new_list = array();
+
+
+		if( ($options['type'] =='parent') && ($options['parent_id'] == 0) )
 		{
-			$ret[$ar->id] = $ar->name;
+
 		}
-		return $ret;
-	}
-
-	/**
-	 * @return Html select dropdown
-	 * @access public
-	 */
-	public function build_tree_select($params =array() , $parent_name = '+') 
-	{
-
-		$params = array_merge(array(
-				'tree' => array(),
-				'parent_id' => 0,
-				'current_parent' => 0,
-				'current_id' => 0,
-				'level' => 0
-		), $params);
-	
-	
-		extract($params);
-	
-		if (!$tree) 
+		else
 		{
-			if($cat_item = $this->pyrocache->model('categories_m', 'get_all') ) 
-			{
-				foreach ($cat_item as $c_item) 
+
+			foreach ($categories as $key => $category) 
+			{ 
+				switch( $options['type'] )
 				{
-					$tree[$c_item->parent_id][] = $c_item;
+					case 'all':
+						$category->subs = $this->db->where('parent_id',$category->id)->order_by('name')->select('id, name,parent_id')->get($this->_table)->result();
+						break;
+					case 'parent':
+						if($category->parent_id == 0)
+							continue;
+						break;
+					default:
+						$category->subs = array();
+						break;
 				}
-			}
-		}
-		if (!isset($tree[$parent_id]))
-		{
-			return;
-		}
 
-		$html = '';
+				
 
-		foreach ($tree[$parent_id] as $item) 
-		{
-			 
-			if ($current_id == $item->id) 
-			{
-				continue;
-			}
-	
-			$html .= '<option value="' . $item->id . '"';
-	
-			$html .= $current_parent == $item->id ? ' selected="selected">' : '>';
-	
-			if ($level > 0) 
-			{
-				for ($i = 0; $i < ($level * 2); $i++) 
+				$category->name = "&raquo; " .  $category->name;
+				$new_list[] = $category;
+
+				foreach ($category->subs as $sub_key => $sub_category) 
 				{
-					$html .= '&nbsp;';
+					$sub_category->name =  "&nbsp;&nbsp;". $category->name . " &rarr; " . $sub_category->name;
+					$new_list[] = $sub_category;
 				}
-				$html .= '&nbsp;&nbsp;';
-			}
-	
 
-			$html .= $parent_name.' '.$item->name . '</option>';
-			$html .= $this->build_tree_select(array(
-					'tree' => $tree,
-					'parent_id' => (int) $item->id,
-					'current_parent' => $current_parent,
-					'current_id' => $current_id,
-					'level' => $level + 1
-			), '- '.$item->name . ' \\' );
+
+			}
 		}
-	
-		return $html;
-	}	
 
-	
-	public function build_parent_dropdown($current_id = -1, $parent_id = 0) 
-	{
 
-		$items = array();
-		$items['0']  = 'None';
+		return $this->_build_dropdown($new_list , $options );
 
-		// Get categories	
-		$categories = $this->db->where('parent_id',0)->order_by('name')->select('id, name')->get($this->_table)->result();			
-
-		// Built list
-		foreach ($categories as $item)
-		{
-			if($current_id == $item->id)
-			{
-				//do not add self
-			}
-			else
-			{
-				$items[$item->id] = $item->name;
-			}
-			
-		}
-		
-		// Create the drop down
-        $drop = form_dropdown('parent_id', $items, $parent_id );
-
-        // Return it
-        return $drop;	
 	}
 
-	//same as built dropbopdon but excludes self
-	public function build_dropdown($current_id = 0) 
-	{
 
-		$items = array();
-		$items['0']  = 'None';
-
-		// Get categories	
-		$categories = $this->db->order_by('name')->select('id, name')->get($this->_table)->result();			
-
-		// Built list
-		foreach ($categories as $item)
-		{
-			
-			$items[$item->id] = $item->name;
-			
-			
-		}
-		
-		// Create the drop down
-        $drop = form_dropdown('category_id', $items, $current_id );
-
-        // Return it
-        return $drop;	
-	}
 
 
 	public function replicate_to_child($parent_id = NULL,$field = NULL, $value = '')
@@ -340,6 +248,9 @@ class Categories_m extends MY_Model
 
 		return $count;
 	}
+
+
+
 
 
 }

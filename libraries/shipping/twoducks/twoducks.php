@@ -66,7 +66,10 @@ class Twoducks_ShippingMethod extends Twoducks_base
 	);
 	
 	
-	public function __construct() {		}
+	public function __construct() 
+	{
+		parent::__construct();
+	}
 
 	
 	public function form($options) { return $options; }
@@ -78,14 +81,14 @@ class Twoducks_ShippingMethod extends Twoducks_base
 	public function calc($options, $packages, $from_address = array(), $to_address = array() )
 	{
 
-		$options['shipping_min'];
-		$options['shipping_max'];
+
+		$this->add('Start calc for:' . $this->title);
 
 		$cost = 0;
-		$handling = $options['handling'];
+		$handling = 0;
 		$discount = 0;
 
-
+		$shippable_item_count = 0; //if no shiipable items - return free shpping
 
 		foreach ($packages as $package)
 		{	
@@ -96,6 +99,18 @@ class Twoducks_ShippingMethod extends Twoducks_base
 			// items that do not require shipping
 			//
 			$this->prepare_package($package);
+
+
+			//
+			// If no items left in package - do not send it (do not calc)
+			//
+			if(!$package->item_count)
+			{
+				continue;
+			}
+
+			
+			$shippable_item_count += $package->item_count;
 
 
 
@@ -160,6 +175,7 @@ class Twoducks_ShippingMethod extends Twoducks_base
 
 			}
 
+			
 
 			//now we have the calc method, go there and calc
 			$cost += $this->$func($package);
@@ -167,19 +183,30 @@ class Twoducks_ShippingMethod extends Twoducks_base
 		}
 
 
-
-
+	
 		//
 		// trim shipping does 1 of 2 things.
 		// It will round up if shipping is too low,
 		// or round down if shipping is too high
 		//
-		$cost = $this->trim_shipping($cost);
-
-		//echo $cost;die;
+		$this->trim_shipping($cost, $options, $shippable_item_count);
 
 
-		return array($this->id,$this->title,$this->desc, $cost, $handling, $discount); // == $0 total
+		//now we add on the framed charts as they do not reuire trimming
+		foreach ($packages as $package)
+		{	
+			$cost += $this->calc_framed_name_charts($package);
+		}
+
+
+		$this->add('shippable count: ' .$shippable_item_count);
+		//echo $this->show();
+		//die;
+
+
+	 
+
+		return array($this->id,$this->title,$this->desc, $cost, 0, 0); // == $0 total
 
 	}
 
@@ -198,10 +225,31 @@ class Twoducks_ShippingMethod extends Twoducks_base
 	{
 
 
-
+		//$count = 0;
 		foreach($package->items as $key => $val)
 		{
+			//$count++;
 
+			
+			//var_dump($val);
+
+			
+			//if($count >= 2)
+			
+
+	
+			if( ($val['ignor_shipping']==1) OR ($val['ignor_shipping']=='1') )
+			{
+
+
+				$package->item_count = ($package->item_count - 1);
+				unset($package->items[$key]);
+				continue;
+				
+			}
+		
+
+			/*
 			if(isset($package->items[$key]['options']['delivery-type-inv']))
 			{
 
@@ -209,6 +257,7 @@ class Twoducks_ShippingMethod extends Twoducks_base
 				{
 					// Remove from package
 					unset($package->items[$key]);
+					continue;
 					
 				}
 			}
@@ -221,16 +270,15 @@ class Twoducks_ShippingMethod extends Twoducks_base
 				{
 					// Remove from package
 					unset($package->items[$key]);
+					continue;
 					
 				}
 			}
-
-
+			*/
 
 
 		}
-
-		return $package;
+	
 	}
 
 
@@ -244,20 +292,40 @@ class Twoducks_ShippingMethod extends Twoducks_base
 	 * @param  [type] $cost [description]
 	 * @return [type]       [description]
 	 */
-	private function trim_shipping($cost)
+	private function trim_shipping(&$cost, $options, $items_count=0)
 	{
 
-		$min_shipping = 2.00;
-		$max_shipping = 15.00;
+		if($items_count == 0)
+		{
+			$cost = 0;
+		}
+		else
+		{
 
-		//check min
-		$cost = ($cost < $min_shipping)?  $min_shipping : $cost ;
-
-		//check max
-		$cost =  ($cost > $max_shipping)?  $max_shipping : $cost ;
+			$handling = $options['handling'];
+			$min_shipping = $options['shipping_min'];
+			$max_shipping = $options['shipping_max'];
 
 
-		return $cost;
+			$this->add( "Before Trim:" . $cost   );
+
+			//
+			// Add handling
+			//
+			$cost += $handling;
+
+			//check min
+			$cost = ($cost < $min_shipping)?  $min_shipping : $cost ;
+
+			if($max_shipping > 0)
+			{
+				//check max
+				$cost =  ($cost > $max_shipping)?  $max_shipping : $cost ; 
+			}
+
+			$this->add( "After Trim:" . $cost   );
+
+		}
 
 	}
 
