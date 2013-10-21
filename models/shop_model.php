@@ -190,4 +190,31 @@ class Shop_model extends MY_Model
 
 
 
+	public function export($table = '', $type = 'xml')
+	{
+		switch ($table)
+		{
+
+			case 'products':
+				$data_array = $this->db
+					->select('shop_products.*')
+					->get('shop_products')
+					->result_array();
+				break;
+			case 'orders':
+				$data_array = $this->db
+					->select('shop_orders.*')
+					->get('shop_orders')
+					->result_array();
+				break;
+
+			default:
+				return false;
+				break;
+		}
+
+		force_download($table.'.'.$type, $this->format->factory($data_array)->{'to_'.$type}());
+	}
+	
+
 }

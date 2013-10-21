@@ -119,7 +119,7 @@ class Events_Shop
 
 	public function evt_global()
 	{
-		$this->ci->lang->load('shop/shop_global');  
+		
 	}
 	
 	
@@ -203,8 +203,6 @@ class Events_Shop
 
 		// Lang
 		$this->ci->lang->load('shop/shop_admin');
-		$this->ci->lang->load('shop/shop_admin_cp');
-
 
 
 	}

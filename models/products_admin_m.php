@@ -41,12 +41,10 @@ class Products_admin_m extends Products_m
 	 * 
 	 * @return Array Products Array
 	 */
-	public function get_all()
+	public function get_all($mode = 'public') 
 	{
-		return parent::get_all('admin');
+		return parent::get_all($mode);
 	}
-
-
 
 
 

@@ -58,30 +58,33 @@ class Details_library
             	//new granular level security
             	'admin_product_seo', 'admin_product_options',
 
-            	'admin_user_data'
+            	'admin_user_data','admin_setup'
             	 ),
 
 
 			'sections' => array(
 				'dashboard' => array(
-					'name' => 'nc:admin:dashboard', 
+					'name' => 'shop:admin:dashboard', 
 					'uri' => 'admin/shop',
 					'shortcuts' => array()  
 				),
 				'orders' => array(
-					'name' => 'nc:admin:orders', 
+					'name' => 'shop:admin:orders', 
 					'uri' => 'admin/shop/orders',
 					'shortcuts' => array()
 				),			  
 				'products' => array(
-					'name' => 'nc:admin:products', 
+					'name' => 'shop:admin:products', 
 					'uri' => 'admin/shop/products',
 					'shortcuts' => array()
-				),							
-	
+				),
+
+
 
 			)
 		);
+
+
 
 
         // Support for sub 2.2.0 menus
@@ -112,7 +115,7 @@ class Details_library
 			{
 				$info['sections']['categories'] = array(
 				
-					'name' => 'nc:admin:categories', 
+					'name' => 'shop:admin:categories', 
 					'uri' => 'admin/shop/categories',
 					'shortcuts' => array()
 				 	
@@ -126,7 +129,7 @@ class Details_library
 				{
 					$info['sections']['brands'] = array(
 					
-						'name' => 'nc:admin:brands', 
+						'name' => 'shop:admin:brands', 
 						'uri' => 'admin/shop/brands',
 						'shortcuts' => array()
 					 	
@@ -140,7 +143,7 @@ class Details_library
 			{
 				$info['sections']['options'] = array(
 				
-					'name' => 'nc:admin:options', 
+					'name' => 'shop:admin:options', 
 					'uri' => 'admin/shop/options',
 					'shortcuts' => array()
 				 	
@@ -153,7 +156,7 @@ class Details_library
 			{
 				$info['sections']['packages'] = array(
 				
-					'name' => 'nc:admin:packages', 
+					'name' => 'shop:admin:packages', 
 					'uri' => 'admin/shop/packages',
 					'shortcuts' => array()
 				 	
@@ -168,7 +171,7 @@ class Details_library
 			{
 				$info['sections']['pgroups'] = array(
 	
-					'name' => 'nc:admin:pgroups', 
+					'name' => 'shop:admin:pgroups', 
 					'uri' => 'admin/shop/pgroups',
 					'shortcuts' => array()
 				 	
@@ -181,7 +184,7 @@ class Details_library
 			{
 				$info['sections']['blacklist'] = array(
 				
-					'name' => 'nc:admin:blacklist', 
+					'name' => 'shop:admin:blacklist', 
 					'uri' => 'admin/shop/blacklist',
 					'shortcuts' => array()
 				 	
@@ -192,7 +195,7 @@ class Details_library
 			{
 				$info['sections']['shipping'] = array(
 				
-					'name' => 'nc:admin:shipping', 
+					'name' => 'shop:admin:shipping', 
 					'uri' => 'admin/shop/shipping',
 					'shortcuts' => array()
 				 	
@@ -204,7 +207,7 @@ class Details_library
 			{
 				$info['sections']['gateways'] = array(
 		
-					'name' => 'nc:admin:gateways', 
+					'name' => 'shop:admin:gateways', 
 					'uri' => 'admin/shop/gateways',
 					'shortcuts' => array()
 				 	
@@ -215,13 +218,29 @@ class Details_library
 			{
 				$info['sections']['tax'] = array(
 				
-					'name' => 'nc:admin:tax', 
+					'name' => 'shop:admin:tax', 
 					'uri' => 'admin/shop/tax',
 					'shortcuts' => array()
 				 	
 				);
 
 			}
+
+			if (function_exists('group_has_role'))
+			{
+
+
+				if(group_has_role('shop', 'admin_setup'))
+				{
+						 $info['sections']['manage'] = array(
+							'name' => 'shop:admin:manage', 
+							'uri' => 'admin/shop/manage',
+							'shortcuts' => array()
+						);	
+
+				}
+			}
+			
 	
 
 		}
@@ -234,29 +253,32 @@ class Details_library
     public function admin_menu(&$menu)
     {
 		
-		
+		$menu['lang:shop:admin:shop'] = array(
+            'lang:shop:admin:dashboard' 	=> 'admin/shop/',			
+			'lang:shop:admin:orders' 	=> 'admin/shop/orders',            
+			'lang:shop:admin:products' 	=> 'admin/shop/products',
+			'lang:shop:admin:view_shop' 	=> 'shop/',					
+		);
+
+
 		//
 		//populate menu with items
 		//
-		$menu['lang:nc:admin:nitro'] = array(
-            'lang:nc:admin:dashboard' 	=> 'admin/shop/',
-			'lang:nc:admin:orders' 	=> 'admin/shop/orders',            
-			'lang:nc:admin:products' 	=> 'admin/shop/products',
-		);
+		$menu['lang:shop:admin:shop_admin'] = array();
 		
 
-		//
-		// leave if only want the light menu
-		//
-		if ( Settings::get('nc_menu_style') == AdminMenu::Light) 
-		{
-			return;
-		}
 
 
 
 		if (function_exists('group_has_role'))
 		{
+
+
+		}
+		else
+		{
+			return;
+		}
 
 
 			//
@@ -268,53 +290,70 @@ class Details_library
 				{
 					if ( Settings::get('ss_enable_brands') == SettingMode::Enabled) 
 					{ 
-						$menu['lang:nc:admin:nitro']['lang:nc:admin:brands'] = 'admin/shop/brands';
+						$menu['lang:shop:admin:shop_admin']['lang:shop:admin:brands'] = 'admin/shop/brands';
 					}
 				}	
 				
 			}
 		
 
+
+
 			//
 			// Add the rest of the items
 			//
 			if(group_has_role('shop', 'categories'))
 			{
-				$menu['lang:nc:admin:nitro']['lang:nc:admin:categories'] = 'admin/shop/categories';
+				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:categories'] = 'admin/shop/categories';
 			}		
 			if(group_has_role('shop', 'options'))
 			{
-				$menu['lang:nc:admin:nitro']['lang:nc:admin:options'] = 'admin/shop/options';
-			}					
+				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:options'] = 'admin/shop/options';
+			}		
+
+
+			if(group_has_role('shop', 'blacklist'))
+			{
+				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:blacklist'] = 'admin/shop/blacklist';
+			}
+
+			if(group_has_role('shop', 'admin_setup'))
+			{
+				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:manage'] = 'admin/shop/manage';
+			}
+
+
+
+			//
+			// leave if only want the light menu
+			//
+			if ( Settings::get('nc_menu_style') == AdminMenu::Light) 
+			{
+				return;
+			}
+
+
 			if(group_has_role('shop', 'packages'))
 			{
-				$menu['lang:nc:admin:nitro']['lang:nc:admin:packages'] = 'admin/shop/packages';
+				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:packages'] = 'admin/shop/packages';
 			}
 			if(group_has_role('shop', 'shipping'))
 			{
-				$menu['lang:nc:admin:nitro']['lang:nc:admin:shipping'] = 'admin/shop/shipping';
+				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:shipping'] = 'admin/shop/shipping';
 			}
 			if(group_has_role('shop', 'gateways'))
 			{
-				$menu['lang:nc:admin:nitro']['lang:nc:admin:gateways'] = 'admin/shop/gateways';
+				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:gateways'] = 'admin/shop/gateways';
 			}				
-			if(group_has_role('shop', 'blacklist'))
-			{
-				$menu['lang:nc:admin:nitro']['lang:nc:admin:blacklist'] = 'admin/shop/blacklist';
-			}
 			if(group_has_role('shop', 'pgroups'))
 			{
-				$menu['lang:nc:admin:nitro']['lang:nc:admin:pgroups'] = 'admin/shop/pgroups';
+				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:pgroups'] = 'admin/shop/pgroups';
 			}				
 			if(group_has_role('shop', 'tax'))
 			{
-				$menu['lang:nc:admin:nitro']['lang:nc:admin:tax'] = 'admin/shop/tax';
+				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:tax'] = 'admin/shop/tax';
 			}
 
-			$menu['lang:nc:admin:nitro']['View Shop'] = 'shop/';
-
-
-		}
 	
 
 	}	
@@ -925,19 +964,31 @@ class Details_library
 				'is_gui' => TRUE, 
 				'module' => 'shop', 
 				'order' => 680
-			),	
-			'shop_test' => array(
-				'title' => 'sometest', 
-				'description' => 'yetest',
-				'type' => 'select', 
+			),			
+			'shop_upload_file_orders' => array(
+				'title' => 'Upload Directory : customer attatchments', 
+				'description' => 'This is only used for customers that want to add a file attatchment',
+				'type' => 'text', 
 				'default' => '0', 
 				'value' =>  '0', 
-				'options' => '0=Default|1=Shop Dashboard|2=Shop Products|3=Shop Orders',
+				'options' => '',
 				'is_required' => TRUE,
-				'is_gui' => TRUE, 
+				'is_gui' => FALSE, 
 				'module' => 'shop', 
 				'order' => 680
-			),					
+			),	
+			'shop_upload_file_product' => array(
+				'title' => 'Upload directory : product Images ', 
+				'description' => 'This is only used for admins to assign an upload folder for product images.',
+				'type' => 'text', 
+				'default' => '0', 
+				'value' =>  '0', 
+				'options' => '',
+				'is_required' => TRUE,
+				'is_gui' => FALSE, 
+				'module' => 'shop', 
+				'order' => 680
+			),						
 
 		);
 

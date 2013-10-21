@@ -32,6 +32,8 @@ $lang['shop:role_admin_product_options'] = 'Edit product OPTIONS';
 $lang['shop:role_developer_fields'] = 'Developer Fields';
 
 $lang['shop:role_admin_user_data'] = 'User-Data fields';
+$lang['shop:role_admin_setup'] = 'Shop Setup Area';
+
 
 
 ///////////////////////////

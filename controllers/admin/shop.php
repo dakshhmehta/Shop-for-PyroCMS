@@ -45,6 +45,7 @@ class Shop extends Admin_Controller
 	 */
 	public function index() 
 	{
+
 		
 		// Load required Classes
 		$this->load->model('products_admin_m');
@@ -172,6 +173,29 @@ class Shop extends Admin_Controller
 
 		echo "Indexed " . $count . ' products';die;
 
+    }
+
+    public function export($table='products', $format ='csv' )
+    {
+
+		$this->load->helper('download');
+		$this->load->library('format');
+
+
+		switch ($table) 
+		{
+			case 'products':
+			case 'orders':
+				break;
+			default:
+				return FALSE;
+				break;
+		}
+
+
+    	$this->load->model('shop_model');
+
+    	$this->shop_model->export($table, $format);
     }
     
 	

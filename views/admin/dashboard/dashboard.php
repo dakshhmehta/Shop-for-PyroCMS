@@ -187,58 +187,7 @@
 	
 
 
-	<div class="one_full" style="margin-top:10px;">
 
-		<section class="title">
-			<h4><?php echo shop_lang('shop:dashboard:extra');?></h4>
-		</section>
-		<section class="item">
-
-
-			<div class="content">
-
-				<fieldset>
-					<label>
-						<?php echo lang('shop:global:software:label');?>
-					</label>
-				
-					<div>
-						<a href="admin/shop/blacklist" class="tooltip-s img_button img_blacklist" title="Blacklist"></a>
-						<a href="admin/shop/blacklist" class="tooltip-s img_button status_img_paid" title="Price Groups"></a>
-
-						<ul>
-							<li>
-								
-								<label><?php echo lang('shop:global:software:name');?></label>
-								<div class="input"><?php echo lang('shop:global:software:version:label');?> <?php echo lang('shop:global:software:version:value');?></div>
-							</li>
-						</ul>
-					</div> 
-
-
-				</fieldset>
-				<fieldset>
-					<label>
-						<?php echo shop_lang('shop:dashboard:cache');?>
-					</label>
-					<div>
-						<a href="admin/shop/run_lang" class="btn blue modal"><?php echo shop_lang('shop:dashboard:run_lang_generator');?></a>
-						<a href="admin/shop/run_re_index" class="btn green modal"><?php echo shop_lang('shop:dashboard:re_index_search');?></a>
-
-						<a href="admin/shop/cache/categories" class="btn orange tooltip-s modal" title="This will clear cache for categories" ><?php echo shop_lang('shop:dashboard:clear_categories_cache');?></a>
-						<a href="admin/shop/cache/products" class="btn red tooltip-s modal" title="This will clear products cache ONLY" ><?php echo shop_lang('shop:dashboard:clear_product_cache');?></a>
-						<a href="admin/shop/cache/all" class="btn black tooltip-w modal" title="This wil clear all SYSTEM cache"><?php echo shop_lang('shop:dashboard:clear_all_cache');?></a>
-					<div>
-				</fieldset>
-
-				<div>
-
-				</div>
-			</div>
-
-		</section>
-
-	</div>
 	
 </div>	
 

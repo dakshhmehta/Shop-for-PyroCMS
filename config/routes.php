@@ -29,6 +29,7 @@ $route['shop/admin/product(/:any)?']		= 'admin/product$1';
 $route['shop/admin/products(/:any)?']		= 'admin/products$1';
 $route['shop/admin/tax(:any)?']				= 'admin/tax$1';
 $route['shop/admin/blacklist(/:any)?']		= 'admin/blacklist$1';
+$route['shop/admin/manage(/:any)?']			= 'admin/manage$1';
 $route['shop/admin(/:any)?']			  	= 'admin/shop$1';
 
 
@@ -43,6 +44,9 @@ $route['shop/admin(/:any)?']			  	= 'admin/shop$1';
 $route['shop/brand(/:any)?']  				= 'brands/brand$1';
 $route['shop/brands(/:any)?']  				= 'brands/index$1';
 $route['shop/product(/:any)?']		 		= 'product/index$1';
+
+//$route['product(/:any)?']		 			= 'product/index$1';
+
 $route['shop/category(/:any)?']  			= 'categories/category$1';
 $route['shop/products(/:any)?']		 		= 'products/index$1';
 

@@ -8,3 +8,22 @@
 */
 
 $lang['shop:dashboard:alerts']  = 'Alerts';
+
+
+$lang['shop:admin:shop']						=	'SHOP';
+$lang['shop:admin:shop_admin']					=	'SHOP Admin';
+$lang['shop:admin:dashboard']					=	'Dashboard';
+$lang['shop:admin:orders']						=	'Orders';
+$lang['shop:admin:options']						=	'Options';
+$lang['shop:admin:products']					=	'Products';
+$lang['shop:admin:categories']					=	'Categories';
+$lang['shop:admin:brands']						=	'Brands';
+$lang['shop:admin:pgroups']						=	'Price Groups';
+$lang['shop:admin:gateways']					=	'Gateways';
+$lang['shop:admin:packages']					=	'Packages';
+$lang['shop:admin:shipping']					=	'Shipping';
+$lang['shop:admin:blacklist']					=	'Blacklist';
+$lang['shop:admin:tax']							=	'Tax';
+$lang['shop:admin:manage']						=	'Manage';
+$lang['shop:admin:view_shop']					=	'Goto Shop';
+

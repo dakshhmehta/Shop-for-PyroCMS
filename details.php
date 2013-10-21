@@ -37,9 +37,9 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.102';  
-	private $language_file = 'shop/shop';
-	private $setting_en_brands = 0; //default to off;
+	public $version = '1.0.0.103';  
+	//private $language_file = 'shop/shop';
+	//private $setting_en_brands = 0; //default to off;
 
 
 	public function __construct()
@@ -75,7 +75,9 @@ class Module_Shop extends Module
 		$this->details_library->admin_menu($menu);
 		
 		// Place menu on position #
-		add_admin_menu_place('lang:nc:admin:nitro', 2);
+		add_admin_menu_place('lang:shop:admin:shop', 1);
+
+		add_admin_menu_place('lang:shop:admin:shop_admin', 2);
 		
 		
 	}
@@ -220,12 +222,10 @@ class Module_Shop extends Module
 	
 		switch ($old_version) 
 		{
-			case '1.0.0.101': 
-				//$this->_install_settings('shop_test');
+			case '1.0.0.102': 
+				$this->_install_settings('shop_upload_file_product');
+				$this->_install_settings('shop_upload_file_orders');
 				break;
-
-			case '1.0.0.084': break;			
-			case '1.0.0.081': break;
 			default:
 				break;
 		}

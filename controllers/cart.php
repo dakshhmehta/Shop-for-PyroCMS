@@ -761,7 +761,12 @@ class Cart extends Public_Controller
 
 		$this->load->library('files/files');
 
-		$folder_id = 57;
+
+		//
+		// where do we upload files to
+		//
+		$folder_id =  Settings::get('shop_upload_file_orders');
+
 
 	    $upload = Files::upload($folder_id, 'file_for_order','fileupload');
 

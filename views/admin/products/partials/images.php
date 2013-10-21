@@ -55,7 +55,8 @@
 								</label>
 								<div class="input">		
 									<?php echo shop_lang('shop:products:you_must_select_an_upload_folder'); ?> <br />
-									<?php echo form_dropdown('upload_folder_id', $folders, $folder_id, 'id="upload_folder_id" style=""'); ?>	 <br />			
+									<?php  $_upload_folder = Settings::get('shop_upload_file_product');
+									echo form_dropdown('upload_folder_id', $folders, $_upload_folder, 'id="upload_folder_id" style=""'); ?>	 <br />			
 									<input type='file' name='fileupload_1' > <br />
 									<input type='file' name='fileupload_2' > <br />
 									<input type='file' name='fileupload_3' > <br />
