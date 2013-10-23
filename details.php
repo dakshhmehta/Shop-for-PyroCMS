@@ -27,7 +27,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.104';  
+	public $version = '1.0.0.106';  
 
 
 
@@ -213,6 +213,12 @@ class Module_Shop extends Module
 		switch ($old_version) 
 		{
 
+			//_install_table_row($table,$row)
+			case '1.0.0.105':
+			case '1.0.0.104':
+				$this->_install_table_row('shop_categories','user_data');
+				break;
+
 			case '1.0.0.103':
 			 	$this->_upgrade_orders();
 				break;
@@ -230,6 +236,23 @@ class Module_Shop extends Module
 
 	}
 
+
+
+	/**
+	 * Installs a column on a table
+	 * 
+	 * @param  [type] $table [description]
+	 * @param  [type] $row   [description]
+	 * @return [type]        [description]
+	 */
+	private function _install_table_row($table,$row)
+	{
+ 		$_table = $this->details_library->get_tables($table);
+
+		$fields = array( $row => $_table[$row]     );
+		
+		return $this->dbforge->add_column($table, $fields);
+	}
 
 
 	/**

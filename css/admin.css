@@ -13,6 +13,9 @@
 
 
 
+/**
+ * Order status
+ */
 .s_pending      { background-color: #999999; }
 .s_complete     { background-color: #5BC0DE; }
 .s_cancelled    { background-color: #D9534F; }
@@ -25,35 +28,20 @@
 .s_shipped      { background-color: #F0AD4E; }
 .s_paid         { background-color: #428BCA; }
 
+/**
+ * Transaction status
+ */
+.status_img_accepted    { background:url(img/16/status_accepted.png) no-repeat; background-position: center; }
+.status_img_rejected    { background:url(img/16/status_rejecetd.png) no-repeat; background-position: center; }
+
+
 
 
 
 .gravatar {  background-color: #EAEAEA;border: 1px solid #999999;border-radius:4px;list-style: none outside none;margin: 0;padding: 0;}
-/*
-.s_status
-{
 
-  border-style: solid;
-  text-align: center;
-  font-size:10px;
-  width:auto;
-  border-radius: 5px;
-  padding:2px;
-}
-.s_pending
-{
-  border-color:#000;
-  background-color: orange;
-  color:#333;
 
-}
-.s_complete
-{
-  border-color:#339;;
-  background-color: #339;
-  color:#eee;  
-}
-*/
+
 
 /* Pagination */
 
@@ -173,19 +161,10 @@ table tr.even td {background:#fefefe;}
 .img_blacklist          { background:#fff url(img/16/black_list_16.png) no-repeat !important; background-position: center!important;}
 .img_blacklist:hover    { background:#eee url(img/16/black_list_on_16.png) no-repeat !important; background-position: center!important;}
 
-/* status 
 
-.status_img_icon        { margin-top:4px; float:left;height:16px;width:16px;padding:4px;}
-.status_img_paid        { background:url(img/16/status_paid.png) no-repeat; background-position: center;}
-.status_img_shipped     { background:url(img/16/shipped.png) no-repeat; background-position: center; }
-.status_img_closed      { background:url(img/16/closed.png) no-repeat; background-position: center; }
-.status_img_pending     { background:url(img/16/status_pending.png) no-repeat; background-position: center;}
-.status_img_cancelled   { background:url(img/16/cancelled.png) no-repeat; background-position: center; }
-.status_img_returned    { background:url(img/16/status_returned.png) no-repeat; background-position: center; }
-.status_img_processing  { background:url(img/16/status_processing.png) no-repeat; background-position: center;}
-.status_img_accepted    { background:url(img/16/status_accepted.png) no-repeat; background-position: center; }
-.status_img_rejected    { background:url(img/16/status_rejecetd.png) no-repeat; background-position: center; }
-*/
+
+
+
 
 /*48px icons*/
 .img_48                 { margin-top:0px; float:left; height:48px; width:48px; padding:4px; background-position: center; } /*most places*/
@@ -228,22 +207,7 @@ a.nc_links           { color:#888; }
 a.nc_links:hover     { color:#444;background-color:#eee;}
 
 
-/*
-a.nc_action_links           
-{ 
-        list-style:none;  
-        padding:6px; 	
-        padding-left:10px; 	
-        padding-right:10px; 	
-        border-top-left-radius:30px;
-        border-top-right-radius:100px;
-        border-bottom-left-radius:100px;
-        border-bottom-right-radius:30px;
-        margin-right:5px;	
-}
-a.nc_action_links           { color:#333; background-color:#eee;}
-a.nc_action_links:hover     { color:#eee;background-color:#555;}
-*/
+
 
 .clickable_row        { cursor:pointer; color:#f00; }
 tr.clickable_row:hover td , .clickable_row td:hover     { color:#444; }
@@ -310,6 +274,9 @@ section.title .form-title { margin-left: 20px; }
 /*!!!!!!!!!!! NodeFire Core CSS [Do Not Modify!] !!!!!!!!!!!!!*/
 /*[START-QCC]*/
 .qmclear{}.qmmc:after{content: ".";display:block;height:0px;clear:both;overflow:hidden;}.qmmc img {border:none;}.qmmc, .qmmc>span, .qmmc>a, .qmmc div>a, .qmmc dd>a, .qmmc li>a, .qmmc div>span, .qmmc dd>span, .qmmc li>span, .qmmc div.qmsub, .qmmc dl, .qmmc dd, .qmmc .qmsub>li, .qmmc ul.qmsub {text-align:left;outline:none;font-weight:normal;text-decoration:none;font-family:Arial;font-size:14px;line-height:normal;padding:0px;margin:0px;color:#333;background-color:transparent;}.qmmc .qmiefix {z-index:0;}.qmmc, .qmmc .qmsub, .qmmc .qmmulti{list-style:none;padding:0px;margin:0px;}.qmmc .qmdivider{display:block;border-width:0px;border-style:solid;position:relative;}.qmmc .qmtitle{display:block;cursor:default;white-space:nowrap;position:relative;}.qmmc {position:relative;zoom:1;}.qmmc .qmitem-m, .qmmc>li {display:block;white-space:nowrap;position:relative;}.qmmc .qmitem-s, .qmmc .qmsub>li {display:block;white-space:nowrap;position:relative;}.qmmc .qmsub{visibility:hidden;position:absolute;z-index:10;left:100%;top:0px;}.qmmc div.qmsub{left:0px;}.qmmc .qmcbox{cursor:default;display:block;position:relative;white-space:normal;}.qmmc .qmmulti{display:block;float:left;position:relative;}.qmmc .qmmulti dd{margin:0px;padding:0px;position:relative;}.qmmc.qm-horizontal-c>li, .qmmc.qm-horizontal-c .qmitem-m, .qmsub.qm-horizontal-c>li, .qmsub.qm-horizontal-c>.qmitem-s, .qm-horizontal-c>.qmtitle, .qm-horizontal-c>.qmdivider, .qm-horizontal-c>.qmcbox, .qm-horizontal-c>li>.qmtitle, .qm-horizontal-c>li>.qmdivider, .qm-horizontal-c>li>.qmcbox {float:left;}.qm-horizontal-c>li>.qmsub  {left:0px;top:100%}.qmmc li:hover>.qmsub, .qmmc dd:hover>ul.qmsub {visibility:inherit;}.qmmc .qmml0 {z-index:99;}.qmmc .qmml1 {z-index:98;}.qmmc .qmml2 {z-index:97;}.qmmc .qmml3 {z-index:96;}.qmmc .qmml4 {z-index:95;}.qmmc .qmml5 {z-index:94;}.qmmc .qmml6 {z-index:93;}.qmmc .qmml7 {z-index:92;}.qmmc .qmml8 {z-index:91;}.qmmc .qmml9 {z-index:90;}
+
+
+
 
 
 /*!!!!!!!!!!! NodeFire Styles !!!!!!!!!!!*/

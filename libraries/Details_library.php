@@ -359,10 +359,10 @@ class Details_library
 	}	
 
 
-	public function get_tables()
+	public function get_tables($table = 'all')
 	{
 
-		return array(
+		$tables = array(
 			'shop_products' => array(
 				'id' => 			array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'slug' => 			array('type' => 'VARCHAR', 'constraint' => '100', 'unique' => TRUE),
@@ -576,6 +576,7 @@ class Details_library
 				'image_id' => array('type' => 'CHAR', 'constraint' => 15, 'null' => TRUE, 'default' => NULL),
 				'parent_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0), /*structure for heirachial but not by default*/
 				'order' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0),  
+				'user_data' => array('type' => 'TEXT'),
 			),		
 			'shop_brands' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
@@ -695,6 +696,15 @@ class Details_library
 			);	
 
 
+		if($table == 'all')
+		{
+			return $tables;
+		}
+		else
+		{
+			return $tables[$table];
+		}
+		
 	}
 
 
