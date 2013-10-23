@@ -195,7 +195,12 @@ class Twoducks_ShippingMethod extends Twoducks_base
 		//now we add on the framed charts as they do not reuire trimming
 		foreach ($packages as $package)
 		{	
-			$cost += $this->calc_framed_name_charts($package);
+			if($package->title == 'name-charts')
+			{
+
+				$cost += $this->calc_framed_name_charts($package);
+			}
+
 		}
 
 

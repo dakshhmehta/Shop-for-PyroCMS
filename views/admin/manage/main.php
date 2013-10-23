@@ -149,7 +149,7 @@
 										<td>
 											
 											
-											<a href="admin/shop/cache/all" class="btn black tooltip-w modal" title="This wil clear all SYSTEM cache"><?php echo shop_lang('shop:dashboard:clear_all_cache');?></a>
+											<a href="admin/shop/cache/all" class="btn orange tooltip-w modal" title="This wil clear all SYSTEM cache"><?php echo shop_lang('shop:dashboard:clear_all_cache');?></a>
 										</td>
 									</tr>
 
@@ -157,7 +157,7 @@
 									<tr>
 										<td><?php echo shop_lang('shop:manage:language_generator');?></td>
 										<td>
-											<a href="admin/shop/run_lang" class="btn green modal"><?php echo shop_lang('shop:manage:run');?></a>
+											<a href="admin/shop/run_lang" class="btn gray modal"><?php echo shop_lang('shop:manage:run');?></a>
 											
 										</td>
 									</tr>
@@ -165,7 +165,7 @@
 									<tr>
 										<td><?php echo shop_lang('shop:manage:search_index');?></td>
 										<td>
-											<a href="admin/shop/run_re_index" class="btn green modal"><?php echo shop_lang('shop:manage:re_index_search');?></a>
+											<a href="admin/shop/run_re_index" class="btn gray modal"><?php echo shop_lang('shop:manage:re_index_search');?></a>
 										</td>
 									</tr>
 

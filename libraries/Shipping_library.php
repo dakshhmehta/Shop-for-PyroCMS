@@ -215,24 +215,23 @@ class Shipping_library extends Core_library
 		if ($check_field_on_order != "")
 		{
 	
-				# check if ANY orders in past have used this method
-				$results = $this->db->where($check_field_on_order,$id)->get($this->db_orders);
-			
-				if (count($results)) 
-				{
-					//just disable if there are orders
-					if ($results->num_rows > 0)
-					{		
-						$this->disable($id);
+			# check if ANY orders in past have used this method
+			$results = $this->db->where($check_field_on_order,$id)->get($this->db_orders);
+		
+			if (count($results)) 
+			{
+				//just disable if there are orders
+				if ($results->num_rows > 0)
+				{		
+					$this->disable($id);
 
-						return FALSE;
-					}
-			
+					return FALSE;
 				}
+		
+			}
 				
 		}
 		
-
 		//uninstall now
 		$this->db->where('id', $id);
 		if ($this->db->delete($this->db_table))
@@ -243,7 +242,6 @@ class Shipping_library extends Core_library
 			
 		//Something went wrong to get here	
 		return FALSE;
-	
 	
 	}	
 	

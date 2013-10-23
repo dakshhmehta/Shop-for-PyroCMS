@@ -18,6 +18,7 @@
 					'placed'=>  shop_lang('shop:orders:status_placed', 'status_'),
 					'pending'=>  shop_lang('shop:orders:status_pending', 'status_'),
 					'paid'=>  shop_lang('shop:orders:status_paid', 'status_'),
+					'complete'=>  shop_lang('shop:orders:status_complete', 'status_'),
 					'processing'=>  shop_lang('shop:orders:status_processing', 'status_'),
 					'shipped'=>   shop_lang('shop:orders:status_shipped', 'status_'),
 					'returned'=>  shop_lang('shop:orders:status_returned', 'status_'),

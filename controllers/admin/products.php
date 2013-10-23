@@ -37,10 +37,6 @@ class Products extends Products_admin_Controller
 	{
 		parent::__construct();
 
-		//$this->template
-					//->append_js('module::lib/jquery.dropdown.min.js')
-					//->append_css('module::jquery.dropdown.css');		
-
 	}
 
 
@@ -168,7 +164,6 @@ class Products extends Products_admin_Controller
 	{
 
 
-
 		$data->quick_search = $this->_get_filter_setting( 'f_keyword_search', 'display_search_filter' , '',TRUE); //blank for default
 		$data->category = $this->_get_filter_setting( 'f_category', 'display_category_filter' , 0,TRUE); //0 is ALL
 		$data->visibility = $this->_get_filter_setting( 'f_visibility', 'display_visibility_filter' , 0,TRUE); //0 is ALL
@@ -184,6 +179,7 @@ class Products extends Products_admin_Controller
 		{
 			$filter['visibility'] 	= $data->visibility;
 		}
+
 
 
 

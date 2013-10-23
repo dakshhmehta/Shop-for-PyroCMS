@@ -108,12 +108,12 @@ class Products_admin_Controller extends Admin_Controller
 		$folders = $this->get_folders();
 
 		$this->mod_path = base_url() . $this->module_details['path'];
+
+
+		Events::trigger('evt_admin_load_assests');
 		
 		// For all pages on products associate the fllowing files/settings
 		$this->template
-					->append_js('module::admin/util.js')
-					->append_js('module::admin/admin.js')
-					->append_css('module::admin.css')
 					->append_metadata('<script></script>')
 					->append_metadata('<script type="text/javascript">' . "\n  var MOD_PATH = '" . $this->mod_path . "';" . "\n</script>")
 					->set('folders', $folders);

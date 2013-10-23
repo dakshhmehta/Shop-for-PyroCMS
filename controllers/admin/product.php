@@ -82,7 +82,7 @@ class Product extends Products_admin_Controller
 		  
 			// create enables the creating of a product with basic param, after created
 			// we can use edit to assign images ect.
-			if ($product_id = $this->products_admin_m->create($input, $this->current_user->id)) 
+			if ($product_id = $this->products_admin_m->create($input)) 
 			{
 							
 				Events::trigger('evt_product_created', $product_id);	

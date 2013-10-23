@@ -235,6 +235,7 @@ class Orders_m extends MY_Model
 		
 	}
 	
+	/*pmt_status = pending|unpaid|partial_paid|paid|refunded*/
 	
 	private function _prepare_filter($filter) 
 	{
@@ -246,6 +247,8 @@ class Orders_m extends MY_Model
 			if ($filter['order_status'] =='all_open') 
 			{
 				$this->where('status', 'pending' );
+				$this->where('status', 'processing' );	
+				$this->where('status', 'complete' );				
 				$this->or_where('status', 'placed' );
 				$this->or_where('status', 'paid' );
 				$this->or_where('status', 'shipped' );

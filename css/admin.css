@@ -1,3 +1,59 @@
+.s_status {
+    border-radius: 0.25em 0.25em 0.25em 0.25em;
+    color: #FFFFFF;
+    display: inline;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 1;
+    padding: 0.2em 0.6em 0.3em;
+    text-align: center;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
+
+
+
+.s_pending      { background-color: #999999; }
+.s_complete     { background-color: #5BC0DE; }
+.s_cancelled    { background-color: #D9534F; }
+.s_rejected     { background-color: #D9534F; }
+.s_accepted     { background-color: #F0AD4E; }
+.s_processing   { background-color: #F0AD4E; }
+.s_returned     { background-color: #D9534F; }
+.s_cancelled    { background-color: #D9534F; }
+.s_closed       { background-color: #5CB85C; }
+.s_shipped      { background-color: #F0AD4E; }
+.s_paid         { background-color: #428BCA; }
+
+
+
+
+.gravatar {  background-color: #EAEAEA;border: 1px solid #999999;border-radius:4px;list-style: none outside none;margin: 0;padding: 0;}
+/*
+.s_status
+{
+
+  border-style: solid;
+  text-align: center;
+  font-size:10px;
+  width:auto;
+  border-radius: 5px;
+  padding:2px;
+}
+.s_pending
+{
+  border-color:#000;
+  background-color: orange;
+  color:#333;
+
+}
+.s_complete
+{
+  border-color:#339;;
+  background-color: #339;
+  color:#eee;  
+}
+*/
 
 /* Pagination */
 
@@ -117,7 +173,8 @@ table tr.even td {background:#fefefe;}
 .img_blacklist          { background:#fff url(img/16/black_list_16.png) no-repeat !important; background-position: center!important;}
 .img_blacklist:hover    { background:#eee url(img/16/black_list_on_16.png) no-repeat !important; background-position: center!important;}
 
-/* status */
+/* status 
+
 .status_img_icon        { margin-top:4px; float:left;height:16px;width:16px;padding:4px;}
 .status_img_paid        { background:url(img/16/status_paid.png) no-repeat; background-position: center;}
 .status_img_shipped     { background:url(img/16/shipped.png) no-repeat; background-position: center; }
@@ -128,7 +185,7 @@ table tr.even td {background:#fefefe;}
 .status_img_processing  { background:url(img/16/status_processing.png) no-repeat; background-position: center;}
 .status_img_accepted    { background:url(img/16/status_accepted.png) no-repeat; background-position: center; }
 .status_img_rejected    { background:url(img/16/status_rejecetd.png) no-repeat; background-position: center; }
-
+*/
 
 /*48px icons*/
 .img_48                 { margin-top:0px; float:left; height:48px; width:48px; padding:4px; background-position: center; } /*most places*/
@@ -246,18 +303,6 @@ section.title .form-title { margin-left: 20px; }
 }
 
 
-.btn.black {
-    background-color: #333;
-    background-image: linear-gradient(to bottom, #000, #333);
-    background-repeat: repeat-x;
-    border-color: #000 #333 #000;
-
-    color: #FFFFFF;
-    text-shadow: 0 -3px 0 rgba(5, 0, 5, 0.25);
-}
-
- 
-
 
 
 
@@ -315,8 +360,9 @@ section.title .form-title { margin-left: 20px; }
     border-width:1px 1px 1px;
     border-style:solid;
     border-color:#ddd;
-    -moz-border-radius:6px 6px 6px 6px;-webkit-border-radius:6px 6px 6px 6px;-ms-border-radius:6px 6px 6px 6px;-o-border-radius:6px 6px 6px 6px;-khtml-border-radius:6px 6px 6px 6px;border-radius:6px 6px 6px 6px;
-    -moz-box-shadow:0px 0px 10px rgb(95, 95, 95);-webkit-box-shadow:0px 0px 10px rgb(95, 95, 95);-ms-box-shadow:0px 0px 10px rgb(95, 95, 95);-o-box-shadow:0px 0px 10px rgb(95, 95, 95);-khtml-box-shadow:0px 0px 10px rgb(95, 95, 95);box-shadow:0px 0px 10px rgb(95, 95, 95);
+    /*border-radius:6px 6px 6px 6px;*/
+    border-radius:0px;    
+    box-shadow:0px 0px 0px rgb(95, 95, 95);
   }
 
 
@@ -330,7 +376,7 @@ section.title .form-title { margin-left: 20px; }
   /*"""""""" (SUB) Items""""""""*/  
   #qm0 .qmitem-s  
   { 
-    padding:5px 40px 5px 5px;
+   
     z-index:0;
     background-color:transparent;
     color:#2F3842;
@@ -341,7 +387,10 @@ section.title .form-title { margin-left: 20px; }
     border-color:#2F3842;
 
     box-shadow:none;
-    border-radius:4px 4px 4px 4px;
+    border-radius:0px;
+    padding:5px 40px 5px 5px;
+
+
   }
 
 
@@ -349,13 +398,13 @@ section.title .form-title { margin-left: 20px; }
   #qm0 .qmitem-s:hover  
   { 
     color:#fff;
-    background-color: #449 !important;
-
+    background-color: #5BC0DE !important;
+/*5BC0DE*/ /*449*/
   }
   #qm0 .delete.qmitem-s:hover  
   { 
     color:#fff;
-    background-color: #f00 !important;
+    background-color: #D9534F !important;
 
   }
 

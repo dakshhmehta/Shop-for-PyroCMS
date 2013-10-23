@@ -48,6 +48,8 @@ class Events_Shop
 		Events::register('evt_clear_cache', array($this, 'evt_clear_cache'));
 		Events::register('evt_order_lodged', array($this, 'evt_order_lodged')); 
 
+
+		Events::register('evt_admin_load_assests', array($this, 'evt_admin_load_assests'));	
 		Events::register('admin_controller', array($this, 'evt_admin_controller'));		
 		Events::register('public_controller', array($this, 'evt_public_controller'));
 		Events::register('evt_cart_item_added', array($this, 'evt_cart_item_added'));
@@ -205,7 +207,24 @@ class Events_Shop
 		$this->ci->lang->load('shop/shop_admin');
 
 
+
+
+
 	}
+
+	/**
+	 * Common assests for application Admin
+	 * @return [type] [description]
+	 */
+	public function evt_admin_load_assests()
+	{
+		$this->ci->template
+					->append_js('module::admin/util.js')
+					->append_js('module::admin/admin.js')
+					->append_css('module::shop_buttons.css')
+					->append_css('module::admin.css');		
+	}
+
 
 	// Array  Structure => $dataarray($id,$data['name'], $success)
 	public function evt_cart_item_added($data = array()) 

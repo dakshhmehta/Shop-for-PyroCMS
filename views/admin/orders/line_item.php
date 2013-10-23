@@ -21,13 +21,16 @@
 					</td>
 					<td><?php echo $order->trust_score; ?></td>
 					<td>
-						<?php 
+					<?php $class_name = 's_'.$order->status.''; ?>
+
+						<div class='s_status tooltip-s <?php echo $class_name;?>' title='<?php echo strtoupper($order->status);?>'><?php echo strtoupper($order->status);?></div>
+						<?php /* 
 							$class_name = 'status_img_'.$order->status.'';
 							echo "<p class='tooltip-s status_img_icon ".$class_name."' title='".strtoupper($order->status)."'></p>"; 
-						?>
+						 */ ?>
 					</td>
 					<td>
-						 <?php echo anchor('admin/shop/orders/order/' . $order->id, ' ', 'class="tooltip-s img_icon img_view " style="float:right" title="'. shop_lang('shop:orders:view') .'" '); ?>
+						 <?php echo anchor('admin/shop/orders/order/' . $order->id, ' ', 'class="tooltip-s img_icon img_view button red" style="float:right" title="'. shop_lang('shop:orders:view') .'" '); ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>

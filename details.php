@@ -14,16 +14,6 @@
  * See Full license details on the License.txt file
  */
 
-
-/*
- * 1.0.0.0510 - initial release
- * 1.0.0.0511 - updated setting names, removed unused settings - moved more views to LEX tags, removed redundant widget (cart), fixed minor bugs
- * 1.0.0.0512 - fixed bug with enable brands menu item, fixed bug with displaying brand data, fixed option issue #6
- *
- *
- * 1.0.1.0000 - Target release for patch 
- * 
- */
  
 /**
  * SHOP			A full featured shopping cart system for PyroCMS
@@ -31,15 +21,14 @@
  * @author		Salvatore Bordonaro
  * @version		1.0.0.051
  * @website		http://www.inspiredgroup.com.au/
- * @system		PyroCMS 2.1.x
+ * @system		PyroCMS 2.2.x
  *
  */
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.103';  
-	//private $language_file = 'shop/shop';
-	//private $setting_en_brands = 0; //default to off;
+	public $version = '1.0.0.104';  
+
 
 
 	public function __construct()
@@ -50,6 +39,7 @@ class Module_Shop extends Module
 
 
 	}
+	
 	/**
 	 * info() 
 	 * @description: Creates 2 arrays to diplay for the module naviagtion
@@ -222,10 +212,16 @@ class Module_Shop extends Module
 	
 		switch ($old_version) 
 		{
+
+			case '1.0.0.103':
+			 	$this->_upgrade_orders();
+				break;
+
 			case '1.0.0.102': 
 				$this->_install_settings('shop_upload_file_product');
 				$this->_install_settings('shop_upload_file_orders');
 				break;
+
 			default:
 				break;
 		}
@@ -233,6 +229,27 @@ class Module_Shop extends Module
 		return TRUE;
 
 	}
+
+
+
+	/**
+	 * Upgrades 103 -> 104
+	 * 
+	 * @return [type] [description]
+	 */
+	private function _upgrade_orders()
+	{
+
+		$fields = array(
+				'status' => array(
+		                 'type' => "ENUM('placed', 'pending', 'paid','processing', 'complete', 'shipped', 'returned', 'cancelled','closed','reopen')",
+		                 'default' => 'pending'
+		        ),
+		);
+		$this->dbforge->modify_column('shop_orders', $fields);
+
+	}
+
 	
 
 	public function help()
@@ -337,15 +354,6 @@ class Module_Shop extends Module
 		return $this->dbforge->drop_column($table, $field);
 	}
 
-	private function _add_field($name, $type='TEXT', $table)
-	{
-
-		$fields = array(
-                        $name => array('type' => $type)
-		);
-
-		$this->dbforge->add_column( $table, $fields);
-	}		
 
 				
 

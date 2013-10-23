@@ -289,9 +289,12 @@ class Products_m extends Shop_model
 
 
 
-	protected function filter() { }
+	public function filter($filter = array() , $limit, $offset = 0) {}
 	
-	protected function filter_count() { }
+	public function filter_count($filter = array()) {}
+
+
+
 
 
 	/**

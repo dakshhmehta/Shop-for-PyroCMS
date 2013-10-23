@@ -111,11 +111,13 @@
 							<td class="collapse"><?php echo nc_format_price($post->price); ?></td>
 							<td>
 								<span style="float:right;">
+
 									<ul id="qm0" class="qmmc qm-horizontal-c" style="height:auto;width:96px;">
 										<li>
-											<button style="z-index:0;"  class="btn green" onclick="return false;">
+											<button style="z-index:0;"  class="btn dropdown" onclick="return false;">
 												<?php echo shop_lang('shop:products:actions');?>
 											</button>
+									
 											<ul class="qmsub">
 												 
 												<li><?php echo anchor('admin/shop/product/edit/' . $post->id, shop_lang('shop:products:edit'), array('class'=>'qmitem-s')); ?></li>
@@ -127,6 +129,9 @@
 										</li>
 									</ul>
 								</span>
+								
+
+								
 							</td>
 						</tr>
 					<?php endforeach; ?>

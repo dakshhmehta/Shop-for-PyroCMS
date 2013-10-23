@@ -101,7 +101,7 @@ class Images extends Admin_Controller
 
 	public function admin_view($file_id)
 	{
-		echo "<img src='files/thumb/".$file_id."/400'>";die;
+		echo "<img src='files/thumb/".$file_id."/400'>";
 	}
 	
 }

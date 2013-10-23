@@ -41,7 +41,7 @@ class Products_admin_m extends Products_m
 	 * 
 	 * @return Array Products Array
 	 */
-	public function get_all($mode = 'public') 
+	public function get_all($mode = 'admin') 
 	{
 		return parent::get_all($mode);
 	}
@@ -55,7 +55,7 @@ class Products_admin_m extends Products_m
 	 *
 	 * @param Array $input Input fields from user, they should be prepped before coming here.
 	 */	 
-	public function create($input, $user_id) 
+	public function create($input) 
 	{
 		$_name = strip_tags($input['name']);
 
@@ -76,23 +76,21 @@ class Products_admin_m extends Products_m
 				'price_bt' =>  $input['price'], /*price_bt is deprecated*/ 
 				'price_at' => $input['price'] , /*price_at is deprecated*/ 
 				'price_base' => $input['price_base'], // $input['price_base'],
-				'rrp' => $input['price'], 
+				'rrp' => 0.00, 
 				'tax_id' => $input['tax_id'],
 				'tax_dir' => $input['tax_dir'],
-				 //'cover_id' => $input['cover_id'],
 				'pgroup_id' => NULL,
 				'status' => 0,
 				'category_id' => 0,
 				'brand_id' => NULL,
 				'package_id' => NULL,			
-				'created_by' => $user_id,
+				'created_by' => $this->current_user->id,
 				'inventory_low_qty' => 5,
 				'inventory_on_hand' => 0,
 				'inventory_type' => 0, 
 				'featured' => 0,
 				'searchable' => 1,
 				'public' => 0, 
-				//'deleted' => 0, 
 				'date_created' => date("Y-m-d H:i:s"),
 				'date_updated' => date("Y-m-d H:i:s"),
 				'code' =>  '',
@@ -219,19 +217,16 @@ class Products_admin_m extends Products_m
  		$suffix = $this->db->like('name',$product_name)->get('shop_products')->num_rows();
 
 
-		$slug = sf_clean_slug($product->slug.$suffix);
-		$new_slug = $this->get_unique_slug($slug);
+        $suffix = '-'.$suffix .'';
+
+		$new_slug = $this->get_unique_slug(  sf_clean_slug($product->slug.$suffix)  );
 
 
-		//
-		// Adjust the suffix to something more ledgibale and contextual
-		//
-        $suffix = ' - '.$suffix .'';
 
 		if ($product==NULL) return FALSE;
 		
 		$to_insert = array(
-				'name' => $product->name.$suffix,
+				'name' => $product->name,
 				'meta_desc' => $product->meta_desc,
 				'description' => $product->description,				
 				'related' => $product->related,
@@ -270,6 +265,8 @@ class Products_admin_m extends Products_m
 				'date_created' => date("Y-m-d H:i:s"),
 				'date_updated' => date("Y-m-d H:i:s"),
 				'code' => $product->code,
+
+				'created_by' => $this->current_user->id,
 		);
 		
 		
@@ -278,7 +275,7 @@ class Products_admin_m extends Products_m
 
 		if($new_id)
 		{ 
-			$this->add_to_search($new_id, $product->name.$suffix, strip_tags($product->description) );
+			$this->add_to_search($new_id, $product->name, strip_tags($product->description) );
 		}
 
 
@@ -476,14 +473,10 @@ class Products_admin_m extends Products_m
 		}
 
 
-		//$new_filter['deleted'] = 0 ;
-
 
 		return $new_filter;
 		
 	}
-
-
 
 
 	/**
