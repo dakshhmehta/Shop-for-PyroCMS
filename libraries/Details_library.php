@@ -504,6 +504,7 @@ class Details_library
 			'shop_orders' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'user_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE,),
+				'pmt_status' => array('type' => "ENUM('unpaid', 'paid')", 'default' => 'unpaid'),							
 				'status' => array('type' => "ENUM('placed', 'pending', 'paid','processing', 'complete', 'shipped', 'returned', 'cancelled','closed','reopen')", 'default' => 'pending'),				
 				'cost_items' => array('type' => 'DECIMAL(8,2)', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
 				'cost_shipping' => array('type' => 'DECIMAL(8,2)', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),	

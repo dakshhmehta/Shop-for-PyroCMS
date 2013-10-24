@@ -33,10 +33,10 @@ class Packages extends Admin_Controller
 		
 		parent::__construct();
 
-
 		//check if has access
 		role_or_die('shop', 'packages');
 
+		Events::trigger('evt_admin_load_assests');
 
 		$this->load->library('package_library');
 		$this->load->library('form_validation');
@@ -54,7 +54,6 @@ class Packages extends Admin_Controller
 
 		$this->template
 				->title($this->module_details['name'])
-				->append_css('module::admin.css')
 				->build('admin/packages/items', $data);
 	}
 
@@ -127,18 +126,18 @@ class Packages extends Admin_Controller
 	 */
 	public function uninstall($id = 0) 
 	{
-			if (is_numeric($id)) 
+		if (is_numeric($id)) 
+		{
+			$result = $this->package_library->uninstall($id);
+	
+			if (!$result)
 			{
-				$result = $this->package_library->uninstall($id);
-		
-				if (!$result)
-				{
-	  
-					$this->session->set_flashdata('error', lang('packages_delete_err'));
-				}
+  
+				$this->session->set_flashdata('error', lang('packages_delete_err'));
 			}
+		}
 
-			redirect('admin/shop/packages');
+		redirect('admin/shop/packages');
 	}
 	
 }

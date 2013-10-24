@@ -209,6 +209,20 @@ class Orders_m extends MY_Model
 		return $result;
 	
 	}
+	
+	public function mark_as_paid($id) 
+	{
+	
+		$update_info = array(
+				'pmt_status' => 'paid'
+		);
+			
+		$result = $this->update($id, $update_info);
+		
+		return $result;
+	
+	}
+
 
 
 	public function admin_filter_count($filter) 

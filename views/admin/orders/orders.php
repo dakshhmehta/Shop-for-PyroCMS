@@ -17,12 +17,13 @@
 			<thead class='title'>		
 				<tr>
 					<th class="collapse" style="width:35px">ID</th>
+					<th class="collapse"><?php echo shop_lang('shop:orders:pmt_status'); ?></th>
 					<th class="collapse"></th>
 					<th class="collapse"><?php echo shop_lang('shop:orders:customer'); ?></th>
 					<th class="collapse"><?php echo shop_lang('shop:orders:date'); ?></th>
 					<th class="collapse"><?php echo shop_lang('shop:orders:total'); ?></th>
 					<th class="collapse"><?php echo shop_lang('shop:orders:score'); ?></th>
-					<th class="collapse"><?php echo shop_lang('shop:orders:status'); ?></th>
+					<th class="collapse"><?php echo shop_lang('shop:orders:progress_status'); ?></th>
 					<th style="text-align:right"><?php echo shop_lang('shop:orders:actions'); ?></th>
 				</tr>
 			</thead>

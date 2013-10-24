@@ -196,7 +196,7 @@ class Orders extends Admin_Controller
 		}
 		elseif($status == OrderStatus::Paid ) 
 		{
-
+			$this->orders_m->mark_as_paid($id);
 		}
 		
 		$result = $this->orders_m->set_status($id,$status);

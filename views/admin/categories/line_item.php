@@ -12,8 +12,23 @@
 					<td><?php echo $category->name; ?></td>
 					<td>
 						<span style="float:right;">
-							<a class="img_icon img_edit" href="<?php echo site_url('admin/shop/categories/edit/' . $category->id); ?>"> </a>
-							<a class="img_icon img_delete confirm" href="<?php echo site_url('admin/shop/categories/delete/' . $category->id); ?>"> </a>	
-						</span>
+
+							<span class="button-dropdown" data-buttons="dropdown">
+							
+									<a href="#" class="shopbutton button-rounded button-flat-primary"> 
+										<?php echo shop_lang('shop:categories:actions');?> 
+										<i class="icon-caret-down"></i>
+									</a>
+									 
+									<!-- Dropdown Below Button -->
+									<ul class="button-dropdown">
+
+										<li class=''><a class="" href="<?php echo site_url('admin/shop/categories/edit/' . $category->id); ?>"><?php echo shop_lang('shop:categories:edit');?> </a></li>
+										<li class='button-dropdown-divider delete'><a class="confirm" href="<?php echo site_url('admin/shop/categories/delete/' . $category->id); ?>"><?php echo shop_lang('shop:categories:delete');?></a></li>
+									</ul>
+
+							</span>
+
+						</span>						
 					</td>
 				</tr>

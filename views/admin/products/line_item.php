@@ -92,7 +92,7 @@
 								<?php endif; ?>
 
 							</td>
-							<td class="collapse"><?php echo nc_format_date($post->date_created); ?></td>
+							<td class="collapse"><?php echo nc_format_date($post->date_created,'hms'); ?></td>
 							<td class="collapse"><?php echo nc_format_price($post->price); ?></td>
 							<td>
 								<span style="float:right;">
@@ -104,7 +104,7 @@
 										</a>
 										 
 										<!-- Dropdown Below Button -->
-										<ul class="button-dropdown-menu-below">
+										<ul class="button-dropdown">
 
 											<li class=''><a href="<?php echo 'admin/shop/product/edit/' . $post->id;?>" class=""><i class="icon-edit"></i> <?php echo shop_lang('shop:products:edit');?></a></li>
 											<li class=''><a href="<?php echo 'admin/shop/product/duplicate/' . $post->id;?>" class=""><i class="icon-copy"></i> <?php echo shop_lang('shop:products:copy');?></a></li>

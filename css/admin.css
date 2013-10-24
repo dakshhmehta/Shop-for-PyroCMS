@@ -27,6 +27,8 @@
 .s_closed       { background-color: #5CB85C; }
 .s_shipped      { background-color: #F0AD4E; }
 .s_paid         { background-color: #428BCA; }
+.s_unpaid         { background-color: orange; }
+
 
 .s_unlimited    { background-color: #428BCA; }
 .s_normal       { background-color: #F0AD4E; }

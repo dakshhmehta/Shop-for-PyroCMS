@@ -545,6 +545,10 @@ class Checkout extends Public_Controller
 			if ($order_id) 
 			{
 			
+				// Update Inventory
+				$this->_update_inventory();
+
+
 				//destroy cart
 				$this->sfcart->destroy();
 				
@@ -555,8 +559,7 @@ class Checkout extends Public_Controller
 				$this->session->set_userdata('order_id', $order_id);
 
 				
-				// Update Inventory
-				$this->_update_inventory();
+
 				
 
 				$this->session->set_flashdata('success', lang('success'));
@@ -749,14 +752,8 @@ class Checkout extends Public_Controller
 		$gateway 		= $this->gateway_library->get($order->gateway_id);
 		$settings 		= $gateway->options;
 
-		
-		$settings = array(
-				  'test_mode' =>  true,
-				  'username' =>  'business.sal.bordonaro_api1.gmail.com',
-				  'password' =>  '1371001688', 
-				  'signature' =>  'A.nuBZvwdBYH7kVx6OAopcGycjA-AMsV95mqQEz5p.xhmH0XZEYli5i7', 
-				  'auto' =>  '0');
-		
+		//var_dump($settings );die;
+
 
         // Initialize CI-Merchant
         $this->lang->load('merchant');
@@ -773,22 +770,10 @@ class Checkout extends Public_Controller
 	        	'amount' =>  (float) $order->cost_total,
 	    		'currency' =>  Settings::get('ss_currency_code'),
 	          ), $this->input->post() , $params 
-        		/*,array(
-        				'name' => 'sal',
-        				'address1' => '123 Fake st',
-        				'address2' => '',
-        				'city' => 'melbourne',
-        				'region' => 'Victoria',
-        				'state' => 'Victoria',        				
-        				'country' => 'Australia',
-        				'postcode' => '3000',
-        				'phone' => '4544644',
-        				'email' => 'sal.bordonaro@live.com.au',
-        			)*/
+
 	    );
 
-        //echo "<pre>";
-        //var_dump($params);die;
+
         
 		//
 		//  Store the params as JSON in the order field
@@ -797,6 +782,7 @@ class Checkout extends Public_Controller
 
 
         $response  = $this->merchant->purchase($params);
+
 
 
 		if ($response->success())
@@ -920,6 +906,7 @@ class Checkout extends Public_Controller
 
 			case Merchant_response::COMPLETE:
 				$set_status =  OrderStatus::Paid ;
+				$this->orders_m->mark_as_paid($order_id);
 				break;
 
 
@@ -1067,7 +1054,6 @@ class Checkout extends Public_Controller
 
 			foreach ($shipping_methods as $shipping_method) 
 			{
-				//expected array(id,name,description,cost,handling,discount.)
 				$ret_array[] = $this->calc_shipping_by_id($shipping_method->id, $address);
 			}
 	

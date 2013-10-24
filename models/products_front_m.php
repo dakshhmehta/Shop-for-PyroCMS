@@ -55,9 +55,9 @@ class Products_front_m extends Products_m
 		//
 		// Make sure product is NOT deleted and is visible to public
 		//
-		if (($product->date_archived != NULL) || ($product->public === ProductVisibility::Invisible ))
+		if (($product->date_archived != NULL) || ($product->public == ProductVisibility::Invisible ))
 		{
-			return NULL;
+			return FALSE;
 		}
 			
 		//
@@ -115,7 +115,7 @@ class Products_front_m extends Products_m
 	 */
 	public function update_inventory( $id , $sold ) 
 	{
-	
+
 		/**
 		 * First get the product item
 		 * @var [type]
@@ -138,22 +138,24 @@ class Products_front_m extends Products_m
 		
 		$data = array('inventory_on_hand' => $new_qty);
 		
-
-		// Update status //only change if current status was in stock, do not change for dscontinued or coming soon.
-		if ($new_qty <= 0) 
-		{
-			if( $item->status == InventoryStatus::InStock ) 
-			{
-				$data['status'] = InventoryStatus::OutOfStock;		
-			}
-		}
 		
 		if ($new_qty <= $item->inventory_low_qty) 
 		{
 			// Let system know that products are getting low
 			Events::trigger('evt_product_stock_low', $id);	
+
+
+			// Update status //only change if current status was in stock, do not change for dscontinued or coming soon.
+			if ($new_qty <= 0) 
+			{
+				if( $item->status == InventoryStatus::InStock ) 
+				{
+					$data['status'] = InventoryStatus::OutOfStock;		
+				}
+			}
+
 		}
-		
+	
 
 		$this->db->where('id', $id);
 

@@ -33,10 +33,27 @@
 					<td><?php echo $item->value;?></td>		
 					<td><?php  echo ($item->enabled)? 'YES' : 'NO' ;  ?></td>							
 					<td>
+
 						<span style="float:right;">
-							<a class="tooltip-s img_icon img_edit"  title="<?php echo lang('edit');?>" href="<?php echo site_url('admin/shop/blacklist/edit/' . $item->id); ?>"> </a>
-							<a class="tooltip-s img_icon img_delete confirm" title="<?php echo lang('delete');?>" href="<?php echo site_url('admin/shop/blacklist/delete/' . $item->id); ?>"> </a>	
+
+							<span class="button-dropdown" data-buttons="dropdown">
+								<a href="#" class="shopbutton button-rounded button-flat-primary"> 
+									<?php echo shop_lang('shop:blacklist:actions');?> 
+									<i class="icon-caret-down"></i>
+								</a>
+								 
+								<!-- Dropdown Below Button -->
+								<ul class="button-dropdown">
+									<li><a class="" href="<?php echo site_url('admin/shop/blacklist/edit/' . $item->id); ?>"><?php echo shop_lang('shop:blacklist:edit');?> </a></li>
+									<li class='delete'><a class="confirm" href="<?php echo site_url('admin/shop/blacklist/delete/' . $item->id); ?>"><?php echo shop_lang('shop:blacklist:delete');?> </a></li>
+								</ul>
+
+							</span>
+
+
+
 						</span>
+
 					</td>
 				
 				</tr>

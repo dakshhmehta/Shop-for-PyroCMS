@@ -39,11 +39,26 @@
 													<td><?php echo ''.$item->height.' x '.$item->width.' (mm)'; ?></td>
 													<td><?php echo $item->type; ?></td>
 													<td class="actions">
-														<?php
-														echo
-														anchor('admin/shop/packages/edit/' . $item->id, ' ', 'class="img_icon img_edit"') . ' ' .
-														anchor('admin/shop/packages/uninstall/' . $item->id, ' ', array('class' => 'img_icon img_delete confirm'));
-														?>
+
+
+															<span style="float:right;">
+
+																<span class="button-dropdown" data-buttons="dropdown">
+															
+																	<a href="#" class="shopbutton button-rounded button-flat-primary"> 
+																		<?php echo shop_lang('shop:packages:actions');?> 
+																		<i class="icon-caret-down"></i>
+																	</a>
+																	 
+																	<!-- Dropdown Below Button -->
+																	<ul class="button-dropdown">
+																		<li class=''><a class="" href="<?php echo site_url('admin/shop/packages/edit/' . $item->id); ?>"><?php echo shop_lang('shop:packages:edit');?> </a></li>
+																		<li class='button-dropdown-divider delete'><a class="confirm" href="<?php echo site_url('admin/shop/packages/uninstall/' . $item->id); ?>"><?php echo shop_lang('shop:packages:uninstall');?></a></li>
+																	</ul>
+																</span>
+
+															</span>
+									
 													</td>
 												</tr>
 											<?php endforeach; ?>

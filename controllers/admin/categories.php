@@ -39,8 +39,7 @@ class Categories extends Admin_Controller
 		//check if has access
 		role_or_die('shop', 'categories');		
 		
-		$this->template
-				->append_css('module::admin.css');
+		Events::trigger('evt_admin_load_assests');
 
 		$this->_validation_rules = array(
 			array(

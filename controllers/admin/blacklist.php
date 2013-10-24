@@ -39,7 +39,7 @@ class Blacklist extends Admin_Controller
 		//check if has access
 		role_or_die('shop', 'blacklist');
 
-		$this->template->append_css('module::admin.css');
+		Events::trigger('evt_admin_load_assests');
 
 		$this->_validation_rules = $this->blacklist_m->_validation_rules;
 
@@ -94,8 +94,7 @@ class Blacklist extends Admin_Controller
 
 		// Build page
 		$this->template
-			->title($this->module_details['name'])
-			->append_js('module::admin/admin.js')		
+			->title($this->module_details['name'])	
 			->append_metadata($this->load->view('fragments/wysiwyg', $data, TRUE))
 			->build('admin/blacklist/form', $data);
 	}

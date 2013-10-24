@@ -183,6 +183,7 @@ class Events_Shop
 		$this->open_shop OR redirect('shop/special/closed'); /* if not open redirect */
 		
 		// Load the Common libraries
+		$this->ci->load->helper('shop/shop');
 		$this->ci->load->helper('shop/shop_public');
 		$this->ci->load->helper('shop/shop_debug'); //only for debugging ??
 
@@ -199,6 +200,7 @@ class Events_Shop
 	public function evt_admin_controller($data = array()) 
 	{
 
+		$this->ci->load->helper('shop/shop');
 		$this->ci->load->helper('shop/shop_admin');
 		$this->ci->load->helper('shop/shop_public');
 		$this->ci->load->helper('shop/shop_debug'); //only for debugging ??

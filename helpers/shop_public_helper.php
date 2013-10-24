@@ -701,26 +701,6 @@ if (!function_exists('nc_format_price'))
 
 
 
-/*date('d / M / Y ', $order->order_date)*/
-if (!function_exists('nc_format_date')) 
-{
-
-	function nc_format_date($date) 
-	{
-
-		$formats = array(0 =>"d-m-Y",1=>"d/m/Y",2=>"m-d-Y",3=>"m/d/Y");
-		
-		$format = Settings::get('nc_date_format');
-		
-		return date($formats[$format],$date);
-
-	}
-
-}
-
-
-
-
 
 
 /**
