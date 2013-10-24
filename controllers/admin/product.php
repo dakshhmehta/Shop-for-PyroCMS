@@ -206,7 +206,6 @@ class Product extends Products_admin_Controller
 				->append_js('jquery/jquery.tagsinput.js')
 				->append_js('module::admin/product.js')
 				->append_css('jquery/jquery.tagsinput.css')
-				->append_css('module::admin_products.css')
 				->build('admin/products/form', $data);
 
 	}

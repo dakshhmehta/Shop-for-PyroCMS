@@ -39,15 +39,11 @@ class Blacklist extends Admin_Controller
 		//check if has access
 		role_or_die('shop', 'blacklist');
 
-
-		
-		$this->template
-				->append_css('module::admin.css');
+		$this->template->append_css('module::admin.css');
 
 		$this->_validation_rules = $this->blacklist_m->_validation_rules;
 
 
-		$this->template->append_css('module::admin_brands.css');
 	}
 
 	/**

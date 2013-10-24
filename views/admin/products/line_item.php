@@ -1,14 +1,6 @@
 
 			<table>
-				<thead>
-					<tr>
-						<td colspan="10">
-							<div class="inner" style="float:left;">
-									<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>	
-							</div>
-						</td>
-					</tr>
-				</thead>		
+	
 				<thead>		
 					<tr>
 						<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
@@ -41,24 +33,37 @@
 								<?php endif;?> 
 								
 								<?php if ($post->cover_id): ?>
-									<img data-dropdown="#dropdown-1"  src="files/thumb/<?php echo $post->cover_id;?>/50/50" alt="" class="<?php echo $_hclass;?>"  id="sf_img_<?php echo $post->id;?>" />
+									<img src="files/thumb/<?php echo $post->cover_id;?>/50/50" alt="" class="<?php echo $_hclass;?>"  id="sf_img_<?php echo $post->id;?>" />
 								<?php else: ?>
 									<div class="img_48 img_noimg"></div>
-									<?php //echo $post->cover_id ;?>
 								<?php endif; ?>
 
 							</td>							
 							<td><?php echo anchor('shop/product/'.$post->slug,$post->name, 'target="_blank" class="category"'); ?></td>
 							<td class="collapse">
 								<?php 
+
+
 									if($post->inventory_type == 1)
 									{
-										echo shop_lang('shop:products:unlimited');
+										$class_name = 's_unlimited';
+										$_inv_text = shop_lang('shop:products:unlimited');
 									}
 									else
 									{
-										echo $post->inventory_on_hand; 
+										if($post->inventory_on_hand <= $post->inventory_low_qty)
+										{
+											$class_name = 's_low';
+										}
+										else
+										{
+											$class_name = 's_normal';
+										}
+
+										$_inv_text =  $post->inventory_on_hand; 
 									}
+
+									echo "<div class='s_status $class_name'>$_inv_text</div>";
 									
 								
 								?>
@@ -71,38 +76,18 @@
 									<?php endif;?>
 							</td>
 							<td class="collapse">
-							<a href="admin/shop/categories/edit/<?php echo $post->category_id; ?>" class="category">
-
+						
 								<?php 
-									if($post->category->parent_id == 0)
-									{
-										$cat = $post->category->name; 
-									}
-									else
-									{
-										$cat =  ss_category_name($post->category->parent_id) . ' &rarr; ' . $post->category->name;
-									}
-								
+
+									$cat = ($post->category->parent_id == 0)?$post->category->name :  ss_category_name($post->category->parent_id) . ' &rarr; ' . $post->category->name;
 
 								?>
-							</a>
+						
 								<?php if($post->category_id > 0) : ?>
 								
-									<ul id="qm0" class="qmmc qm-horizontal-c" style="height:auto;width:96px;">
-										<li>
-											<a  style="z-index:0;"  class="category qmitem-m" href="javascript:void(0);">
+									
+									<?php echo anchor('admin/shop/categories/edit/' . $post->category_id,  $cat , array('class'=>'')); ?>
 
-												<?php echo $cat;?>
-
-											</a>
-											<ul class="qmsub">
-												<li>
-													<?php echo anchor('admin/shop/categories/edit/' . $post->category_id, 'edit', array('class'=>'category qmitem-s')); ?>
-
-												</li>
-											</ul>
-										</li>
-									</ul>
 
 								<?php endif; ?>
 
@@ -112,22 +97,25 @@
 							<td>
 								<span style="float:right;">
 
-									<ul id="qm0" class="qmmc qm-horizontal-c" style="height:auto;width:96px;">
-										<li>
-											<button style="z-index:0;"  class="btn dropdown" onclick="return false;">
-												<?php echo shop_lang('shop:products:actions');?>
-											</button>
-									
-											<ul class="qmsub">
+									<span class="button-dropdown" data-buttons="dropdown">
+										<a href="#" class="shopbutton button-rounded button-flat-primary"> 
+											<?php echo shop_lang('shop:products:actions');?> 
+											<i class="icon-caret-down"></i>
+										</a>
+										 
+										<!-- Dropdown Below Button -->
+										<ul class="button-dropdown-menu-below">
+
+											<li class=''><a href="<?php echo 'admin/shop/product/edit/' . $post->id;?>" class=""><i class="icon-edit"></i> <?php echo shop_lang('shop:products:edit');?></a></li>
+											<li class=''><a href="<?php echo 'admin/shop/product/duplicate/' . $post->id;?>" class=""><i class="icon-copy"></i> <?php echo shop_lang('shop:products:copy');?></a></li>
+											<li class='button-dropdown-divider delete'><a href="<?php echo 'admin/shop/product/delete/' . $post->id;?>" class="confirm"><i class="icon-minus"></i> <?php echo shop_lang('shop:products:delete');?></a></li>
 												 
-												<li><?php echo anchor('admin/shop/product/edit/' . $post->id, shop_lang('shop:products:edit'), array('class'=>'qmitem-s')); ?></li>
-												<li><?php echo anchor('admin/shop/product/duplicate/' . $post->id, shop_lang('shop:products:copy'), array('class'=>'qmitem-s')); ?></li>
-												<li><span class="qmdivider qmdividerx"></span></li>
-												<li><?php echo anchor('admin/shop/product/delete/' . $post->id,  shop_lang('shop:products:delete'), array('class'=>'delete qmitem-s confirm')); ?></li>
-												 
-											</ul>
-										</li>
-									</ul>
+										</ul>
+
+									</span>
+
+
+
 								</span>
 								
 

@@ -55,13 +55,11 @@ class Options extends Admin_Controller
 		$this->load->model('options_m');
 		$this->load->model('options_product_m');
 		$this->load->library('form_validation');
+
+		Events::trigger('evt_admin_load_assests');		
 				
 		$this->template
-					->append_js('module::admin/admin.js')	
 					->append_js('module::admin/options.js')			
-					->append_css('module::admin.css')
-					->append_css('module::admin_options.css')
-					->append_css('module::admin_options.css')
 					->append_metadata('<script type="text/javascript">' .
                                          "\n  var MOD_PATH = '" . $this->mod_path . "';" .
                                          "\n</script>");

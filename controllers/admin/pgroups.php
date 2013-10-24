@@ -62,7 +62,6 @@ class Pgroups extends Admin_Controller
 		);
 		
 		$this->template->append_css('module::admin.css');
-		$this->template->append_css('module::admin_brands.css');
 		$this->template->append_js('module::admin/pgroups.js');
 
 	}
@@ -111,8 +110,7 @@ class Pgroups extends Admin_Controller
 		// Build page
 		$this->template
 			->title($this->module_details['name'])
-			->append_js('module::admin/admin.js')
-			->append_js('module::admin/brands.js')			
+			->append_js('module::admin/admin.js')		
 			->append_metadata($this->load->view('fragments/wysiwyg', $data, TRUE))
 			->build('admin/pgroups/edit', $data);
 	}
@@ -159,7 +157,6 @@ class Pgroups extends Admin_Controller
 		$this->template
 			->title($this->module_details['name'])
 			->append_js('module::admin/admin.js')
-			->append_js('module::admin/brands.js')
 			->append_metadata($this->load->view('fragments/wysiwyg', $data, TRUE))
 			->build('admin/pgroups/edit', $data);
 	}

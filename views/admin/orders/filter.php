@@ -30,7 +30,8 @@
 				?>
 			</li>	
 			<li>
-				<br /><input type="submit" value="Search">
+				<br />
+				<button type="submit" value="Search" class="shopbutton button-rounded button-flat-action"> search</button>
 			</li>						
 		</ul>
 		<?php echo form_close(); ?>

@@ -35,20 +35,20 @@ class Orders extends Admin_Controller
 	 */
 	public function __construct() 
 	{
+		
 		parent::__construct();
-
 
 		//check if has access
 		role_or_die('shop', 'orders');
 
-
 		// Load all the required classes
 		$this->load->model('orders_m');
 
-		$this->template
-			->append_js('module::admin/orders.js')
-			->append_css('module::admin.css')
-			->append_css('module::admin_orders.css');
+
+		Events::trigger('evt_admin_load_assests');
+
+		$this->template->append_js('module::admin/orders.js');
+
 
 	}
 	

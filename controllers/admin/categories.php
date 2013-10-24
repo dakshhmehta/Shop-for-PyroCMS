@@ -66,7 +66,6 @@ class Categories extends Admin_Controller
 				
 		);
 		
-		$this->template->append_css('module::admin_brands.css');
 	}
 
 	/**

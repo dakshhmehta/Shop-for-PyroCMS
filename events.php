@@ -221,8 +221,14 @@ class Events_Shop
 		$this->ci->template
 					->append_js('module::admin/util.js')
 					->append_js('module::admin/admin.js')
-					->append_css('module::shop_buttons.css')
 					->append_css('module::admin.css');		
+
+		$this->ci->template
+					->append_js('module::lib/buttons.js')
+					->append_css('module::lib/buttons/buttons.css')
+					->append_css('module::lib/buttons/font-awesome.min.css');
+
+
 	}
 
 

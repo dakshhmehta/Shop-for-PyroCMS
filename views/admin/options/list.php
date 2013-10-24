@@ -40,11 +40,31 @@
 						<td><?php echo $item->name; ?></td>
 						<td><?php echo $item->type; ?></td>
 						<td>
+
 							<span style="float:right;">
-								<a title='<?php echo shop_lang('shop:options:edit'); ?>' class="tooltip-s img_icon img_edit " href="<?php echo site_url('admin/shop/options/edit/' . $item->id); ?>"> </a>
-								<a title='<?php echo shop_lang('shop:options:copy'); ?>' class="tooltip-s img_icon img_copy" href="<?php echo site_url('admin/shop/options/duplicate/' . $item->id); ?>"> </a>
-								<a title='<?php echo shop_lang('shop:options:delete'); ?>' class="tooltip-s img_icon img_delete confirm" href="<?php echo site_url('admin/shop/options/delete/' . $item->id); ?>"> </a>
+
+								<span class="button-dropdown" data-buttons="dropdown">
+								
+										<a href="#" class="shopbutton button-rounded button-flat-primary"> 
+											<?php echo shop_lang('shop:options:actions');?> 
+											<i class="icon-caret-down"></i>
+										</a>
+										 
+										<!-- Dropdown Below Button -->
+										<ul class="button-dropdown-menu-below">
+
+											<li class=''><a title='<?php echo shop_lang('shop:options:edit'); ?>' class="" href="<?php echo site_url('admin/shop/options/edit/' . $item->id); ?>"> <?php echo shop_lang('shop:options:edit');?>  </a></li>
+											<li class=''><a title='<?php echo shop_lang('shop:options:copy'); ?>' class="" href="<?php echo site_url('admin/shop/options/duplicate/' . $item->id); ?>"> <?php echo shop_lang('shop:options:copy');?> </a></li>
+											<li class='button-dropdown-divider delete'><a title='<?php echo shop_lang('shop:options:are_you_sure'); ?>' class="tooltip-e confirm" href="<?php echo site_url('admin/shop/options/delete/' . $item->id); ?>"><?php echo shop_lang('shop:options:delete');?>  </a></li>
+
+										</ul>
+
+								</span>
+
 							</span>
+
+
+
 						</td>
 					</tr>
 				<?php endforeach; ?>

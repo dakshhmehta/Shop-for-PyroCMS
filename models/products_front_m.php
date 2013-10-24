@@ -74,11 +74,16 @@ class Products_front_m extends Products_m
 	 * 
 	 * @return Array Products Array
 	 */
-	public function get_all()
+	public function get_all($mode = 'public')
 	{
+		
+		if($mode!='public')
+		{
+			return array();
+		}
+
 		return parent::get_all('public');
 	}
-
 
 
 
