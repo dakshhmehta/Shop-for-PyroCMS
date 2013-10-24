@@ -212,12 +212,11 @@ class Module_Shop extends Module
 	
 		switch ($old_version) 
 		{
-			case '1.0.0.107':
-			case '1.0.0.106':
-				$this->_install_table_row('shop_orders','pmt_status');
-				break;
+
+			case '1.0.0.106':			
 			case '1.0.0.105':
 			case '1.0.0.104':
+				$this->_install_table_row('shop_orders','pmt_status');
 				$this->_install_table_row('shop_categories','user_data');
 				break;
 

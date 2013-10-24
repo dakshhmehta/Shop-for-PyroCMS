@@ -28,16 +28,8 @@
 					</td>
 					<td>
 						<span style="float:right;">
-						
-							<span class="button-dropdown" data-buttons="dropdown">
-								<a href="#" class="shopbutton button-rounded button-flat-primary"> actions <i class="icon-caret-down"></i></a>
-								 
-								<!-- Dropdown Below Button -->
-								<ul class="button-dropdown-menu-below">
-									<li><a href="<?php echo 'admin/shop/orders/order/' . $order->id;?>"><i class="icon-eye-open"></i> <?php echo shop_lang('shop:orders:view');?></a></li>
-								</ul>
-
-							</span>
+					
+								<a href="<?php echo 'admin/shop/orders/order/' . $order->id;?>" class="shopbutton button-rounded button-flat-primary"><?php echo shop_lang('shop:orders:view');?></a>
 
 						</span>
 					</td>

@@ -702,10 +702,6 @@ if (!function_exists('nc_format_price'))
 
 
 
-
-/**
- * This is a tmp function until  product->deleted is safely removed
- */
 if (!function_exists('is_deleted')) 
 {
 	function is_deleted( &$product_object ) 
