@@ -34,25 +34,52 @@ class Pgroups_prices_m extends MY_Model
 		
 	}
 
-	public function get_by_pgroup($id)
+	/**
+	 * Get all pgroup_prices by group, if admin get all ordered by group
+	 * 
+	 * @param  [type]  $id    [description]
+	 * @param  boolean $admin [description]
+	 * @return [type]         [description]
+	 */
+	public function get_by_pgroup($id, $admin=FALSE )
 	{
 
-		$user_group = $this->_get_user_group();
-			
-		// First get all the results that may fit the part
-		$this->where('ugroup_id',$user_group);
+		$this->load->model('shop/user_groups_m');
+		$standard_user_group = $this->user_groups_m->get_group_by_name('user');
+
+		if($admin)
+		{
+			return $this->where('pgroup_id',$id)->order_by('ugroup_id','asc')->order_by('min_qty','asc')->get_all();
+		}
+		else
+		{
 
 
-		return $this->where('pgroup_id',$id)->get_all();
+			$user_group = $this->_get_user_group();
+				
+			// First get all the results that may fit the part
+			$this->where('ugroup_id',$user_group);
+
+
+			$results =  $this->where('pgroup_id',$id)->get_all();
+
+			if($results)
+			{
+				
+			}
+			else
+			{
+				$this->where('ugroup_id', $standard_user_group->id );
+				$results =  $this->where('pgroup_id',$id)->get_all();
+
+			}
+
+			return $results;
+
+		}
+
 	}
 
-
-	public function get_by_pgroup_admin($id)
-	{
-
-
-		return $this->where('pgroup_id',$id)->order_by('ugroup_id','asc')->order_by('min_qty','asc')->get_all();
-	}
 
 
 	// Create a new item
@@ -103,15 +130,15 @@ class Pgroups_prices_m extends MY_Model
 	 */
 	public function get_discounted_price($pg_id, $qty, $def_price)
 	{
-	
 
 		$user_group = $this->_get_user_group();
-			
-
 		
 
 		// First get all the results that may fit the part
 		$this->db->where('ugroup_id',$user_group);
+
+
+
 		$this->db->where('pgroup_id',$pg_id);
 		$this->db->where('min_qty <= ',intval($qty) );
 		$this->db->order_by('min_qty desc');

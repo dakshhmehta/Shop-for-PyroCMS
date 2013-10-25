@@ -124,8 +124,8 @@ class Categories_m extends Shop_model
 			'description' => strip_tags($input['description'], $this->_description_tags),
 			'slug' => $slug.$suffix,
 			'image_id' =>  $input['image_id'],
-			'parent_id' => $input['parent_id'],
-			'order' => $input['order'],
+			'parent_id' => (isset($input['parent_id']))?$input['parent_id']:0,
+			'order' => intval($input['order']),
 			'user_data' => $input['user_data'],
 		);		
 
@@ -153,8 +153,8 @@ class Categories_m extends Shop_model
 			'description' => strip_tags($input['description'], $this->_description_tags),
 			'slug' => $this->_check_slug($input['slug']),
 			'image_id' =>  $input['image_id'],
-			'parent_id' => $input['parent_id'],
-			'order' => $input['order'],
+			'parent_id' =>(isset($input['parent_id']))?$input['parent_id']:0,
+			'order' => intval($input['order']),
 			'user_data' => $input['user_data'],
 		);
 		

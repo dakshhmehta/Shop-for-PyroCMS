@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo shop_lang('shop:pgroups:product_groups'); ?></h4>
+	<h4><?php echo shop_lang('shop:pgroups:price_groups'); ?></h4>
 	<h4 style="float:right"><a href="admin/shop/pgroups/create" class='img_icon_title img_create'></a></h4>
 </section>
 <?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
@@ -15,8 +15,8 @@
 			<tr>
 				<th><input type="checkbox" name="action_to_all" value="" class="check-all" /></th>
 				<th><?php echo shop_lang('shop:pgroups:name'); ?></th>
-				<th><?php echo shop_lang('shop:pgroups:product_group'); ?></th>
-				<th style="width: 120px"><?php echo shop_lang('shop:pgroups:actions'); ?></th>
+				<th><?php echo shop_lang('shop:pgroups:price_group'); ?></th>
+				<th style=""><?php echo shop_lang('shop:pgroups:actions'); ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -31,9 +31,31 @@
 					<td><?php echo $group->name; ?></td>
 					<td>
 						<span style="float:right;">
-							<a class="tooltip-s img_icon img_edit" href="<?php echo site_url('admin/shop/pgroups/edit/' . $group->id); ?>"> </a>
-							<a class="tooltip-s img_icon img_delete confirm" href="<?php echo site_url('admin/shop/pgroups/delete/' . $group->id); ?>"> </a>
 						</span>
+
+								<span style="float:right;">
+									
+									<a class="tooltip-s shopbutton button-rounded" href="<?php echo site_url('admin/shop/pgroups/edit/' . $group->id); ?>"><?php echo shop_lang('shop:pgroups:edit');?></a>
+								
+									<span class="button-dropdown" data-buttons="dropdown">
+										<a href="#" class="shopbutton button-rounded button-flat-primary"> 
+											<?php echo shop_lang('shop:pgroups:actions');?> 
+											<i class="icon-caret-down"></i>
+										</a>
+										 
+										<!-- Dropdown Below Button -->
+										<ul class="button-dropdown">
+
+											<li class=''><a class="tooltip-s" href="<?php echo site_url('admin/shop/pgroups/edit/' . $group->id); ?>"><?php echo shop_lang('shop:pgroups:edit');?></a></li>
+											<li class='button-dropdown-divider delete'><a class="tooltip-s confirm" href="<?php echo site_url('admin/shop/pgroups/delete/' . $group->id); ?>"><?php echo shop_lang('shop:pgroups:delete');?></a></li>
+												 
+										</ul>
+
+									</span>
+
+
+
+								</span>						
 					</td>
 				</tr>
 			<?php endforeach; ?>

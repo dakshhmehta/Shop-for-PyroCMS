@@ -40,23 +40,16 @@ class Pgroups_m extends Shop_model
 		
 	}
 
-	public function get($id,$admin=FALSE)
+	public function get($id, $admin=FALSE)
 	{
-		
+
 
 		$pgroup = parent::get($id);
 
-		//get all or get for shop
-		if($admin)
-		{
-			$pgroup->prices = $this->pgroups_prices_m->get_by_pgroup_admin($id);
-		}
-		else
-		{
-			$pgroup->prices = $this->pgroups_prices_m->get_by_pgroup($id);
-		}
-
+		$pgroup->prices = $this->pgroups_prices_m->get_by_pgroup($id, $admin);
+	
 		return $pgroup;
+		
 	}
 
 	// Create a new item

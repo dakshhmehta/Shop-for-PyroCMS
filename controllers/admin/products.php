@@ -39,6 +39,12 @@ class Products extends Products_admin_Controller
 
 	}
 
+	public function sum()
+	{
+		$this->load->model('orders_m');
+		return $this->orders_m->sum(180);
+	}
+
 
 	public function index($offset = 0) 
 	{
@@ -230,36 +236,41 @@ class Products extends Products_admin_Controller
 
 	public function action()
 	{
-		
-		//
+
 		// Check for multi delete
 		//
-		if( $action = $this->input->post('btnAction')  )
+		if(  $this->input->post('btnAction') && $this->input->post('action_to') && $this->input->post('multi_edit_option') )
 		{ 
-			if($this->input->post('action_to')  )
-			{
+			$continue = TRUE;
+		}
+		else
+		{
+			//go back
+			redirect('admin/shop/products');
+		}
 
-				$products = $this->input->post('action_to');
 
-				switch($action)
-				{
-					case PostAction::Delete:
-						$this->delete($products);
-						break;
+		$products = $this->input->post('action_to');
+		
+		switch($this->input->post('multi_edit_option'))
+		{
 
-					case 'visible':
-						$this->change_visibility($products,  1) ;
-						break;
+			case PostAction::Delete:
+				$this->delete($products);
+				break;
 
-					case 'invisible':
-						$this->change_visibility($products,  0) ;
-						break;					
+			case 'visible':
+				$this->change_visibility($products,  1) ;
+				break;
 
-				}
-			}
-
+			case 'invisible':
+				$this->change_visibility($products,  0) ;
+				break;	
+			default:
+				break;				
 
 		}
+
 
 		// Redirect after done
 		redirect('admin/shop/products');		

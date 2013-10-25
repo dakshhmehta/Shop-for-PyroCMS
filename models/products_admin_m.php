@@ -48,6 +48,8 @@ class Products_admin_m extends Products_m
 
 
 
+
+
 	/**
 	 * Create a new product, only some fields are required, the rest uses the default fields, 
 	 * when creating a new product, you must first enter the first few req values, save-> then edit the newly created product.

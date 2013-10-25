@@ -171,6 +171,13 @@
 
 
 
+									<tr>
+										<td>test</td>
+										<td>
+											<a href="admin/shop/products/sum" class="btn red">go</a>
+										</td>
+									</tr>
+
 
 
 								</table>

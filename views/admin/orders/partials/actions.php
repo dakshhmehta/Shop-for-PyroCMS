@@ -13,7 +13,8 @@
 						$show_cancel = TRUE;
 						$show_close = TRUE;
 						$show_back_to_start = TRUE;
-					   
+							
+
 					   	switch($order->status) 
 						{				
 							case 'placed';

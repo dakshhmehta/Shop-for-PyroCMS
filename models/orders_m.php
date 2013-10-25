@@ -298,6 +298,20 @@ class Orders_m extends MY_Model
 		
 		return parent::get_all();
 	}
+
+	public function sum($pid)
+	{
+		
+
+		$result =  $this->db
+			->select('sum(qty) as total_sales')
+			->where('product_id', $pid)->get('shop_order_items')->result();
+
+			var_dump($result);die;
+		
+
+
+	}
 	
 	
 	/**

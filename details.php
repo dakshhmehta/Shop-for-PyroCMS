@@ -27,7 +27,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.107';  
+	public $version = '1.0.0.108';  
 
 
 
@@ -216,17 +216,17 @@ class Module_Shop extends Module
 			case '1.0.0.106':			
 			case '1.0.0.105':
 			case '1.0.0.104':
-				$this->_install_table_row('shop_orders','pmt_status');
-				$this->_install_table_row('shop_categories','user_data');
+				//$this->_install_table_row('shop_orders','pmt_status');
+				//$this->_install_table_row('shop_categories','user_data');
 				break;
 
 			case '1.0.0.103':
-			 	$this->_upgrade_orders();
+			 	//$this->_upgrade_orders();
 				break;
 
 			case '1.0.0.102': 
-				$this->_install_settings('shop_upload_file_product');
-				$this->_install_settings('shop_upload_file_orders');
+				//$this->_install_settings('shop_upload_file_product');
+				//$this->_install_settings('shop_upload_file_orders');
 				break;
 
 			default:

@@ -126,14 +126,17 @@
 		</div>
 		
 
-
 		<div class="buttons">
 			<button class="btn blue" value="save_exit" name="btnAction" type="submit">
 				<span><?php echo shop_lang('shop:products:save_and_exit');?></span>
 			</button>	
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel'))); ?>
-		</div>
+			<span style="color:#ddd">
+			||| 
+			</span>
+			<?php echo anchor('admin/shop/product/delete/' . $id, shop_lang('shop:products:delete'), array('class'=>'confirm  btn red')); ?>	
 
+		</div>
 
 		<?php echo form_close(); ?>
 

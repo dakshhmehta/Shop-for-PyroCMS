@@ -8,7 +8,11 @@
 		<?php echo form_hidden('f_module', $module_details['slug']); ?>
 		<ul>  
 			<li>
-				Status<br />
+				
+				<?php echo shop_lang('shop:orders:status');?>
+
+				<br />
+				<span style="vertical-align:top">
 				<?php echo form_dropdown('f_order_status',  array(
 						
 						
@@ -25,13 +29,11 @@
 					'cancelled'=>   shop_lang('shop:orders:status_cancelled', 'status_'),
 					'closed'=>   shop_lang('shop:orders:status_closed', 'status_'),
 					
-					 ),$curr_status_filter); 
+					 ),$curr_status_filter," style='vertical-align:bottom'"); 
 
 				?>
-			</li>	
-			<li>
-				<br />
-				<button type="submit" value="Search" class="shopbutton button-rounded button-flat-action"> search</button>
+				<button style='vertical-align:top' type="submit" value="" class="btn green"> <?php echo shop_lang('shop:orders:filter');?></button>
+				</span>
 			</li>						
 		</ul>
 		<?php echo form_close(); ?>

@@ -26,7 +26,7 @@
 												<th><?php echo shop_lang('shop:packages:image');; ?></th>
 												<th><?php echo shop_lang('shop:packages:dimentions'); ?></th>
 												<th><?php echo shop_lang('shop:packages:type'); ?></th>
-												<th><?php echo shop_lang('shop:packages:actions'); ?></th>
+												<th></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -38,7 +38,7 @@
 				
 													<td><?php echo ''.$item->height.' x '.$item->width.' (mm)'; ?></td>
 													<td><?php echo $item->type; ?></td>
-													<td class="actions">
+													<td class="">
 
 
 															<span style="float:right;">
@@ -52,7 +52,7 @@
 																	 
 																	<!-- Dropdown Below Button -->
 																	<ul class="button-dropdown">
-																		<li class=''><a class="" href="<?php echo site_url('admin/shop/packages/edit/' . $item->id); ?>"><?php echo shop_lang('shop:packages:edit');?> </a></li>
+																		<li class=''><a class="" href="<?php echo site_url('admin/shop/packages/edit/' . $item->id); ?>"><?php echo shop_lang('shop:packages:edit');?></a></li>
 																		<li class='button-dropdown-divider delete'><a class="confirm" href="<?php echo site_url('admin/shop/packages/uninstall/' . $item->id); ?>"><?php echo shop_lang('shop:packages:uninstall');?></a></li>
 																	</ul>
 																</span>

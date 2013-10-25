@@ -2,8 +2,6 @@
 
 
 
-
-
 jQuery(function($){
 	
 
@@ -12,16 +10,7 @@ jQuery(function($){
 
 
 
-		
-
-
-
-
-
-
-
-    
-        
+	
 		$('#price-list .remove').live('click', function(e) {
 			var item = $(this).attr('data-row');
 			var test = confirm('Please confirm action');

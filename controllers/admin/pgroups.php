@@ -61,8 +61,9 @@ class Pgroups extends Admin_Controller
 				
 		);
 		
-		$this->template->append_css('module::admin.css');
 		$this->template->append_js('module::admin/pgroups.js');
+		
+		Events::trigger('evt_admin_load_assests');
 
 	}
 

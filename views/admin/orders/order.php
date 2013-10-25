@@ -2,8 +2,7 @@
 <section class="title">
 	<h4><?php echo shop_lang('shop:orders:order'); ?> - ( <?php echo shop_lang('shop:orders:account'); ?>: <?php echo  $customer->display_name; ?> )</h4>
 	<h4 style="float:right">
-		<a href="{{ url:site }}shop/" class='button'><?php echo shop_lang('shop:orders:new'); ?></a>
-		<?php echo anchor('admin/shop/orders', shop_lang('shop:orders:view_all'), 'class="button"'); ?>
+		<?php echo anchor('admin/shop/orders', ' ', 'class="img_icon img_view"'); ?>
 	</h4>		
 </section>
 <section class="item">

@@ -1,18 +1,17 @@
 
 			<table>
-	
+
 				<thead>		
 					<tr>
-						<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
-						<th><?php echo shop_lang('shop:products:id');?></th>
-						<th><?php echo shop_lang('shop:products:image');?></th>
-						<th><?php echo shop_lang('shop:products:name');?></th>
+						<th class="collapse"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
+						<th class="collapse"><?php echo shop_lang('shop:products:id');?></th>
+						<th class="collapse"><?php echo shop_lang('shop:products:image');?></th>
+						<th class="collapse"><?php echo shop_lang('shop:products:name');?></th>
 						<th class="collapse"><?php echo shop_lang('shop:products:on_hand');?></th>
-						<th width="40" class="collapse"><?php echo shop_lang('shop:products:visibility');?></th>
+						<th class="collapse"><?php echo shop_lang('shop:products:visibility');?></th>
 						<th class="collapse"><?php echo shop_lang('shop:products:category'); ?></th>
-						<th class="collapse"><?php echo shop_lang('shop:products:date'); ?></th>
 						<th class="collapse"><?php echo shop_lang('shop:products:price'); ?></th>
-						<th width="120"></th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -92,7 +91,6 @@
 								<?php endif; ?>
 
 							</td>
-							<td class="collapse"><?php echo nc_format_date($post->date_created,'hms'); ?></td>
 							<td class="collapse"><?php echo nc_format_price($post->price); ?></td>
 							<td>
 								<span style="float:right;">
@@ -114,11 +112,7 @@
 
 									</span>
 
-
-
 								</span>
-								
-
 								
 							</td>
 						</tr>
@@ -126,32 +120,32 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="10">
+						<td colspan="9">
+
 							<div class="inner" style="float:none;">
 								
-									<div class="buttons">
-										<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete'))); ?>
-
-										<span>|||</span>
-										<button class="btn blue confirm" value="visible" name="btnAction" type="submit">
-											<span>Put Online</span>
-										</button>
-
-
-										<button class="btn orange" value="invisible" name="btnAction" type="submit">
-											<span>Put offline</span>
-										</button>
 								
+									<span style="padding-bottom:0px;bottom:0;vertical-align:top;">
 
-									</div>
+										<?php echo form_dropdown('multi_edit_option', array(
+
+																						'noaction' => shop_lang('shop:products:take_no_action'), 
+																						'delete' => shop_lang('shop:products:delete_selected_products'),
+																						'invisible' => shop_lang('shop:products:make_all_invisible'),
+																						'visible' =>  shop_lang('shop:products:make_all_visible') )
+
+																	,"style='vertical-align:top;'");
+																?>
+
+										<button class="btn green" value="multi_edit_option" name="btnAction" type="submit" style="vertical-align:top;">go</button>
+
+									</span>
 							
-							</div>							
+							</div>			
+
 							<div class="inner" style="float:none;">
-								
 									<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
-								
-							
-							</div>
+							</div>			
 						
 						</td>
 					</tr>
