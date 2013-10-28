@@ -163,6 +163,11 @@ class Twoducks_ShippingMethod extends Twoducks_base
 					$func = 'calc_flash_cards';
 					break;
 
+					
+				case 'calandar':
+					$func = 'calc_calandar';
+					break;
+
 
 				case 'prints':
 					$func = 'calc_prints';

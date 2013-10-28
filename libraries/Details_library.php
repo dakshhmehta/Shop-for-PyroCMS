@@ -79,8 +79,6 @@ class Details_library
 					'shortcuts' => array()
 				),
 
-
-
 			)
 		);
 
@@ -658,8 +656,7 @@ class Details_library
 				'rate' => array('type' => 'DECIMAL(4,2)'),
 				'rate_local' => array('type' => 'DECIMAL(4,2)', 'default' => 0),	 /*not used now */
 				'rate_state' => array('type' => 'DECIMAL(4,2)', 'default' => 0),	
-				'rate_fed' => array('type' => 'DECIMAL(4,2)', 'default' => 0),  
-				/*'core' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE),*/			  
+				'rate_fed' => array('type' => 'DECIMAL(4,2)', 'default' => 0),  	  
 			),
 			'shop_trust_data' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
@@ -671,28 +668,10 @@ class Details_library
 			),
 			'shop_lang' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-				'module' =>   array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
-				'area' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
-				'key' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
-				'value' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), /*product group */
-			),
-			'shop_test' => array(
-				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-				'name' => array('type' => 'VARCHAR', 'constraint' => '100'),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => '100', 'unique' => TRUE, 'key' => true),
-				'description' => array('type' => 'TEXT'),
-				'image_id' => array('type' => 'CHAR', 'constraint' => 15, 'null' => TRUE, 'default' => NULL),
-				'parent_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0), /*structure for heirachial but not by default*/
-				'order' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0),  
-			),
-			'shop_test2' => array(
-				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-				'name' => array('type' => 'VARCHAR', 'constraint' => '100'),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => '100', 'unique' => TRUE, 'key' => true),
-				'description' => array('type' => 'TEXT'),
-				'image_id' => array('type' => 'CHAR', 'constraint' => 15, 'null' => TRUE, 'default' => NULL),
-				'parent_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0), /*structure for heirachial but not by default*/
-				'order' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0),  
+				'module' =>   array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), 
+				'area' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), 
+				'key' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), 
+				'value' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), 
 			),
 			);	
 

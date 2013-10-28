@@ -15,102 +15,60 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ($products as $post) : ?>
+					<?php foreach ($products as $product) : ?>
 						<tr class="<?php echo alternator('even', ''); ?>">
 							
 							<td>	
-								<?php echo form_checkbox('action_to[]', $post->id); ?>
+								<?php echo form_checkbox('action_to[]', $product->id); ?>
 							</td>
 							<td>	
-								<?php echo $post->id; ?>
+								<?php echo $product->id; ?>
 							</td>							
 							<td>
-								<?php if ($post->public==0):?> 
+								<?php if ($product->public==0):?> 
 								<?php $_hclass = "_hidden";?>
 								<?php else:?> 
 								<?php $_hclass = "";?>
 								<?php endif;?> 
 								
-								<?php if ($post->cover_id): ?>
-									<img src="files/thumb/<?php echo $post->cover_id;?>/50/50" alt="" class="<?php echo $_hclass;?>"  id="sf_img_<?php echo $post->id;?>" />
+								<?php if ($product->cover_id): ?>
+									<img src="files/thumb/<?php echo $product->cover_id;?>/50/50" alt="" class="<?php echo $_hclass;?>"  id="sf_img_<?php echo $product->id;?>" />
 								<?php else: ?>
 									<div class="img_48 img_noimg"></div>
 								<?php endif; ?>
 
 							</td>							
-							<td><?php echo anchor('shop/product/'.$post->slug,$post->name, 'target="_blank" class="category"'); ?></td>
+							<td><?php echo anchor('shop/product/'.$product->slug,$product->name, 'target="_blank" class="category"'); ?></td>
 							<td class="collapse">
-								<?php 
 
+								<?php echo $product->_inventory_data; ?>
 
-									if($post->inventory_type == 1)
-									{
-										$class_name = 's_unlimited';
-										$_inv_text = shop_lang('shop:products:unlimited');
-									}
-									else
-									{
-										if($post->inventory_on_hand <= $post->inventory_low_qty)
-										{
-											$class_name = 's_low';
-										}
-										else
-										{
-											$class_name = 's_normal';
-										}
-
-										$_inv_text =  $post->inventory_on_hand; 
-									}
-
-									echo "<div class='s_status $class_name'>$_inv_text</div>";
-									
-								
-								?>
 							</td>
 							<td class="collapse">
-							 		<?php if ($post->public == 1):?> 
-									<a href="javascript:sell(<?php echo $post->id;?>)" class="tooltip-s img_icon img_visible " title="<?php echo shop_lang('shop:products:click_to_change');?>" status="1" pid="<?php echo $post->id;?>" id="sf_ss_<?php echo $post->id;?>"></a>	
+							 		<?php if ($product->public == 1):?> 
+									<a href="javascript:sell(<?php echo $product->id;?>)" class="tooltip-s img_icon img_visible " title="<?php echo shop_lang('shop:products:click_to_change');?>" status="1" pid="<?php echo $product->id;?>" id="sf_ss_<?php echo $product->id;?>"></a>	
 									<?php else:?>
-									<a href="javascript:sell(<?php echo $post->id;?>)" class="tooltip-s img_icon img_invisible "  title="<?php echo shop_lang('shop:products:click_to_change');?>" status="0" pid="<?php echo $post->id;?>" id="sf_ss_<?php echo $post->id;?>"></a>		
+									<a href="javascript:sell(<?php echo $product->id;?>)" class="tooltip-s img_icon img_invisible "  title="<?php echo shop_lang('shop:products:click_to_change');?>" status="0" pid="<?php echo $product->id;?>" id="sf_ss_<?php echo $product->id;?>"></a>		
 									<?php endif;?>
 							</td>
 							<td class="collapse">
 						
-								<?php 
-
-									$cat = ($post->category->parent_id == 0)?$post->category->name :  ss_category_name($post->category->parent_id) . ' &rarr; ' . $post->category->name;
-
-								?>
-						
-								<?php if($post->category_id > 0) : ?>
-								
-									
-									<?php echo anchor('admin/shop/categories/edit/' . $post->category_id,  $cat , array('class'=>'')); ?>
-
-
-								<?php endif; ?>
+								<?php echo $product->_category_data ;?>
 
 							</td>
-							<td class="collapse"><?php echo nc_format_price($post->price); ?></td>
+							
+
+							<td class="collapse">
+
+								<?php echo $product->_price_data;?>
+									
+							</td>
+
+
 							<td>
 								<span style="float:right;">
 
-									<span class="button-dropdown" data-buttons="dropdown">
-										<a href="#" class="shopbutton button-rounded button-flat-primary"> 
-											<?php echo shop_lang('shop:products:actions');?> 
-											<i class="icon-caret-down"></i>
-										</a>
-										 
-										<!-- Dropdown Below Button -->
-										<ul class="button-dropdown">
-
-											<li class=''><a href="<?php echo 'admin/shop/product/edit/' . $post->id;?>" class=""><i class="icon-edit"></i> <?php echo shop_lang('shop:products:edit');?></a></li>
-											<li class=''><a href="<?php echo 'admin/shop/product/duplicate/' . $post->id;?>" class=""><i class="icon-copy"></i> <?php echo shop_lang('shop:products:copy');?></a></li>
-											<li class='button-dropdown-divider delete'><a href="<?php echo 'admin/shop/product/delete/' . $post->id;?>" class="confirm"><i class="icon-minus"></i> <?php echo shop_lang('shop:products:delete');?></a></li>
-												 
-										</ul>
-
-									</span>
+									<?php $this->load->view('shop/admin/fragments/products_list_dropdown', array('id' => $product->id) ); ?>
 
 								</span>
 								
@@ -121,6 +79,8 @@
 				<tfoot>
 					<tr>
 						<td colspan="9">
+
+
 
 							<div class="inner" style="float:none;">
 								
@@ -137,7 +97,7 @@
 																	,"style='vertical-align:top;'");
 																?>
 
-										<button class="btn green" value="multi_edit_option" name="btnAction" type="submit" style="vertical-align:top;">go</button>
+										<button class="shopbutton button-rounded green" value="multi_edit_option" name="btnAction" type="submit" style="vertical-align:top;">go</button>
 
 									</span>
 							

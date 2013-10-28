@@ -1,3 +1,24 @@
+/*
+ * Reset pyro button theme
+ * 
+ */
+input[type='submit'],button,
+input[type='submit']:hover,button:hover
+{
+  border:none;
+  border-radius: 0px;
+  outline: 0 none;
+  overflow: visible;
+  transition: none !important;
+  width: auto;
+  background: none;
+  color: #000;
+  text-shadow: none;
+
+}
+
+
+
 @-webkit-keyframes glowing {
   /* line 8, ../scss/partials/_glow.scss */
   from {
@@ -353,6 +374,7 @@ button.shopbutton:disabled {
 }
 
 /* line 135, ../scss/partials/_buttons.scss */
+.button.red,
 .button-caution {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e8543f), color-stop(100%, #d9331a));
   background: -webkit-linear-gradient(top, #e8543f, #d9331a);
@@ -365,6 +387,7 @@ button.shopbutton:disabled {
   text-shadow: 0 -1px 1px rgba(103, 24, 13, 0.35);
 }
 /* line 142, ../scss/partials/_buttons.scss */
+.button.red:hover,
 .button-caution:hover {
   background-color: #e54028;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #eb6855), color-stop(100%, #d9331a));
@@ -374,6 +397,7 @@ button.shopbutton:disabled {
   background: linear-gradient(top, #eb6855, #d9331a);
 }
 /* line 146, ../scss/partials/_buttons.scss */
+.button.red:active,
 .button-caution:active {
   background: #cd5240;
   color: #952312;
@@ -558,6 +582,7 @@ button.shopbutton:disabled {
 }
 
 /* line 189, ../scss/partials/_buttons.scss */
+.button-flat.red,
 .button-flat-caution {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -575,11 +600,14 @@ button.shopbutton:disabled {
   text-shadow: none;
   border: none;
 }
+
 /* line 198, ../scss/partials/_buttons.scss */
+.button-flat.red:hover,
 .button-flat-caution:hover {
   background: #e8543f;
 }
 /* line 201, ../scss/partials/_buttons.scss */
+.button-flat.red:active,
 .button-flat-caution:active {
   -webkit-transition-duration: 0s;
   -moz-transition-duration: 0s;
@@ -589,7 +617,49 @@ button.shopbutton:disabled {
   color: #ac2815;
 }
 /* line 206, ../scss/partials/_buttons.scss */
+.button-flat.red.disabled,
 .button-flat-caution.disabled {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.button-rounded.green,
+.button-flat.green {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition-property: background;
+  -moz-transition-property: background;
+  -o-transition-property: background;
+  transition-property: background;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  background: #00CC66;
+  color: white;
+  text-shadow: none;
+  border: none;
+  cursor: pointer;
+}
+
+.button-rounded.green:hover,
+.button-flat.green:hover{
+  background: #00CC44;
+}
+.button-rounded.green:active,
+.button-flat.green:active {
+  -webkit-transition-duration: 0s;
+  -moz-transition-duration: 0s;
+  -o-transition-duration: 0s;
+  transition-duration: 0s;
+  background: #00CC66;
+  color: #ac2815;
+}
+
+.button-rounded.green.disabled,
+.button-flat.green.disabled{
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;

@@ -54,7 +54,7 @@
 							<div class="form_input">
 								
 								<?php echo form_input('related_filter') ?> 
-								<a id="related_search_btn" class="btn green">
+								<a id="related_search_btn" class="shopbutton button-rounded green">
 									<?php echo shop_lang('shop:products:search'); ?>
 								</a>
 							</div>

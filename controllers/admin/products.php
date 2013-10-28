@@ -37,6 +37,8 @@ class Products extends Products_admin_Controller
 	{
 		parent::__construct();
 
+		$this->load->library('products_library');
+
 	}
 
 	public function sum()
@@ -106,6 +108,9 @@ class Products extends Products_admin_Controller
 		// Get the results
 		//
 		$data->products =  $this->products_admin_m->filter($filter , $data->pagination['limit'] , $data->pagination['offset']);
+
+
+		$this->products_library->process_for_list($data->products);
 
 
 
@@ -221,7 +226,8 @@ class Products extends Products_admin_Controller
 		//
 		$data->products =  $this->products_admin_m->filter($filter , $data->pagination['limit'] , $data->pagination['offset']);
 
-				
+
+		$this->products_library->process_for_list($data->products);					
 	
 
 		// set the layout to FALSE and load the view
@@ -297,12 +303,12 @@ class Products extends Products_admin_Controller
 	private function change_visibility($products, $new_value = 0) 
 	{
 
-		foreach($products as $key =>$id)
+		foreach($products as $key => $id)
 		{
 
 			if( $this->products_admin_m->update_property($id, 'public', $new_value ) )
 			{
-				//Events::trigger('evt_product_deleted', $id );
+				Events::trigger('evt_product_changed', $id);
 			}
 	
 		}

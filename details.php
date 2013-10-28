@@ -27,7 +27,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.108';  
+	public $version = '1.0.0.109';  
 
 
 
@@ -107,6 +107,7 @@ class Module_Shop extends Module
 				'slug' => 'general',
 				'image_id' => '0',
 				'parent_id' => '0',
+				'user_data' => '',
 				)			  
 		);
 		$this->db->insert_batch('shop_categories', $data);

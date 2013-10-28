@@ -88,5 +88,92 @@ class Products_library
 	}
 
 
+
+
+	public function process_for_list(&$products)
+	{
+		foreach($products as $product)
+		{
+
+			$this->process_category($product);
+
+			$this->process_price($product);
+
+			$this->process_inventory($product);
+
+				
+		}
+	}
+
+
+
+	private function process_category(&$product)
+	{
+
+		$cat = ($product->category->parent_id == 0) ? $product->category->name :  ss_category_name($product->category->parent_id) . ' &rarr; ' . $product->category->name;
+
+
+		if($product->category_id > 0) 
+		{
+
+			$product->_category_data = anchor('admin/shop/categories/edit/' . $product->category_id,  $cat , array('class'=>'')); 
+		}
+		else
+		{
+			$product->_category_data = 'no category';
+		}
+
+	}
+
+
+	private function process_price(&$product)
+	{
+
+		
+		$_class = 's_status s_complete'; 
+		$_text = nc_format_price($product->price);	
+
+
+		if($product->pgroup_id > 0)
+		{
+			//MID pricing
+			$_class = 's_status s_processing'; 
+			$_text = shop_lang('shop:products:variable_pricing');												
+		}
+
+
+		$product->_price_data = "<span class='".$_class."''>".$_text."</span>";
+
+
+	}	
+
+
+	private function process_inventory(&$product)
+	{
+
+
+		if($product->inventory_type == 1)
+		{
+			$class_name = 's_unlimited';
+			$_inv_text = shop_lang('shop:products:unlimited');
+		}
+		else
+		{
+			if($product->inventory_on_hand <= $product->inventory_low_qty)
+			{
+				$class_name = 's_low';
+			}
+			else
+			{
+				$class_name = 's_normal';
+			}
+
+			$_inv_text =  $product->inventory_on_hand; 
+		}
+
+		$product->_inventory_data  ="<div class='s_status $class_name'>$_inv_text</div>";
+
+
+	}
 }
 // END Cart Class

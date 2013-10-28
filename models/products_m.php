@@ -128,9 +128,9 @@ class Products_m extends Shop_model
 	{
 		
 
-		$this->load->model('categories_m');
+		
 
-		$this->db->select('shop_products.*,');
+		$this->db->select('shop_products.*');
 
 		if($mode=='public')
 		{
@@ -143,6 +143,8 @@ class Products_m extends Shop_model
 		$this->db->where('shop_products.date_archived',NULL);
 		$products = parent::get_all();
 
+
+		$this->load->model('categories_m');
 
 		//bug if the product has no category we get some errors
 		foreach( $products as $product )

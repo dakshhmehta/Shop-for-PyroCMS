@@ -110,6 +110,16 @@ class Twoducks_base extends Twoducks_debug
 
 	}
 
+	protected function calc_calandar($package)
+	{
+
+		$qty = $package->item_count;
+
+		return ($qty * 2.00);
+
+	}
+
+
 
 	/**
 	 * Custom invitations
