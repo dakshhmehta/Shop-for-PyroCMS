@@ -34,6 +34,8 @@ class Events_Shop
 	{
 		// Get CI
 		$this->ci =& get_instance();
+
+	
 		
 
 		

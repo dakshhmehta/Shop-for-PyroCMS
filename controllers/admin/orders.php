@@ -44,6 +44,8 @@ class Orders extends Admin_Controller
 		// Load all the required classes
 		$this->load->model('orders_m');
 
+		$this->load->library('orders_library');
+
 
 		Events::trigger('evt_admin_load_assests');
 
@@ -100,6 +102,9 @@ class Orders extends Admin_Controller
 
 
 		$data->items = $this->orders_m->admin_filter($filter,  $data->pagination['limit'] ,$data->pagination['offset']);
+
+
+		$this->orders_library->process_for_list($data->items);
 				
 
 

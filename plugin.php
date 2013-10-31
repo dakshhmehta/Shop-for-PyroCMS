@@ -101,8 +101,9 @@ class Plugin_Shop extends Plugin
 			{
 				if($count > $max) break;
 			}
-			$ret[] = $product = $this->products_front_m->get_minimal($_id);
+			$ret[] = $product = $this->products_front_m->get($_id);
 		}
+
 
 		return $ret;
 

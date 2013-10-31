@@ -20,8 +20,8 @@
 
 
 							<li class="<?php echo alternator('', 'even'); ?>">
-								<span class='s_status s_paid'>date created:<?php echo nc_format_date($date_created,'hms'); ?></span><br />
-								<span class='s_status s_pending'>last changed:<?php echo nc_format_date($date_updated,'hms'); ?></span><br />
+								<span class='s_status s_paid'><?php echo shop_lang('shop:products:date_created');?>:<?php echo nc_format_date($date_created,'hms'); ?></span><br />
+								<span class='s_status s_pending'><?php echo shop_lang('shop:products:date_updated');?>:<?php echo nc_format_date($date_updated,'hms'); ?></span><br />
 							</li>
 
 

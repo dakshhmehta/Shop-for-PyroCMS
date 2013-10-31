@@ -105,27 +105,45 @@ class Statistics_m extends MY_Model
 	}
 
             
-    public function get_period($days = 5, $limit = 'all') 
+    /**
+     * 
+     * @param  integer $days  [description]
+     * @param  string  $chart [order|users|income]
+     * @return [type]         [description]
+     */
+    public function get_period($days = 5, $chart = 'orders') 
     {
-        $stats = array();
 
-        $limit = 'orders';
-        
-       $orders = $this->_get_orders($days);;
-        
-        switch ($limit) {
+       $stats = array();
+       
+        switch ($chart) 
+        {
             case 'income':
             case 'orders':
+            	$orders = $this->_get_orders($days);
                 $stats[] = array('label' => 'Orders', 'data' => $orders);
                 break;
-            case 'all':
+            case 'unpaid':
+            	$orders = $this->_get_unpaid_orders($days);
+                $stats[] = array('label' => 'Orders', 'data' => $orders);
+                break;                
+            case 'users':
+            	$users = $this->_get_new_users($days);
+                $stats[] = array('label' => 'Users', 'data' => $users);   
+                break;   
+            case 'best':
+                //days is actually # of products to get
+                $best = $this->_get_best_sellers($days);
+                $stats[] = array('label' => 'Sales', 'data' => $best);   
+                break;                           
             default:
                 break;
         }
+
         return $stats;
     }	
 
-    private function _get_orders($days = 5) 
+    private function _get_orders($days = 7) 
     {
     	//$days = 7;
         $dates = array();
@@ -157,6 +175,114 @@ class Statistics_m extends MY_Model
         foreach ($dates as $key => $value) 
         {
             $stats[] = array(strtotime($key)*1000, $value);
+        }
+
+        return $stats;
+    }
+
+    private function _get_unpaid_orders($days = 7) 
+    {
+    	//$days = 7;
+        $dates = array();
+        
+        $day_seconds = 86400;
+        $period = $days * $day_seconds;
+        
+        $this->db->select('COUNT(*) AS total', FALSE);
+        $this->db->select("FROM_UNIXTIME(`order_date`, '%Y-%m-%d') AS date", FALSE);
+        $this->db->where('order_date >', time()-$period);
+		$this->db->where('pmt_status ', 'unpaid');
+
+        $this->db->group_by('date', FALSE);
+        $result = $this->db->get('shop_orders')->result();
+        
+        $stats = array();
+        
+        for ($index = 0; $index < $days; $index++)
+         {
+            $timestamp = date('Y-m-d', time() - ($index * $day_seconds));
+            $dates[$timestamp] = 0;
+        }
+        
+        foreach ($result as $item) 
+        {
+            $dates[$item->date] = $item->total;
+        }
+
+        $dates = array_reverse($dates);
+        
+        foreach ($dates as $key => $value) 
+        {
+            $stats[] = array(strtotime($key)*1000, $value);
+        }
+
+        return $stats;
+    }
+
+    private function _get_new_users($days = 7) 
+    {
+    	//$days = 7;
+        $dates = array();
+        
+        $day_seconds = 86400;
+        $period = $days * $day_seconds;
+        
+        $this->db->select('COUNT(*) AS total', FALSE);
+        $this->db->select("FROM_UNIXTIME(`created_on`, '%Y-%m-%d') AS date", FALSE);
+        $this->db->where('created_on >', time()-$period);
+        $this->db->group_by('date', FALSE);
+        $result = $this->db->get('users')->result();
+        
+        $stats = array();
+        
+        for ($index = 0; $index < $days; $index++)
+         {
+            $timestamp = date('Y-m-d', time() - ($index * $day_seconds));
+            $dates[$timestamp] = 0;
+        }
+        
+        foreach ($result as $item) 
+        {
+            $dates[$item->date] = $item->total;
+        }
+
+        $dates = array_reverse($dates);
+        
+        foreach ($dates as $key => $value) 
+        {
+            $stats[] = array(strtotime($key)*1000, $value);
+        }
+
+        return $stats;
+    }
+
+    /**
+     * 
+     * SELECT TOP(5) ProductID, SUM(Quantity) AS TotalQuantity
+     * FROM order_items
+     * GROUP BY ProductID
+     * ORDER BY SUM(Quantity) DESC;
+     * 
+     * @param  integer $product_count [description]
+     * @return [type]                 [description]
+     */
+    private function _get_best_sellers($product_count = 5) 
+    {
+        
+        $this->db->select('product_id,sum(qty) as total_qty');
+        $this->db->group_by('product_id', FALSE);
+        $this->db->order_by('sum(qty) desc', FALSE);        
+        $this->db->limit($product_count);
+        $result = $this->db->get('shop_order_items')->result();
+
+        //var_dump($result);die;
+
+
+        $stats = array();
+        
+        foreach ($result as $item) 
+        {
+            $stats[] = array($item->product_id , $item->total_qty);
         }
 
         return $stats;

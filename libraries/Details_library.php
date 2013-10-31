@@ -34,7 +34,7 @@ class Details_library
 	}
 
 
-	public function info()
+	public function info($and_get_menu = NULL)
 	{
 	 
 		$info =  array(
@@ -84,6 +84,7 @@ class Details_library
 
 
 
+		
 
         // Support for sub 2.2.0 menus
         if ( CMS_VERSION < '2.2.0' ) {
@@ -91,21 +92,18 @@ class Details_library
             $info['menu']       = 'SHOP';
         }
 
-
-        //
-        // if we only want the light menu then just return now
-        //
-		if ( Settings::get('nc_menu_style') == AdminMenu::Light) 
+		if (function_exists('group_has_role'))
+		{
+			//so we dont have to check again
+		}
+		else
 		{
 			return $info;
 		}
 
 
-		//
-		// Othewise continue to add more items
-		//
 
-		if (function_exists('group_has_role'))
+		if($and_get_menu == 'categories')
 		{
 
 
@@ -120,6 +118,13 @@ class Details_library
 				);
 
 			}
+
+		}
+
+
+
+		if($and_get_menu == 'brands')
+		{
 
 			if(Settings::get('ss_enable_brands'))
 			{	
@@ -136,6 +141,12 @@ class Details_library
 				}
 			}
 
+		}
+
+
+		if($and_get_menu == 'options')
+		{
+
 
 			if(group_has_role('shop', 'options'))
 			{
@@ -148,7 +159,11 @@ class Details_library
 				);
 
 			}
+		}
 
+
+		if($and_get_menu == 'packages')
+		{
 
 			if(group_has_role('shop', 'packages'))
 			{
@@ -161,9 +176,11 @@ class Details_library
 				);
 
 			}
+		}
 
 
-
+		if($and_get_menu == 'pgroups')
+		{
 
 			if(group_has_role('shop', 'pgroups'))
 			{
@@ -176,7 +193,11 @@ class Details_library
 				);
 
 			}
+		}
 
+
+		if($and_get_menu == 'blacklist')
+		{
 
 			if(group_has_role('shop', 'blacklist'))
 			{
@@ -189,6 +210,12 @@ class Details_library
 				);
 
 			}
+		}
+
+
+		if($and_get_menu == 'shipping')
+		{
+
 			if(group_has_role('shop', 'shipping'))
 			{
 				$info['sections']['shipping'] = array(
@@ -200,7 +227,11 @@ class Details_library
 				);
 
 			}
+		}
 
+
+		if($and_get_menu == 'gateways')
+		{
 			if(group_has_role('shop', 'gateways'))
 			{
 				$info['sections']['gateways'] = array(
@@ -211,7 +242,11 @@ class Details_library
 				 	
 				);
 			}
+		}
 
+
+		if($and_get_menu == 'tax')
+		{
 			if(group_has_role('shop', 'tax'))
 			{
 				$info['sections']['tax'] = array(
@@ -223,25 +258,56 @@ class Details_library
 				);
 
 			}
+		}
 
-			if (function_exists('group_has_role'))
+		if($and_get_menu == 'admin_setup')
+		{
+
+
+			if(group_has_role('shop', 'admin_setup'))
 			{
+					 $info['sections']['manage'] = array(
+						'name' => 'shop:admin:manage', 
+						'uri' => 'admin/shop/manage',
+						'shortcuts' => array()
+					);	
 
-
-				if(group_has_role('shop', 'admin_setup'))
-				{
-						 $info['sections']['manage'] = array(
-							'name' => 'shop:admin:manage', 
-							'uri' => 'admin/shop/manage',
-							'shortcuts' => array()
-						);	
-
-				}
 			}
+		}
+		
+		if($and_get_menu == 'charts')
+		{
+
+		
+			$info['sections']['charts'] = array(
+
+				'name' => 'shop:admin:charts', 
+				'uri' => 'admin/shop/charts',
+				'shortcuts' => array()
+
+			);
+
+
 			
+		}		
 	
 
+		if($and_get_menu == 'manage')
+		{
+
+			if(group_has_role('shop', 'manage'))
+			{
+				$info['sections']['manage'] = array(
+				
+					'name' => 'shop:admin:manage', 
+					'uri' => 'admin/shop/manage',
+					'shortcuts' => array()
+				 	
+				);
+
+			}
 		}
+		
 
 		return $info;
 
@@ -295,42 +361,25 @@ class Details_library
 			}
 		
 
-
-
 			//
 			// Add the rest of the items
 			//
 			if(group_has_role('shop', 'categories'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:categories'] = 'admin/shop/categories';
-			}		
+			}	
 			if(group_has_role('shop', 'options'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:options'] = 'admin/shop/options';
 			}		
-
-
 			if(group_has_role('shop', 'blacklist'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:blacklist'] = 'admin/shop/blacklist';
 			}
-
 			if(group_has_role('shop', 'admin_setup'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:manage'] = 'admin/shop/manage';
 			}
-
-
-
-			//
-			// leave if only want the light menu
-			//
-			if ( Settings::get('nc_menu_style') == AdminMenu::Light) 
-			{
-				return;
-			}
-
-
 			if(group_has_role('shop', 'packages'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:packages'] = 'admin/shop/packages';
@@ -351,6 +400,7 @@ class Details_library
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:tax'] = 'admin/shop/tax';
 			}
+			$menu['lang:shop:admin:shop_admin']['lang:shop:admin:charts'] = 'admin/shop/charts';
 
 	
 

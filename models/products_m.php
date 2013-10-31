@@ -99,11 +99,13 @@ class Products_m extends Shop_model
 	 * @param  [type] $id [description]
 	 * @return [type]     [description]
 	 */
+	/*
 	public function get_minimal($id)
 	{
-		$prod_min = $this->select('id,name,cover_id,slug')->get($id);
+		return $this->get_product($id, 'id', TRUE) ;
+		//$prod_min = $this->get($id);
 
-		
+		 
 
 		if($prod_min->category->parent_id > 0)
 		{
@@ -116,6 +118,7 @@ class Products_m extends Shop_model
 
 		return $prod_min;
 	}
+	*/
 
 
 

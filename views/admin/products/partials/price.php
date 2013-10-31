@@ -17,7 +17,7 @@
 					<ul class="tab-menu">
 						<li><a class=""  data-load="" href="#price-basic-tab"><span><?php echo shop_lang('shop:products:standard'); ?></span></a></li>		
 						<li><a class=""  data-load="" href="#price-qtydiscount-tab"><span><?php echo shop_lang('shop:products:qty_discount'); ?></span></a></li>	
-						<li><a class=""  data-load="" href="#price-mid-tab"><span><?php echo shop_lang('shop:products:price_group'); ?></span></a></li>																	
+						<li><a class=""  data-load="" href="#price-mid-tab"><span><?php echo shop_lang('shop:products:mid_discount'); ?></span></a></li>																	
 					</ul>	
 
 

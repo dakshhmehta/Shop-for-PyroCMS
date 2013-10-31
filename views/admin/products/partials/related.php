@@ -27,8 +27,8 @@
 							$out_str .= $_related->name ;
 							$out_str .= "<input type='hidden' value='" . $_related->id . "' name='related[]'> ";
 
-							$out_str .= " <a href='shop/product/".$_related->id."' target='_new' class=''>view</a> | ";
-							$out_str .= " <a href='#' class='remove_related_product'>remove</a>";
+							$out_str .= " <a href='shop/product/".$_related->id."' target='_new' class='shopbutton button-flat-primary '>view</a> ";
+							$out_str .= " <a href='#' class='shopbutton button-flat red remove_related_product'>&times;</a>";
 
 							$out_str .= "</li>";
 
@@ -156,14 +156,14 @@
  					content = "<li>" +
  								" <img src='files/thumb/"+cover+"/100'>" + 
  								" <input type='hidden' name='related[]' value='" + id + "' > " +
- 								" " + id +
+ 								"<a href='shop/product/" + id + "' target='_new_$_related->id' class=''>(" + id + ")</a> | " +				
  								" " + name + 
-								" <a href='#' class='remove_related_product'>remove</a> " +
+								" <a href='shop/product/" + id +"' target='_new' class='shopbutton button-flat-primary '>view</a> " +
+								" <a href='#' class='shopbutton button-flat red remove_related_product'>&times;</a> " +
  								"</li>";
 
  					$('#related-list').append(content);
 				}
-
 
 
 				</script>

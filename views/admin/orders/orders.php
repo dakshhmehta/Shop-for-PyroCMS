@@ -22,7 +22,6 @@
 					<th class="collapse"><?php echo shop_lang('shop:orders:customer'); ?></th>
 					<th class="collapse"><?php echo shop_lang('shop:orders:date'); ?></th>
 					<th class="collapse"><?php echo shop_lang('shop:orders:total'); ?></th>
-					<th class="collapse"><?php echo shop_lang('shop:orders:score'); ?></th>
 					<th class="collapse"><?php echo shop_lang('shop:orders:progress_status'); ?></th>
 					<th style="text-align:right"><?php echo shop_lang('shop:orders:actions'); ?></th>
 				</tr>
@@ -34,7 +33,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="8">
+					<td colspan="7">
 						<div class="inner"><?php echo $pagination['links'];?></div>
 					</td>
 				</tr>

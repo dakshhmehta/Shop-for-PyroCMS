@@ -27,7 +27,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.109';  
+	public $version = '1.0.0.110';  
 
 
 
@@ -36,6 +36,10 @@ class Module_Shop extends Module
 
 		$this->load->library('shop/details_library');
 		$this->load->library('shop/enums');
+		$this->ci = get_instance();
+
+		
+	 
 
 
 	}
@@ -52,7 +56,9 @@ class Module_Shop extends Module
 		// load the model
 		$this->load->model('settings_m');
 
-		return  $this->details_library->info();
+		$get_menu_addon = $this->ci->uri->segment(3);	
+
+		return  $this->details_library->info($get_menu_addon);
 
 	}
   

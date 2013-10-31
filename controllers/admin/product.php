@@ -370,7 +370,7 @@ class Product extends Products_admin_Controller
 			
 			foreach($data->related as $related_product)
 			{
-				$data->rel_names[] = $this->products_admin_m->get_minimal($related_product);
+				$data->rel_names[] = $this->products_admin_m->get($related_product);
 
 			}			
 		}
