@@ -358,6 +358,8 @@ class Cart extends Public_Controller
 		redirect('shop/cart');
 	}
 
+
+	/*
 	private function __update()
 	{
 
@@ -371,6 +373,7 @@ class Cart extends Public_Controller
 		redirect('shop/cart');
 		
 	}
+	*/
 
 
 	private function _update() 
@@ -564,7 +567,6 @@ class Cart extends Public_Controller
 				'options' => $options,
 				'pgroup_id' => $item->pgroup_id,
 				
-				// Meta data - not really used
 				'price_bt' => $item->price_bt, /*before tax value*/
 				'package_id' => $item->package_id,
 

@@ -314,31 +314,27 @@ class Twoducks_base extends Twoducks_debug
 
 		$cost = 0;
 
+	
 
-		foreach($package->items as $key => $value)
+		foreach($package->items as $item)
 		{
-			   // echo  $value['qty'];
-				//var_dump($package->items[$key]);die;
 
-			if(isset($package->items[$key]['options'][$slug]['value']))
+			foreach( $item['options'] as $option_key => $selected_option_value)
 			{
-				$str = $package->items[$key]['options'][$slug]['value'];
-				
 
-				if( substr($str,0,9) == 'prints_a3')
+				$_user_data = trim($selected_option_value['user_data']);
+		 
+				switch ( $_user_data ) 
 				{
-					$a3_qty += $value['qty'];
-				}
-				else
-				{
-					$a4_qty += $value['qty'];
+					case 'a3':
+						$a3_qty += $item['qty'];
+						break;
+					case 'a4':
+						$a4_qty += $item['qty'];						
+						break;
+					default: break;
 				}
 
-
-			}
-			else
-			{
-				//var_dump($package->items[$key]);
 			}
 
 		}			
@@ -351,14 +347,24 @@ class Twoducks_base extends Twoducks_debug
 		//
 		// A4
 		$cost += $this->_price_step($a4_qty, 5, 5);
-		
-	
+			
 			
 		return $cost;
 	}
 
 
-
+	/**
+	 * $2 for 1-5
+	 * 
+	 * @param  [type] $package [description]
+	 * @return [type]          [description]
+	 */
+	protected function calc_gift_wrap($package)
+	{
+		$qty = $package->item_count;
+		
+		return $this->_price_step($qty, 2, 5);		
+	}
 
 
 
@@ -369,7 +375,7 @@ class Twoducks_base extends Twoducks_debug
 		if($qty == 0)
 			return 0.00;
 
-		return $this->_price_step($qty, 5.00, 5);		
+		return $this->_price_step($qty, 10.00, 5);		
 	}
 
 	protected function calc_name_charts_unframed_10_14($qty)
@@ -396,7 +402,7 @@ class Twoducks_base extends Twoducks_debug
 		{
 			$nqty = $qty - 1;
 
-			$cost += ($nqty * 5.00);
+			$cost += ($nqty * 10.00);
 		}
 
 		return $cost;

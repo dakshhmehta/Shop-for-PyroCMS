@@ -1,4 +1,3 @@
-<!--- FILE.START:VIEW.CHECKOUT.SINGLE.EXISTING_ADDR -->
 
 <div id="ncExistingAddress" class="collapsable_checkout">
 <?php if(!count($addresses) ): ?>
@@ -35,5 +34,3 @@
 		</fieldset>
 <?php endif; ?>
 </div>
-
-<!--- FILE.END:VIEW.CHECKOUT.SINGLE.EXISTING_ADDR --->

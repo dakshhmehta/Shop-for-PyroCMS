@@ -95,6 +95,7 @@ class Charts extends Admin_Controller
 		$this->template->title($this->module_details['name'])	
 				->append_js('module::lib/flot/jquery.flot.js')	
 				->append_js('module::lib/flot/jquery.flot.time.js')	
+				->append_js('module::lib/flot/jquery.flot.categories.js')
 				->append_js($charts_js)								
 				->build($page_to_load, $this->data);
 				
@@ -103,7 +104,12 @@ class Charts extends Admin_Controller
 	public function orders() 	{		$this->index('orders');	}
 	public function users() 	{		$this->index('users');	}	
 	public function unpaid() 	{		$this->index('unpaid');	}	
-	public function best() 		{		$this->index('best');	}	
+	public function best() 		
+	{		
+		//$this->template->append_js('module::lib/flot/jquery.flot.categories.js');	
+
+		$this->index('best');	
+	}	
 
 	/**
 	 * Chart is orders|users

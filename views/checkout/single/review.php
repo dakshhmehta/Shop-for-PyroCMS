@@ -36,7 +36,7 @@
 							1 &times;
 						</td>
 						<td style="desc">
-							Shipping
+							shipping
 						</td>
 						 
 						<td class="subtotal"><?php echo ss_currency_symbol(); ?> <span id="s_shipping_total"><?php echo $this->sfcart->shipping_total() ; ?></span></td>
@@ -65,7 +65,7 @@
 
 			<span id="ncCheckoutActionButtons">
 				<!--<a id="btnValidate" class='btn_disabled'>Validate</a>-->
-				<input id='btnSubmit' type='submit' value='<?php echo lang('submit_order');?>' class='btn_disabled'>
+				<input id='btnSubmit' type='submit' value='submit order' class='btn_disabled'>
 			</span>
 
 		</fieldset>

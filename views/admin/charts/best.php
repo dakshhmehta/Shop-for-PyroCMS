@@ -15,9 +15,9 @@
 	    <section class="item">
 		    <section class="chart-tabs">
 		        <ul class="tab-menu">
-		            <li class=""><a href="admin/shop/charts/stats/best/5" class="chart-data"><span><?php echo shop_lang('shop:dashboard:top_5');?></span></a></li>
+		            <li class="ui-state-active"><a href="admin/shop/charts/stats/best/5" class="chart-data"><span><?php echo shop_lang('shop:dashboard:top_5');?></span></a></li>
 		            <li class=""><a href="admin/shop/charts/stats/best/10" class="chart-data"><span><?php echo shop_lang('shop:dashboard:top_10');?></span></a></li>
-		            <li class="ui-state-active"><a href="admin/shop/charts/stats/best/15" class="chart-data"><span><?php echo shop_lang('shop:dashboard:top_15');?></span></a></li>
+		            <li class=""><a href="admin/shop/charts/stats/best/15" class="chart-data"><span><?php echo shop_lang('shop:dashboard:top_15');?></span></a></li>
 		        </ul>
 		    </section>
 
@@ -31,9 +31,6 @@
 	    </section>
 
 	</div>
-
-
-
 
 
 	<?php echo $this->load->view('admin/charts/partials/more'); ?>

@@ -173,6 +173,11 @@ class Twoducks_ShippingMethod extends Twoducks_base
 					$func = 'calc_prints';
 					break;
 
+				case 'gift-wrap':
+					$func = 'calc_gift_wrap';
+					break;
+					
+
 				case 'free-shipping':
 				default:
 					$func = 'calc_default';

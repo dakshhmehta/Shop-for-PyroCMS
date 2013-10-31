@@ -53,7 +53,7 @@
 							</div>
 						</li>
 						<li class="<?php echo alternator('odd', 'even'); ?>">
-							<label><?php echo lang('state'); ?></label>
+							<label><?php echo lang('state'); ?><span>*</span></label>
 							<div class="input">
 								<?php echo form_input('state', set_value('state', (isset($state)?$state:'')) ); ?>
 							</div>

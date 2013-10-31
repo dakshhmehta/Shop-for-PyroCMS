@@ -1,4 +1,4 @@
-<!--- FILE.START:VIEW.CHECKOUT.SINGLE.NEW_ADDR -->
+
 		<div id="ncNewAddressShipping" class="collapsable_checkout">
 				<fieldset>
 					<h4>Enter Shipping Address</h4>
@@ -52,7 +52,7 @@
 							</div>
 						</li>
 						<li class="<?php echo alternator('odd', 'even'); ?>">
-							<label><?php echo lang('state'); ?></label>
+							<label><?php echo lang('state'); ?><span>*</span></label>
 							<div class="input">
 								<?php echo form_input('shipping_state', set_value('shipping_state', (isset($shipping_state)?$shipping_state:'')) ); ?>
 							</div>
@@ -72,4 +72,4 @@
 					</ul>
 				</fieldset>	
 		</div>
-<!--- FILE.END:VIEW.CHECKOUT.SINGLE.NEW_ADDR -->
+

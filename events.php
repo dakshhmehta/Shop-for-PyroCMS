@@ -250,11 +250,11 @@ class Events_Shop
 			
 		if (($data['success'])  )
 		{
-			$this->ci->session->set_flashdata('success', lang('success'). ': '. $data['name']);
+			$this->ci->session->set_flashdata('success', lang('success'). ': '. $data['name'] . ' has been added to the cart');
 		} 
 		else 
 		{
-			$this->ci->session->set_flashdata('error', lang('error').': '. $data['name']);
+			$this->ci->session->set_flashdata('error', lang('error').': '. 'Failed to add ' . $data['name'] );
 		}
 
 	}

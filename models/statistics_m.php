@@ -269,7 +269,7 @@ class Statistics_m extends MY_Model
     private function _get_best_sellers($product_count = 5) 
     {
         
-        $this->db->select('product_id,sum(qty) as total_qty');
+        $this->db->select('title, product_id,sum(qty) as total_qty');
         $this->db->group_by('product_id', FALSE);
         $this->db->order_by('sum(qty) desc', FALSE);        
         $this->db->limit($product_count);
@@ -282,7 +282,7 @@ class Statistics_m extends MY_Model
         
         foreach ($result as $item) 
         {
-            $stats[] = array($item->product_id , $item->total_qty);
+            $stats[] =  array($item->title,$item->total_qty);
         }
 
         return $stats;

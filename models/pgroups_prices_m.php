@@ -56,6 +56,7 @@ class Pgroups_prices_m extends MY_Model
 
 
 			$user_group = $this->_get_user_group();
+
 				
 			// First get all the results that may fit the part
 			$this->where('ugroup_id',$user_group);
@@ -165,6 +166,7 @@ class Pgroups_prices_m extends MY_Model
 
 		$group = $this->user_groups_m->get_group_by_name('user');
 
+		return $group->id;
 
 		if($this->current_user)
 		{
