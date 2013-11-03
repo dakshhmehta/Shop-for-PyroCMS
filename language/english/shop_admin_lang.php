@@ -25,6 +25,7 @@ $lang['shop:admin:shipping']					=	'Shipping';
 $lang['shop:admin:blacklist']					=	'Blacklist';
 $lang['shop:admin:tax']							=	'Tax';
 $lang['shop:admin:charts']						=	'Charts';
+$lang['shop:admin:analytics']					=	'Analytics';
 $lang['shop:admin:manage']						=	'Manage';
 $lang['shop:admin:view_shop']					=	'Goto Shop';
 

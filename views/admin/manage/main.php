@@ -170,6 +170,13 @@
 									</tr>
 
 
+									<tr>
+										<td><?php echo shop_lang('shop:manage:reset_product_view_counters');?></td>
+										<td>
+											<a href="#" class="resetviews shopbutton button-flat red"><?php echo shop_lang('shop:manage:reset');?></a>
+										</td>
+									</tr>
+
 
 									<tr>
 										<td>test</td>
@@ -223,7 +230,29 @@
 <?php echo form_close(); ?>
 
 <script type="text/javascript">
-	  
+
+
+
+				$(".resetviews").live('click', function(e)  {					
+					
+
+		            $.post('admin/shop/manage/reset_views', { scope:null  } ).done(function(data) 
+		            {			
+		                var obj = jQuery.parseJSON(data);
+		                
+		                if (obj.status == 'success') 
+		                {
+		                     	 
+		                }
+		                alert(obj.status);
+
+		            });
+		            
+					return false;
+				
+				});	
+
+
 
 </script>
 

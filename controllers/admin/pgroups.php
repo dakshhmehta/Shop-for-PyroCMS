@@ -32,14 +32,12 @@ class Pgroups extends Admin_Controller
 	{
 		parent::__construct();
 
+		role_or_die('shop', 'admin_pgroups');
+
 		// Load all the required classes
 		$this->load->model('pgroups_m');
 		$this->load->library('form_validation');
 		
-
-		//check if has access
-		role_or_die('shop', 'layouts');
-
 
 		$this->_validation_rules = array(
 			array(

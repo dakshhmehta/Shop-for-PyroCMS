@@ -33,7 +33,7 @@ class Shipping extends Admin_Controller
 		parent::__construct();
 
 		//check if has access
-		role_or_die('shop', 'shipping');		
+		role_or_die('shop', 'admin_checkout');		
 
 		$this->load->library('Shipping_library');
 		$this->load->library('form_validation');

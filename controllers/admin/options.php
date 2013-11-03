@@ -46,7 +46,7 @@ class Options extends Admin_Controller
 		parent::__construct();
 
 		//check if has access
-		role_or_die('shop', 'options');		
+		role_or_die('shop', 'admin_options');		
 		
 		//module path
 		$this->mod_path = base_url() . $this->module_details['path'];

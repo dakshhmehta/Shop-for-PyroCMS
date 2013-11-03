@@ -35,7 +35,7 @@ class Tax extends Admin_Controller
 
 		
 		//check if has access
-		role_or_die('shop', 'tax');
+		role_or_die('shop', 'admin_tax');
 
 
 		$this->load->model('tax_m');

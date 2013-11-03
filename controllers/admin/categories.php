@@ -37,7 +37,7 @@ class Categories extends Admin_Controller
 		$this->load->library('form_validation');
 
 		//check if has access
-		role_or_die('shop', 'categories');		
+		role_or_die('shop', 'admin_categories');		
 		
 		Events::trigger('evt_admin_load_assests');
 

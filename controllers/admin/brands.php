@@ -38,7 +38,7 @@ class Brands extends Admin_Controller
 
 
 		//check if has access
-		role_or_die('shop', 'brands');
+		role_or_die('shop', 'admin_brands');
 
 		
 		$this->template

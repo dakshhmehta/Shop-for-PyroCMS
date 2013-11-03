@@ -32,7 +32,8 @@ class Manage extends Admin_Controller
 	{
 		parent::__construct();
 
-		$this->template->append_css('module::admin.css');
+
+		Events::trigger('evt_admin_load_assests');
 	}
 
 	/**
@@ -138,6 +139,23 @@ class Manage extends Admin_Controller
 		return form_dropdown($field_name, 
 							array('0'=>'Default','1'=>'Shop Dashboard','2'=>'Shop Products','3'=>'Shop Orders') , 
 							Settings::get($field_name) );
+	}
+
+	public function reset_views()
+	{
+
+		$response = array();
+
+
+		$this->load->model('products_admin_m');
+
+		$this->products_admin_m->reset_views();
+
+
+		$response['status'] = 'success';
+
+		echo json_encode($response);die;
+
 	}
 
 

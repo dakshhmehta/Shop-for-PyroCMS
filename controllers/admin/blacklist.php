@@ -32,12 +32,14 @@ class Blacklist extends Admin_Controller
 	{
 		parent::__construct();
 
+		//check if has access
+		role_or_die('shop', 'admin_blacklist');
+
+
 		// Load all the required classes
 		$this->load->model('blacklist_m');
 		$this->load->library('form_validation');
 
-		//check if has access
-		role_or_die('shop', 'blacklist');
 
 		Events::trigger('evt_admin_load_assests');
 

@@ -118,8 +118,13 @@ class Statistics_m extends MY_Model
        
         switch ($chart) 
         {
+            
+            case 'activity':
+                $activity = $this->_get_recent_activity($days);
+                $stats[] = array('label' => 'Session', 'data' => $activity);
+                break;
             case 'income':
-            case 'orders':
+            case 'orders':     
             	$orders = $this->_get_orders($days);
                 $stats[] = array('label' => 'Orders', 'data' => $orders);
                 break;
@@ -135,7 +140,29 @@ class Statistics_m extends MY_Model
                 //days is actually # of products to get
                 $best = $this->_get_best_sellers($days);
                 $stats[] = array('label' => 'Sales', 'data' => $best);   
-                break;                           
+                break; 
+            case 'views':
+                //days is actually # of products to get
+                
+                /*
+                $best = $this->_get_best_sellers($days);
+                $stats[] = array('label' => 'Sales', 'data' => $best);  
+
+
+                $views = $this->_get_most_viewed($days);
+                $stats[] = array('label' => 'Views', 'data' => $views);   
+
+                return $stats;
+                */
+
+
+                $views = $this->_get_most_viewed($days);
+                $stats[] = array('label' => 'Views', 'data' => $views);   
+                break;  
+            case 'topclients':
+                $top = $this->_get_top_clients($days);
+                $stats[] = array('label' => 'Revenue', 'data' => $top);   
+                break;                                                          
             default:
                 break;
         }
@@ -219,6 +246,29 @@ class Statistics_m extends MY_Model
         return $stats;
     }
 
+    private function _get_top_clients($clients = 7) 
+    {
+        $this->db->select('user_id, sum(cost_items) as total');
+        $this->db->group_by('user_id', FALSE);
+        $this->db->order_by('total desc', FALSE);        
+        $this->db->limit($clients);
+
+        $result = $this->db->get('shop_orders')->result();
+
+        $stats = array();
+        
+        foreach ($result as $item) 
+        {
+            $user = $this->db->get_where('profiles',array('user_id' =>$item->user_id))->result();
+
+            $stats[] =  array($user[0]->first_name,$item->total);
+        }
+
+        return $stats;
+    }
+
+
+
     private function _get_new_users($days = 7) 
     {
     	//$days = 7;
@@ -287,5 +337,67 @@ class Statistics_m extends MY_Model
 
         return $stats;
     }
+
+    private function _get_most_viewed($product_count = 5) 
+    {
+        
+        $this->db->select('name, id, views');
+        $this->db->group_by('id', FALSE);
+        $this->db->order_by('views desc', FALSE);        
+        $this->db->limit($product_count);
+        $result = $this->db->get('shop_products')->result();
+
+        //var_dump($result);die;
+
+
+        $stats = array();
+        
+        foreach ($result as $item) 
+        {
+            $stats[] =  array($item->name,$item->views);
+        }
+
+        return $stats;
+    }    
+
+
+
+    private function _get_recent_activity($days = 7) 
+    {
+        //$days = 7;
+        $dates = array();
+        
+        $day_seconds = 86400;
+        $period = $days * $day_seconds;
+        
+        $this->db->select('COUNT(*) AS total', FALSE);
+        $this->db->select("FROM_UNIXTIME(`last_activity`, '%Y-%m-%d') AS date", FALSE);
+        $this->db->where('last_activity >', time()-$period);
+
+        $this->db->group_by('date', FALSE);
+        $result = $this->db->get('ci_sessions')->result();
+        
+        $stats = array();
+        
+        for ($index = 0; $index < $days; $index++)
+         {
+            $timestamp = date('Y-m-d', time() - ($index * $day_seconds));
+            $dates[$timestamp] = 0;
+        }
+        
+        foreach ($result as $item) 
+        {
+            $dates[$item->date] = $item->total;
+        }
+
+        $dates = array_reverse($dates);
+        
+        foreach ($dates as $key => $value) 
+        {
+            $stats[] = array(strtotime($key)*1000, $value);
+        }
+
+        return $stats;
+    }    
 
 }

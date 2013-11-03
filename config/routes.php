@@ -30,7 +30,7 @@ $route['shop/admin/products(/:any)?']		= 'admin/products$1';
 $route['shop/admin/tax(:any)?']				= 'admin/tax$1';
 $route['shop/admin/blacklist(/:any)?']		= 'admin/blacklist$1';
 $route['shop/admin/manage(/:any)?']			= 'admin/manage$1';
-$route['shop/admin/charts(/:any)?']			= 'admin/charts$1';
+$route['shop/admin/analytics(/:any)?']		= 'admin/charts$1';
 $route['shop/admin(/:any)?']			  	= 'admin/shop$1';
 $route['admin(/:any)?']			  			= 'admin/shop$1';
 

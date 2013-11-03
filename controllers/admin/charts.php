@@ -26,7 +26,7 @@
 class Charts extends Admin_Controller 
 {
 	// Set the section in the UI - Selected Menu
-	protected $section = 'charts';
+	protected $section = 'analytics';
 
 	public function __construct() 
 	{
@@ -81,26 +81,30 @@ class Charts extends Admin_Controller
 		
 
 
-		$page_to_load = 'admin/charts/' . $chart_scrope; 
+		$page_to_load = 'admin/analytics/' . $chart_scrope; 
 		
 		$this->template->append_metadata('<script type="text/javascript">' . "\n  var CHART_SCOPE = '" . $chart_scrope . "';" . "\n</script>");
 					
 
 
-		$charts_js = 'module::admin/charts/charts_'.$chart_scrope.'.js';
+		$charts_js = 'module::admin/analytics/charts_'.$chart_scrope.'.js';
 
 
 		// Build the view with shop/views/admin/items.php
 		//$data->items = & $items;
 		$this->template->title($this->module_details['name'])	
 				->append_js('module::lib/flot/jquery.flot.js')	
-				->append_js('module::lib/flot/jquery.flot.time.js')	
+				->append_js('module::lib/flot/jquery.flot.time.js')
+				->append_js('module::lib/flot/jquery.flot.pie.js')		
 				->append_js('module::lib/flot/jquery.flot.categories.js')
 				->append_js($charts_js)								
 				->build($page_to_load, $this->data);
 				
 	}
 
+	public function topclients() 	{		$this->index('topclients');	}	
+	public function activity() 	{		$this->index('activity');	}	
+	public function views() 	{		$this->index('views');	}	
 	public function orders() 	{		$this->index('orders');	}
 	public function users() 	{		$this->index('users');	}	
 	public function unpaid() 	{		$this->index('unpaid');	}	

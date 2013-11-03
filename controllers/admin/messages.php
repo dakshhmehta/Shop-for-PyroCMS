@@ -38,17 +38,9 @@ class Messages extends Admin_Controller
 		parent::__construct();
 
 
-		//check if has access
-		//role_or_die('shop', 'orders');
-
-
 		// Load all the required classes
 		$this->load->model('messages_m');
 
-		//$this->template
-		//	->append_js('module::admin/orders.js')
-		//	->append_css('module::admin.css')
-		//	->append_css('module::admin_orders.css');
 
 	}
 	

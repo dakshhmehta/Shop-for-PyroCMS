@@ -26,9 +26,9 @@
 				<li><a class="tab-loader"  data-load="shipping" href="#shipping-tab"><span><?php echo shop_lang('shop:products:shipping'); ?></span></a></li>
 
 
-				<?php if(group_has_role('shop', 'developer_fields')): ?>
-					<li><a class=""  data-load="" href="#console-tab"><span><?php echo shop_lang('shop:products:console'); ?></span></a></li>
-				<?php endif; ?>
+
+				<li><a class=""  data-load="" href="#console-tab"><span><?php echo shop_lang('shop:products:console'); ?></span></a></li>
+
 
 		
 			

@@ -36,6 +36,11 @@ class Product extends Products_admin_Controller
 	{
 		parent::__construct();
 
+		//
+		// Do not allow users to edit products
+		//
+		role_or_die('shop', 'admin_products');		
+
 	}
 
 
@@ -56,8 +61,6 @@ class Product extends Products_admin_Controller
 	 */
 	public function create() 
 	{
-
-		role_or_die('shop', 'admin_create_products');
 
 		// Prepare for postback
 		// Setup extra validation rules not applied to the main set
@@ -125,12 +128,6 @@ class Product extends Products_admin_Controller
 	 */
 	public function edit( $id = 0 ) 
 	{
-
-		//
-		// Do not allow users to edit products
-		//
-		role_or_die('shop', 'admin_edit_products');
-
 
 
 

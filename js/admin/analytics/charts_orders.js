@@ -1,7 +1,7 @@
 $(window).load(function () 
 {
     $.ajax({
-        url: SITE_URL+'shop/admin/charts/stats/'+ CHART_SCOPE +'/30',
+        url: SITE_URL+'shop/admin/analytics/stats/'+ CHART_SCOPE +'/30',
         dataType: 'json',
         success: buildGraph
     });

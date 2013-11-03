@@ -34,7 +34,7 @@ class Packages extends Admin_Controller
 		parent::__construct();
 
 		//check if has access
-		role_or_die('shop', 'packages');
+		role_or_die('shop', 'admin_checkout');
 
 		Events::trigger('evt_admin_load_assests');
 

@@ -1,7 +1,7 @@
 $(window).load(function () 
 {
     $.ajax({
-        url: SITE_URL+'shop/admin/charts/stats/'+ CHART_SCOPE +'/5',
+        url: SITE_URL+'shop/admin/analytics/stats/'+ CHART_SCOPE +'/5',
         dataType: 'json',
         success: buildGraph
     });
@@ -22,6 +22,7 @@ var graph_data;
 
 function buildGraph(result) 
 {
+    
     if (result == null)
     {
         result = graph_data;
@@ -32,21 +33,23 @@ function buildGraph(result)
     }
 
     $.plot($('#chart_div'), result, {
+      
         bars: {
+
             barWidth: 1,
             horizontal: false,
             align: "center",
             show: true,
-            zero:true,
             fill:true,
             fillColor:{ colors: [ '#fefefe', '#fefefe', '#fefefe'] } ,
         },        
         grid: {
             hoverable: true, 
-            backgroundColor: '#fefefe', /*backgroundColor: '#fefefe'*/
+            backgroundColor:'#fefefe', /*backgroundColor: '#fefefe'*/
             borderColor: '#eee',
             borderWidth: 1,
-            clickable: true
+            clickable: true,
+            autoHighlight: true,
         },
         xaxis: {
             mode: "categories",

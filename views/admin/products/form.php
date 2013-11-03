@@ -116,11 +116,11 @@
 			</div>
 
 
-			<?php if(group_has_role('shop', 'developer_fields')): ?>
-				<div class="form_inputs" id="console-tab">
+
+			<div class="form_inputs" id="console-tab">
 				<?php $this->load->view('admin/products/partials/console'); ?>		
-				</div>	
-			<?php endif; ?>
+			</div>	
+
 
 
 		</div>

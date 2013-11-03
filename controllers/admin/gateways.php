@@ -33,7 +33,7 @@ class Gateways extends Admin_Controller
 		parent::__construct();
 
 		//check if has access
-		role_or_die('shop', 'gateways');
+		role_or_die('shop', 'admin_checkout');
 
 		$this->load->library('gateway_library');
 		$this->load->library('form_validation');

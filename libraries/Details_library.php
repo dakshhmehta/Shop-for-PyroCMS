@@ -50,15 +50,24 @@ class Details_library
 			'menu' => FALSE, 
 			'author' => 'Salvatore Bordonaro',
             'roles' => array(
-            	'products', 'admin_edit_products', 'admin_create_products', 
-            	'advanced_products', 'orders', 'shipping', 'gateways', 'pgroups', 
-            	'options', 'blacklist', 'tax', 'categories', 'brands', 'packages',
-            	'developer_fields', 
+            	      	 
+	            	'admin_products', 
+	            	'admin_product_seo', 
 
-            	//new granular level security
-            	'admin_product_seo', 'admin_product_options',
+	            	'admin_options',
+	            	'admin_brands', 	            	
+	            	'admin_categories',
 
-            	'admin_user_data','admin_setup'
+	            	'admin_orders', 
+	            	'admin_analytics',
+
+	            	'admin_pgroups', 
+	            	'admin_tax', 
+	            	'admin_checkout', /*Shiping and Checkout*/
+
+	            	'admin_blacklist',
+					'admin_setup', /*manager area*/
+
             	 ),
 
 
@@ -216,7 +225,7 @@ class Details_library
 		if($and_get_menu == 'shipping')
 		{
 
-			if(group_has_role('shop', 'shipping'))
+			if(group_has_role('shop', 'admin_checkout'))
 			{
 				$info['sections']['shipping'] = array(
 				
@@ -232,7 +241,7 @@ class Details_library
 
 		if($and_get_menu == 'gateways')
 		{
-			if(group_has_role('shop', 'gateways'))
+			if(group_has_role('shop', 'admin_checkout'))
 			{
 				$info['sections']['gateways'] = array(
 		
@@ -275,14 +284,14 @@ class Details_library
 			}
 		}
 		
-		if($and_get_menu == 'charts')
+		if($and_get_menu == 'analytics')
 		{
 
 		
-			$info['sections']['charts'] = array(
+			$info['sections']['analytics'] = array(
 
-				'name' => 'shop:admin:charts', 
-				'uri' => 'admin/shop/charts',
+				'name' => 'shop:admin:analytics', 
+				'uri' => 'admin/shop/analytics',
 				'shortcuts' => array()
 
 			);
@@ -376,19 +385,15 @@ class Details_library
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:blacklist'] = 'admin/shop/blacklist';
 			}
-			if(group_has_role('shop', 'admin_setup'))
-			{
-				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:manage'] = 'admin/shop/manage';
-			}
 			if(group_has_role('shop', 'packages'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:packages'] = 'admin/shop/packages';
 			}
-			if(group_has_role('shop', 'shipping'))
+			if(group_has_role('shop', 'admin_checkout'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:shipping'] = 'admin/shop/shipping';
 			}
-			if(group_has_role('shop', 'gateways'))
+			if(group_has_role('shop', 'admin_checkout'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:gateways'] = 'admin/shop/gateways';
 			}				
@@ -400,7 +405,11 @@ class Details_library
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:tax'] = 'admin/shop/tax';
 			}
-			$menu['lang:shop:admin:shop_admin']['lang:shop:admin:charts'] = 'admin/shop/charts';
+			if(group_has_role('shop', 'admin_setup'))
+			{
+				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:manage'] = 'admin/shop/manage';
+			}			
+			$menu['lang:shop:admin:shop_admin']['lang:shop:admin:analytics'] = 'admin/shop/analytics';
 
 	
 

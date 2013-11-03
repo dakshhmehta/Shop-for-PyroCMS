@@ -308,6 +308,14 @@ class Products_admin_m extends Products_m
 	
 		
 	}
+
+
+	public function reset_views()
+	{
+		$data = array('views' => 0);
+		$this->db->update('shop_products', $data); 
+		return true;
+	}
 	
 
 

@@ -34,7 +34,7 @@ class Products_admin_Controller extends Admin_Controller
 		parent::__construct();
 
 		//check if has access
-		role_or_die('shop', 'products');
+		role_or_die('shop', 'admin_products');
 
 
 		// Load all the required classes

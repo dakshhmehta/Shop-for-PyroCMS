@@ -13,7 +13,6 @@
 						</li>	
 									
 						<li class="<?php echo alternator('', 'even'); ?>">
-						<?php if(group_has_role('shop', 'advanced_products')): ?>
 
 									<label for="brand_id"><?php echo shop_lang('shop:products:package'); ?> <span>*</span>
 										<small>
@@ -27,10 +26,6 @@
 										</select>
 									</div>
 						
-						<?php else: ?>
-							
-							<?php echo form_hidden('package_id',$package_id); ?>
-						<?php endif; ?>
 						</li>	
 
 
@@ -42,11 +37,9 @@
 								</small>
 							</label>
 							<div class="input">
-								<?php if(group_has_role('shop', 'admin_user_data')): ?>
-									<?php echo form_input('user_data', set_value('user_data', $user_data)); ?>
-								<?php else: ?>
-									<?php echo form_hidden('user_data',$user_data).shop_lang('shop:products:permission_denied_to_edit_field')."<br />".$user_data; ?>
-								<?php endif; ?>
+
+								<?php echo form_input('user_data', set_value('user_data', $user_data)); ?>
+
 							</div>
 						</li>	
 
