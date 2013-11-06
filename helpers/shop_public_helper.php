@@ -657,7 +657,7 @@ if (!function_exists('ss_currency_symbol'))
 		
 		$symbols = array(0=>'',1=>'L',2=>'&#36;', 3=>'&#163;', 4=>'&#165;', 5=> 'Rp' ,6=> '&#128;');
 		
-		return $symbols[Settings::get('ss_currency_symbol')];
+		return htmlspecialchars_decode($symbols[Settings::get('ss_currency_symbol')]);
 		
 	}
 

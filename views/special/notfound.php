@@ -1,5 +1,5 @@
 <div id="">
 	<div class="">
-		<span><?php echo lang('msg_no_longer_exist'); ?></span>
+		<span><?php echo shop_lang('shop:special:sorry_the_product_was_not_found'); ?></span>
 	</div>	
 </div>	

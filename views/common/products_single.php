@@ -1,196 +1,74 @@
-﻿<!--- FILE.START:VIEW.PRODUCTS.SINGLE.PHP -->
-<div id="" itemscope itemtype="http://schema.org/Product">
+﻿<div id="SingleProductView" itemscope itemtype="http://schema.org/Product">
 
-	<?php echo form_open('shop/cart/add'); ?>
-	<?php echo form_hidden('id', $product->id); ?>
+	<div id="ProductImage" class="" style="">
+		<img itemprop="image" src="{{ url:site }}files/thumb/{{product.cover_id}}/350/"  alt="product-image" />
+	</div>
+		
+		
+	<!-- Product Detail -->
+	<article>
 
-	
+		<form action="{{url:site}}shop/cart/add" method="POST">
+			<input type="hidden" name="id" value="{{product.id}}">
 
-			<!--  
-			   -
-			   - Display Product Images:note that cover image does not sit in the images array 
-			   -
-			   -->
-			<img itemprop="image" src="{{ url:site }}files/large/{{product:cover_id}}/50/" alt="" />
-
-			{{product:images}}
-				<img itemprop="image" src="{{ url:site }}files/large/{{file_id}}/80/" alt="" />
-			{{/product:images}}
-
-
-
-
-			<!--  
-			   -
-			   - Do somethiong special if the product is marked as special
-			   -
-			   -->
-			{{ if product:featured == 1}}
-				this product is featured
-			{{endif}}
+			<div>
+				<h2>
+					<span itemprop="name">
+						{{product.name}}
+					</span>
+				</h2>
+			</div>
 
 
 
-			<!--  
-			   -
-			   - Here is the common product data
-			   -
-			   -->
-			   <table>
-			   		<tr>
-				   		<td style="width:200px;">
-				   			Name
-				   		</td>
-				   		<td>
-				   			{{product:name}}
-				   		</td>				   		
-			   		</tr>
-			   		<tr>
-						<!--  
-						   -
-						   - Price AT is After tax, we also have price_bt and price but this is variable.
-						   -
-						   -->			   		
-				   		<td>
-				   			Price
-				   		</td>
-				   		<td>
-				   			{{product:price_at}} - we can also format the price like so
-				   			{{shop:pricer price="{{product:price_at}}" }} 
-				   		</td>				   		
-			   		</tr>			   		
-			   		<tr>
-				   		<td>
-				   			Meta Desc
-				   		</td>
-				   		<td>
-				   			{{product:meta_desc}}
-				   		</td>				   		
-			   		</tr>	
-			   		<tr>
-				   		<td>
-				   			Category Data
-				   		</td>
-				   		<td>
-				   			{{product:category}}
-				   				{{slug}} {{name}}
-				   			{{/product:category}}
-				   		</td>				   		
-			   		</tr>	
-
-			   		<tr>
-				   		<td>
-				   			 Status
-				   		</td>
-				   		<td>
-				   			{{product:status}}
-				   		</td>				   		
-			   		</tr>
+			<div>
+				<span class='description' itemprop="description">
+					{{product:description}}
+				</span>
+			</div>
+			
+			
+			
+			<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" style="display:none;">
+				<span itemprop="price">{{product.price}}</span>
+				<meta itemprop="priceCurrency" content="{{shop:currency}}" />
+			</div>
 
 
-			   		<tr>
-				   		<td>
-				   			 Inv QTY
-				   		</td>
-				   		<td>
-				   			{{product:inventory_on_hand}}
-				   		</td>				   		
-			   		</tr>	
 
+			{{ shop:options id="{{product.id}}"  txtBoxClass="txtForms" }}	
 
-			   		<tr>
-				   		<td>
-				   			 Visitor Views
-				   		</td>
-				   		<td>
-				   			{{product:views}}
-				   		</td>				   		
-			   		</tr>	
+				<div>
 
+					<label>{{ title }}</label><br />
 
-			   </table>
-
-
-			<!--  
-			   -
-			   - Here how we can show the prodct options
-			   -
-			   -->								
-				{{ shop:options id="<?php echo $product->id;?>"  txtBoxClass="txtForms" }}	
-				<tr>
-					<th>{{ title }}</th>
-					
-					{{ if has_values }}							
-						<td>
+					{{ if type == "radio" }}	
+						
 						{{ values}}
-							{{display}} {{label}}<br />
+
+							{{display}} {{label}} <br />
+
 						{{/values}}
-						</td>	
+
 					{{ else }}
-						<td>	
-						{{display}}
-						</td>		
+							
+						{{display}}<br />
+
 					{{ endif }}
 							
-					<br />
+				</div>
 
-				</tr>
-				{{ /shop:options }}
-										
-	
-						
+			{{ /shop:options }}
 
 
-				<input class="" type="submit" value='Add to cart' /> 
+			
+				{{if product.status == "in_stock" }}
+					<div id="Add_to_Cart_Container" class="">
+						<input type="hidden" name="quantity" id="quantity" data-max="0" data-min="" maxlength="5" title="qty" value="1" />
+						<input class="" type="submit" value='add to cart'  />
+					</div>	
+				{{endif}}	
 
-				
-				<a href="{{ url:site }}shop/my/wishlist/add/{{ product:id }}" >
-					Add to wishlist
-				</a>
-
-				<table>
-
-			   		<tr>
-				   		<td>
-				   			 description
-				   		</td>
-				   		<td>
-				   			{{product:description}}
-				   		</td>				   		
-			   		</tr>	
-
-
-			   		<tr>
-				   		<td>
-				   			 SKU Code
-				   		</td>
-				   		<td>
-				   			{{product:code}}
-				   		</td>				   		
-			   		</tr>
-
-
-			   		<tr>
-				   		<td>
-				   			 Keywords
-				   		</td>
-				   		<td>
-				   			
-				   		</td>				   		
-			   		</tr>
-		
-
-			   		{{product:attributes}}
-			   		<tr>
-				   		<td>
-				   			{{name}}
-				   		</td>
-				   		<td>
-				   			{{value}}
-				   		</td>				   		
-			   		</tr>	
-			   		{{/product:attributes}}
-
-
-
-<?php echo form_close(); ?>
+		</form>
+	</article>
+</div>

@@ -245,6 +245,14 @@ class Products_front_m extends Products_m
 
 
 		//
+		//
+		if(isset($filter['brand_id']))
+		{
+			$this->where('brand_id' , $filter['brand_id'] );
+		}	
+
+
+		//
 		// Only publicly visible and not deleted - do not remove this line
 		// 
 		if( isset($filter['category_id']) )
@@ -280,6 +288,9 @@ class Products_front_m extends Products_m
 					->limit( $limit , $offset )
 					->get_all();
 
+
+
+	
 
 		return $items;
 
@@ -336,6 +347,13 @@ class Products_front_m extends Products_m
 		//
 		$this->db->reset_query();	
 
+		//
+		//
+		if(isset($filter['brand_id']))
+		{
+			$this->where('brand_id' , $filter['brand_id'] );
+		}		
+
 
 		$this->where('date_archived', NULL );
 
@@ -353,6 +371,8 @@ class Products_front_m extends Products_m
 			$count += $this->where('date_archived', NULL )->count_by($filter);
 
 		}		
+
+
 
 
 

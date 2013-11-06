@@ -488,35 +488,13 @@ class Plugin_Shop extends Plugin
 	
 	
 	/**
-	 * @usage: {{ shop:cart_products shipping="FALSE" }} 			- Display ul->list  of cart, will not include shipping
-	 * @usage: {{ shop:cart_products shipping="TRUE" }} 			- Display ul->list  of cart, will include shipping as line item
 	 *
 	 */
-	function cart_products() 
+	function cart() 
 	{
-	
-		$shipping = $this->attribute('shipping', 'FALSE');
-	
-		$arr = "";
-		$class_v = 'sf_qty';
-		$class_z = 'ss_name';
-		$class_x = 'sf_price';
-		
-		foreach ($this->sfcart->contents() as $item)
-		{
-			
-			$arr .= '<li>';
-			$arr .= '<span class="'.$class_v.'">'.$item['qty'].'</span>'.nbs();
-			$arr .= '<span class="'.$class_z.'">'.$item['name'].'</span>'.nbs();
-			$arr .= '<span class="'.$class_x.'">'.$item['price'].'</span>'.nbs();
-			$arr .= '</li>';
-			
-
-		}
-		
-		return ''.$arr;
-		
+		return $this->sfcart->contents();		
 	}	
+
 	
 	/**
 	 *
@@ -524,7 +502,7 @@ class Plugin_Shop extends Plugin
 	 * @usage: {{ shop:total cart="sub-total" }} 		- Total cost of products
 	 * @usage: {{ shop:total cart="total" }} 			- Total cost of products + shipping
 	 * @usage: {{ shop:total cart="shipping" }} 		- Total cost of shipping
-	 *	 
+	 * @deprecated
 	 */
 	function total() 
 	{

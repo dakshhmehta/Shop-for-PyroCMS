@@ -1,130 +1,62 @@
-<div>
+<div id="CartView">
 
-		<?php echo form_open('shop/cart/update'); ?>
+		<form action="{{url:site}}shop/cart/update" method="POST">
 
+			<div id="cart-title">
+				<h2>In the cart</h2>
+				<p>please review below</p>
+			</div>
 
-		<div>
-			<h2><?php echo lang('cart'); ?></h2>
-		</div>
-
-	  
-
-
-		<!-- Start Shopping Cart Table -->
-		
-		  <table>
-		  
-			<thead>
-			  <tr>
-				<th><?php echo lang('image'); ?></th>
-				<th><?php echo lang('item'); ?></th>
-				<th><?php echo lang('price'); ?></th>
-				<th><?php echo lang('qty'); ?></th>
-				<th><?php echo lang('subtotal'); ?></th>
-				<th></th>				
-			  </tr>
-			</thead>
-			
+			<!-- Start Shopping Cart Table -->
+			  <table class="cart-table">
+			  
+				<thead>
+				  <tr>
+					<th class="image">item</th>
+					<th class="description">description</th>
+					<th class="price">price</th>
+					<th class="qty">quantity</th>
+					<th class="subtotal">total</th>
+					<th class="remove"></th>				
+				  </tr>
+				</thead>
+				
 			<tbody>
 
-
-					{{ shop:cart_contents }}
-
-						<input type="hidden" name="{{counter}}[id]" value="{{ id }}" />
-						<input type="hidden" name="{{counter}}[rowid]" value="{{ rowid }}" />
-						<input type="hidden" name="{{counter}}[price]" value="{{ price }}" />
-						<input type="hidden" name="{{counter}}[base]" value="{{ base }}" />
-				
-						<tr>
-							<td>
-								<a href="{{url:site}}shop/product/{{slug}}">
-									{{ shop:coverimage id="{{ id }}" }}
-								</a>
-							</td>
-
-							<td>
-								<a href="{{url:site}}shop/product/{{slug}}">
-									{{ name }}
-								</a>
-							</td>
-
-							<td>
-								<a href="{{url:site}}shop/product/{{slug}}">
-									{{ price }}
-								</a>
-							</td>
-
-							<td>
-								<input type="text" name="{{counter}}[qty]" value="{{ qty }}" size="4" />
-							</td>
-
-
-							<td>
-								<span>{{shop:pricer price="{{ subtotal }}" }}</span> *
-							</td>
-
-							<td>
-								<a href="{{url:site}}shop/cart/delete/{{rowid}}">
-									&times;
-								</a>					
-							</td>	
-					</tr>
-					{{ /shop:cart_contents }}
-
-
-
+				{{shop:cart}}
 				  <tr>
-				  
-					<td colspan="6">
-					
-						<a href="{{url:site}}shop/cart/drop"><?php echo lang('delete');?></a>
-						
-						<input name="update_cart" type="submit" value="<?php echo lang('update_cart');?>" />
-						
-						<a href="{{url:site}}shop/checkout/"><?php echo lang('checkout');?></a>
-						
-					</td>
-					
+					<input type="hidden" name="{{rowid}}[rowid]" value="{{rowid}}">
+					<input type="hidden" name="{{rowid}}[id]" value="{{id}}">				  
+					<th class="image">{{ shop:coverimage id="{{id}}" }}</th>
+					<th class="description">{{name}}</th>
+					<th class="price">{{price}}</th>
+					<th class="qty">
+							<input type="text" name="{{rowid}}[qty]" value="{{qty}}" maxlength="4">
+					</th>
+					<th class="subtotal">{{subtotal}}</th>
+					<th class="remove">
+						<a class="" href="{{ url:site }}shop/cart/delete/{{rowid}}">
+							&times;
+						</a>
+					</th>				
 				  </tr>
-				
-		
+				{{/shop:cart}}
 
+				<tr class="cart-actions">
+					<td colspan="6">			
+						<span>
+							{{shop:currency}} {{shop:total cart="sub-total"}} sub total 
+
+							<input class=""  name="update_cart" type="submit" value="update cart" />
+
+							<a class="" href="{{url:site}}shop/checkout/">checkout</a>
+						</span>
+					</td>
+				</tr>
 			</tbody>
 			
 		  </table>
 
-
-	   <div>
-			<div>
-				<h2><?php echo lang('cart_totals'); ?></h2>
-				<table>
-				  <tbody>			  
-					<tr>
-					  <th>
-						<strong><?php echo lang('items'); ?></strong>
-					  </th>
-					  <td>
-					  	{{ shop:total cart="sub-total" format='YES' }}
-					  </td>
-					</tr>				
-					<tr>
-					  <th>
-						<strong><?php echo lang('order_total'); ?></strong>
-					  </th>
-					  <td>
-						<strong>
-						  <span>
-						  		{{ shop:total cart="total" format='YES' }}
-						  </span>
-						</strong>
-					  </td>
-					</tr>
-				  </tbody>
-				</table>
-			</div>
-		</div>			
-	
-
-		<?php echo form_close(); ?>
+		</form>
 
 </div>

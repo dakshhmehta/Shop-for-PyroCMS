@@ -39,19 +39,16 @@ class Brands extends Public_Controller
 		// Load required classes
 		$this->load->model('brands_m');
 		
-
-		// Apply default CSS if required
-		//if ($this->use_css) _setCSS($this->template);
 		
 	}
 
 	
 	/**
 	 */
-	public function index($offset = 0, $limit = 5) 
+	public function index($offset = 0) 
 	{
 
-		$limit = (isset(Settings::get('ss_qty_perpage_limit_front')))? Settings::get('ss_qty_perpage_limit_front') :$limit;
+		$limit = Settings::get('ss_qty_perpage_limit_front');
 		  
 		$data->brands = $this->brands_m->get_all();
 
@@ -62,7 +59,7 @@ class Brands extends Public_Controller
 		$this->template
 			->set_breadcrumb('Brands')
 			->title($this->module_details['name'])
-			->build('brands/brands', $data);
+			->build('common/brands_list', $data);
 	}
 
 
@@ -72,23 +69,55 @@ class Brands extends Public_Controller
 	* TODO:Need to link to the products filter to list all products by brand
 	*
 	*/
-	public function brand( $brand = 0 ) 
+	public function brand( $id = 0 ) 
 	{
+
+		$this->load->model('products_front_m');
 	
-		if (is_numeric($brand) )
+		if (is_numeric($id) )
 		{
-			$data->brand = $this->pyrocache->model('brands_m', 'get', $brand);
+			$brand = $this->brands_m->get($id);
 		}
 		else
 		{
-			$data->brand = $this->pyrocache->model('brands_m', 'get_by', array('slug',$brand));
+			$brand = $this->brands_m->get_by(array('slug',$id));
 		}
+
+		//var_dump($brand);
+
+
+		$filter['brand_id'] = $brand->id;
 	
+
+
+		$limit = Settings::get('ss_qty_perpage_limit_front');
+
+		// 
+		//  Count total items by the given filter
+		// 
+		$total_items = $this->products_front_m->filter_count($filter);
+
+
+		// 
+		//  Build pagination for these items
+		// 
+		$data->pagination = create_pagination( 'shop/brand/'.$brand->slug .'/', $total_items, $limit, 4);
+
+
+
+		// 
+		//  Filter and select only a subset of the items based on input data
+		// 
+		$data->products =  $this->products_front_m->filter($filter , $data->pagination['limit'] , $data->pagination['offset']);
 		
+
+		//
+		// finally
+		//
 		$this->template
-			->title($this->module_details['name'].' |' .lang('products'))
+			->title($this->module_details['name'])
 			->set_breadcrumb($this->shop_title)
-			->build('brands/brand', $data);
+			->build('common/products_list', $data);
 
 	}	
 	
