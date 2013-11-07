@@ -2,13 +2,13 @@
 <h2 id="nc-view-title"><?php echo lang('dashboard'); ?></h2>
 
 		<ul>
-		{{ shop:mylinks remove='wishlist shop' active='dashboard' }}
+		{{ shop:mylinks remove='shop' active='dashboard' }}
 			{{link}}
 		{{ /shop:mylinks }}
 		</ul>
 		
-<div id="SF_CustomerPage">
-	<div class="wpanel">
+<div id="">
+
 		<table>
 			<thead>
 				<tr>
@@ -35,5 +35,5 @@
 				</tr>
 			</tbody>
 		</table>
-	</div>
+
 </div>

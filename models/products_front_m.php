@@ -182,30 +182,30 @@ class Products_front_m extends Products_m
 	 *
 	 * @param String $search_param The text to search the db by
 	 */
-	public function shop_search_products($search_term_array = array() ) 
+	public function search($search_term_array = array() ,$limit=0,$offset =0) 
 	{
+
 		
 		$r_results = array();
 
+		//very important
+		$this->db->select('shop_products.*')
+					->where('shop_products.public',1) 	
+					->where('shop_products.date_archived', NULL)	
+					->where('shop_products.searchable',1);
+
 		foreach($search_term_array as $term)
 		{
-			$results = $this->db->select('shop_products.*')
-							->where('shop_products.public',1) 	//important
-							->where('shop_products.deleted',0)	
-							->where('shop_products.searchable',1)
+			$this->db->or_like('shop_products.name', $term)
+				->or_like('shop_products.description',$term)
+				->or_like('shop_products.meta_desc',$term)
+				->or_like('shop_products.code',$term)
+				->or_like('shop_products.id',$term);
 
-							//important
-							->like('shop_products.name', $term)
-							->or_like('shop_products.description',$term,'after')
-							->or_like('shop_products.meta_desc',$term)
-							->or_like('shop_products.code',$term)
-							->or_like('shop_products.id',$term)
-							->get('shop_products')->result();	
-							
-			//merge
-			$r_results = array_merge( $r_results , $results ); 
+		}
 
-		}	
+		$r_results = $this->db->limit($limit,$offset)->get('shop_products')->result();
+
 
 
 		return $r_results;

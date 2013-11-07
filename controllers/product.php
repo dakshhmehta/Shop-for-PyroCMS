@@ -101,5 +101,4 @@ class Product extends Public_Controller
 			->build('common/products_single', $data); 
 
 	}	
-
 }

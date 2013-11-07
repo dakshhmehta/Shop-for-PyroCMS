@@ -36,20 +36,30 @@ $route['admin(/:any)?']			  			= 'admin/shop$1';
 
 
 
-
-
 /*
  * Front end routes
  *
  * 
  */
+$route['shop/product(/:any)']		 		= 'product/index$1';
+$route['shop/products(/:num)']		 		= 'products/index$1';
+$route['shop/categories(/:num)']		 	= 'categories/index$1';
+$route['shop/brands(/:num)']		 		= 'brands/index$1';
+/*
+$route['shop/special(/:any)']		 		= 'special/index$1';
 $route['shop/brand(/:any)?']  				= 'brands/brand$1';
 $route['shop/brands(/:any)?']  				= 'brands/index$1';
 $route['shop/product(/:any)?']		 		= 'product/index$1';
 
-//$route['product(/:any)?']		 			= 'product/index$1';
+
 
 $route['shop/category(/:any)?']  			= 'categories/category$1';
+
+
 $route['shop/products(/:any)?']		 		= 'products/index$1';
 
 $route['shop/my/wishlist(/:any)?'] 			= 'wishlist$1';
+
+$route['products(/:num)?']		 			= 'shop/products/index$1';
+*/
+

@@ -3,7 +3,7 @@
 <?php echo form_open('shop/search/'); ?>
 	<span>
 		<input type="text" id="shop_search_box" name="shop_search_box" />
-		<input type="submit" name="submit" value="<?php echo shop_lang('shop:front:search');?>" class="ncbtn" />
+		<input type="submit" name="submit" value="<?php echo shop_lang('shop:search:search');?>"  />
 	</span>
 <?php echo form_close(); ?>	
 

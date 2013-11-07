@@ -31,19 +31,15 @@ class Categories extends Public_Controller
 		parent::__construct();
 		
 		// Retrieve some core settings
-		//$this->use_css =  Settings::get('nc_css');
 		$this->shop_title = Settings::get('ss_name');		//Get the shop name
-		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
-		$this->limit = Settings::get('ss_qty_perpage_limit');
+		//$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
+		$this->limit = Settings::get('ss_qty_perpage_limit_front');
 		
 		
 		// Load required classes
 		$this->load->model('products_front_m');
 		$this->load->model('categories_m');
-		
-		// Apply default CSS if required
-		//if ($this->use_css) _setCSS($this->template);
-		
+				
 	}
 
 	/**
@@ -52,30 +48,25 @@ class Categories extends Public_Controller
 	 * @param  integer $offset [description]
 	 * @return [type]          [description]
 	 */
-	public function index($offset =0, $limit = 6) 
+	public function index($offset =0) 
 	{
-
-		$limit = Settings::get('ss_qty_perpage_limit_front');
 		
-		$data->categories = $this->categories_m
-							->limit($limit)
-							->offset($offset)
-							->get_all($limit);
-				
 
-		$data->pagination = create_pagination('shop', $this->categories_m->count_all(), $limit, 2);
+		$data->pagination = create_pagination('shop/categories/', $this->categories_m->count_all(), $this->limit, 3);
+
+
+		$data->categories = $this->categories_m
+							->limit($this->limit,$data->pagination['offset'])
+							->get_all();
+
 
 		$data->shop_title = $this->shop_title;
-		
 		
 		$this->template
 			->set_breadcrumb($this->shop_title)
 			->title($this->module_details['name'])
 			->build('common/categories_list', $data);
 
-
-
-	
 	}
 	
 
@@ -84,11 +75,8 @@ class Categories extends Public_Controller
 	*
 	*
 	*/
-	public function category( $category = 0, $offset = 0, $limit = 6 ) 
+	public function category( $category = 0, $offset = 0) 
 	{
-
-
-		$limit = Settings::get('ss_qty_perpage_limit_front');
 
 
 		//initialize
@@ -104,14 +92,14 @@ class Categories extends Public_Controller
 		if($category)
 		{
 
-			$uri = 'shop/category/' . $category->slug;
+			$uri = 'shop/categories/category/' . $category->slug;
 
 			$filter['category_id'] = $category->id;
 
 			// Count the items
 			$total_items = $this->products_front_m->filter_count($filter);
 
-			$data->pagination = create_pagination( $uri, $total_items, $limit, 4);
+			$data->pagination = create_pagination( $uri, $total_items, $this->limit, 5);
 
 			//Get the items for the display
 			$data->products = $this->products_front_m->filter($filter, $data->pagination['limit'] , $data->pagination['offset']);		
@@ -125,22 +113,12 @@ class Categories extends Public_Controller
 		}
 
 		
-		$this->build_page($data);
-
-	}
-
-
-
-	private function build_page($data)
-	{
-
-		
 		$this->template
 			->title($this->module_details['name'].' |' .lang('products'))
 			->set_breadcrumb($this->shop_title)
 			->build('common/products_list', $data);
-	}
 
+	}
 
 
 }

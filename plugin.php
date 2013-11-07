@@ -115,6 +115,7 @@ class Plugin_Shop extends Plugin
 	 */
 	function currency()
 	{
+
 		$ci =& get_instance();
 		$ci->load->helper('shop_public');
 
@@ -229,26 +230,25 @@ class Plugin_Shop extends Plugin
 	 */
 	function categories()
 	{
+		
 		$CI =& get_instance();
 		$CI->load->model('shop/categories_m');
 
 		//uri stuff
 		$segment_2 = $CI->uri->segment(2,0); //categories / products ect
 		$segment_3 = $CI->uri->segment(3,0); //either the text or FALSE
-		$navigating_category = ($segment_2 == 'category')? TRUE : FALSE;
+		$segment_4 = $CI->uri->segment(4,0); //either the text or FALSE
+		$navigating_category = ($segment_3 == 'category')? TRUE : FALSE;
 		$expand_node = -1;
-
-
 
 
 
 		if($navigating_category)
 		{
-			$selected_category = $CI->categories_m->get_by('slug', $segment_3);
+			$selected_category = $CI->categories_m->get_by('slug', $segment_4);
 
 			$expand_node = $selected_category->parent_id;
 		}
-
 
 
 
@@ -262,9 +262,7 @@ class Plugin_Shop extends Plugin
 		{
 
 
-			$category->uri = "{{url:site}}shop/category/".$category->slug;
-
-
+			$category->uri = "{{url:site}}shop/categories/category/".$category->slug;
 
 
 			//if( ($category->slug == $segment_3 ) || ($category->id  == $expand_node) )
@@ -278,13 +276,13 @@ class Plugin_Shop extends Plugin
 			
 			$class='';
 
-			if( ($category->slug === $segment_3 ))
+			if( ($category->slug === $segment_4 ))
 			{
 				$class='active';
 			}
 
 		
-			if( ($category->slug == $segment_3 ) || ($category->id  == $expand_node) )
+			if( ($category->slug == $segment_4 ) || ($category->id  == $expand_node) )
 			{
 				$category->categories = $CI->categories_m->order_by('order', 'asc')->where('parent_id',$category->id)->get_all();
 
@@ -292,9 +290,9 @@ class Plugin_Shop extends Plugin
 				foreach($category->categories as $subcategory)
 				{
 
-					$subcategory->uri = "{{url:site}}shop/category/".$subcategory->slug;
+					$subcategory->uri = "{{url:site}}shop/categories/category/".$subcategory->slug;
 
-					if($subcategory->slug === $segment_3 )
+					if($subcategory->slug === $segment_4 )
 					{
 						$subcategory->link = "<a class='active' href='".$subcategory->uri."'>".$subcategory->name."</a>";		
 

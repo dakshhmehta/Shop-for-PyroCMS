@@ -2,7 +2,7 @@
 <h2 id="nc-view-title"><?php echo lang('orders'); ?></h2>
 
 		<ul>
-		{{ shop:mylinks remove='wishlist shop' active='orders' }}
+		{{ shop:mylinks remove='shop' active='orders' }}
 			{{link}}
 		{{ /shop:mylinks }}
 		</ul>

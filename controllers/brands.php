@@ -38,6 +38,8 @@ class Brands extends Public_Controller
 		
 		// Load required classes
 		$this->load->model('brands_m');
+
+		$this->limit = Settings::get('ss_qty_perpage_limit_front');
 		
 		
 	}
@@ -47,14 +49,12 @@ class Brands extends Public_Controller
 	 */
 	public function index($offset = 0) 
 	{
-
-		$limit = Settings::get('ss_qty_perpage_limit_front');
 		  
-		$data->brands = $this->brands_m->get_all();
+		$data->brands = $this->brands_m->limit($this->limit,$offset)->get_all();
 
 		$total_rows =  $this->brands_m->count_all();
 		
-		$data->pagination = create_pagination('shop/brands/', $total_rows, $limit, 3); /*$limit replaced by qty */
+		$data->pagination = create_pagination('shop/brands/', $total_rows, $this->limit, 3); /*$limit replaced by qty */
 		
 		$this->template
 			->set_breadcrumb('Brands')
@@ -69,18 +69,23 @@ class Brands extends Public_Controller
 	* TODO:Need to link to the products filter to list all products by brand
 	*
 	*/
-	public function brand( $id = 0 ) 
+	public function brand( $brand = 0, $offset =0 ) 
 	{
 
 		$this->load->model('products_front_m');
 	
-		if (is_numeric($id) )
+		if (is_numeric($brand) )
 		{
-			$brand = $this->brands_m->get($id);
+			$brand = $this->brands_m->get($brand);
 		}
 		else
 		{
-			$brand = $this->brands_m->get_by(array('slug',$id));
+			$brand = $this->brands_m->get_by('slug',$brand);
+		}
+
+		if(!$brand)
+		{
+			redirect('404');
 		}
 
 		//var_dump($brand);
@@ -89,8 +94,6 @@ class Brands extends Public_Controller
 		$filter['brand_id'] = $brand->id;
 	
 
-
-		$limit = Settings::get('ss_qty_perpage_limit_front');
 
 		// 
 		//  Count total items by the given filter
@@ -101,7 +104,7 @@ class Brands extends Public_Controller
 		// 
 		//  Build pagination for these items
 		// 
-		$data->pagination = create_pagination( 'shop/brand/'.$brand->slug .'/', $total_items, $limit, 4);
+		$data->pagination = create_pagination( 'shop/brands/brand/'.$brand->slug .'/', $total_items, $this->limit, 4);
 
 
 
