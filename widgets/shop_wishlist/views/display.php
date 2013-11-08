@@ -19,7 +19,15 @@
 
 			</a>
 
-			{{shop:pricer price="{{price_at}}" }}
+		  {{ shop:price id="{{prod_id}}" }}
+		  
+		 		{{if min_qty == '1' }}
+		 				${{price}} for 1,
+		 		{{ else }}
+		 				${{price}} for {{min_qty}} or more <br />
+		 		{{ endif }}
+		 		
+		   {{ /shop:price }}
 
 		</li>
 

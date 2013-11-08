@@ -14,6 +14,7 @@ $lang['shop:admin:shop']						=	'SHOP';
 $lang['shop:admin:shop_admin']					=	'SHOP Admin';
 $lang['shop:admin:dashboard']					=	'Dashboard';
 $lang['shop:admin:orders']						=	'Orders';
+$lang['shop:admin:dailydeals']					=	'Daily Deals';
 $lang['shop:admin:options']						=	'Options';
 $lang['shop:admin:products']					=	'Products';
 $lang['shop:admin:categories']					=	'Categories';

@@ -35,6 +35,12 @@
 .s_low          { background-color: #D9534F; }
 
 
+.s_active       { background-color: #428BCA; }
+.s_pending      { background-color: #F0AD4E; }
+
+.s_completed,
+.s_forcestop   { background-color: #D9534F; }
+
 /**
  * Transaction status
  */

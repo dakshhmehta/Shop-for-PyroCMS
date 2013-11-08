@@ -122,7 +122,7 @@ class Products_admin_Controller extends Admin_Controller
 
 
 
-	/*manage product properties*/
+	/* Used for related product Admin section 9in product edit)*/
 	public function ajax_find_product()
 	{
 

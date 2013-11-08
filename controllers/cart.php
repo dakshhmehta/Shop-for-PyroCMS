@@ -86,9 +86,7 @@ class Cart extends Public_Controller
 	
 		$url_redir = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'shop/cart';
 		
-		//var_dump($_FILES);
 
-		//var_dump($this->input->post());die;
 
 		// 
 		// Check the post header to see if the item come from a post or a direct link
@@ -129,9 +127,18 @@ class Cart extends Public_Controller
 		//
 		if( ! $product = $this->_add($id, $qty) )
 		{
-		
-			// if the product/ request faled to validate just redirect now
-			redirect($url_redir);
+
+
+			if($this->input->is_ajax_request())
+			{
+				$message = shop_lang("shop:cart:unable_to_add_item_to_cart");
+				echo json_encode($message);die;
+			}
+			else
+			{
+				// if the product/ request faled to validate just redirect now
+				redirect($url_redir);
+			}
 		}
 
 		
@@ -157,8 +164,7 @@ class Cart extends Public_Controller
 		//		
 		//$rowid = $this->sfcart->generate_rowid($items); //this is not asssigning a rowid just wfor checking if the item has already been added, therefore we can re-calc the prices better in the cart, this is for multiple item discounts.
 		
-		
-		
+
 		//
 		// If you use the rowid - it will be dependant of options, if you use product id- it will disregard options when calculating the new quantaty
 		//
@@ -220,11 +226,23 @@ class Cart extends Public_Controller
 		$this->run_mid_on_cart();
 
 		
-		
-		//
-		// redirect them back to page
-		//
-		redirect($url_redir);
+
+
+		if($this->input->is_ajax_request())
+		{
+			$message ='item was added to cart OK';
+			echo json_encode($message);die;
+		}
+		else
+		{
+			//
+			// redirect them back to page
+			//
+			redirect($url_redir);
+		}
+
+
+
 		
 		
 	}
@@ -250,7 +268,7 @@ class Cart extends Public_Controller
 		if( (!$id ) OR (!$qty) ) 
 		{
 			// Set User message 
-			$this->session->set_flashdata('feedback', 'Invalid Data');
+			$this->session->set_flashdata('error', shop_lang('shop:cart:qty_was_not_set'));
 			
 			// Usert has requested invalid data
 			return FALSE;
@@ -268,7 +286,7 @@ class Cart extends Public_Controller
 		// Check if the product existed
 		if(!$item)
 		{
-			$this->session->set_flashdata('feedback', 'Unable to find product');
+			$this->session->set_flashdata('error', shop_lang('shop:cart:unable_to_find_product'));
 			return FALSE;
 		}
 
@@ -279,7 +297,7 @@ class Cart extends Public_Controller
 		//
 		if( is_deleted($item) || ($item->public === ProductVisibility::Invisible ) )
 		{
-			$this->session->set_flashdata('feedback', lang('product_not_avail') );
+			$this->session->set_flashdata('error', shop_lang('shop:cart:product_is_no_longer_available') );
 			return FALSE;
 		}
 		
@@ -289,7 +307,7 @@ class Cart extends Public_Controller
 		//
 		if(!($this->_check_inventory($item, $qty)) ) 
 		{
-			$this->session->set_flashdata('feedback', lang('product_not_avail') );
+			$this->session->set_flashdata('error', shop_lang('shop:cart:product_is_out_of_stock'));
 			return FALSE;
 		}
 	

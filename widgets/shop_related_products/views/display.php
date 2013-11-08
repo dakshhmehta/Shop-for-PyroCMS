@@ -23,7 +23,15 @@
 					</span>
 
 					<span class='price-tag'>
-						{{shop:pricer price="{{ price_at }}" base="{{ price_base }}" }} 
+								  {{ shop:price id="{{prod_id}}" }}
+								  
+								 		{{if min_qty == '1' }}
+								 				${{price}} for 1 <br />
+								 		{{ else }}
+								 				${{price}} for {{min_qty}} or more <br />
+								 		{{ endif }}
+								 		
+								   {{ /shop:price }}
 					</span>
 				
 				</div>

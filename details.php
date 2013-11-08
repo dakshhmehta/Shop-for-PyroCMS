@@ -27,7 +27,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.112';  
+	public $version = '1.0.0.113';  
 
 
 
@@ -215,12 +215,14 @@ class Module_Shop extends Module
 	 */
 	public function upgrade($old_version) 
 	{
-		
+		 
 	
 		switch ($old_version) 
 		{
 
-			case '1.0.0.106':			
+			case '1.0.0.112':		
+				$this->_install_table('shop_dailydeals');
+				break;
 			case '1.0.0.105':
 			case '1.0.0.104':
 				//$this->_install_table_row('shop_orders','pmt_status');
@@ -244,6 +246,16 @@ class Module_Shop extends Module
 
 	}
 
+
+	private function _install_table($table)
+	{
+ 		$_fields = $this->details_library->get_tables($table);
+
+		$table_to_install = array( $table => $_fields  );
+		
+		return $this->install_tables( $table_to_install );
+
+	}
 
 
 	/**

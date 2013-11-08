@@ -44,22 +44,30 @@ class Products_front_m extends Products_m
 	 * @param  string $method [description]
 	 * @return [type]         [description]
 	 */
-	public function get($parm, $method = 'id', $simple = FALSE) 
+	public function get($parm, $method = 'id') 
 	{
 		
-		$product = $this->get_product($parm,$method,$simple); 
+		$product = parent::get($parm,$method); 
 
 		if(!$product)
 			return FALSE;
 
-		//
-		// Make sure product is NOT deleted and is visible to public
-		//
-		if (($product->date_archived != NULL) || ($product->public == ProductVisibility::Invisible ))
+
+		if(group_has_role('shop', 'admin_products'))
 		{
-			return FALSE;
+
 		}
-			
+		else
+		{
+			//
+			// Make sure product is NOT deleted and is visible to public
+			//
+			if (($product->date_archived != NULL) || ($product->public == ProductVisibility::Invisible ))
+			{
+				return FALSE;
+			}
+		}
+
 		//
 		// Add the view count
 		//
@@ -171,9 +179,6 @@ class Products_front_m extends Products_m
 	}	
 
 	
-
-	
-
 
 
 

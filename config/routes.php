@@ -15,7 +15,7 @@
  */
  
 
-
+$route['shop/admin/dailydeals(/:any)?']		= 'admin/dailydeals$1';
 $route['shop/admin/images(/:any)?']			= 'admin/images$1';
 $route['shop/admin/shipping(:any)?']		= 'admin/shipping$1';
 $route['shop/admin/packages(:any)?']		= 'admin/packages$1';

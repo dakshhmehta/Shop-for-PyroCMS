@@ -53,6 +53,7 @@ class Details_library
             	      	 
 	            	'admin_products', 
 	            	'admin_product_seo', 
+	            	'admin_dailydeals', 
 
 	            	'admin_options',
 	            	'admin_brands', 	            	
@@ -109,6 +110,28 @@ class Details_library
 		{
 			return $info;
 		}
+
+
+
+
+		if($and_get_menu == 'dailydeals')
+		{
+
+
+			if(group_has_role('shop', 'dailydeals'))
+			{
+				$info['sections']['dailydeals'] = array(
+				
+					'name' => 'shop:admin:dailydeals', 
+					'uri' => 'admin/shop/dailydeals',
+					'shortcuts' => array()
+				 	
+				);
+
+			}
+
+		}
+
 
 
 
@@ -373,6 +396,10 @@ class Details_library
 			//
 			// Add the rest of the items
 			//
+			if(group_has_role('shop', 'dailydeals'))
+			{
+				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:dailydeals'] = 'admin/shop/dailydeals';
+			}				
 			if(group_has_role('shop', 'categories'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:categories'] = 'admin/shop/categories';
@@ -478,6 +505,17 @@ class Details_library
 				'date_archived' => 		array('type' => 'DATETIME', 'null' => TRUE, 'default' => NULL), 
 				
 			),  
+			'shop_dailydeals' => array(
+				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
+				'prod_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
+				'status' => 	array('type' => "SET('completed',  'pending', 'active', 'forcestop','alert')", 'default' => 'pending'),
+				'mode' => 	array('type' => "SET('untilsold',  'endofday', 'letmedecide')", 'default' => 'endofday'),
+				'likes' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0), /*count the number of likes for this deal*/
+				'shares' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0), /*count the number of shared links for this deal*/
+				'time_online' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
+				'date_start' => array('type' => 'DATE', 'null' => TRUE, 'default' => NULL), 
+				'date_end' => array('type' => 'DATE', 'null' => TRUE, 'default' => NULL), 
+			),		
 			'shop_discounts' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'prod_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),

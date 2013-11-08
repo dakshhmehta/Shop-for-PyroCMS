@@ -26,6 +26,28 @@
 class Plugin_Shop extends Plugin 
 {
 
+	function dailydeal() 
+	{
+
+		$this->load->model('shop/dailydeals_m');
+	  	
+		//we shouldnt fetch the product twice. - the get_plugin should work by slug too
+		$product =  $this->dailydeals_m->get_current();
+
+
+		if ($product==NULL) 
+			return array();
+
+		if (is_deleted($product) || ($product->public == 0)) 
+			return array();
+
+
+		return (array) $product;	
+
+	}	
+
+
+
 	/*
 	* Parse Tags in shop
 	* Window llows us to create areas on the site simply be defining the html markup with these tags.
@@ -47,11 +69,13 @@ class Plugin_Shop extends Plugin
 		$parser = new Lex_Parser();
 		$parser->scope_glue(':');
 
-		$content = $name;
+		//store the 
+
+		$content = "{{ webparts:footer_copyright }}" ; //$name;
 
 		return $parser->parse($content, array(), array($this->parser, 'parser_callback'));
 	}
-	*/	
+	*/
 
 
 	/**
@@ -64,7 +88,7 @@ class Plugin_Shop extends Plugin
 	 * 
 	 * 	{{slug}}
 	 *  {{id}}
-	 *  {{cover_id}}
+	 *  {{cover_id}} + all other product fields
 	 *
 	 * {{/shop:related}}
 	 *
@@ -80,18 +104,12 @@ class Plugin_Shop extends Plugin
 		$id = $this->attribute( 'id' , '0' );  
 		$max = $this->attribute( 'max' , '0' );
 
-		$product = $this->products_front_m->get_product($id, 'id', TRUE);
-
+		$product = $this->products_front_m->get($id, 'id', TRUE);
 
 		if ($product==NULL) 
 			return array();
 
-		//if we have used the products_front_m we shouldnt have to check this.
-		if (is_deleted($product) || ($product->public == 0)) 
-			return array();
-
-		//var_dump($product->related);die;
-		$related =  $product->related;	
+		$related =  json_decode($product->related);	
 
 		$count = 0;
 		$ret = array();
@@ -101,54 +119,16 @@ class Plugin_Shop extends Plugin
 			{
 				if($count > $max) break;
 			}
-			$ret[] = $product = $this->products_front_m->get($_id);
+			$ret[] = $product = (array) $this->products_front_m->get($_id);
 		}
-
 
 		return $ret;
-
-	}
-
-	/**
-	 * For now we only retrieve the symbol, but we should add options for 2 letter code, etc..
-	 * @return [type] [description]
-	 */
-	function currency()
-	{
-
-		$ci =& get_instance();
-		$ci->load->helper('shop_public');
-
-		$option = $this->attribute( 'get' , 'symbol' );  	
-
-		if($option == 'symbol')
-		{
-			return ss_currency_symbol();
-		}
-
-		return "";
 	}
 
 
-	/**
-	 * Pricer help display prices and combines base price
-	 * @return [type] [description]
-	 */
-	function pricer() 
-	{
 
-		$ci =& get_instance();
-		$ci->load->helper('shop_public');
 
-		$_a = $this->attribute( 'price' , 0 );  	
-		$_b = $this->attribute( 'base' , 0 ); 
 
-		$_price = $_a + $_b;	
-		
-		return nc_format_price($_price);
-		
-	}	
-	
 
 
 	/**
@@ -264,16 +244,6 @@ class Plugin_Shop extends Plugin
 
 			$category->uri = "{{url:site}}shop/categories/category/".$category->slug;
 
-
-			//if( ($category->slug == $segment_3 ) || ($category->id  == $expand_node) )
-			//{
-				//$category->link = "<a class='' href='".$category->uri."'>".$category->name."</a>";
-			//}
-			//else
-			//{
-				//$category->link = "<a href='".$category->uri."'>".$category->name."</a>";
-			//}
-			
 			$class='';
 
 			if( ($category->slug === $segment_4 ))
@@ -314,62 +284,83 @@ class Plugin_Shop extends Plugin
 			//parent category link
 			$category->link = "<a class='$class' href='".$category->uri."'>".$category->name."</a>";
 
-
-
-
 		}
 
-
 		return $categories;
-
-
-
 	}
 
-
+	/* 
+	 * if requesting a field then you get  "result" 
+	 *
+	 * back, if the category get the array of categry otherwise blank result
+	 */
 	function category()
 	{
 
 		//$CI =& get_instance();
 		$this->load->model('shop/categories_m');
 
-		$id = $this->attribute('id', 0);
+		$id = $this->attribute('id', '');
+		$field = $this->attribute('field', '');
+		$is = $this->attribute('is', '');
 
-		return $this->categories_m->get_plugin( $id );
+		$category = $this->categories_m->get( $id );
+	
+
+		if($category)
+		{
+			if($field != '')
+			{
+				return array('result' => $category->$field );
+			}
+			else
+			{
+				return (array) $category;
+			}
+		}
+
+		return array('result' => '');
 
 	}
-
-
-
 
 
 	 
-	function product() 
+
+	/**
+	 * For now we only retrieve the symbol, but we should add options for 2 letter code, etc..
+	 * @return [type] [description]
+	 * 
+	 * {{ shop:currency }} - return $ L or pound
+	 * {{ shop:currency format="{{total}}" }} - returns the price submited with the currency
+	 */
+	function currency()
 	{
 
-		$slug = $this->attribute('slug', '');
-		$this->load->model('shop/products_front_m');
-	  	
-		//we shouldnt fetch the product twice. - the get_plugin should work by slug too
-		$product =  $this->products_front_m->get_product($slug, 'slug', TRUE);
+		$ci =& get_instance();
+		$ci->load->helper('shop_public');
 
 
-		if ($product==NULL) 
-			return array();
+		$option = $this->attribute( 'get' , 'symbol' );
+		$format = $this->attribute( 'format' , 'NO' ); 
 
-		//if we have used the products_front_m we shouldnt have to check this.
-		if (is_deleted($product) || ($product->public == 0)) 
-			return array();
+		if($format == "NO")
+		{
+			//then we just need the symbol
+			return ss_currency_symbol();
+		}
 
-		//var_dump($product);die;
-		return (array) $product;	
+		// ELSE
+		return nc_format_price($format);
 
 	}
-
 
 
 	/**
 	 *  Displays all the prices of a product
+	 *  This is an extremely helpful theme tool.
+	 *
+	 * Since the shop implements variable pricing this helps designers display the price
+	 * of a given product as it searches by user/group and price type
 	 *
 	 * 
 	 * {{ shop:price id="5" }}
@@ -387,8 +378,6 @@ class Plugin_Shop extends Plugin
 	 * Future enhancement - integerate format_price as option
 	 *
 	 *
-	 *
-	 * 
 	 */
 	function price()
 	{
@@ -403,8 +392,8 @@ class Plugin_Shop extends Plugin
 
 		//lookup product price
 		$this->load->model('products_front_m');
-		$_prod = $this->products_front_m->get_product($id,'id',TRUE);
 
+		$_prod = $this->products_front_m->get($id,'id');
 
 
 		// 
@@ -448,6 +437,28 @@ class Plugin_Shop extends Plugin
 
 		return $prices;
 		
+	}
+
+	function product() 
+	{
+
+		$slug = $this->attribute('slug', '');
+		$this->load->model('shop/products_front_m');
+	  	
+		//we shouldnt fetch the product twice. - the get_plugin should work by slug too
+		$product =  $this->products_front_m->get($slug, 'slug');
+
+
+		if ($product==NULL) 
+			return array();
+
+		//if we have used the products_front_m we shouldnt have to check this.
+		if (is_deleted($product) || ($product->public == 0)) 
+			return array();
+
+		//var_dump($product);die;
+		return (array) $product;	
+
 	}
 
 

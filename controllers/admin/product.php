@@ -48,7 +48,7 @@ class Product extends Products_admin_Controller
 
 	public function index() 
 	{
-		return null;	
+		return NULL;	
 	}	
 
 
@@ -72,8 +72,6 @@ class Product extends Products_admin_Controller
 		{
 
 			$input = $this->input->post();
-
-
 
 
 			// 
@@ -134,7 +132,7 @@ class Product extends Products_admin_Controller
 		// 
 		// First get the product
 		//
-		$data =  $this->products_admin_m->get_product($id);
+		$data =  $this->products_admin_m->get($id);
 
 
 		if(!(isset($data)) )
@@ -154,8 +152,6 @@ class Product extends Products_admin_Controller
 
 			//upload files
 			$this->upload($id);
-
-
 
 
 
@@ -331,7 +327,8 @@ class Product extends Products_admin_Controller
 
 
 		//get the data for the product
-		$data =  $this->products_admin_m->get_product($id);
+		$data =  $this->products_admin_m->get($id);
+		$data->keywords 			= Keywords::get_string($data->keywords); //prepare keywords
 
 		
 		if($panel =='product')
@@ -342,11 +339,14 @@ class Product extends Products_admin_Controller
 			
 		if($panel =='images')
 		{
+			$data->images 			= $this->products_admin_m->get_images($data->id);  
 			$data->folders = $this->get_folders();
 		}
 
 		if($panel =='options')
 		{
+			$this->load->model('options_product_m');
+			$data->prod_options		= $this->options_product_m->get_prod_options($data->id);
 			//$data->folders = $this->get_folders();
 			$data->all_options = $this->options_m->build_dropdown();
 		}
@@ -360,7 +360,8 @@ class Product extends Products_admin_Controller
 
 		if($panel =='related')
 		{
-			
+			//get related
+			$data->related = json_decode($data->related);
 			$data->category_select 	= $this->categories_m->build_dropdown( array( 'field_property_id' => 'related_products_category_filter' )   );
 
 			$data->rel_names = array();
@@ -377,11 +378,6 @@ class Product extends Products_admin_Controller
 			$data->package_select 	= $this->package_library->build_list_select(array('current_id' => $data->package_id));			
 		}	
 		
-
-
-
-
-
 
 
 

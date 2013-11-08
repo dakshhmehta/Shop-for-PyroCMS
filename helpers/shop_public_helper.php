@@ -734,3 +734,26 @@ if (!function_exists('set_if_not'))
 	}
 
 }
+
+
+if (!function_exists('shop_get_category')) 
+{
+	
+	//make sure the slug is valid
+	function shop_get_category($id, $as_array = FALSE) 
+	{
+
+		$ci =& get_instance();
+		
+		$ci->load->model('shop/categories_m');
+
+		
+		$cat = $ci->categories_m->get($id);
+		
+		if($as_array)
+			return (array) $cat;	
+
+		return $cat;	
+
+	}
+}

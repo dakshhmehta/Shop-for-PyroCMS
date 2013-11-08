@@ -101,7 +101,6 @@ class Products_library
 
 			$this->process_inventory($product);
 
-				
 		}
 	}
 
@@ -110,7 +109,10 @@ class Products_library
 	private function process_category(&$product)
 	{
 
-		$cat = ($product->category->parent_id == 0) ? $product->category->name :  ss_category_name($product->category->parent_id) . ' &rarr; ' . $product->category->name;
+		$this->CI->load->model('shop/categories_m');
+		$category = $this->CI->categories_m->get($product->category_id);
+
+		$cat = ($category->parent_id == 0) ? $category->name :  ss_category_name($category->parent_id) . ' &rarr; ' . $category->name;
 
 
 		if($product->category_id > 0) 

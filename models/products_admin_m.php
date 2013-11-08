@@ -36,6 +36,19 @@ class Products_admin_m extends Products_m
 
 	}
 
+
+	public function get($parm, $method = 'id') 
+	{
+		
+		$product = parent::get($parm,$method); 
+
+		if(!$product)
+			return FALSE;
+
+		return $product;
+	}
+
+
 	/**
 	 * Get all public and non deleted products
 	 * 
@@ -485,7 +498,6 @@ class Products_admin_m extends Products_m
 
 
 		return $new_filter;
-		
 	}
 
 
@@ -514,7 +526,6 @@ class Products_admin_m extends Products_m
 		$this->where('date_archived', NULL);
 
 		return $this->count_by($new_filter);
-		
 	}
 
 	
@@ -542,10 +553,40 @@ class Products_admin_m extends Products_m
 		$this->db->limit( $limit , $offset );
 
 		return $this->get_all();
-
-		
 	}
 
+	/**
+	 * This is only used to help admins find a related product to assign to another product.
+	 * 
+	 * @param  [type] $term     [description]
+	 * @param  [type] $category [description]
+	 * @return [type]           [description]
+	 */
+	public function filter_minimal($term,$category=NULL)
+	{
 
+
+		$this->db->select('shop_products.id, shop_products.name, shop_products.cover_id,shop_products.category_id')
+				->where('shop_products.date_archived', NULL)	
+				->where('shop_products.searchable',1);
+
+				if((  $category != NULL) && (is_numeric($category)) && ($category > 0)  )
+				{
+
+					$this->db->where('shop_products.category_id',$category);
+						
+				}
+
+	   $this->db->like('shop_products.name', $term)
+				->like('shop_products.slug', $term)
+				->or_like('shop_products.meta_desc',$term)
+				->or_like('shop_products.code',$term);
+
+
+				// we max out at 15, if not in list then they should do a better search
+				return $this->db->limit(15)->get('shop_products')->result();	
+						
+
+	}
 
 }

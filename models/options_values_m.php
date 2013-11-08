@@ -85,6 +85,7 @@ class Options_values_m extends MY_Model
 			'shop_options_id' => $id,
 			'label' => $value,
 			'value' => $value,
+			'user_data' => '',			
 			'max_qty' => 0,
 			'ignor_shipping' => 0,
 			'operator' => '',

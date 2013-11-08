@@ -83,6 +83,17 @@
 							</div>
 						</li>
 
+
+						<li class="<?php echo alternator('', 'even'); ?>">
+							<label for=""><?php echo shop_lang('shop:products:daily_deal'); ?><span></span>
+								<small>
+								
+								</small>
+							</label>
+							<div class="input">
+								<a href='admin/shop/dailydeals/add/<?php echo $id;?>'><?php echo shop_lang('shop:products:add_to_daily_deals');?></a>							
+							</div>
+						</li>
 						
 					</ul>
 				</fieldset>

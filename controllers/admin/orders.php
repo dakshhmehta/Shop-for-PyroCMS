@@ -247,13 +247,13 @@ class Orders extends Admin_Controller
 		$input = $this->input->post();
 	
 		 
-		if ($order_id && $this->messages_m->send($order_id,$input, FALSE))
+		if ($order_id && $this->messages_m->send($order_id,$input['message'], FALSE))
 		{
-			$this->session->set_flashdata('success', lang('success'));
+			$this->session->set_flashdata('success', shop_lang('shop:orders:message_sent'));
 		}
 		else
 		{
-			$this->session->set_flashdata('error', lang('error'));
+			$this->session->set_flashdata('error', shop_lang('shop:orders:message_not_sent'));
 		}
 	
 		redirect('admin/shop/orders/order/'.$order_id);

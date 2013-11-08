@@ -63,8 +63,8 @@ class Messages_m extends MY_Model
 				'status' => 0,
 				'order_id' => $id,
 				'user_id' =>  $this->current_user->id,
-				'subject' => strip_tags($message['subject']),
-				'message' => strip_tags($message['message']),
+				'subject' => '',/*strip_tags($message['subject']),*/
+				'message' => strip_tags($message),
 				'date_sent' => time(),
 				'user_name' => $message['user_name'],
 				'replyto_id' => 0,
