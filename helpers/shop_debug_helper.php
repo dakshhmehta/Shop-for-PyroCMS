@@ -36,11 +36,12 @@ if (!function_exists('shop_lang'))
 
 
 
-		if(sizeof($result) >=2 )
+		if(sizeof($result) >= 3 )
 		{		
 
 			$area  = strtolower(trim($result[1]) ); 
 			$value  = $result[2];
+
 
 			$module ='shop';
 			//key

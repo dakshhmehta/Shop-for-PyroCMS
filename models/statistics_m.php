@@ -375,6 +375,8 @@ class Statistics_m extends MY_Model
         $this->db->where('last_activity >', time()-$period);
 
         $this->db->group_by('date', FALSE);
+        $this->db->group_by('ip_address', FALSE);
+        
         $result = $this->db->get('ci_sessions')->result();
         
         $stats = array();

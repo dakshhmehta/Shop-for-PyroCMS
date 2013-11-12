@@ -44,7 +44,7 @@ class Details_library
 			'description' => array(
 				'en' => 'A full featured shopping cart system for PyroCMS!',
 			),
-			'skip_xss' => TRUE,
+			'skip_xss' => FALSE,
 			'frontend' => TRUE,
 			'backend' => TRUE,
 			'menu' => FALSE, 
@@ -64,7 +64,7 @@ class Details_library
 
 	            	'admin_pgroups', 
 	            	'admin_tax', 
-	            	'admin_checkout', /*Shiping and Checkout*/
+	            	'admin_checkout', /*Shiping and Gateways & Checkout*/
 
 	            	'admin_blacklist',
 					'admin_setup', /*manager area*/
@@ -118,7 +118,7 @@ class Details_library
 		{
 
 
-			if(group_has_role('shop', 'dailydeals'))
+			if(group_has_role('shop', 'admin_dailydeals'))
 			{
 				$info['sections']['dailydeals'] = array(
 				
@@ -139,7 +139,7 @@ class Details_library
 		{
 
 
-			if(group_has_role('shop', 'categories'))
+			if(group_has_role('shop', 'admin_categories'))
 			{
 				$info['sections']['categories'] = array(
 				
@@ -160,7 +160,7 @@ class Details_library
 
 			if(Settings::get('ss_enable_brands'))
 			{	
-				if(group_has_role('shop', 'brands'))
+				if(group_has_role('shop', 'admin_brands'))
 				{
 					$info['sections']['brands'] = array(
 					
@@ -180,7 +180,7 @@ class Details_library
 		{
 
 
-			if(group_has_role('shop', 'options'))
+			if(group_has_role('shop', 'admin_options'))
 			{
 				$info['sections']['options'] = array(
 				
@@ -197,7 +197,7 @@ class Details_library
 		if($and_get_menu == 'packages')
 		{
 
-			if(group_has_role('shop', 'packages'))
+			if(group_has_role('shop', 'admin_checkout'))
 			{
 				$info['sections']['packages'] = array(
 				
@@ -214,7 +214,7 @@ class Details_library
 		if($and_get_menu == 'pgroups')
 		{
 
-			if(group_has_role('shop', 'pgroups'))
+			if(group_has_role('shop', 'admin_pgroups'))
 			{
 				$info['sections']['pgroups'] = array(
 	
@@ -231,7 +231,7 @@ class Details_library
 		if($and_get_menu == 'blacklist')
 		{
 
-			if(group_has_role('shop', 'blacklist'))
+			if(group_has_role('shop', 'admin_blacklist'))
 			{
 				$info['sections']['blacklist'] = array(
 				
@@ -279,7 +279,7 @@ class Details_library
 
 		if($and_get_menu == 'tax')
 		{
-			if(group_has_role('shop', 'tax'))
+			if(group_has_role('shop', 'admin_tax'))
 			{
 				$info['sections']['tax'] = array(
 				
@@ -327,7 +327,7 @@ class Details_library
 		if($and_get_menu == 'manage')
 		{
 
-			if(group_has_role('shop', 'manage'))
+			if(group_has_role('shop', 'admin_manage'))
 			{
 				$info['sections']['manage'] = array(
 				
@@ -382,7 +382,7 @@ class Details_library
 			//
 			if(Settings::get('ss_enable_brands'))
 			{	
-				if(group_has_role('shop', 'brands'))
+				if(group_has_role('shop', 'admin_brands'))
 				{
 					if ( Settings::get('ss_enable_brands') == SettingMode::Enabled) 
 					{ 
@@ -396,23 +396,23 @@ class Details_library
 			//
 			// Add the rest of the items
 			//
-			if(group_has_role('shop', 'dailydeals'))
+			if(group_has_role('shop', 'admin_dailydeals'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:dailydeals'] = 'admin/shop/dailydeals';
 			}				
-			if(group_has_role('shop', 'categories'))
+			if(group_has_role('shop', 'admin_categories'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:categories'] = 'admin/shop/categories';
 			}	
-			if(group_has_role('shop', 'options'))
+			if(group_has_role('shop', 'admin_options'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:options'] = 'admin/shop/options';
 			}		
-			if(group_has_role('shop', 'blacklist'))
+			if(group_has_role('shop', 'admin_blacklist'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:blacklist'] = 'admin/shop/blacklist';
 			}
-			if(group_has_role('shop', 'packages'))
+			if(group_has_role('shop', 'admin_checkout'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:packages'] = 'admin/shop/packages';
 			}
@@ -424,11 +424,11 @@ class Details_library
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:gateways'] = 'admin/shop/gateways';
 			}				
-			if(group_has_role('shop', 'pgroups'))
+			if(group_has_role('shop', 'admin_pgroups'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:pgroups'] = 'admin/shop/pgroups';
 			}				
-			if(group_has_role('shop', 'tax'))
+			if(group_has_role('shop', 'admin_tax'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:tax'] = 'admin/shop/tax';
 			}
@@ -498,7 +498,6 @@ class Details_library
 
 				//admin user id
 				'created_by' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
-				//'deleted' => 		array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 0),	/*if TRUE - CAN NEVER be undeleted but we keep the data*/
 				
 				'date_created' => 		array('type' => 'DATETIME', 'null' => TRUE, 'default' => NULL), 	  
 				'date_updated' => 		array('type' => 'DATETIME', 'null' => TRUE, 'default' => NULL), 
@@ -506,15 +505,15 @@ class Details_library
 				
 			),  
 			'shop_dailydeals' => array(
-				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-				'prod_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
-				'status' => 	array('type' => "SET('completed',  'pending', 'active', 'forcestop','alert')", 'default' => 'pending'),
-				'mode' => 	array('type' => "SET('untilsold',  'endofday', 'letmedecide')", 'default' => 'endofday'),
-				'likes' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0), /*count the number of likes for this deal*/
-				'shares' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0), /*count the number of shared links for this deal*/
-				'time_online' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
+				'id' => 		array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
+				'prod_id' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
+				'status' => 	array('type' => "SET('completed', 'pending', 'active', 'forcestop','alert')", 'default' => 'pending'),
+				'mode' => 		array('type' => "SET('untilsold', 'endofday', 'letmedecide')", 'default' => 'endofday'),
+				'likes' => 		array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0), /*count the number of likes for this deal*/
+				'shares' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0), /*count the number of shared links for this deal*/
+				'time_online'=> array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
 				'date_start' => array('type' => 'DATE', 'null' => TRUE, 'default' => NULL), 
-				'date_end' => array('type' => 'DATE', 'null' => TRUE, 'default' => NULL), 
+				'date_end' => 	array('type' => 'DATE', 'null' => TRUE, 'default' => NULL), 
 			),		
 			'shop_discounts' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
@@ -769,7 +768,7 @@ class Details_library
 				'area' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), 
 				'key' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), 
 				'value' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), 
-			),
+			),		
 			);	
 
 
@@ -779,7 +778,7 @@ class Details_library
 		}
 		else
 		{
-			return $tables[$table];
+			return array($table=>$tables[$table]);
 		}
 		
 	}
@@ -1048,7 +1047,7 @@ class Details_library
 				'value' =>  '0', 
 				'options' => '0=Default|1=Shop Dashboard|2=Shop Products|3=Shop Orders',
 				'is_required' => TRUE,
-				'is_gui' => TRUE, 
+				'is_gui' => FALSE, 
 				'module' => 'shop', 
 				'order' => 680
 			),			

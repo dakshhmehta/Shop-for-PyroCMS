@@ -137,6 +137,12 @@ class My extends Public_Controller
 				->build('my/dashboard',$data);
 	}
 
+
+	public function dashboard()
+	{
+		$this->index();
+	}
+
 	
 	/**
 	 *

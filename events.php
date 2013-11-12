@@ -247,15 +247,6 @@ class Events_Shop
             $this->ci->session->set_flashdata('error', $this->ci->settings->get('shop_is_disabled'));
             redirect($this->ci->input->server('HTTP_REFERER'));
         }
-			
-		if (($data['success'])  )
-		{
-			$this->ci->session->set_flashdata('success', lang('success'). ': '. $data['name'] . ' has been added to the cart');
-		} 
-		else 
-		{
-			$this->ci->session->set_flashdata('error', lang('error').': '. 'Failed to add ' . $data['name'] );
-		}
 
 	}
 	

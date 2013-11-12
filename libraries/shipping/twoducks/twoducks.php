@@ -148,6 +148,9 @@ class Twoducks_ShippingMethod extends Twoducks_base
 					$func = 'calc_birth';
 					break;
 
+				case 'personalized-xmas-postcards':
+					$func = 'calc_pxmascards';
+					break;
 					
 				case 'name-charts':
 					$func = 'calc_name_charts';
@@ -212,6 +215,8 @@ class Twoducks_ShippingMethod extends Twoducks_base
 			}
 
 		}
+
+		$this->add_handling_charge($cost,$options);
 
 
 		$this->add('shippable count: ' .$shippable_item_count);
@@ -327,7 +332,7 @@ class Twoducks_ShippingMethod extends Twoducks_base
 			//
 			// Add handling
 			//
-			$cost += $handling;
+			//$cost += $handling;
 
 			//check min
 			$cost = ($cost < $min_shipping)?  $min_shipping : $cost ;
@@ -344,5 +349,23 @@ class Twoducks_ShippingMethod extends Twoducks_base
 
 	}
 
+	private function add_handling_charge(&$cost,$options)
+	{
+		$handling = $options['handling'];
+
+
+		if($cost == 0)
+		{
+			$cost = 0;
+		}
+
+		if($cost > 25.00)
+		{
+			return;
+		}
+	
+		$cost += $handling;
+	
+	}
 	
 }

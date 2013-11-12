@@ -324,7 +324,13 @@ class Plugin_Shop extends Plugin
 	}
 
 
-	 
+	 /*is a product already in the customer wishlist*/
+	function in_wishlist()
+	{
+		return TRUE;
+	}
+
+
 
 	/**
 	 * For now we only retrieve the symbol, but we should add options for 2 letter code, etc..
@@ -439,6 +445,18 @@ class Plugin_Shop extends Plugin
 		
 	}
 
+
+	function images()
+	{
+		$id = $this->attribute('id', '0');
+		$this->load->model('shop/products_front_m');
+	  	
+		//we shouldnt fetch the product twice. - the get_plugin should work by slug too
+		return (array) $this->products_front_m->get_images($id);
+
+
+	}
+
 	function product() 
 	{
 
@@ -473,23 +491,25 @@ class Plugin_Shop extends Plugin
 	function products() 
 	{
 	
-		$limit = intval($this->attribute('limit', 0));
+		$limit = $this->attribute('limit', 0);
 		$order_by = $this->attribute('order-by', 'date_created');
 		$order_dir = $this->attribute('order-dir', 'asc');
-		$category = intval($this->attribute('category-id', $this->attribute('category_id', 0)));
+		$category = $this->attribute('category_id', '0');
+		$category = intval($category);
 		
 		class_exists('products_front_m') OR $this->load->model('shop/products_front_m');
 		
-		if (is_numeric($category) && $category > 0) 
+		if ($category > 0) 
 		{
 			$this->products_front_m->where('category_id', $category);
 		}
-		if (is_numeric($limit) && $limit > 0) 
+
+		if ($limit > 0) 
 		{
 			$this->products_front_m->limit($limit);
 		}
 
-		return $this->products_front_m
+		return  $this->products_front_m
 					->order_by($order_by, $order_dir)
 					->get_all();
 	}

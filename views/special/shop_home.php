@@ -1,5 +1,5 @@
 <div id="">
 	<div class="">
-		<span>Welcome to my SHOP</span>
+		<span></span>
 	</div>	
 </div>	

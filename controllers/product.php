@@ -79,9 +79,14 @@ class Product extends Public_Controller
 
 		
 		//
+		// Increment View count
+		//
+		$increment = TRUE; 
+
+		//
 		// Get the product and all its goodness
 		//
-		$data->product = $this->products_front_m->get($param, $method );
+		$data->product = $this->products_front_m->get($param, $method, $increment );
 		
 
 		//

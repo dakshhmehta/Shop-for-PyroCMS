@@ -86,6 +86,7 @@ class Orders_m extends MY_Model
 	
 		return $order_id;
 	}
+	
 
 
 	public function set_payment_parm($id, $data_array)

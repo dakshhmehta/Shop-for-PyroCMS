@@ -38,13 +38,14 @@ class Products_front_m extends Products_m
 
 
 	/**
-	 * Also it adds to the view count.
 	 * 
-	 * @param  [type] $parm   [description]
-	 * @param  string $method [description]
-	 * @return [type]         [description]
+	 * 
+	 * @param  [type]  $parm      [description]
+	 * @param  string  $method    [description]
+	 * @param  boolean $incr_view [description]
+	 * @return [type]             [description]
 	 */
-	public function get($parm, $method = 'id') 
+	public function get($parm, $method = 'id', $incr_view = FALSE ) 
 	{
 		
 		$product = parent::get($parm,$method); 
@@ -68,11 +69,15 @@ class Products_front_m extends Products_m
 			}
 		}
 
+
 		//
 		// Add the view count
 		//
-		$this->viewed($product->id);
-
+		if($incr_view)
+		{
+			$this->viewed($product->id);
+		}
+		
 		return $product;
 	}
 	
@@ -101,7 +106,7 @@ class Products_front_m extends Products_m
 	 * @param  [type] $product_id [description]
 	 * @return [type]             [description]
 	 */
-	public function viewed($product_id) 
+	private function viewed($product_id) 
 	{
 
 		

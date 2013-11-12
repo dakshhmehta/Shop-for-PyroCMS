@@ -26,6 +26,12 @@
 class Cart extends Public_Controller 
 {
 
+	//
+	// List of messages (error|success) for return
+	//
+	private $_MESSAGES = array();
+
+
 	public function __construct() 
 	{
 		parent::__construct();
@@ -38,6 +44,9 @@ class Cart extends Public_Controller
 		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 		$this->login_required = Settings::get('ss_require_login');
 		$this->has_logged_in_user =  ($this->current_user)? TRUE : FALSE ;
+
+
+		$this->_init_messages();
 		
 				
 		// Load required classes
@@ -45,20 +54,57 @@ class Cart extends Public_Controller
 		$this->load->model('product_prices_m');
 
 
-		
-		// Apply default CSS if required
-		//if ($this->use_css) _setCSS($this->template);
-
-
-
 		//change the next few lines
 		if ( $this->login_required && !$this->has_logged_in_user) 
 		{
-			$this->session->set_flashdata('error', 'You must login before you can add items..');
-			redirect('users/login');
+			$message = $this->_MESSAGES[210];
+			if($this->input->is_ajax_request())
+			{
+				$sys_message['status'] = JSONStatus::Error;
+				$sys_message['message'] = $message;
+			}
+			else
+			{
+				$this->session->set_flashdata('error', $message);
+				redirect('users/login');
+			}			
+
 		}
 		
 	}
+
+
+	private function _init_messages()
+	{
+
+		//
+		// Success add message
+		//
+		$this->_MESSAGES[100] = shop_lang('shop:cart:item_was_added_to_cart');
+		$this->_MESSAGES[101] = shop_lang('shop:cart:"%s"_was_added_to_cart'); 
+
+		//
+		// Failed to add messagea
+		//
+		$this->_MESSAGES[200] = shop_lang('shop:cart:item_was_not_added_to_cart');  
+		$this->_MESSAGES[201] = shop_lang('shop:cart:id_or_qty_was_not_set');
+		$this->_MESSAGES[202] = shop_lang('shop:cart:product_is_not_available_or_does_not_exist');
+		$this->_MESSAGES[203] = shop_lang('shop:cart:product_is_no_longer_available');
+		$this->_MESSAGES[204] = shop_lang('shop:cart:product_is_currently_out_of_stock');
+
+
+		$this->_MESSAGES[210] = shop_lang('shop:cart:you_must_login_before_shopping');
+
+
+		//
+		// Item removed messages
+		//
+		$this->_MESSAGES[300] = shop_lang('shop:cart:item_removed_from_cart'); 
+		$this->_MESSAGES[301] = shop_lang('shop:cart:%s_has_been_removed_from_cart');		
+		$this->_MESSAGES[302] = shop_lang('shop:cart:product_is_not_in_cart');		
+	}
+
+
 
 	/**
 	 * Display Cart
@@ -82,6 +128,14 @@ class Cart extends Public_Controller
 	 */
 	public function add($id = 0, $qty = 1) 
 	{
+		//
+		// Message handling for ajax
+		//
+		$sys_message = array();
+		$sys_message['status'] = JSONStatus::Error;
+		$sys_message['message'] = 'Unknown';
+		$sys_message['cost'] = 0.00;
+		$sys_message['qty'] = 0;
 	
 	
 		$url_redir = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'shop/cart';
@@ -121,25 +175,35 @@ class Cart extends Public_Controller
 		
 		
 
+
+
 		
 		//
 		// pre-Add checks
 		//
-		if( ! $product = $this->_add($id, $qty) )
+		$product = $this->_add($id, $qty);
+
+		if( is_object($product) == FALSE )
 		{
 
+			$message =  $this->_MESSAGES[$product];
 
 			if($this->input->is_ajax_request())
 			{
-				$message = shop_lang("shop:cart:unable_to_add_item_to_cart");
-				echo json_encode($message);die;
+				$sys_message['message'] = $message;
+				echo json_encode($sys_message);die;
 			}
 			else
 			{
 				// if the product/ request faled to validate just redirect now
+				$this->session->set_flashdata( JSONStatus::Error , $message );
 				redirect($url_redir);
 			}
 		}
+
+
+
+
 
 		
 		
@@ -216,6 +280,7 @@ class Cart extends Public_Controller
 		$success = $this->sfcart->insert($data);
 		
 
+
 		//
 		// Trigger Event to Notify User of status (success/Failer)
 		//
@@ -223,28 +288,58 @@ class Cart extends Public_Controller
 
 
 
+		//
+		// Update the cart totals/prices
+		//
 		$this->run_mid_on_cart();
 
+
 		
-
-
-		if($this->input->is_ajax_request())
+		//
+		// Format return message
+		//
+		if($success)
 		{
-			$message ='item was added to cart OK';
-			echo json_encode($message);die;
+			$_ERROR_MESSAGE = 101;
+			$_MESSAGE_STATUS  = JSONStatus::Success;
 		}
 		else
 		{
+			$_ERROR_MESSAGE = 200;
+			$_MESSAGE_STATUS  = JSONStatus::Error;
+		}
+
+
+		$message = sprintf( $this->_MESSAGES[$_ERROR_MESSAGE] , $product->name ); 
+
+
+		//
+		// Return data/messages
+		//
+		if($this->input->is_ajax_request())
+		{
+			
+			//prepare ajax return statement
+			$total_items = $this->sfcart->total_items();
+			if($total_items==NULL) $total_items = 0;
+
+			$sys_message['status'] = $_MESSAGE_STATUS;
+			$sys_message['qty'] = $total_items; //total items in cart
+			$sys_message['cost'] =  number_format( (float) $this->sfcart->total_cost_contents() , 2); //cost of cart
+			$sys_message['message'] = $message;
+
+			echo json_encode($sys_message);return;
+		}
+		else
+		{
+
+			$this->session->set_flashdata( $_MESSAGE_STATUS , $message );
+			
 			//
 			// redirect them back to page
 			//
 			redirect($url_redir);
 		}
-
-
-
-		
-		
 	}
 	
 	
@@ -267,38 +362,43 @@ class Cart extends Public_Controller
 		//
 		if( (!$id ) OR (!$qty) ) 
 		{
-			// Set User message 
-			$this->session->set_flashdata('error', shop_lang('shop:cart:qty_was_not_set'));
-			
-			// Usert has requested invalid data
-			return FALSE;
-			
+			//Product ID or QTY was not set
+			return 201;
 		}
 
-		
+
+		//
+		// Check that ID/QTY is a valid int, do not allow anything else other than an INT
+		//
+		$id = intval($id);
+		$qty = intval($qty);
+
+
 
 		// Get product from DB
 		$item = $this->products_front_m->get($id,'id');  
 
 		
 		
-		
-		// Check if the product existed
+		//
+		// Check if product exist or still available
+		//
 		if(!$item)
 		{
-			$this->session->set_flashdata('error', shop_lang('shop:cart:unable_to_find_product'));
-			return FALSE;
+			return 202;
 		}
 
 		
 	
 		//
-		//check product validady (visible or deleted)
+		// Check product validady (visible or deleted) 
+		// 
+		// This is important to check because in products_front_m if the user is admin it does not check this.
+		// So it is a must at this stage.
 		//
 		if( is_deleted($item) || ($item->public === ProductVisibility::Invisible ) )
 		{
-			$this->session->set_flashdata('error', shop_lang('shop:cart:product_is_no_longer_available') );
-			return FALSE;
+			return 203;
 		}
 		
 			
@@ -307,10 +407,19 @@ class Cart extends Public_Controller
 		//
 		if(!($this->_check_inventory($item, $qty)) ) 
 		{
-			$this->session->set_flashdata('error', shop_lang('shop:cart:product_is_out_of_stock'));
-			return FALSE;
+			return 204;
 		}
 	
+
+
+		//
+		// Check if User req to login
+		//
+		if ( $this->login_required && !$this->has_logged_in_user) 
+		{
+			return 210;
+		}
+
 
 		// 
 		// If we have reached this point then we can validate successfully
@@ -377,21 +486,7 @@ class Cart extends Public_Controller
 	}
 
 
-	/*
-	private function __update()
-	{
 
-		//apply possible qty changes and dletes
-		$result = $this->sfcart->update($update_data);
-
-
-		$this->run_mid_on_cart();
-		 
-		
-		redirect('shop/cart');
-		
-	}
-	*/
 
 
 	private function _update() 
@@ -502,13 +597,64 @@ class Cart extends Public_Controller
 	 */
 	public function delete($rowid) 
 	{
-		$this->sfcart->remove($rowid);
+
+		$url_redir = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'shop/cart';
 
 
+		$items = $this->sfcart->contents();
+
+		if($items[$rowid])
+		{
+			//found :)
+			//get the name
+			$prod_name = $items[$rowid]['name'];
+			$this->sfcart->remove($rowid);
+			$_MESSAGE_CODE = 301;
+			$_STATUS = JSONStatus::Success;
+
+		}
+		else
+		{
+			// item does not exist in cart
+			$prod_name = shop_lang('shop:cart:unknown');
+			$_MESSAGE_CODE = 302;
+			$_STATUS = JSONStatus::Error;
+		}
+
+
+
+
+		//
+		// This is important, we need to update the cart item values to keep MID values in sync.
+		//
 		$this->run_mid_on_cart();
 
 
-		redirect('shop/cart');
+
+		$message = sprintf( $this->_MESSAGES[$_MESSAGE_CODE] , $prod_name );
+
+
+
+
+		if($this->input->is_ajax_request())
+		{
+			$total_items = $this->sfcart->total_items();
+			if($total_items==NULL) $total_items = 0;
+
+
+			$sys_message['qty'] = $total_items; //total items in cart
+			$sys_message['cost'] =  number_format( (float) $this->sfcart->total_cost_contents() , 2); //cost of cart
+			$sys_message['message'] = $message;
+			$sys_message['status'] = $_STATUS;
+			echo json_encode($sys_message);die;
+		}
+		else
+		{
+			// if the product/ request faled to validate just redirect now
+			$this->session->set_flashdata( $_STATUS , $message );
+			redirect($url_redir);
+		}
+		
 	}
 
 	
@@ -539,7 +685,7 @@ class Cart extends Public_Controller
 		// Check 1: only allow the in-stock status
 		if( $item->status !== InventoryStatus::InStock )
 		{
-			$this->session->set_flashdata('feedback', lang('user_nostock_warning') );
+			//no stock
 			return FALSE;
 		}
 		
@@ -552,9 +698,6 @@ class Cart extends Public_Controller
 
 				
 		// Anything below here we just dont have the stock!!
-		$this->session->set_flashdata('feedback', "Sorry we only have :". $item->inventory_on_hand. ' available.');
-
-
 		return FALSE;
 
 	}

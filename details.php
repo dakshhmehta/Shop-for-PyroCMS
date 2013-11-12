@@ -27,7 +27,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.113';  
+	public $version = '1.0.0.115';  
 
 
 
@@ -37,9 +37,6 @@ class Module_Shop extends Module
 		$this->load->library('shop/details_library');
 		$this->load->library('shop/enums');
 		$this->ci = get_instance();
-
-		
-	 
 
 
 	}
@@ -57,7 +54,7 @@ class Module_Shop extends Module
 		$this->load->model('settings_m');
 
 		$get_menu_addon = $this->ci->uri->segment(3);	
-
+		
 		return  $this->details_library->info($get_menu_addon);
 
 	}
@@ -220,7 +217,8 @@ class Module_Shop extends Module
 		switch ($old_version) 
 		{
 
-			case '1.0.0.112':		
+
+			case '1.0.0.114':	
 				$this->_install_table('shop_dailydeals');
 				break;
 			case '1.0.0.105':
@@ -247,14 +245,14 @@ class Module_Shop extends Module
 	}
 
 
+				
+
+
 	private function _install_table($table)
 	{
- 		$_fields = $this->details_library->get_tables($table);
+ 		$table_to_install = $this->details_library->get_tables($table);
 
-		$table_to_install = array( $table => $_fields  );
-		
 		return $this->install_tables( $table_to_install );
-
 	}
 
 
@@ -323,7 +321,7 @@ class Module_Shop extends Module
 	 * Install a single setting when upgrading
 	 * 
 	 * @param  [type] $sett_name [The key / slug of the settings in the main list]
-	 * @return [type]            [description]
+	 * @return BOOL            [description]
 	 */
 	private function _install_settings($sett_name)
 	{
@@ -332,12 +330,8 @@ class Module_Shop extends Module
 		//set the settings name
 		$settings['slug'] = $sett_name;
 
-		if (!$this->db->insert('settings', $settings)) 
-		{
-			return FALSE;
-		}
+		return $this->db->insert('settings', $settings);
 
-		return TRUE;
 	}
 
 
@@ -354,7 +348,6 @@ class Module_Shop extends Module
 
 			if (!$this->db->insert('settings', $setting)) 
 			{
-
 				return FALSE;
 			}
 		}

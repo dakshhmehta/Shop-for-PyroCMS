@@ -1,0 +1,8 @@
+//remove settings
+ss_slogan
+nc_menu_style
+nc_total_recent_orders
+
+
+//add setting
+PIN for confirmation

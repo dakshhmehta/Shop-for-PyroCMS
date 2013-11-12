@@ -35,13 +35,13 @@ class Shop extends Public_Controller
 	/*just for play/testing in future builds*/
 	public function index($param = '') 	
 	{
-		//
-		// Display the product
-		//
-		//$this->template->set_layout('shop/products.html');
-		
 
-		if($this->template->layout_exists($param .'.html'))
+		
+		if($this->template->layout_exists('shop/special/shop_home.html'))
+		{
+			$this->template->set_layout('shop/special/shop_home.html');
+		}
+		elseif($this->template->layout_exists($param .'.html'))
 		{
 			$this->template->set_layout($param .'.html');
 		}

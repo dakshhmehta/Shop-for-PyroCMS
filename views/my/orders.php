@@ -32,7 +32,11 @@
 					<td><?php echo nc_format_price( $item->cost_total); ?></td>
 					<td><?php echo $item->billing_address; ?></td>
 					<td><?php echo $item->status; ?></td>
-					<td><a href="{{ url:site }}shop/my/order/<?php echo $item->id; ?>" class="button"><?php echo lang('view'); ?></a></td>
+					<td>
+						<a href="{{ url:site }}shop/my/order/<?php echo $item->id; ?>" class="button"><?php echo lang('view'); ?></a>
+						 <?php var_dump($item);?>
+						<a href="{{ url:site }}shop/my/order/<?php echo $item->id; ?>" class="button"><?php echo lang('view'); ?></a>
+					</td>
 				</tr>
 				<?php endforeach; ?>
 			</tbody>

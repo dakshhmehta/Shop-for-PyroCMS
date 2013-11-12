@@ -175,7 +175,43 @@ class Twoducks_base extends Twoducks_debug
 		
 		return 10;
 	}
+	
+	protected function calc_pxmascards($package)
+	{
+		$qty = $package->item_count;
+		$found = FALSE;
+		
 
+		foreach($package->items as $item)
+		{
+
+			foreach( $item['options'] as $option_key => $selected_option_value)
+			{
+
+				$_user_data = trim($selected_option_value['user_data']);
+
+				switch ( $_user_data ) 
+				{
+					case 'digital':
+						break;
+					case 'printed':				
+					default:
+						$found = TRUE;
+						break;
+				}
+
+			}
+
+		}
+
+		if($found)	
+		{
+			return 10.00;
+		}
+
+		//not found implies digital only
+		return 0.00;
+	}
 
 	protected function calc_name_charts($package)
 	{
