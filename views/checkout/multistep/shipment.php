@@ -3,19 +3,25 @@
 <form action="{{url:site}}shop/checkout2/shipment" method="POST" name="">
 
     <fieldset>
-        <ul>
+        <table>
         {{shipments}}
             <!--img src="{{image}}"-->
-           <li><input type="radio" value="{{id}}" name="shipment_id" checked>{{title}} - {{shipping_cost}}</li>
+           <tr>
+                <td><input type="radio" value="{{id}}" name="shipment_id" checked></td>
+                <td>{{title}}</td>
+                <td>{{shop:currency}} {{shipping_cost}}</td>
+            </tr>
         {{/shipments}}
-        </ul>
+        </table>
     </fieldset>
 
     <fieldset>    
-        <span style="float: right;">
-            <?php echo anchor('shop/cart/', 'back to cart'); ?> | 
-            <?php echo form_submit('submit', 'continue'); ?>
-        </span>
+        <div> 
+            <span style="float: right;">
+                <a href='{{url:site}}shop/cart'>back to cart</a> 
+                <input type='submit' name='submit' value='continue'>
+            </span>
+        </div>
     </fieldset>
 
 </form>

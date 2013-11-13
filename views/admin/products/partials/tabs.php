@@ -25,6 +25,8 @@
 
 				<li><a class="tab-loader"  data-load="shipping" href="#shipping-tab"><span><?php echo shop_lang('shop:products:shipping'); ?></span></a></li>
 
+				<li><a class="tab-loader"  data-load="design" href="#design-tab"><span><?php echo shop_lang('shop:products:design'); ?></span></a></li>
+
 
 
 				<li><a class=""  data-load="" href="#console-tab"><span><?php echo shop_lang('shop:products:console'); ?></span></a></li>

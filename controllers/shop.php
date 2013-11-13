@@ -36,7 +36,7 @@ class Shop extends Public_Controller
 	public function index($param = '') 	
 	{
 
-		
+
 		if($this->template->layout_exists('shop/special/shop_home.html'))
 		{
 			$this->template->set_layout('shop/special/shop_home.html');

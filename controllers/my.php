@@ -224,12 +224,12 @@ class My extends Public_Controller
 		{
 			if ($this->messages_m->send($id, $this->input->post('message'))) 
 			{
-				$this->session->set_flashdata('success', lang('success'));
+				$this->session->set_flashdata('success', 'Message sent');
 				redirect('shop/my/order/' . $id);
 			} 
 			else
 			{
-				$this->session->set_flashdata('error', lang('error'));
+				$this->session->set_flashdata('error', 'Error sending message');
 				redirect('shop/my/order/' . $id);
 			}
 		}
@@ -267,7 +267,6 @@ class My extends Public_Controller
 		$this->load->model('addresses_m');
 
 		$data->items = $this->addresses_m->get_active_by_user($this->current_user->id); 
-
 
 
 		$this->template
@@ -418,7 +417,7 @@ class My extends Public_Controller
 		}
 		else
 		{
-			$this->session->set_flashdata('error',  shop_lang('shop:wishlist:failed_to_add_item')  ); 
+			//flash message from validation
 		}
 
 		
@@ -461,14 +460,24 @@ class My extends Public_Controller
 		}		
 		
 		
-		
+		if( $this->current_user )
+		{
+
+		}
+		else
+		{
+			$this->session->set_flashdata('error',  shop_lang('shop:wishlist:you_must_first_login_to_use_this_feature') ); 
+			return FALSE;
+		}
+
+
 
 		//
 		// Check if the item already exist - do this before fetching the Item
 		//
 		if ($this->wishlist_m->item_exist( $this->current_user->id, $product_id)) 
 		{
-			$this->session->set_flashdata('notice',  lang('already_in_wishlist') ); 
+			$this->session->set_flashdata('error',  shop_lang('shop:wishlist:item_already_in_wishlist') ); 
 			return FALSE;
 		} 
 		
@@ -487,7 +496,7 @@ class My extends Public_Controller
 		//
 		if(!$product)
 		{
-			$this->session->set_flashdata('notice',  lang('wl:no_product') ); 
+			$this->session->set_flashdata('error',  shop_lang('shop:wishlist:product_not_found') ); 
 			return FALSE;
 		}
 		
@@ -497,7 +506,7 @@ class My extends Public_Controller
 		//
 		if ( is_deleted($product) || ($product->public == 0))
 		{
-			$this->session->set_flashdata('feedback', lang('wishlist_not_avail') );
+			$this->session->set_flashdata('error',  shop_lang('shop:wishlist:product_unavailable') ); 
 			return FALSE;
 		}
 		

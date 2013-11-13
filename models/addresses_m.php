@@ -184,7 +184,7 @@ class Addresses_m extends MY_Model {
 	}	
 	
 	/**
-	 * this is prefered over create when in checkout
+	 * @deprecated
 	 *
 	 */
 	public function set_address($input, $type='billing') 

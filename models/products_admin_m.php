@@ -378,6 +378,8 @@ class Products_admin_m extends Products_m
 				$pass = TRUE;
 				break;
 
+
+			case 'page_design_layout':
 			case 'inventory_on_hand':
 			case 'inventory_low_qty':
 			case 'inventory_type':	
@@ -473,7 +475,33 @@ class Products_admin_m extends Products_m
 	
 
 	
+	protected function filter_category_list($filter = array())
+	{
+		$this->reset_query();
+		$categories = array();	
 
+		//
+		// Get all products in sub categories
+		//
+		if(isset($filter['category_id']))
+		{
+
+			$this->load->model('categories_m');
+
+			$cat_id = $filter['category_id'];
+
+			$categories = $this->categories_m->get_children($cat_id);
+
+			//dont forget the parent
+			$categories[] =  $this->categories_m->get($cat_id);
+
+		}
+
+		$this->reset_query();	
+
+		return $categories;
+
+	}
 	
 
 	protected function _prepare_filter($filter = array()) 
@@ -489,11 +517,11 @@ class Products_admin_m extends Products_m
 		}
 
 
-		if (array_key_exists('category_id', $filter)) 
-		{
-			$this->where('category_id', $filter['category_id']);
-			$new_filter['category_id'] = $filter['category_id'] ;
-		}
+		//if (array_key_exists('category_id', $filter)) 
+		//{
+		//	$this->where('category_id', $filter['category_id']);
+		//	$new_filter['category_id'] = $filter['category_id'] ;
+		//}
 
 
 
@@ -511,21 +539,37 @@ class Products_admin_m extends Products_m
 	{
 
 		$this->reset_query();	
-
-		//Prepare countBy filter
+		$categories = $this->filter_category_list($filter);
 		$new_filter = $this->_prepare_filter($filter);
+		$this->reset_query();
+
+
+
+		foreach ($categories as $category) 
+		{
+			$this->or_where('category_id',$category->id);
+		}
+
 
 		// Get the count
-		$this->like('name', trim($filter['search']));
-
+		
 		foreach ($new_filter as $key => $value) 
 		{
 			$this->where($key,$value);
 		}
 
+		if(trim($filter['search']) != "")
+		{
+			$this->like('name', trim($filter['search'])); 
+		}
+
 		$this->where('date_archived', NULL);
 
-		return $this->count_by($new_filter);
+		$this->from($this->_table);
+
+
+		return $this->count_all_results();
+		//return $this->count_by($new_filter);
 	}
 
 	
@@ -533,24 +577,33 @@ class Products_admin_m extends Products_m
 	{
 
 		$this->reset_query();	
-
-		//Prepare countBy filter
+		$categories = $this->filter_category_list($filter);
 		$new_filter = $this->_prepare_filter($filter);
+		$this->reset_query();		
 
 		
-		// Get the paged results
-		$this->reset_query();		
-		$this->like('name', trim($filter['search']));
+
+		foreach ($categories as $category) 
+		{
+			$this->or_where('category_id',$category->id);
+		}
+
+
 		
 		foreach ($new_filter as $key => $value) 
 		{
 			$this->where($key,$value);
-		}		
-		
-		$this->where('date_archived', NULL);
+		}	
 
-		$this->db->order_by($filter['order_by']);
-		$this->db->limit( $limit , $offset );
+		if(trim($filter['search']) != "")
+		{
+			$this->like('name', trim($filter['search'])); 
+		}
+
+
+		$this->where('date_archived',NULL);					
+		$this->order_by($filter['order_by']);
+		$this->limit( $limit , $offset );
 
 		return $this->get_all();
 	}

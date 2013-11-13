@@ -493,7 +493,8 @@ class Package_library extends Core_library
 		if ($packages = $this->db->order_by('title')->get($this->db_table)->result()) 
 		{
 			
-			foreach ($packages as $item) {
+			foreach ($packages as $item) 
+			{
 				
 				//dont use slug
 				$item = $this->get_object($item->id);

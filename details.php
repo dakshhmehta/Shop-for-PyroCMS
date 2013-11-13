@@ -27,7 +27,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.115';  
+	public $version = '1.0.0.116';  
 
 
 
@@ -217,9 +217,12 @@ class Module_Shop extends Module
 		switch ($old_version) 
 		{
 
-
-			case '1.0.0.114':	
+			case '1.0.0.115':
 				$this->_install_table('shop_dailydeals');
+				break;
+			case '1.0.0.114':	
+				$this->_install_table_row('shop_products','page_design_layout');
+				//$this->_install_table('shop_dailydeals');
 				break;
 			case '1.0.0.105':
 			case '1.0.0.104':
@@ -252,6 +255,10 @@ class Module_Shop extends Module
 	{
  		$table_to_install = $this->details_library->get_tables($table);
 
+
+ 		$table_to_install = array( $table => $table_to_install[$table] );
+
+
 		return $this->install_tables( $table_to_install );
 	}
 
@@ -267,7 +274,9 @@ class Module_Shop extends Module
 	{
  		$_table = $this->details_library->get_tables($table);
 
-		$fields = array( $row => $_table[$row]     );
+ 		$fields = $_table[$table][$row];
+
+		$fields = array( $row => $fields );
 		
 		return $this->dbforge->add_column($table, $fields);
 	}

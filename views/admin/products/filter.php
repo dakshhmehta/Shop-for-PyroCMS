@@ -1,5 +1,6 @@
-<!--- FILE.START:VIEW.ADMIN.PRODUCTS.FILTER -->
+
 <div class='item' id="filters_group" style="">
+
 	<fieldset id="filters" style="display:block;">
 		<div class='item' id="hideable_filters" style="display:none;">
 		
@@ -33,7 +34,22 @@
 							<?php echo form_dropdown('f_items_per_page', array(5=>"5", 10=>"10", 20=>"20", 50=>"50", 100=>"100", 200=>"200"), $limit); ?>
 						</div>
 					</li>
+					<li>
+						<label>
+							<?php echo shop_lang('shop:products:custom_field'); ?>
+						</label>
+						<div class="input">
 
+							<?php echo form_dropdown('f_dynamic_field',  
+
+									array(
+										'page_design_layout'=> shop_lang('shop:products:page_design_layout'),
+										'date_created'=> shop_lang('shop:products:date_created'),
+										),$f_dynamic_field ); ?>
+
+
+						</div>
+					</li>
 					
 				</ul>
 			</div>
@@ -85,4 +101,3 @@
 	</fieldset>
 	
 </div>
-<!--- FILE.END:VIEW.ADMIN.PRODUCTS.FILTER -->

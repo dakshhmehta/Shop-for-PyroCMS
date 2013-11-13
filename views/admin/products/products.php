@@ -26,12 +26,35 @@
 			<div style="clear:both"></div>
 
 			<?php echo form_open('admin/shop/products/action'); ?>
-			
-				<div id="filter-stage" class="">
 
-						<?php $this->load->view('admin/products/line_item'); ?>
+							
+								<table>
 
-				</div>
+									<thead>		
+										<tr>
+											<th class="collapse"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
+											<th class="collapse"><?php echo shop_lang('shop:products:id');?></th>
+											<th class="collapse"><?php echo shop_lang('shop:products:image');?></th>
+											<th class="collapse"><?php echo shop_lang('shop:products:name');?></th>
+											<th class="collapse"><?php echo shop_lang('shop:products:on_hand');?></th>
+											<th class="collapse"><?php echo shop_lang('shop:products:visibility');?></th>
+											<th class="collapse"><?php echo shop_lang('shop:products:category'); ?></th>
+											<th class="collapse"><?php echo shop_lang('shop:products:custom_field'); ?></th>
+											<th class="collapse"><?php echo shop_lang('shop:products:price'); ?></th>
+
+											<th></th>
+										</tr>
+									</thead>
+									<tbody id="filter-stage">
+										
+									
+									</tbody>
+									<?php $this->load->view('admin/products/products_multi_update'); ?>
+
+
+							</table>
+					
+							
 				
 			<?php echo form_close(); ?>
 

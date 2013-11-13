@@ -93,8 +93,35 @@ class Product extends Public_Controller
 		// if product does not exist, redirect away
 		//
 		$data->product OR redirect('404');
-		
+
+
+		//
+		// If viewing this as an admin, notify about this product
+		//
+		$notification_messages[] = array();
+		$notification_messages['error'] = array();
+		$notification_messages['success'] = array();
+
+		if(group_has_role('shop', 'admin_products'))
+		{
+			$notification_messages['error'][] = 'You are viewing this product as an Administrator<br />';
+
+			if($data->product->public == 0)
+			{
+				$notification_messages['error'][] = 'This product is hidden from your customers view';
+			}
+		}
+
+		$data->notification_messages = $notification_messages;
+
+
 	
+		//
+		// We need to get the specific view for this product
+		//
+		$_view_file = $this->_get_view_file($data->product);
+
+		//$this->template->set_layout('default.html');
 
 		//
 		// Display the product
@@ -103,7 +130,51 @@ class Product extends Public_Controller
 			->title($this->module_details['name'].' &rarr;'.$data->product->name)		
 			->set_breadcrumb($data->product->name) // current crumb
 			->set_metadata('description', strip_tags($data->product->meta_desc)) 						
-			->build('common/products_single', $data); 
+			->build($_view_file, $data); 
 
 	}	
+
+
+	/**
+	 * 
+	 * 1st will get by the set view in product_databse
+	 * 2nd will try to get a thview from the layout by product slug
+	 * 3rd will return the default products_single (default) which is always available
+	 * 
+	 * @param  [type] $product_slug [description]
+	 * @return [type]               [description]
+	 */
+	private function _get_view_file($product)
+	{
+		$view_name = 'products_single_' . $product->page_design_layout;
+		
+		$this->load->library('design_library');
+
+		$path = $this->design_library->get_custom_path();
+		$path = $path . '/' . $view_name;
+
+
+		if(file_exists($path. '.php'))
+		{
+			return 'custom/'.$view_name;
+		}
+		elseif('products_single' == $product->page_design_layout)
+		{
+			return 'common/products_single';
+		}
+		else
+		{
+			return 'common/products_single';
+		}
+
+		/*
+		elseif($this->template->layout_exists($product->slug .'.html'))
+		{
+			$this->template->set_layout($product->slug .'.html');
+		}
+		*/		
+
+	}
+
+
 }

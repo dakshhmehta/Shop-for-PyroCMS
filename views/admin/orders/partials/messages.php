@@ -7,8 +7,6 @@
 							<tr>
 								<th><?php echo shop_lang('shop:orders:from'); ?></th>
 								<th><?php echo shop_lang('shop:orders:date'); ?></th>
-								<th><?php echo shop_lang('shop:orders:status'); ?></th>
-								<th><?php echo shop_lang('shop:orders:subject'); ?></th>
 								<th><?php echo shop_lang('shop:orders:message'); ?></th>
 							</tr>
 					</thead>
@@ -21,8 +19,6 @@
 									<tr>
 										<td><?php echo $item->user_name; ?></td>
 										<td><?php echo date('d/m/Y', $item->date_sent); ?></td>
-										<td><?php echo $item->status; ?></td>
-										<td><?php echo $item->subject; ?></td>
 										<td><?php echo $item->message; ?></td>
 									</tr>
 								<?php endforeach; ?>
@@ -45,21 +41,15 @@
 				<div class="form_inputs">
 					<ul>
 						<li>
-							<?php echo shop_lang('shop:orders:subject'); ?>
-							<div class="">
-								<?php echo form_input(array( 'name' => 'subject', 'value' => set_value('subject'))); ?>
-							</div>
-						</li>
-						<li>
 							<?php echo shop_lang('shop:orders:message'); ?>
 							<div class="">
 								<?php echo form_textarea(array( 'name' => 'message', 'value' => set_value('message'), 'rows' => 3)); ?>
 							</div>
 						</li>
 						<li>
-							<div class="">
-								<?php echo form_submit('save', shop_lang('shop:brands:send')); ?>
-							</div>
+						
+								<input type='submit' value='send' class='button shopbutton button-primary'>
+						
 						</li>
 					</ul>
 				</div>

@@ -47,19 +47,6 @@ class Checkout2 extends Public_Controller {
     }
 
 
-    public function delete_address($id) 
-    {
-        $cid = $this->session->userdata('user_id');
-
-        if ($cid == $this->current_user->id) 
-        {
-            $this->db->where('user_id', $cid)
-                    ->where('id', $id)->delete('store_addresses');
-        }
-
-        redirect('shop/checkout2/address');
-    }
-
     /**
      * STEP 1
      */
@@ -68,6 +55,7 @@ class Checkout2 extends Public_Controller {
 
         if ($this->current_user) 
         {
+            $this->session->set_userdata('user_id', $this->current_user->id);
             redirect('shop/checkout2/billing');
         }
 
@@ -101,26 +89,18 @@ class Checkout2 extends Public_Controller {
     public function billing() 
     {
 
-        if($this->input->post())
-        {
-        }
-        else
-        {
-            //check to see if previously stored
-        }
 
+        $this->form_validation->set_rules('useragreement', 'User Agreement field', 'required|numeric|trim');
 
-        $this->address_validation =  $this->addresses_m->address_validation;
-
-        $this->form_validation->set_rules( $this->address_validation );
        
         //
         // Initi the data
         //
-        foreach ($this->address_validation AS $rule) 
+        foreach ($this->addresses_m->address_validation AS $rule) 
         {
             $data->{$rule['field']} = $this->input->post($rule['field']);
         }
+
         $data->addresses = array();
 
 
@@ -131,7 +111,7 @@ class Checkout2 extends Public_Controller {
         {
             $data = $this->current_user;
 
-            foreach ($this->address_validation AS $rule) 
+            foreach ($this->addresses_m->address_validation AS $rule) 
             {
                 $data->{$rule['field']} = isset($this->current_user->{$rule['field']}) ? $this->current_user->{$rule['field']} : $this->input->post($rule['field']);
             }
@@ -145,43 +125,58 @@ class Checkout2 extends Public_Controller {
             $data->addresses = $this->db->where('user_id', $this->current_user->id)->get('shop_addresses')->result();
         } 
 
+        //for both
+        $this->form_validation->set_rules('useragreement', 'User Agreement field', 'required|numeric|trim');
 
-
-        if($this->input->post('address_id')) 
+        if($this->input->post('selection') == 'existing') 
         {
+            $this->form_validation->set_rules('address_id', 'Address', 'required|numeric|trim');
 
-            $this->session->set_userdata('billing', $this->input->post('address_id'));
 
-            if ($this->input->post('sameforshipping')) 
+            if ($this->form_validation->run())
             {
-                $this->session->set_userdata('shipping', $this->input->post('address_id'));
-                redirect('shop/checkout2/shipment');
-            } 
 
+                $this->session->set_userdata('billing', $this->input->post('address_id'));
 
-            redirect('shop/checkout2/shipping');
+                if ($this->input->post('sameforshipping')) 
+                {
+                    $this->session->set_userdata('shipping', $this->input->post('address_id'));
+                    redirect('shop/checkout2/shipment');
+                } 
+
+                redirect('shop/checkout2/shipping');
+            }
             
         }
 
-        if ($this->form_validation->run()) 
+
+        if($this->input->post('selection') == 'new') 
         {
 
-            $input = $this->input->post();
+            $this->form_validation->set_rules( $this->addresses_m->address_validation );     
 
-            $address_id = $this->addresses_m->set_address($input);
-
-            $this->session->set_userdata('billing', $address_id);
-
-            if ($this->input->post('sameforshipping')) 
+            if ($this->form_validation->run()) 
             {
-                $this->session->set_userdata('shipping', $address_id);
-                redirect('shop/checkout2/shipment');
-            } 
+
+                $input = $this->input->post();
+                $input['user_id'] = $this->session->userdata('user_id');
 
 
-            redirect('shop/checkout2/shipping');
-            
+                $address_id = $this->addresses_m->create($input);
 
+                $this->session->set_userdata('billing', $address_id);
+
+                if ($this->input->post('sameforshipping')) 
+                {
+                    $this->session->set_userdata('shipping', $address_id);
+                    redirect('shop/checkout2/shipment');
+                } 
+
+
+                redirect('shop/checkout2/shipping');
+                
+
+            }
         }
 
 
@@ -247,8 +242,9 @@ class Checkout2 extends Public_Controller {
         {
 
             $input = $this->input->post();
+            $input['user_id'] = $this->session->userdata('user_id');
 
-            $address_id = $this->addresses_m->set_address($input);
+            $address_id = $this->addresses_m->create($input);
 
             $this->session->set_userdata('shipping', $address_id);
 
@@ -290,17 +286,35 @@ class Checkout2 extends Public_Controller {
             $this->session->set_userdata('shipment_id', $this->input->post('shipment_id')); 
             $this->session->set_userdata('shipping_cost', $cost); 
 
-
-            $this->session->set_flashdata('success', 'success');
-
-
-            redirect('shop/checkout2/gateway');
+            redirect('shop/checkout2/review');
         }
 
 
 
         $this->template->title($this->module_details['name'], 'shipments')
                 ->build($this->theme_layout_path . 'shipment', $data);
+    }
+
+
+    public function review()
+    {
+
+        $data = new stdClass();
+        $data->cart = $this->sfcart->contents();
+        $data->shipping_cost = $this->session->userdata('shipping_cost'); 
+        $data->shipping_address = (array) $this->addresses_m->get( $this->session->userdata('shipping') );
+        $data->order_total = ($this->sfcart->items_total() + $this->session->userdata('shipping_cost') );
+
+       
+        //validate if postback
+        if($this->input->post() ) 
+        {
+            redirect('shop/checkout2/gateway');
+        }
+
+        $this->template->title($this->module_details['name'], 'review')
+                ->build($this->theme_layout_path . 'review', $data);  
+
     }
 
     /**
@@ -322,9 +336,6 @@ class Checkout2 extends Public_Controller {
         {
 
             $this->session->set_userdata('gateway_id', $this->input->post('gateway_id')); 
-
-
-            $this->session->set_flashdata('success', 'success gateway stored');
 
             
             //now place order
@@ -353,7 +364,7 @@ class Checkout2 extends Public_Controller {
             //
             $input['user_id'] =  $this->session->userdata('customer_id');
             $input['cost_items'] =  $this->sfcart->items_total();
-            $input['cost_shipping'] =  $this->sfcart->shipping_total();
+            $input['cost_shipping'] =   $this->session->userdata('shipping_cost'); 
             //$input['cost_total'] = ($inputs['cost_items'] + $inputs['cost_shipping']);
             $input['shipping_id'] =  $this->session->userdata('shipment_id');
             $input['gateway_method_id'] =  $this->session->userdata('gateway_id');;
@@ -390,7 +401,7 @@ class Checkout2 extends Public_Controller {
                 
 
 
-                $this->session->set_flashdata('success', lang('success'));
+                $this->session->set_flashdata('success', shop_lang('shop:checkout:order_has_been_placed'));
                 
                 // Notify Users/admin with Emails
                  //we can place a order in DB but it is set to pending so no action is required until payment complete

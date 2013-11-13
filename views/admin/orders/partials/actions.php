@@ -68,6 +68,8 @@
 						}		
 			
  
+
+ 							echo "<li><div class='input'>".anchor('admin/shop/orders/delete/' . $order->id.'/',  shop_lang('shop:orders:delete'), 'class="shopbutton button red"')."</div></li>";
 						?>				
 				</ul>
 			</fieldset>

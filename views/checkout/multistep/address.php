@@ -1,138 +1,153 @@
-<h2 id="page_title">
-    Billing address
-</h2>
+<h2>Billing address</h2>
 
-<div class="address_info">
-
-{{if addresses}}
-    <form name="form1" action="{{url:site}}shop/checkout2/billing/" method="POST">
-    <fieldset>
-        <legend>Select an existing address</legend>
-
-            <ul>
-                {{addresses}}
-                    <li>
-                        <label class="radio">
-                            <input type="radio" name="address_id" value="{{id}}"> {{address1}}, {{address2}}{{zip}}  {{city}} 
-                        </label> 
-                        <a href="{{ url:site }}shop/checkout2/delete_address/{{id}}"> Delete</a>
-                    </li>
-                 {{/addresses}}     
-            </ul>
-
-
-        <p>
-            <label>
-                <input type="checkbox" name="delivery" value="1">Same for shipping
-            </label>
-
-        </p>
-
-    </fieldset>
-    <fieldset>
-        <div> 
-            <span style="float: right;">
-                <?php echo anchor('shop/cart/', 'back_to_cart'); ?> | 
-                <?php echo form_submit('submit', 'continue'); ?>
-            </span>
-        </div>
-    </fieldset>
-   </form>
-{{endif}}
+        {{if addresses}}
+            <form name="form1" action="{{url:site}}shop/checkout2/billing/" method="POST">
+                <input type='hidden' value='existing' name='selection'>
+                <fieldset>
+                    <h2>Select an existing address</h2>
+                    <table>
+                        {{addresses}}
+                            <tr>
+                                <td>
+                                    <input type="radio" name="address_id" value="{{id}}">
+                                </td> 
+                                <td>
+                                    {{address1}}, {{address2}}  
+                                </td>  
+                                <td>
+                                    {{city}} {{country}}   
+                                </td>  
+                                <td>
+                                    {{state}} {{zip}}   
+                                </td>                                                                         
+                            </tr>
+                         {{/addresses}}  
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="sameforshipping" value="1">
+                                </td> 
+                                <td colspan='3'>Same for shipping</td>                                                                         
+                            </tr>       
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="useragreement" value="1">
+                                </td> 
+                                <td colspan='3'>Agree to Terms as Conditions</td>                                                                         
+                            </tr>                      
+                    </table>
+            </fieldset>
+            <fieldset>
+                <div> 
+                    <span style="float: right;">
+                        <a href='{{url:site}}shop/cart'>back to cart</a>
+                        <input type='submit' name='submit' value='continue'>
+                    </span>
+                </div>
+            </fieldset>
+           </form>
+        {{endif}}
 
 <hr />
 <form name="form2" action="{{url:site}}shop/checkout2/billing/" method="POST">
-
-     <input type="hidden" name="user_id" value="<?php echo $this->session->userdata('user_id');?>">
+    <input type='hidden' value='new' name='selection'>
     <fieldset>
-        <legend>New Address</legend>
+        <h2>New Address</h2>
+
         <ul class="two_column">
-            <li class="<?php echo alternator('odd', 'even'); ?>">
+            <li>
                 <label>First name<span>*</span></label>
                 <div class="input">
                     <input type="text" name="first_name" value="{{first_name}}">
                 </div>
             </li>
-            <li class="<?php echo alternator('odd', 'even'); ?>">
+            <li>
                 <label>surname<span>*</span></label>
                 <div class="input">
                     <input type="text" name="last_name" value="{{last_name}}">
                 </div>
             </li>
-            <li class="<?php echo alternator('odd', 'even'); ?>">
+            <li>
                 <label>Email<span>*</span></label>
                 <div class="input">
                      <input type="text" name="email" value="{{email}}">
                 </div>
             </li>
-            <li class="<?php echo alternator('odd', 'even'); ?>">
+            <li>
                 <label>Company<span>*</span></label>
                 <div class="input">
                      <input type="text" name="company" value="{{company}}">
                 </div>
             </li>            
-            <li class="<?php echo alternator('odd', 'even'); ?>">
+            <li>
                 <label>Phone<span>*</span></label>
                 <div class="input">
-                    <?php echo form_input('phone', set_value('phone', $phone)); ?>
+                    <input type="text" name="phone" value="{{phone}}">
                 </div>
             </li>
-            <li class="<?php echo alternator('odd', 'even'); ?>">
+            <li>
                 <label>address1<span>*</span></label>
                 <div class="input">
-                    <?php echo form_input('address1', set_value('address1', $address1)); ?>
+                    <input type="text" name="address1" value="{{address1}}">
                 </div>
             </li>
-            <li class="<?php echo alternator('odd', 'even'); ?>">
+            <li>
                 <label>address2</label>
                 <div class="input">
-                    <?php echo form_input('address2', set_value('address2', $address2)); ?>
+                     <input type="text" name="address2" value="{{address2}}">
                 </div>
             </li>
-            <li class="<?php echo alternator('odd', 'even'); ?>">
+            <li>
                 <label>City<span>*</span></label>
                 <div class="input">
-                    <?php echo form_input('city', set_value('city', $city)); ?>
+                    <input type="text" name="city" value="{{city}}">
                 </div>
             </li>
-            <li class="<?php echo alternator('odd', 'even'); ?>">
+            <li>
                 <label>State</label>
                 <div class="input">
-                    <?php echo form_input('state', set_value('state', $state)); ?>
+                    <input type="text" name="state" value="{{state}}">
                 </div>
             </li>
-            <li class="<?php echo alternator('odd', 'even'); ?>">
+            <li>
                 <label>Country</label>
                 <div class="input">
-                    <?php echo form_input('country', set_value('country', $country)); ?>
+                    <input type="text" name="country" value="{{country}}">
                 </div>
             </li>
-            <li class="<?php echo alternator('odd', 'even'); ?>">
+            <li>
                 <label>ZIP/Postcode<span>*</span></label>
                 <div class="input">
-                    <?php echo form_input('zip', set_value('zip', $zip)); ?>
+                    <input type="text" name="zip" value="{{zip}}">
                 </div>
             </li>
+            <li>
+                <label></label>
+                <div class="input">
+                    <input type="checkbox" name="sameforshipping" value="1">Shipping address is the same ?
+                </div>
+            </li> 
+            <li>
+                <label></label>
+                <div class="input">
+                    <input type="checkbox" name="useragreement" value="1">Agree to Terms as Conditions
+                </div>
+            </li>                         
         </ul>
    
-        <p>
-            <label><?php echo form_checkbox('sameforshipping', 1, TRUE); ?>Same for shipping</label>
-        </p>
+
 
     </fieldset>
+
+
     <fieldset>
 
         <div> 
-            <label><input type="checkbox" name="agreement" value="1">Agree to Terms as Conditions</label>
-
             <span style="float: right;">
-                <?php echo anchor('shop/cart/', 'back to cart'); ?> | 
-                <?php echo form_reset('reset', 'reset'); ?>
-                <?php echo form_submit('submit', 'continue'); ?>
+                <a href='{{url:site}}shop/cart'>back to cart</a> 
+                <input type='submit' name='submit' value='continue'>
             </span>
         </div>
 
     </fieldset>
-    </div>
 
 </form>

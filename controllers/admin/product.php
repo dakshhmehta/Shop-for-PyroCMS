@@ -378,7 +378,14 @@ class Product extends Products_admin_Controller
 			$data->package_select 	= $this->package_library->build_list_select(array('current_id' => $data->package_id));			
 		}	
 		
+		if($panel =='design')
+		{
+			$this->load->library('design_library');
 
+			$_path = Settings::get('default_theme');
+
+			$data->design_select 	= $this->design_library->build_list_select( $_path , array('current_id' => $data->page_design_layout) );			
+		}	
 
 
 

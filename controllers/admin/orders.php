@@ -137,7 +137,7 @@ class Orders extends Admin_Controller
 		$data->order = $this->orders_m->get($id);
 		
 		// Order Contents
-		$data->contents = $this->orders_m->get_order_items($data->order->id);		
+		$data->contents = $this->orders_m->get_order_items($data->order->id,TRUE);		
 				
 		// Get Shipping Address
 		$data->shipping_address = $this->orders_m->get_address($data->order->shipping_address_id);
@@ -168,6 +168,8 @@ class Orders extends Admin_Controller
 		// Get User Details
 		$data->customer = $this->orders_m->get_user_data($data->order->user_id);  
 		
+
+		//var_dump($data);die;
 		
 		// Build Output
 		$this->template
@@ -329,5 +331,19 @@ class Orders extends Admin_Controller
 		echo json_encode($arr);die;
 
 	}
+
+
+
+	public function delete($id,$key='')
+	{
+		//echo date('Ymd');die;
+		//if($key == md5(date('Ymd')) )
+		$this->orders_m->delete($id);
+
+		$this->session->set_flashdata('success','done');
+
+		redirect('admin/shop/orders');
+	}
+
 
 }

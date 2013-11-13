@@ -69,6 +69,7 @@ class Products extends Public_Controller
 		$total_items = $this->products_front_m->filter_count($filter);
 
 
+
 		// 
 		//  Build pagination for these items
 		// 

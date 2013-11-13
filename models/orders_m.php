@@ -33,6 +33,29 @@ class Orders_m extends MY_Model
 		parent::__construct();
 	}
 	
+	/**
+	 * Delete an order is not a normal thing to do,
+	 * we need to ask confirmation first.
+	 * @return [type] [description]
+	 */
+	public function delete($order_id)
+	{
+		//Step 1: Delete all order items
+		$this->db->where('order_id',$order_id)->from('shop_order_items')->delete();
+
+
+		//Step 2: Delete all Transactions
+		$this->db->where('order_id',$order_id)->from('shop_transactions')->delete();
+
+
+		//Step 3: Delete the order line
+		return $this->db->where('id',$order_id)->from('shop_orders')->delete();
+
+
+		
+	}
+
+
 
 	/**
 	 * This is where the order is recorded, The order info  is passed along side the cart and the session ID
@@ -375,13 +398,25 @@ class Orders_m extends MY_Model
 	/**
 	 * Get All items in Order
 	 * @param INT $id Order ID
+	 * @old if old then we use the old method
 	 */
-	public function get_order_items($id) 
+	public function get_order_items($id, $old = FALSE) 
 	{
+		if($old)
+		{
+			return $this->db
+				->select('shop_products.*, shop_order_items.*')
+				->join('shop_products', 'shop_order_items.product_id = shop_products.id')
+				->where('order_id', $id)->get('shop_order_items')->result();
+		}
+
+
 		return $this->db
-			->select('shop_products.*, shop_order_items.*')
+			->select('shop_order_items.*')
+			->select('shop_products.cover_id')
 			->join('shop_products', 'shop_order_items.product_id = shop_products.id')
 			->where('order_id', $id)->get('shop_order_items')->result();
+		
 	}
 	
 	/**
