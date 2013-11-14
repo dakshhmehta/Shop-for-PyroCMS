@@ -65,7 +65,9 @@ class Checkout2 extends Public_Controller {
 
             if ($input['customer'] == 'register') 
             {
-                $this->session->set_userdata('checkout_proccess', true);
+                $this->session->set_userdata('checkout_post_register', true);
+                $this->session->set_userdata('checkout_post_register_redirect' , 'shop/checkout2/billing');
+
                 redirect('users/register');
             }
             if ($input['customer'] == 'guest') 

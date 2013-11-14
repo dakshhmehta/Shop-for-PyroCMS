@@ -30,7 +30,7 @@
 				<tbody>
 					<?php foreach ($items as $item) : ?>
 					<tr>
-						<td><?php echo $item->id; ?></td>
+						<td># <?php echo $item->id; ?></td>
 						<td><?php echo date("d/m/Y",$item->order_date); ?></td>
 
 						<td><?php echo nc_format_price( $item->cost_total); ?></td>

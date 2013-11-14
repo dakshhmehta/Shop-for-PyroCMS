@@ -90,7 +90,7 @@ class Orders_m extends MY_Model
 	
 		foreach ($cart as $item) 
 		{
-	
+			
 			$contents[] = array(
 					'order_id' => $order_id,
 					'product_id' => $item['id'],
@@ -185,10 +185,10 @@ class Orders_m extends MY_Model
 
 	}
 	
-	/**
+	/*
 	 *
 	 *@deprecated - use addresses_m set_address
-	 */
+	 *
 	public function set_address($input) 
 	{
 		$data = array(
@@ -218,6 +218,7 @@ class Orders_m extends MY_Model
 			return $this->db->insert_id();
 		}
 	}
+	*/
 		
 
 	

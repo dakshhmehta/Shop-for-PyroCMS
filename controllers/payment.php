@@ -140,6 +140,10 @@ class Payment extends Public_Controller
         $gateway        = $this->gateway_library->get($order->gateway_id);
         $settings       = $gateway->options;
 
+        $this->load->model('addresses_m');
+
+        $billing_addr   = $this->addresses_m->get($order->billing_address_id);
+
         //var_dump($settings );die;
 
 
@@ -155,6 +159,7 @@ class Payment extends Public_Controller
 
         $params = array_merge(
             array(
+            	'email' => $billing_addr->email,
                 'amount' =>  (float) $order->cost_total,
                 'currency' =>  Settings::get('ss_currency_code'),
               ), $this->input->post() , $params 
