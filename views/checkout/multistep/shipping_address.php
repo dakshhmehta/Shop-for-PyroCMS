@@ -99,7 +99,11 @@
             <li>
                 <label>Country</label>
                 <div class="input">
-                    <input type="text" name="country" value="{{country}}">
+                    <select name='country'>
+                        {{countries}}
+                            <option value='{{code}}'>{{name}}</option>
+                        {{/countries}}
+                    </select>
                 </div>
             </li>
             <li>

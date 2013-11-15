@@ -128,11 +128,25 @@ class Product extends Products_admin_Controller
 	{
 
 
+		//
+		// Determine whether to get by id or slug
+		//
+		$method = (is_numeric($id))  ? 'id' : 'slug' ;
+
+		
+
+		//
+		// Get the product and all its goodness
+		//
+		$data = $this->products_admin_m->get($id, $method);
+
+
+
 
 		// 
 		// First get the product
 		//
-		$data =  $this->products_admin_m->get($id);
+		//$data =  $this->products_admin_m->get($id);
 
 
 		if(!(isset($data)) )
@@ -151,7 +165,7 @@ class Product extends Products_admin_Controller
 
 
 			//upload files
-			$this->upload($id);
+			$this->upload($data->id);
 
 
 
@@ -165,10 +179,10 @@ class Product extends Products_admin_Controller
 			//
 			// save
 			//
-			if ($this->products_admin_m->edit($id, $input)) 
+			if ($this->products_admin_m->edit($data->id, $input)) 
 			{	
 
-				Events::trigger('evt_product_changed', $id);
+				Events::trigger('evt_product_changed', $data->id);
 				
 				$this->session->set_flashdata('success', lang('success'));
 				
@@ -185,7 +199,7 @@ class Product extends Products_admin_Controller
 			}
 			
 			
-			redirect('admin/shop/product/edit/' . $id);
+			redirect('admin/shop/product/edit/' . $data->id);
 
 			
 		}

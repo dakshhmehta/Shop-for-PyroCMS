@@ -27,9 +27,9 @@ class Checkout extends Public_Controller
 {
 
 	// Support multiple checkout theme/styles
-	protected $theme_name = 'single';
+	protected $checkout_name = 'single';
+	protected $checkout_version = '1.2';
 
-	protected $checkout_version = '0.1';
 	
 	public function __construct() 
 	{
@@ -46,7 +46,7 @@ class Checkout extends Public_Controller
 		$this->ss_require_login =  Settings::get('ss_require_login');  // for shipping calcs
 
 		// Set the theme layout path - This allows us to have muiltiple checkout themes
-		$this->theme_layout_path =  'checkout/'.$this->theme_name.'/master';
+		$this->theme_layout_path =  'checkout/'.$this->checkout_name.'/master';
 
 
 
@@ -164,7 +164,7 @@ class Checkout extends Public_Controller
 	
 	public function place()
 	{
-		$this->load->library('fraud_control');
+
 
 		if($this->input->post())
 		{
@@ -185,7 +185,6 @@ class Checkout extends Public_Controller
 				// recalc the shipping
 				$this->calc_shipping_by_id($shipping_method_id, $this->tmp_addr ) ;
 
-
 				// 
 				// we need this so that the fraud tools know which version of the input
 				// to chek against
@@ -193,45 +192,13 @@ class Checkout extends Public_Controller
 				$input['checkout_version'] = $this->checkout_version;
 				$input['order_total'] = $this->sfcart->total();
 
-				//
-				// Now we are ready to place an order, lets validate against the blacklist
-				//
-				if( $this->fraud_control->validate_order($input) )
-				{
-					//get a score
- 					$trust_object = $this->fraud_control->get_trust_score($input);
+
+				$input['trust_score'] = 0;
+
+				// Place the order - redirect here
+				$this->place_order($input, array() ) ;
 
 
- 					$input['trust_score'] = $trust_object->score;
-
-					// Place the order - redirect here
-					$this->place_order($input, $trust_object->events) ;
-
-					//echo "GOOD";die;
-				}
-				else
-				{
-
-
-					$a_id = $this->session->userdata('shipping_address_id');
-
-					$address = $this->addresses_m->get($a_id);
-
-					$array_data = array();
-					$array_data['email'] = $address->email;
-					$array_data['phone'] = $address->phone;
-					$array_data['user_id'] =  $this->session->userdata('customer_id');
-					$array_data['cost_total'] =  $this->sfcart->total();
-					$array_data['shipping_address'] = $this->session->userdata('shipping_address_id');
-					$array_data['billing_address'] =  $this->session->userdata('billing_address_id');
-
-					Events::trigger('evt_blacklist_attempt', $array_data);
-
-					$this->session->set_flashdata('error','You have been blocked from placing orders.');
-
-					redirect('shop');					
-
-				}
 				
 			}
 		}

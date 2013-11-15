@@ -128,7 +128,6 @@ class My extends Public_Controller
 		$this->load->model('orders_m');
 		$this->load->model('wishlist_m');
 		
-		$data->recent_orders = $this->orders_m->order_by('id','desc')->get_all_by_user($this->current_user->id);
 		$data->total_wish = $this->wishlist_m->where('user_id',$this->current_user->id)->count_all();
 			 	
 		$this->template
@@ -157,9 +156,12 @@ class My extends Public_Controller
 		
 		// Load Libraies
 		$this->load->model('orders_m');
+
+		$data = new stdClass;
 		
 		$data->items = $this->orders_m->order_by('id','desc')->get_all_by_user($this->current_user->id);
-	 	
+
+
 		// Display the page
 		$this->template
 			->set_breadcrumb(lang('my'), 'shop/my')
@@ -290,6 +292,7 @@ class My extends Public_Controller
 
 		$data->user_id = $this->current_user->id;
 
+
 		// Add new address
 		if ($this->input->post())
 		{
@@ -298,15 +301,18 @@ class My extends Public_Controller
 
 			unset($input['submit']);
 
+			$input['user_id'] = $this->current_user->id;
+
+
 			$this->form_validation->set_rules($this->address_validation);
-			$success = FALSE;
+			$this->form_validation->set_rules('useragreement', 'User Agreement field', 'required|numeric|trim');
+
 
 			if ( $this->form_validation->run() )
 			{
 				$success = $this->addresses_m->create($input);
 			}
-
-			if ($success)
+			else
 			{
 				$this->session->set_flashdata('success', lang('success'));
 				redirect('shop/my/addresses');
@@ -322,7 +328,15 @@ class My extends Public_Controller
 			}
 		}
 
-		$data->countryList = get_country_from_iso2alpha( '','normal', TRUE ); 		
+
+		$countryList = get_country_from_iso2alpha( '','normal', TRUE );
+		$data->countries = array(); 	
+		foreach($countryList as $code => $name)
+		{
+			$data->countries[] = array('code'=>$code,'name'=>$name);
+		}
+
+
 
 		$this->template->set_breadcrumb(lang('my'), 'shop/my')
 						->set_breadcrumb(lang('address'), 'shop/my/addresses')

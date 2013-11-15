@@ -104,7 +104,9 @@ class Product extends Public_Controller
 
 		if(group_has_role('shop', 'admin_products'))
 		{
-			$notification_messages['error'][] = 'You are viewing this product as an Administrator<br />';
+			$site_url = base_url();
+			
+			$notification_messages['error'][] = 'You are viewing this product as an Administrator &bull; <a target="_new" href="'.$site_url.'admin/shop/product/edit/'.$param.'">click here to edit this item</a>';
 
 			if($data->product->public == 0)
 			{

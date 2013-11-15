@@ -327,15 +327,12 @@ class Orders_m extends MY_Model
 	public function sum($pid)
 	{
 		
-
 		$result =  $this->db
 			->select('sum(qty) as total_sales')
 			->where('product_id', $pid)->get('shop_order_items')->result();
 
 			var_dump($result);die;
 		
-
-
 	}
 	
 	
@@ -344,15 +341,21 @@ class Orders_m extends MY_Model
 	public function get_all_by_user($user_id) 
 	{
 	
+		$this->db->where('user_id',$user_id);
+		return parent::get_all();
+		//		return $result->get('shop_orders')->result_array();
+
+		/*
 		$this->db->select('shop_orders.*, addr.email as customer_email');
 		$this->db->where('shop_orders.user_id',$user_id);
-		$this->db->select('CONCAT(addr.first_name, " ", addr.last_name) as customer_name', FALSE); /* TODO:Lets not concat, pass the array values and just print manually*/
+		$this->db->select('CONCAT(addr.first_name, " ", addr.last_name) as customer_name', FALSE); 
 		$this->db->select('CONCAT(addr.address1, " ", addr.address2, " ", addr.city , " ", addr.country, " ", addr.zip) as billing_address', FALSE);
 		$this->db->select('addr.city AS city', FALSE);
 		$this->db->join('shop_addresses addr', 'shop_orders.billing_address_id = addr.id', 'left');
 		$this->db->group_by('shop_orders.id');
 	
 		return parent::get_all();
+		*/
 	}
 	
 	

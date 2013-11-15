@@ -27,7 +27,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.116';  
+	public $version = '1.0.0.125';  
 
 
 
@@ -79,9 +79,13 @@ class Module_Shop extends Module
 
 	public function install() 
 	{
- 		
+
+ 		//$tables = $this->details_library->get_tables();
+		//$this->_uninstall_tables($tables);
+		//return true;
 		# Install Product Tables
 		$tables = $this->install_tables( $this->details_library->get_tables() );
+
 
 
 		if( $tables  )
@@ -143,21 +147,6 @@ class Module_Shop extends Module
 		$this->db->insert_batch('shop_countries', $data);	
 
 
-		$data = array();
-
-		foreach($this->details_library->get_array('trust_score') as $key => $value)
-		{
-			$data[] = array(
-					'score' => $value['score'],
-					'category' => $value['category'],
-					'word' => $value['word'],
-					'count' => 0,
-					'enabled' => 1,
-					);
-		}
-
-		$this->db->insert_batch('shop_trust_data', $data);		
-
 
 		return TRUE;	
 
@@ -216,29 +205,23 @@ class Module_Shop extends Module
 	
 		switch ($old_version) 
 		{
+			//case '1.0.0.119':
+			//	
+			//	break;
+			case '1.0.0.110':
+				$this->_install_settings('shop_trust_score_threshold');
+				$this->_install_table_row('shop_products','page_design_layout');
 
-			case '1.0.0.115':
+				$this->dbforge->drop_table('shop_dailydeals'); //important
 				$this->_install_table('shop_dailydeals');
 				break;
-			case '1.0.0.114':	
-				$this->_install_table_row('shop_products','page_design_layout');
-				//$this->_install_table('shop_dailydeals');
-				break;
-			case '1.0.0.105':
-			case '1.0.0.104':
+			case '1.0.0.109':
 				//$this->_install_table_row('shop_orders','pmt_status');
 				//$this->_install_table_row('shop_categories','user_data');
-				break;
-
-			case '1.0.0.103':
 			 	//$this->_upgrade_orders();
-				break;
-
-			case '1.0.0.102': 
 				//$this->_install_settings('shop_upload_file_product');
 				//$this->_install_settings('shop_upload_file_orders');
 				break;
-
 			default:
 				break;
 		}

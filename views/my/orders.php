@@ -28,25 +28,27 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ($items as $item) : ?>
+
+					<?php foreach($items as $item):?>
 					<tr>
 						<td># <?php echo $item->id; ?></td>
-						<td><?php echo date("d/m/Y",$item->order_date); ?></td>
+						<td><?php echo $item->order_date; ?></td>
 
-						<td><?php echo nc_format_price( $item->cost_total); ?></td>
+						<td><?php echo $item->cost_total; ?></td>
 						<td><?php echo $item->status; ?></td>
 						<td>
-							<a href="{{ url:site }}shop/my/order/<?php echo $item->id; ?>" class="TLDButton"><?php echo lang('view'); ?> </a>
-						 <?php if($item->pmt_status =='unpaid'):?>
-								<a href="{{ url:site }}shop/payment/order/<?php echo $item->id; ?>" class="TLDButton blue">pay now</a>
-						 <?php endif;?>
+							<a href="{{ url:site }}shop/my/order/<?php echo $item->id; ?>" class="TLDButton">view</a>
+
+								<?php if($item->pmt_status =='unpaid'):?>
+									<a href="{{ url:site }}shop/payment/order/<?php echo $item->id; ?>" class="TLDButton blue">pay now</a>
+								<?php endif;?>
+						
 						 </td>
 
 					</tr>
-					<?php endforeach; ?>
+					<?php endforeach;?>
 				</tbody>
 			</table>
 
 	</div>
-
 </div>

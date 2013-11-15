@@ -80,6 +80,15 @@ class Payment extends Public_Controller
         
 
 
+        if ($data->order->pmt_status == 'paid')
+        {
+            $this->session->set_flashdata('error', 'This order is already paid');
+            redirect('shop/my/orders');
+        }
+        
+
+
+
         //
         // Collect info for Use on payment screen
         //  

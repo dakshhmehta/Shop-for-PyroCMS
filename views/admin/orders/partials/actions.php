@@ -4,72 +4,66 @@
 					<li>
 						<label>Info</label>
 						<div class='input'>
-							The default next option wil always be selected in blue.
+							The default next option will always be selected in blue.
 							Orange depicts other available options and red are those that should be taken with care.
 
 						</div>
 					</li>
 						<?php 
-						$show_cancel = TRUE;
-						$show_close = TRUE;
-						$show_back_to_start = TRUE;
+						$_cl_1 = $_cl_2= $_cl_2= $_cl_3 =$_cl_4 =$_cl_5= $_cl_6= $_cl_7= $_cl_8 =$_cl_9= 'button-flat-action';
 							
 
 					   	switch($order->status) 
 						{				
 							case 'placed';
 							case 'pending';	
-								$show_back_to_start	= FALSE;									
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/paid', shop_lang('shop:orders:mark_as_paid') ,'class="btn blue"')."</div></li>";
+								$_cl_1 = 'button-flat-primary';
 								break;
 							case 'closed';
 							case 'cancelled';
-								$show_cancel = FALSE;
-								$show_close = FALSE;
-								$show_back_to_start	= FALSE;
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/reopen', shop_lang('shop:orders:open_and_set_to_pending') ,'class="btn blue"')."</div></li>";
+								$_cl_7 = 'button-flat-primary';
 								break;
-
 							case 'paid':
-
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/processing',shop_lang('shop:orders:mark_as_processing') ,'class="btn blue"')."</div></li>";
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/complete',shop_lang('shop:orders:mark_as_complete') ,'class="btn orange"')."</div></li>";								
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/shipped',shop_lang('shop:orders:mark_as_shipped') ,'class="btn orange"')."</div></li>";								
+								$_cl_2 = 'button-flat-primary';
 								break;
 							case 'processing';	
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/complete',shop_lang('shop:orders:mark_as_complete') ,'class="btn blue"')."</div></li>";								
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/shipped',shop_lang('shop:orders:mark_as_shipped') ,'class="btn orange"')."</div></li>";	
+								$_cl_3 = 'button-flat-primary';
 								break;								
 							case 'complete':
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/shipped',shop_lang('shop:orders:mark_as_shipped') ,'class="btn blue"')."</div></li>";								
+								$_cl_4 = 'button-flat-primary';								
 								break;								
 							case 'shipped':
-								$show_cancel = FALSE;
-								$show_close = FALSE;
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/closed',  shop_lang('shop:orders:close_order'), 'class="btn blue delete"')."</div></li>";
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/returned',shop_lang('shop:orders:mark_as_returned') ,'class="btn orange"')."</div></li>";
+								$_cl_5 = 'button-flat-primary';		
 								break;
 							case 'returned':
 								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/shipped',shop_lang('shop:orders:mark_as_shipped') ,'class="btn blue"')."</div></li>";
 								break;																															
 			
 						}
-
-						if($show_back_to_start)
-						{
-							echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/reopen', shop_lang('shop:orders:back_to_pending') ,'class="btn orange"')."</div></li>";
-						}	
-						if ($show_cancel) 
-						{
-							echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/cancelled', shop_lang('shop:orders:cancel_order'), 'class="btn red delete"')."</div></li>";
-						}
-						if ($show_close) {
-							echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/closed',  shop_lang('shop:orders:close_order'), 'class="btn red delete"')."</div></li>";
-						}		
-			
- 
-
- 							echo "<li><div class='input'>".anchor('admin/shop/orders/delete/' . $order->id.'/',  shop_lang('shop:orders:delete'), 'class="shopbutton button red"')."</div></li>";
-						?>				
+	
+					
+							
+						?>		
+						<li>
+							<label>The blue button is the next logical step in the order workflow</label>
+							<div class='input'>
+					
+								<a class='<?php echo $_cl_1;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/paid'><?php echo shop_lang('shop:orders:paid');?></a>
+								<a class='<?php echo $_cl_2;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/processing'><?php echo shop_lang('shop:orders:processing');?></a>
+								<a class='<?php echo $_cl_3;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/complete'><?php echo shop_lang('shop:orders:complete');?></a>
+								<a class='<?php echo $_cl_4;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/shipped'><?php echo shop_lang('shop:orders:shipped');?></a>
+								<a class='<?php echo $_cl_5;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/closed'><?php echo shop_lang('shop:orders:closed');?></a>
+								<a class='<?php echo $_cl_6;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/returned'><?php echo shop_lang('shop:orders:returned');?></a>
+								<a class='<?php echo $_cl_7;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/reopen'><?php echo shop_lang('shop:orders:reopen');?></a>
+								<a class='shopbutton button-flat red confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/cancelled'><?php echo shop_lang('shop:orders:cancelled');?></a>								
+								<a class='shopbutton button-flat red confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/closed'><?php echo shop_lang('shop:orders:closed');?></a>								
+							</div>
+						</li>	
+						<li>
+							<label>If you delete an order you will not be able to view it again, please take care before deleting. In most cases a cancel or close order is most suitable</label>
+							<div class='input'>
+								<a class='shopbutton button-flat red confirm' href='admin/shop/orders/delete/<?php echo $order->id;?>'>Delete Order</a>
+							</div>
+						</li>		
 				</ul>
 			</fieldset>
