@@ -1,4 +1,5 @@
-<h2 id="nc-view-title"><?php echo lang('wishlist'); ?></h2>
+
+<h2><?php echo lang('wishlist'); ?></h2>
 
 		<ul>
 		{{ shop:mylinks remove='shop' active='wishlist' }}
@@ -6,31 +7,31 @@
 		{{ /shop:mylinks }}
 		</ul>
 
-<div id="SF_CustomerPage">
-	<div class="my-dashboard">	
-	<table>
-		<thead>
-			<tr>
-				<th><?php echo lang('image'); ?></th>
-				<th><?php echo lang('name'); ?></th>
-				<th><?php echo lang('original_price'); ?></th>
-				<th><?php echo lang('current_price'); ?></th>
-				<th><?php echo lang('action'); ?></th>
-			</tr>
-		</thead>
-		<?php foreach ($items as $item): ?>
-		<tr>
-			<td><?php echo $item->cover_id ? img("files/thumb/{$item->cover_id}/90") : ''; ?></td>
-			<td><a href="{{ url:site }}shop/product/<?php echo $item->slug; ?>"><?php echo $item->name; ?></a></td>
-			<td><?php echo nc_format_price($item->price_or); ?>
-			 <td><?php echo nc_format_price($item->price_at); ?>
-			</td>
-			<td><a href="{{ url:site }}shop/my/wishlist/delete/<?php echo $item->id; ?>"><?php echo lang('remove'); ?></a></td>
-		</tr>
-		<?php endforeach; ?>
-	</table>
-	<p>
-		<a href="{{ url:site }}shop/my"><?php echo lang('dashboard'); ?></a>
-	</p>
+<div id="">
+	<div>	
+
+		<table>
+			<thead>
+				<tr>
+					<th class="image"></th>
+					<th class="description">Item</th>
+					<th class="subtotal">Price</th>
+					<th></th>
+				</tr>
+			</thead>
+			{{items}}
+				<tr>
+					<td><img src="{{url:site}}files/thumb/{{cover_id}}/100/100"></td>
+					<td><a href="{{ url:site }}shop/product/{{slug}}">{{name}}</a></td>
+					<td>{{price_at}}</td>
+					<td><a class="DeleteButton" href="{{ url:site }}shop/my/wishlist/delete/{{id}}">remove</a></td>
+				</tr>
+			{{/items}}
+		</table>
+
+		<p>
+			<a href="{{ url:site }}shop/my"><?php echo lang('dashboard'); ?></a>
+		</p>
+
 	</div>
 </div>

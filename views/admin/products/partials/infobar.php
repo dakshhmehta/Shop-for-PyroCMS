@@ -25,7 +25,8 @@
 							</li>
 
 
-							<li><?php echo anchor('shop/product/'.$slug, shop_lang('shop:products:view_online') , 'target="_blank" class="nc_links"'); ?></li>				
+							<li><?php echo anchor('shop/product/'.$slug, shop_lang('shop:products:view_as_administrator') , 'target="_blank" class="nc_links"'); ?></li>				
+							<li><?php echo anchor('shop/product/'.$slug.'/customer', shop_lang('shop:products:view_as_customer') , 'target="_blank" class="nc_links"'); ?></li>		
 		
 							
 							   

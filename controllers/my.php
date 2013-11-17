@@ -37,7 +37,7 @@ class My extends Public_Controller
 		// If User Not logged in
 		if (!$this->current_user) 
 		{
-			$this->session->set_flashdata('notice', lang('user_not_auth'));
+			$this->session->set_flashdata('notice', shop_lang('shop:my:user_not_authenticated'));
 			
 			// Send User to login then Redirect back after login
 			$this->session->set_userdata('redirect_to', 'shop/my');

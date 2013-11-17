@@ -290,9 +290,9 @@ class Product extends Products_admin_Controller
 	
 	
 
-	/**
+	/*
 	 * View as customer:same as the public handler, just gets data even if hidden
-	 */	 
+	 * 
 	public function view($id = 0) 
 	{
 		
@@ -332,6 +332,7 @@ class Product extends Products_admin_Controller
 				->build('products/single', $data);
 
 	}
+	*/
 	
 
 

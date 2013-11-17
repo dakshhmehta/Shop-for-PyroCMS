@@ -540,7 +540,6 @@ class Checkout2 extends Public_Controller {
 
 
 
-
     /**
     *
     *

@@ -58,6 +58,20 @@ class Fraud_control
 		
 	}
 
+
+	/**
+	 * Get the CI instance into this object
+	 * 
+	 * @param unknown_type $var
+	 */
+	public function __get($var) 
+	{
+		if (isset(get_instance()->$var)) 
+		{
+			return get_instance()->$var;
+		}
+	}
+
 	/**
 	 * The resulting score
 	 */
@@ -107,7 +121,7 @@ class Fraud_control
 	 * @param  array  $order_data [description]
 	 * @return [type]             [description]
 	 */
-	public function inspect( $input = array() )
+	public function inspect( $input = array() , $options=array() )
 	{
 		
 
@@ -234,6 +248,7 @@ class Fraud_control
 
 
 	}
+
 
 	/**
 	 * Expected data

@@ -324,12 +324,89 @@ class Plugin_Shop extends Plugin
 	}
 
 
-	 /*is a product already in the customer wishlist*/
-	function in_wishlist()
+	public function order_is_paid()
 	{
-		return TRUE;
+		$order_id = $this->attribute('id', NULL);
+
+		if ($this->current_user)
+		{
+			$this->load->model('shop/orders_m');
+
+			$order = $this->orders_m->get( $order_id );
+
+			if($order->pmt_status =='paid')
+			{
+				return $this->content();
+			}
+
+		}
+
+		return '';
+
 	}
 
+	public function order_is_unpaid()
+	{
+		$order_id = $this->attribute('id', NULL);
+
+
+		if ($this->current_user)
+		{
+			$this->load->model('shop/orders_m');
+
+			$order = $this->orders_m->get( $order_id );
+
+			if($order->pmt_status =='unpaid')
+			{
+				return $this->content();
+			}
+
+		}
+
+		return '';
+
+	}
+
+	public function in_wishlist()
+	{
+		$product_id = $this->attribute('id', NULL);
+
+		if ($this->current_user)
+		{
+			$this->load->model('shop/wishlist_m');
+
+			$user_id = $this->current_user->id;
+
+			if($this->wishlist_m->item_exist($user_id, $product_id ))
+			{
+				return $this->content();
+			}
+
+		}
+
+		return '';
+	}
+
+
+	public function notin_wishlist()
+	{
+		$product_id = $this->attribute('id', NULL);
+
+		if ($this->current_user)
+		{
+			$this->load->model('shop/wishlist_m');
+
+			$user_id = $this->current_user->id;			
+
+			if($this->wishlist_m->item_exist($user_id, $product_id ))
+			{
+				return '';
+			}
+
+		}
+
+		return $this->content();
+	}
 
 
 	/**
@@ -451,20 +528,30 @@ class Plugin_Shop extends Plugin
 		$id = $this->attribute('id', '0');
 		$this->load->model('shop/products_front_m');
 	  	
-		//we shouldnt fetch the product twice. - the get_plugin should work by slug too
 		return (array) $this->products_front_m->get_images($id);
-
 
 	}
 
 	function product() 
 	{
 
+		$id = $this->attribute('id', '');
 		$slug = $this->attribute('slug', '');
 		$this->load->model('shop/products_front_m');
 	  	
-		//we shouldnt fetch the product twice. - the get_plugin should work by slug too
-		$product =  $this->products_front_m->get($slug, 'slug');
+	  	$product = NULL;
+
+
+		if($id !== '')
+		{
+			$product =  $this->products_front_m->get($id, 'id');
+		}
+		else
+		{
+			$product =  $this->products_front_m->get($slug, 'slug');
+		}
+
+
 
 
 		if ($product==NULL) 
@@ -572,59 +659,20 @@ class Plugin_Shop extends Plugin
 		
 	}
 
-	/**
-	 * {{cart_contents}}
+
+
+
+
+
+
+	/*
 	 *
-	 * {{/cart_contents}}
+	 *
+	 * DEPRECATED PLUGINS
+	 *
+	 *
 	 * 
-	 * @return Array All items in cart
 	 */
-	function cart_contents() 
-	{
-		
-		$CI =& get_instance();
-		$CI->load->library('shop/SFCart');
-		$i = 1;
-		$items = array();
-		$arr = $CI->sfcart->contents();
-
-		if($arr ===null)
-			return $arr;
-
-		foreach($arr as $item)
-		{
-
-				$item['counter'] = $i;
-				$items[] = $item;
-				$i++;
-
-	
-		}
-
-		return $items;
-
-
-
-	}
-
-	function coverimage()
-	{
-		$id = $this->attribute('id', 0);
-
-		$height = $this->attribute('height', '100');
-		$width = $this->attribute('width', '100');
-
-		$CI =& get_instance();
-		$CI->load->model('shop/products_front_m');
-
-		$product =  $CI->products_front_m->get($id);
-
-
-		return img(site_url('files/thumb/'.$product->cover_id.'/'.$height.'/'.$height));
-
-
-	}
-
 
 	/**
 	 * Customer Dashboard links
@@ -729,11 +777,47 @@ class Plugin_Shop extends Plugin
 		return url_domain($use_https);
 		
 	}	
+
+
+
+
+	/*
+	 * {{cart_contents}}
+	 *
+	 * {{/cart_contents}}
+	 * 
+	 * @return Array All items in cart
+
+	function cart_contents() 
+	{
+		
+		$CI =& get_instance();
+		$CI->load->library('shop/SFCart');
+		$i = 1;
+		$items = array();
+		$arr = $CI->sfcart->contents();
+
+		if($arr ===null)
+			return $arr;
+
+		foreach($arr as $item)
+		{
+
+				$item['counter'] = $i;
+				$items[] = $item;
+				$i++;
+
+	
+		}
+
+		return $items;
+
+
+
+	}
+
+	 */
+
 }
-
-
-
-
-
 
 /* End of file plugin.php */

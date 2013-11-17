@@ -69,7 +69,6 @@ class Search extends Public_Controller
 		}
 
 
-
 		// Prepare Results Array
 		$search_results = array();
 		
@@ -78,12 +77,6 @@ class Search extends Public_Controller
 		// Get some results
 		//
 		$data->products = $this->products_front_m->search($search_terms,$offset,$limit);
-
-
-		//remove duplicates
-		//http://stackoverflow.com/questions/307674/how-to-remove-duplicate-values-from-a-multi-dimensional-array-in-php
-		//$data->products = array_map("unserialize", array_unique(array_map("serialize", $search_results)));
-
 
 		
 		// set the layout to FALSE and load the view

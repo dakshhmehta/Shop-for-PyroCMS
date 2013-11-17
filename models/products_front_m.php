@@ -60,6 +60,7 @@ class Products_front_m extends Products_m
 		}
 		else
 		{
+
 			//
 			// Make sure product is NOT deleted and is visible to public
 			//
