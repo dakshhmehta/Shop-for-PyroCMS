@@ -107,7 +107,8 @@ class Maintenance extends Admin_Controller
 		echo "program completed";die; 	
 
     }
-    public function run_re_index()
+
+    public function run_re_index($data=array())
     {
 
     	$this->load->library('shop/core_library');

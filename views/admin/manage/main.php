@@ -157,7 +157,7 @@
 									<tr>
 										<td><?php echo shop_lang('shop:manage:language_generator');?></td>
 										<td>
-											<a href="admin/maintenance/run_lang" class="btn gray modal"><?php echo shop_lang('shop:manage:compile');?></a>
+											<a href="admin/shop/maintenance/run_lang" class="btn gray modal"><?php echo shop_lang('shop:manage:compile');?></a>
 										</td>
 									</tr>
 
@@ -165,7 +165,7 @@
 									<tr>
 										<td><?php echo shop_lang('shop:manage:rust_data_file');?></td>
 										<td>
-											<a href="admin/maintenance/run_trustdata" class="btn gray modal"><?php echo shop_lang('shop:manage:compile');?></a>
+											<a href="admin/shop/maintenance/run_trustdata" class="btn gray modal"><?php echo shop_lang('shop:manage:compile');?></a>
 											
 										</td>
 									</tr>
@@ -175,7 +175,7 @@
 									<tr>
 										<td><?php echo shop_lang('shop:manage:search_index');?></td>
 										<td>
-											<a href="admin/maintenance/run_re_index" class="btn gray modal"><?php echo shop_lang('shop:manage:re_index_search');?></a>
+											<a href="admin/shop/maintenance/run_re_index" class="btn gray modal"><?php echo shop_lang('shop:manage:re_index_search');?></a>
 										</td>
 									</tr>
 
