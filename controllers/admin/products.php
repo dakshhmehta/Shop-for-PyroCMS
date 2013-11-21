@@ -25,7 +25,7 @@
  */
 
 
-include_once( dirname(__FILE__) . '/' . 'Products_admin_Controller.php');
+include_once( dirname(__FILE__) . '/' . 'products_admin_controller.php');
 
 class Products extends Products_admin_Controller 
 {
