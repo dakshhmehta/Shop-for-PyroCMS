@@ -791,7 +791,6 @@ class Cart extends Public_Controller
 
 
 
-
 			//
 			// Check to see if we have a File Upload
 			//
@@ -809,13 +808,26 @@ class Cart extends Public_Controller
 				// 
 				$F_NAME = $_FILES[  $_OP_INPUT_NAME  ]['name'];
 
-	
+				//check if a file exist in the upload data
+				if($_FILES[  $_OP_INPUT_NAME  ]['name'] == "")
+				{
+					continue;
+				}
 
 
 				//
 				// Upload and get the ID
 				//
 				$data = $this->upload(  $_OP_INPUT_NAME,  $F_NAME_PART . '-' . $F_NAME );
+
+				if($data)
+				{
+					//file uploaded succesfully
+				}
+				else
+				{
+					echo "no file to add";die;
+				}
 				
 							
 				//build the option array that will be sent to the cart
@@ -852,8 +864,8 @@ class Cart extends Public_Controller
 				//array( 'max_qty' => 0 ,'operator' => '+=' , 'operator_value' => '0');
 				// Get the label from the db/cache
 				$OPTIONS_TO_Return[$_OP_INPUT_NAME] = array('name' => $option->name, 
-										'value' => $value, /* $option->values->value */
-										'label' => $value, /* $option->values->value */
+										'value' => $POST_value, /* $option->values->value */
+										'label' => $POST_value, /* $option->values->value */
 										'user_data' => 'text',  /*used in cart view*/
 										'max_qty' => 0, 
 										'operator'=> 'n', //n = skip calc 
@@ -902,9 +914,57 @@ class Cart extends Public_Controller
 	}
 
 
-
+	/**
+	 * We will only allow ZIP and image (jpg|png|bit) at this stage to prevent uploading bad scripts
+	 * 
+	 * @param  string $_expected_form_input_name [description]
+	 * @param  string $filename                  [description]
+	 * @return [type]                            [description]
+	 */
 	public function upload(  $_expected_form_input_name = 'fileupload', $filename ='file_for_order')
 	{
+
+		//lets do some pre-check before we let it into pyro system.
+		//Right now the file is in the tmp dir, before we let it loose we do some checks, otherwise delete from tmp
+		$upload_file_data = $_FILES[  $_expected_form_input_name  ];
+
+		$tmp_name = ($upload_file_data['tmp_name']);
+
+		//$size = $upload_file_data['size'];
+		//$name = $upload_file_data['name'];
+		$file_name_only = $upload_file_data['name'];		
+
+
+		$file_info = pathinfo($file_name_only);
+
+
+		$filename = $file_info['filename'];
+		$extension = $file_info['extension'];
+		$basename = $file_info['basename'];
+
+
+
+
+		$valid_files = array('png', 'jpg', 'jpeg', 'bmp' ,'zip', 'txt', 'doc', 'docx');
+
+		if(in_array($extension, $valid_files))
+		{
+			//File ok to upload
+		}
+		else
+		{
+			return FALSE;
+		}
+
+
+		/*
+		array
+			'dirname' => string 'C:\wamp\tmp' (length=11)
+			'basename' => string 'php80BC.tmp' (length=11)
+			'extension' => string 'tmp' (length=3)
+			'filename' => string 'php80BC' (length=7)
+		*/
+
 
 		$this->load->library('files/files');
 
@@ -918,7 +978,14 @@ class Cart extends Public_Controller
 	    //$upload = Files::upload($folder_id, 'file_for_order','fileupload');
 	    $upload = Files::upload( $folder_id , $filename,  $_expected_form_input_name );
 
+
 	    //var_dump($upload);die;
+
+
+	    $filesize = $upload['data']['filesize'];
+	    $extension = $upload['data']['extension'];
+
+
 
 	    $file_id = $upload['data']['id'];
 	
