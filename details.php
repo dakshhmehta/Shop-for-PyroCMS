@@ -27,7 +27,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.125';  
+	public $version = '1.0.0.126';  
 
 
 
@@ -205,9 +205,9 @@ class Module_Shop extends Module
 	
 		switch ($old_version) 
 		{
-			//case '1.0.0.119':
-			//	
-			//	break;
+			case '1.0.0.125':
+				//changes to cart controller - no db changes
+				break;
 			case '1.0.0.110':
 				$this->_install_settings('shop_trust_score_threshold');
 				$this->_install_table_row('shop_products','page_design_layout');
