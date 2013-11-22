@@ -747,23 +747,13 @@ class Cart extends Public_Controller
 	private function _get_option_fields($product_id) 
 	{
 
-		
-		$data = $this->upload();
-		$has_file = false;
-
-		if($data == "")
-		{
-			//no file uploaded
-		}
-		else
-		{	
-			//we have a file
-			//and this is the file id.
-
-		}
-
-
+		//
+		// Load models
+		//
 		$this->load->model('options_m');
+		$this->load->model('options_product_m');
+
+
 
 		//
 		// By default we do not ignor shipping, if an option sets to ignor then we do override this.
@@ -771,156 +761,210 @@ class Cart extends Public_Controller
 		$ignor_shipping = FALSE;	
 
 
+
 		//
 		// Setup the default options array
 		//
-		$options = array();
+		$OPTIONS_TO_Return = array();
 		
 		
-		//
-		// Options will only come from a post - 
-		// if no post, then we have have no options
-		//
-		if ( !( $this->input->post('prod_options') ) ) return array( $ignor_shipping, $options );
 
 
-		//
-		// Get the request
-		//
-		$prod_options = $this->input->post('prod_options');
-		
-		//var_dump($prod_options);die;
+		$product_options_available = $this->options_product_m->get_prod_options($product_id);
 		
 
-		//if (isset($prod_options)) 
-		//{
-			 
+
+
+		foreach ($product_options_available as $option_available) 
+		{
+
+			//
+			// Get the field name that should have been used in the HTML
+			//
+			$_OP_INPUT_NAME = 'prod_options_' . $option_available->option_id;
+
+
+			//
+			// Get the option from the DB
+			//
+			$option = $this->options_m->get($option_available->option_id);
 
 
 
-			
-			//key=delivery value = digital/postal
-			foreach ($prod_options as $key => $value) 
+			//
+			// Check to see if we have a File Upload
+			//
+			if($option->type == "file")
 			{
-		
+				//var_dump($_FILES[  $_OP_INPUT_NAME  ]);die;
 
-				//
-				// if the user Doesnt add data - dont add it to the request
-				// This is only going to appear for text box fields as checkboxes, and radios are
-				// not posted if not set
-				//
-				if ($value == "")
+				if(!(isset( $_FILES[  $_OP_INPUT_NAME  ] ) ) ) continue;
+
+
+				$F_NAME_PART = date("YmdHi",time());
+
+				// 
+				// Get the filename
+				// 
+				$F_NAME = $_FILES[  $_OP_INPUT_NAME  ]['name'];
+
+				//check if a file exist in the upload data
+				if($_FILES[  $_OP_INPUT_NAME  ]['name'] == "")
 				{
-					unset($prod_options[$key]);
-					continue; //skip to next
+					continue;
 				}
 
 
-			
-
-
-				
-		
 				//
-				// Text options can not alter price
+				// Upload and get the ID
 				//
-				//$option = $this->options_m->get_option_value_by_slug($key,$value);	
-				$option = $this->options_m->get_option_by_id($key,$value);	
+				$data = $this->upload(  $_OP_INPUT_NAME,  $F_NAME_PART . '-' . $F_NAME );
 
-	
-				
-				//var_dump($option);;
-			
-
-
-				$options[$key] = array(); //initialize the option key
-
-
-				//we have to handle the text option as they do not have sub-options and do not alter the price
-				if($option->type == 'file')
-				{	
-
-					if($value == 'donotremove')
-					{
-					
-					}
-					
-					//
-					// Trigger Event to Notify User of status (success/Failer)
-					//
-					//Events::trigger('evt_send_admin_email', array('attachment' => $value, 'product_id' => 'product_id') );
-
-								
-
-					//build the option array that will be sent to the cart
-					//array( 'max_qty' => 0 ,'operator' => '+=' , 'operator_value' => '0');
-					// Get the label from the db/cache
-					$options[$key] = array('name' => $option->name, 
-											'value' => $data, /* $option->values->value */
-											'label' => $data, /* $option->values->value */
-											'user_data' => '',  /*used in cart view*/
-											'max_qty' => 0, 
-											'operator'=> 'n', //n = skip calc 
-											'operator_value' => 0, 
-											'type' => $option->type);
-
-				}
-				elseif($option->type =='text') //we have to handle the text option as they do not have sub-options and do not alter the price
+				if($data)
 				{
-					
-					
-					//build the option array that will be sent to the cart
-					//array( 'max_qty' => 0 ,'operator' => '+=' , 'operator_value' => '0');
-					// Get the label from the db/cache
-					$options[$key] = array('name' => $option->name, 
-											'value' => $value, /* $option->values->value */
-											'label' => $value, /* $option->values->value */
-											'user_data' => 'text',  /*used in cart view*/
-											'max_qty' => 0, 
-											'operator'=> 'n', //n = skip calc 
-											'operator_value' => 0, 
-											'type' => $option->type);
-
+					//file uploaded succesfully
 				}
 				else
 				{
-					
-					
-				
-					//build the option array that will be sent to the cart
-					
-					// Get the label from the db/cache
-					$options[$key] = array('name' => $option->name, 
-											'value' => $value, /* $option->values->value */
-											'label' => $option->values->label,  /*used in cart view*/
-											'user_data' => $option->values->user_data,  /*used in cart view*/
-											'max_qty' => $option->values->max_qty, 
-											'operator'=>$option->values->operator, 
-											'operator_value' => $option->values->operator_value, 
-											'type' => $option->type);
-
-
-					$ignor_shipping = $option->values->ignor_shipping;
-
-
+					echo "no file to add";die;
 				}
+				
+							
+				//build the option array that will be sent to the cart
+				//array( 'max_qty' => 0 ,'operator' => '+=' , 'operator_value' => '0');
+				// Get the label from the db/cache
+				$OPTIONS_TO_Return[$_OP_INPUT_NAME] = array('name' => $option->name, 
+										'value' => $data, /* $option->values->value */
+										'label' => $data, /* $option->values->value */
+										'user_data' => '',  /*used in cart view*/
+										'max_qty' => 0, 
+										'operator'=> 'n', //n = skip calc 
+										'operator_value' => 0, 
+										'type' => $option->type);
+
+
+			}	
+			elseif($option->type == 'text') //we have to handle the text option as they do not have sub-options and do not alter the price
+			{
+
+				//echo "From DB:<br/>";
+				//var_dump($option);
+				//echo "<br/><hr><br>";
+				//echo "OPTION_NAME:". $option_name . "<hr>";
+
+				$POST_value = $this->input->post(  $_OP_INPUT_NAME  );
+
+
+				if( $POST_value === null ) continue;
+
+				if( $POST_value === "" ) continue;
+
+
+				//build the option array that will be sent to the cart
+				//array( 'max_qty' => 0 ,'operator' => '+=' , 'operator_value' => '0');
+				// Get the label from the db/cache
+				$OPTIONS_TO_Return[$_OP_INPUT_NAME] = array('name' => $option->name, 
+										'value' => $POST_value, /* $option->values->value */
+										'label' => $POST_value, /* $option->values->value */
+										'user_data' => 'text',  /*used in cart view*/
+										'max_qty' => 0, 
+										'operator'=> 'n', //n = skip calc 
+										'operator_value' => 0, 
+										'type' => $option->type);
 
 			
-
-				//var_dump($options);die;				
+			}	
+			else
+			{
 				
+				if(!$this->input->post(  $_OP_INPUT_NAME) ) continue;
+				
+
+				$POST_value = $this->input->post(  $_OP_INPUT_NAME  );
+
+
+
+				$option = $this->options_m->get_option_by_id(  $_OP_INPUT_NAME, $POST_value  );	
+
+
+			
+				//build the option array that will be sent to the cart
+				
+				// Get the label from the db/cache
+				$OPTIONS_TO_Return[$_OP_INPUT_NAME] = array('name' => $option->name, 
+										'value' => $POST_value, /* $option->values->value */
+										'label' => $option->values->label,  /*used in cart view*/
+										'user_data' => $option->values->user_data,  /*used in cart view*/
+										'max_qty' => $option->values->max_qty, 
+										'operator'=>$option->values->operator, 
+										'operator_value' => $option->values->operator_value, 
+										'type' => $option->type);
+
+
+				$ignor_shipping = $option->values->ignor_shipping;
 
 
 			}
+		}
 
-		//}
+
 	
-		return array( $ignor_shipping, $options );
+		return array( $ignor_shipping, $OPTIONS_TO_Return );
 		
 	}
 
-	public function upload($file_option_slug=null)
+
+	/**
+	 * We will only allow ZIP and image (jpg|png|bit) at this stage to prevent uploading bad scripts
+	 * 
+	 * @param  string $_expected_form_input_name [description]
+	 * @param  string $filename                  [description]
+	 * @return [type]                            [description]
+	 */
+	public function upload(  $_expected_form_input_name = 'fileupload', $filename ='file_for_order')
 	{
+
+		//lets do some pre-check before we let it into pyro system.
+		//Right now the file is in the tmp dir, before we let it loose we do some checks, otherwise delete from tmp
+		$upload_file_data = $_FILES[  $_expected_form_input_name  ];
+
+		$tmp_name = ($upload_file_data['tmp_name']);
+
+		//$size = $upload_file_data['size'];
+		//$name = $upload_file_data['name'];
+		$file_name_only = $upload_file_data['name'];		
+
+
+		$file_info = pathinfo($file_name_only);
+
+
+		$filename = $file_info['filename'];
+		$extension = $file_info['extension'];
+		$basename = $file_info['basename'];
+
+
+
+
+		$valid_files = array('png', 'jpg', 'jpeg', 'bmp' ,'zip', 'txt', 'doc', 'docx');
+
+		if(in_array($extension, $valid_files))
+		{
+			//File ok to upload
+		}
+		else
+		{
+			return FALSE;
+		}
+
+
+		/*
+		array
+			'dirname' => string 'C:\wamp\tmp' (length=11)
+			'basename' => string 'php80BC.tmp' (length=11)
+			'extension' => string 'tmp' (length=3)
+			'filename' => string 'php80BC' (length=7)
+		*/
+
 
 		$this->load->library('files/files');
 
@@ -931,9 +975,17 @@ class Cart extends Public_Controller
 		$folder_id =  Settings::get('shop_upload_file_orders');
 
 
-	    $upload = Files::upload($folder_id, 'file_for_order','fileupload');
+	    //$upload = Files::upload($folder_id, 'file_for_order','fileupload');
+	    $upload = Files::upload( $folder_id , $filename,  $_expected_form_input_name );
 
-	    //var_dump($upload['data']['id']);die;
+
+	    //var_dump($upload);die;
+
+
+	    $filesize = $upload['data']['filesize'];
+	    $extension = $upload['data']['extension'];
+
+
 
 	    $file_id = $upload['data']['id'];
 	

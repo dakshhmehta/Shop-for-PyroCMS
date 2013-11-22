@@ -7,13 +7,16 @@ class Checkout2 extends Public_Controller {
     var $address_validation = array();
 
 
-    protected $theme_name = 'multistep';
+    protected $checkout_name = 'multistep';
+    protected $checkout_version = '1.3';
+
+
 
     public function __construct() 
     {
         parent::__construct();
 
-        $this->theme_layout_path =  'checkout/'.$this->theme_name.'/';        
+        $this->theme_layout_path =  'checkout/'.$this->checkout_name.'/';        
 
         if ($this->settings->store_ssl_required and strtolower(substr(current_url(), 4, 1)) != 's') 
         {
@@ -182,7 +185,13 @@ class Checkout2 extends Public_Controller {
         }
 
 
-        
+
+        $countryList = get_country_from_iso2alpha( '','normal', TRUE );
+        $data->countries = array();     
+        foreach($countryList as $code => $name)
+        {
+            $data->countries[] = array('code'=>$code,'name'=>$name);
+        }
 
         $this->template->title($this->module_details['name'],'billing')
                 ->build($this->theme_layout_path .'address', $data);
@@ -252,6 +261,14 @@ class Checkout2 extends Public_Controller {
 
             redirect('shop/checkout2/shipment');
 
+        }
+
+
+        $countryList = get_country_from_iso2alpha( '','normal', TRUE );
+        $data->countries = array();     
+        foreach($countryList as $code => $name)
+        {
+            $data->countries[] = array('code'=>$code,'name'=>$name);
         }
         
 
@@ -357,27 +374,37 @@ class Checkout2 extends Public_Controller {
     }
 
 
-    private function place_order($trust_events = array())
+    private function place_order()
     {
-
 
             //
             // Collect data from session/cart and user
             //
-            $input['user_id'] =  $this->session->userdata('customer_id');
-            $input['cost_items'] =  $this->sfcart->items_total();
-            $input['cost_shipping'] =   $this->session->userdata('shipping_cost'); 
-            //$input['cost_total'] = ($inputs['cost_items'] + $inputs['cost_shipping']);
-            $input['shipping_id'] =  $this->session->userdata('shipment_id');
-            $input['gateway_method_id'] =  $this->session->userdata('gateway_id');;
+            $input = $this->_get_order_params();
 
-            $input['billing_address_id'] = $this->session->userdata('billing'); 
-            $input['shipping_address_id'] = $this->session->userdata('shipping');
-            $input['session_id'] = $this->_session;
-            $input['ip_address'] =  $this->input->ip_address();
-            $input['trust_score'] =  0;
+
+
+            //
+            // Load the library
+            //
+            $this->load->library('fraud_control');
+
+
+            //
+            // Initiate the check
+            //
+            $this->fraud_control->inspect( $input );
+
+
+
+
+
+            if( $this->fraud_control->is_blacklisted() === TRUE )
+            {
+                $this->session->set_flashdata('error', 'Unable to place order - You have been blocked by the administrator');
+                return 0;
+            }
   
-
            
 
             $cart_items = $this->sfcart->contents();
@@ -417,7 +444,7 @@ class Checkout2 extends Public_Controller {
 
                 // value is typiclyy a string "+1 for similar email"
                 // or -2 for unknown country
-                $this->transactions_m->log_trust_data($order_id, $input['trust_score'],  $trust_events);
+                $this->transactions_m->log_trust_data($order_id,   $this->fraud_control->score() ,   $this->fraud_control->messages() );
                 
 
 
@@ -436,10 +463,80 @@ class Checkout2 extends Public_Controller {
     }
 
 
+    private function _get_order_params()
+    {
+
+        $input['user_id'] =  $this->session->userdata('customer_id');
+        $input['cost_items'] =  $this->sfcart->items_total();
+        $input['cost_shipping'] =   $this->session->userdata('shipping_cost'); 
+        //$input['cost_total'] = ($inputs['cost_items'] + $inputs['cost_shipping']);
+        $input['shipping_id'] =  $this->session->userdata('shipment_id');
+        $input['gateway_method_id'] =  $this->session->userdata('gateway_id');;
+
+        $input['billing_address_id'] = $this->session->userdata('billing'); 
+        $input['shipping_address_id'] = $this->session->userdata('shipping');
+        $input['session_id'] = $this->_session;
+        $input['ip_address'] =  $this->input->ip_address();
+        $input['trust_score'] =  0;
+
+        $input['checkout_version'] = $this->checkout_version;
+        $input['order_total'] = $this->sfcart->total();        
+
+        return $input;   
+
+    }
+
+
+    private function _fraud_check($input=array())
+    {
+
+        $this->load->library('fraud_control');
 
 
 
 
+
+        //the default object
+        $ret_object = new stdClass();
+        $ret_object->response = '';
+        $ret_object->trust_score = 0;
+        $ret_object->trust_events =  array();
+
+
+        if( $this->fraud_control->validate_order($input) )
+        {
+            //get a score
+            $trust_object = $this->fraud_control->get_trust_score($input);
+
+            $ret_object->trust_score = $trust_object->score;
+            $ret_object->trust_events = $trust_object->events ;
+
+            return $ret_object;
+
+        }
+
+
+
+        $ret_object->response = 'blacklisted';
+        $ret_object->trust_events =  array();
+        
+
+        $a_id = $this->session->userdata('shipping_address_id');
+        $address = $this->addresses_m->get($a_id);
+        $array_data = array();
+        $array_data['email'] = $address->email;
+        $array_data['phone'] = $address->phone;
+        $array_data['user_id'] =  $this->session->userdata('customer_id');
+        $array_data['cost_total'] =  $this->sfcart->total();
+        $array_data['shipping_address'] = $this->session->userdata('shipping_address_id');
+        $array_data['billing_address'] =  $this->session->userdata('billing_address_id');
+
+        Events::trigger('evt_blacklist_attempt', $array_data);
+
+
+        return  $ret_object;              
+
+    }
 
 
 

@@ -11,6 +11,9 @@
                 <td>{{title}}</td>
                 <td>{{shop:currency}} {{shipping_cost}}</td>
             </tr>
+           <tr>
+                <td colspan='3'>{{desc}}</td>
+            </tr>            
         {{/shipments}}
         </table>
     </fieldset>

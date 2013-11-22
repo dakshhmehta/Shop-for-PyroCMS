@@ -117,6 +117,12 @@ class Options_product_m extends MY_Model
 	}
 
 
+	/**
+	 * Get by product
+	 * 
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
 	public function get_prod_options($id) 
 	{
 	

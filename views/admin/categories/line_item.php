@@ -1,7 +1,9 @@
 
 
 				<tr class="<?php echo alternator('even', ''); ?>">
+
 					<td><input type="checkbox" name="action_to[]" value="<?php echo $category->id; ?>"  /></td>
+					<td><?php echo $category->id; ?></td>
 					<td>
 						<?php if ($category->image_id > 0): ?>
 							<img src="files/thumb/<?php echo $category->image_id;?>/50/50" alt="<?php echo $category->name." (Image)";?>" />

@@ -74,10 +74,19 @@ class Payment extends Public_Controller
         //
         if (!$data->order)
         {
-            $this->session->set_flashdata('error', 'Error, no order found');
+            $this->session->set_flashdata('error', shop_lang('shop:payments:no_order_found') );
             redirect('shop');
         }
         
+
+
+        if ($data->order->pmt_status == 'paid')
+        {
+            $this->session->set_flashdata('error', shop_lang('shop:payments:order_already_paid'));
+            redirect('shop/my/orders');
+        }
+        
+
 
 
         //
@@ -118,7 +127,7 @@ class Payment extends Public_Controller
         // Display the gatwway page with their own option (if they have any)
         //
         $this->template
-            ->title($this->module_details['name'], lang('customer'))
+            ->title($this->module_details['name'], shop_lang('shop:payments:customer'))
             ->build($view_file, $data);
 
 
@@ -350,7 +359,7 @@ class Payment extends Public_Controller
 	
 		// display success message
 		$this->template
-				->title($this->module_details['name'], lang('customer_title'))
+				->title($this->module_details['name'], shop_lang('shop:payments:customer') )
 				->build('checkout/success');
 	}
 	
@@ -366,7 +375,7 @@ class Payment extends Public_Controller
 		}
 		else
 		{
-			$this->session->set_flashdata('notice', lang('payment_canceled'));
+			$this->session->set_flashdata('notice', shop_lang('shop:payments:payment_cancelled'));
 			redirect('shop');
 		}
 	}
@@ -386,7 +395,7 @@ class Payment extends Public_Controller
 		}
 		else
 		{
-			$this->session->set_flashdata('notice', lang('payment_canceled'));
+			$this->session->set_flashdata('notice', shop_lang('shop:payments:payment_cancelled'));
 			redirect('shop');
 		}
 	}
@@ -401,7 +410,7 @@ class Payment extends Public_Controller
 		//Does order exist
 		if( ! $order )
 		{
-			$this->session->set_flashdata('Order does not exist');
+			$this->session->set_flashdata(shop_lang('shop:payments:order_does_not_exist'));
 			return FALSE;
 		}
 
@@ -409,7 +418,7 @@ class Payment extends Public_Controller
 		//
 		if( $order->status === OrderStatus::Paid )
 		{
-			$this->session->set_flashdata('Order has been paid');
+			$this->session->set_flashdata(shop_lang('shop:payments:order_has_been_paid'));
 			return FALSE;
 		}	
 

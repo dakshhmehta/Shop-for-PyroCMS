@@ -68,7 +68,7 @@ class Product extends Public_Controller
 	 * OPTION 1 : domain.com/product/slug   	
 	 * OPTION 2 : domain.com/product/7  		 
 	 */
-	public function index($param = '') 
+	public function index($param = '', $admin_as_customer = FALSE) 
 	{
 	
 	
@@ -92,7 +92,13 @@ class Product extends Public_Controller
 		//
 		// if product does not exist, redirect away
 		//
-		$data->product OR redirect('404');
+		if( (!$data->product) OR ($admin_as_customer == 'customer' && group_has_role('shop', 'admin_products') ) )
+		{
+			if (($data->product->date_archived != NULL) || ($data->product->public == ProductVisibility::Invisible ))
+			{
+				redirect('404');
+			}
+		}
 
 
 		//
@@ -102,15 +108,20 @@ class Product extends Public_Controller
 		$notification_messages['error'] = array();
 		$notification_messages['success'] = array();
 
-		if(group_has_role('shop', 'admin_products'))
+
+
+		if(group_has_role('shop', 'admin_products') && $admin_as_customer == FALSE)
 		{
-			$notification_messages['error'][] = 'You are viewing this product as an Administrator<br />';
+			$site_url = base_url();
+			
+			$notification_messages['error'][] = 'You are viewing this product as an Administrator &bull; <a target="_new" href="'.$site_url.'admin/shop/product/edit/'.$param.'">click here to edit this item</a>';
 
 			if($data->product->public == 0)
 			{
 				$notification_messages['error'][] = 'This product is hidden from your customers view';
 			}
 		}
+
 
 		$data->notification_messages = $notification_messages;
 

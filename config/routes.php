@@ -14,7 +14,7 @@
  * See Full license details on the License.txt file
  */
  
-
+$route['shop/admin/maintenance(/:any)?']	= 'admin/maintenance$1';
 $route['shop/admin/dailydeals(/:any)?']		= 'admin/dailydeals$1';
 $route['shop/admin/images(/:any)?']			= 'admin/images$1';
 $route['shop/admin/shipping(:any)?']		= 'admin/shipping$1';
