@@ -409,6 +409,49 @@ class Plugin_Shop extends Plugin
 	}
 
 
+
+	public function is_instock()
+	{
+		$product_id = $this->attribute('id', NULL);
+
+
+		$this->load->model('shop/products_m');
+
+
+		$product = $this->products_m->get($product_id, 'id');
+
+		if(!$product)
+			return '';
+
+		if($product->status =='in_stock')
+		{
+			return $this->content();
+		}
+
+
+		return '';
+	}
+
+	public function not_instock()
+	{
+		$product_id = $this->attribute('id', NULL);
+
+
+		$this->load->model('shop/products_m');
+
+
+		$product = $this->products_m->get($product_id, 'id');
+
+		if(!$product)
+			return '';
+
+		if($product->status =='in_stock')
+		{
+			return '';
+		}
+
+		return $this->content();
+	}
 	/**
 	 * For now we only retrieve the symbol, but we should add options for 2 letter code, etc..
 	 * @return [type] [description]

@@ -26,15 +26,22 @@
 									
 											foreach ($opt as $key=>$val)
 											{
+												//var_dump($key);
+												//var_dump($val);
 												if($val->type == 'file')
 												{
 													echo "<br /><br />";
 													echo $val->name. ' : <a href="files/download/'.$val->value.'">'.shop_lang('shop:orders:download').'</a>';
 												}
-												else
+												elseif($val->type == 'text')
 												{
 													echo "<br /><br />";
 													echo $val->name. ' : '. $val->value;
+												}												
+												else
+												{
+													echo "<br /><br />";
+													echo $val->name. ' : '. $val->label;
 												}
 
 											}
