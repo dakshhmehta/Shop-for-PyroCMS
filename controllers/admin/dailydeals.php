@@ -28,11 +28,14 @@ class Dailydeals extends Admin_Controller
 {
 
 	protected $section = 'dailydeals';
+
+	private $data;
 	
 
 	public function __construct() 
 	{
 		parent::__construct();
+		$this->data = new StdClass();
 		$this->load->model('dailydeals_m');		
 		$this->load->model('products_admin_m');		
 		Events::trigger('evt_admin_load_assests');
@@ -43,11 +46,11 @@ class Dailydeals extends Admin_Controller
 	public function index($offset = 0) 
 	{
 
-		$data->products = $this->dailydeals_m->get_all_admin();
+		$this->data->products = $this->dailydeals_m->get_all_admin();
 		
 
 		$this->template->title($this->module_details['name'])
-				->build('admin/dailydeals/list', $data);
+				->build('admin/dailydeals/list', $this->data);
 	
 
 	}	
