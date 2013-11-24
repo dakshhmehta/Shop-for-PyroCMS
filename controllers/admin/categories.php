@@ -27,10 +27,12 @@ class Categories extends Admin_Controller
 {
 
 	protected $section = 'categories';
-
+	private $data;
 	public function __construct() 
 	{
 		parent::__construct();
+
+		$this->data = new StdClass;
 
 		// Load all the required classes
 		$this->load->model('categories_m');
@@ -74,11 +76,11 @@ class Categories extends Admin_Controller
 	{
 
 		// Build the view with shop/views/admin/clearances.php
-		$data->categories = $this->categories_m->get_all_categories(); //get_all();
+		$this->data->categories = $this->categories_m->get_all_categories(); //get_all();
 		//$data->categories = $this->categories_m->get_all(); //get_all();
 		$this->template
 				->title($this->module_details['name'])
-				->build('admin/categories/categories', $data);
+				->build('admin/categories/categories', $this->data);
 	}
 
 	
@@ -283,13 +285,13 @@ class Categories extends Admin_Controller
 		//
 		//we need to bind the new option with the curreent object (id)
 		//
-		$data->id = $id;
+		$this->data->id = $id;
 	
 		
 		//
 		// return the view
 		//
-		return $this->load->view('admin/categories/addmultipleoption',$data); die;
+		return $this->load->view('admin/categories/addmultipleoption',$this->data); die;
 		
 
 	}
@@ -310,7 +312,6 @@ class Categories extends Admin_Controller
 		 
 		// Get All folders
 		$tree = $this->file_folders_m->order_by('parent_id', 'ASC')->order_by('id', 'ASC')->get_all();
-		 
 		 
 		// Build the Folder Tree
 		foreach ($tree as $folder) 

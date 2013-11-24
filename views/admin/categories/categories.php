@@ -27,7 +27,9 @@
 		<tbody>
 
 
-			<?php foreach ($categories AS $category): ?>
+			<?php 
+				$data = new StdClass();
+				foreach ($categories AS $category): ?>
 
 				<?php 
 
