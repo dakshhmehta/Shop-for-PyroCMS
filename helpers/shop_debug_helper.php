@@ -13,7 +13,7 @@
  * 
  * See Full license details on the License.txt file
  */
-if (!function_exists('shop_lang')) 
+if (!function_exists('lang')) 
 {
 
 	/**
@@ -22,7 +22,7 @@ if (!function_exists('shop_lang'))
 	 * @param  string  $protocol      [description]
 	 * @return [type]                 [description]
 	 */
-	function shop_lang( $string='', $trim_from_value = null ) 
+	function lang( $string='', $trim_from_value = null ) 
 	{
 
 		
@@ -79,7 +79,7 @@ if (!function_exists('shop_lang'))
 				->where('module',$module)
 				->where('area',$area)
 				->where('key',$key)
-				->get('shop_lang')->num_rows() ;
+				->get('lang')->num_rows() ;
 
 			if($exist)
 			{
@@ -87,7 +87,7 @@ if (!function_exists('shop_lang'))
 			}
 			else
 			{
-				$ci->db->insert('shop_lang', $record);
+				$ci->db->insert('lang', $record);
 			}
 
 			return $value;
@@ -112,7 +112,7 @@ if (!function_exists('build_lang'))
 	{
 
 			$ci = & get_instance();
-		return $ci->db->order_by('module', 'asc')->order_by('area', 'asc')->order_by('key', 'asc')->get('shop_lang')->result();
+		return $ci->db->order_by('module', 'asc')->order_by('area', 'asc')->order_by('key', 'asc')->get('lang')->result();
 
 	}
 
