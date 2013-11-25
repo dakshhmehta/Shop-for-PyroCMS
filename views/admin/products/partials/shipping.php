@@ -11,7 +11,24 @@
 							<div class="input">
 							</div>
 						</li>	
-									
+
+
+						<li class="<?php echo alternator('', 'even'); ?>">
+
+									<label for="brand_id"><?php echo shop_lang('shop:products:product_type'); ?> <span>*</span>
+										<small>
+											<?php echo shop_lang('shop:products:product_type_description'); ?>
+										</small>
+									</label>
+									<div class="input">
+										<select name="product_type" id="product_type">
+											<option value=""><?php echo lang('global:select-pick'); ?></option>
+											<?php echo $product_type_select; ?> 
+										</select>
+									</div>
+						</li>	
+
+
 						<li class="<?php echo alternator('', 'even'); ?>">
 
 									<label for="brand_id"><?php echo shop_lang('shop:products:package'); ?> <span>*</span>
@@ -25,8 +42,9 @@
 											<?php echo $package_select; ?> 
 										</select>
 									</div>
-						
 						</li>	
+
+
 
 
 						<li class="<?php echo alternator('', 'even'); ?>">

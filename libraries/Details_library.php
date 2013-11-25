@@ -468,7 +468,7 @@ class Details_library
 				'user_data' => 		array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),
 				
 				'page_design_layout' => 	array('type' => "VARCHAR", 'constraint' => '75', 'default' => 'products_single'), //limit to files that are smaller than 75 char long
-				//'product_type' => 	array('type' => "VARCHAR", 'constraint' => '50', 'default' => ''),
+				'product_type' => 	array('type' => "SET('shippable',  'digital_file', 'credit')", 'default' => 'shippable'),
 				# default package ing data - not required but if enetered it is used.
 				'height' => array('type' => 'INT', 'constraint' => '5'	, 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL), /* KG - 100g = 0.001 */
 				'width' => array('type' => 'INT', 'constraint' => '5'	, 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL), /* KG - 100g = 0.001 */
