@@ -67,6 +67,7 @@ class Orders extends Admin_Controller
 	{
 
 		$limit = 5;
+		$data = new StdClass;
 		//by default all visible
 		$filter=array();
 

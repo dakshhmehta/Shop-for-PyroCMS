@@ -101,7 +101,7 @@
 
 </div>
 
-<?php if( isset($id) AND $parent_id == NULL || $parent_id == 0): ?>
+<?php if( isset($id)): ?>
 
 
 
