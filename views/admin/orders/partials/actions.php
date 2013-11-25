@@ -36,7 +36,7 @@
 								$_cl_5 = 'button-flat-primary';		
 								break;
 							case 'returned':
-								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/shipped',shop_lang('shop:orders:mark_as_shipped') ,'class="btn blue"')."</div></li>";
+								echo "<li><div class='input'>".anchor('admin/shop/orders/setstatus/' . $order->id.'/shipped',lang('shop:orders:mark_as_shipped') ,'class="btn blue"')."</div></li>";
 								break;																															
 			
 						}
@@ -48,15 +48,15 @@
 							<label>The blue button is the next logical step in the order workflow</label>
 							<div class='input'>
 					
-								<a class='<?php echo $_cl_1;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/paid'><?php echo shop_lang('shop:orders:paid');?></a>
-								<a class='<?php echo $_cl_2;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/processing'><?php echo shop_lang('shop:orders:processing');?></a>
-								<a class='<?php echo $_cl_3;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/complete'><?php echo shop_lang('shop:orders:complete');?></a>
-								<a class='<?php echo $_cl_4;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/shipped'><?php echo shop_lang('shop:orders:shipped');?></a>
-								<a class='<?php echo $_cl_5;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/closed'><?php echo shop_lang('shop:orders:closed');?></a>
-								<a class='<?php echo $_cl_6;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/returned'><?php echo shop_lang('shop:orders:returned');?></a>
-								<a class='<?php echo $_cl_7;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/reopen'><?php echo shop_lang('shop:orders:reopen');?></a>
-								<a class='shopbutton button-flat red confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/cancelled'><?php echo shop_lang('shop:orders:cancelled');?></a>								
-								<a class='shopbutton button-flat red confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/closed'><?php echo shop_lang('shop:orders:closed');?></a>								
+								<a class='<?php echo $_cl_1;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/paid'><?php echo lang('shop:orders:paid');?></a>
+								<a class='<?php echo $_cl_2;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/processing'><?php echo lang('shop:orders:processing');?></a>
+								<a class='<?php echo $_cl_3;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/complete'><?php echo lang('shop:orders:complete');?></a>
+								<a class='<?php echo $_cl_4;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/shipped'><?php echo lang('shop:orders:shipped');?></a>
+								<a class='<?php echo $_cl_5;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/closed'><?php echo lang('shop:orders:closed');?></a>
+								<a class='<?php echo $_cl_6;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/returned'><?php echo lang('shop:orders:returned');?></a>
+								<a class='<?php echo $_cl_7;?> shopbutton confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/reopen'><?php echo lang('shop:orders:reopen');?></a>
+								<a class='shopbutton button-flat red confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/cancelled'><?php echo lang('shop:orders:cancelled');?></a>								
+								<a class='shopbutton button-flat red confirm' href='admin/shop/orders/setstatus/<?php echo $order->id;?>/closed'><?php echo lang('shop:orders:closed');?></a>								
 							</div>
 						</li>	
 						<li>

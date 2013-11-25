@@ -1,6 +1,6 @@
 
 <section class="title">
-	<h4><?php echo shop_lang('shop:orders:order'); ?> - ( <?php echo shop_lang('shop:orders:account'); ?>: <?php echo  $customer->display_name; ?> )</h4>
+	<h4><?php echo lang('shop:orders:order'); ?> - ( <?php echo lang('shop:orders:account'); ?>: <?php echo  $customer->display_name; ?> )</h4>
 	<h4 style="float:right">
 		<?php echo anchor('admin/shop/orders', ' ', 'class="img_icon img_view"'); ?>
 	</h4>		
@@ -12,9 +12,9 @@
 		<ul>
 			<li>
 				<label>
-					<?php echo shop_lang('shop:orders:order_id'); ?>:
+					<?php echo lang('shop:orders:order_id'); ?>:
 					<small>
-						<?php echo shop_lang('shop:orders:order_id_description'); ?>:
+						<?php echo lang('shop:orders:order_id_description'); ?>:
 					</small>
 				</label>
 				<div class="value">
@@ -23,15 +23,15 @@
 			</li>   
 			<li>
 				<label>
-					<?php echo shop_lang('shop:orders:order_status'); ?>:
+					<?php echo lang('shop:orders:order_status'); ?>:
 					<small>
-						<?php echo shop_lang('shop:orders:order_status_'.$order->status.'_description'); ?>:
+						<?php echo lang('shop:orders:order_status_'.$order->status.'_description'); ?>:
 					</small>
 				</label>
 
 				<div class="value">
 						<?php $class_name = 's_'.$order->status.''; ?>
-						<div class='s_status <?php echo $class_name;?>'><?php echo shop_lang('shop:orders:'.$order->status); ?></div>
+						<div class='s_status <?php echo $class_name;?>'><?php echo lang('shop:orders:'.$order->status); ?></div>
 				</div>
 			</li>					  
 		 </ul>	
