@@ -2,7 +2,7 @@
 	<div class="one_half last" id="" >
 	
 		<section class="title">
-				<h4><?php echo shop_lang('shop:options:option_values'); ?></h4>
+				<h4><?php echo lang('shop:options:option_values'); ?></h4>
 				<h4 style="float:right"><a class="modal img_icon img_create" href="shop/admin/options/addoption/<?php echo $id;?>"></a></h4>
 		</section>
 		
