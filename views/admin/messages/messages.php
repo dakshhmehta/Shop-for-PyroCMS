@@ -5,8 +5,8 @@
 
 	    <section class="chart-tabs">
 	        <ul class="tab-menu">
-	            <li class="ui-state-active"><a href="admin/shop/stats/7" class="chart-data"><span><?php echo shop_lang('shop:admin:sales');?></span></a></li>
-	            <li class=""><a href="admin/shop/stats/7" class="chart-data"><span><?php echo shop_lang('shop:admin:orders');?></span></a></li>
+	            <li class="ui-state-active"><a href="admin/shop/stats/7" class="chart-data"><span><?php echo lang('shop:admin:sales');?></span></a></li>
+	            <li class=""><a href="admin/shop/stats/7" class="chart-data"><span><?php echo lang('shop:admin:orders');?></span></a></li>
 	        </ul>
 	    </section>
 
