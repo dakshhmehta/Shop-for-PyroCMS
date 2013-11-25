@@ -391,6 +391,7 @@ class Product extends Products_admin_Controller
 		if($panel =='shipping')
 		{
 			$data->package_select 	= $this->package_library->build_list_select(array('current_id' => $data->package_id));			
+			$data->product_type_select = $this->package_library->build_product_type_select(array('current_id' => $data->product_type));
 		}	
 		
 		if($panel =='design')

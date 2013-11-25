@@ -27,7 +27,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.126';  
+	public $version = '1.0.0.127';  
 
 
 
@@ -205,19 +205,20 @@ class Module_Shop extends Module
 	
 		switch ($old_version) 
 		{
-			case '1.0.0.125':
+			case '1.0.0.126':
 				//changes to cart controller - no db changes
+				$this->_install_table_col('shop_products','product_type');
 				break;
 			case '1.0.0.110':
 				$this->_install_settings('shop_trust_score_threshold');
-				$this->_install_table_row('shop_products','page_design_layout');
+				$this->_install_table_col('shop_products','page_design_layout');
 
 				$this->dbforge->drop_table('shop_dailydeals'); //important
 				$this->_install_table('shop_dailydeals');
 				break;
 			case '1.0.0.109':
-				//$this->_install_table_row('shop_orders','pmt_status');
-				//$this->_install_table_row('shop_categories','user_data');
+				//$this->_install_table_col('shop_orders','pmt_status');
+				//$this->_install_table_col('shop_categories','user_data');
 			 	//$this->_upgrade_orders();
 				//$this->_install_settings('shop_upload_file_product');
 				//$this->_install_settings('shop_upload_file_orders');
@@ -253,15 +254,19 @@ class Module_Shop extends Module
 	 * @param  [type] $row   [description]
 	 * @return [type]        [description]
 	 */
-	private function _install_table_row($table,$row)
+	private function _install_table_col($table_name,$col_name)
 	{
- 		$_table = $this->details_library->get_tables($table);
-
- 		$fields = $_table[$table][$row];
-
-		$fields = array( $row => $fields );
 		
-		return $this->dbforge->add_column($table, $fields);
+		//first drop the col if exist
+		$this->dbforge->drop_column($table_name, $col_name);
+
+ 		$_table = $this->details_library->get_tables($table_name);
+
+ 		$fields = $_table[$table_name][$col_name];
+		$fields = array( $col_name => $fields );
+		
+		return $this->dbforge->add_column($table_name, $fields);
+		
 	}
 
 
