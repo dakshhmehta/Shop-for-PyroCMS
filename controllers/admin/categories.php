@@ -27,10 +27,12 @@ class Categories extends Admin_Controller
 {
 
 	protected $section = 'categories';
-
+	private $data;
 	public function __construct() 
 	{
 		parent::__construct();
+
+		$this->data = new StdClass;
 
 		// Load all the required classes
 		$this->load->model('categories_m');
@@ -74,11 +76,11 @@ class Categories extends Admin_Controller
 	{
 
 		// Build the view with shop/views/admin/clearances.php
-		$data->categories = $this->categories_m->get_all_categories(); //get_all();
+		$this->data->categories = $this->categories_m->get_all_categories(); //get_all();
 		//$data->categories = $this->categories_m->get_all(); //get_all();
 		$this->template
 				->title($this->module_details['name'])
-				->build('admin/categories/categories', $data);
+				->build('admin/categories/categories', $this->data);
 	}
 
 	
@@ -113,7 +115,9 @@ class Categories extends Admin_Controller
 			}
 		}
 
-		$data->parent_category_select 	= $this->categories_m->build_dropdown( );  
+		$data->parent_category_select 	= $this->categories_m->build_dropdown(array(
+			'type'	=> 'all'
+		));  
 
 
 		// prepare dropdown image folders
@@ -145,9 +149,6 @@ class Categories extends Admin_Controller
 			$input = $this->input->post();
 		
 			$id = $input['id'];
-		
-			//basic cleanup from input
-
 
 			$order = intval($input['start_order_from']);
 
@@ -171,10 +172,10 @@ class Categories extends Admin_Controller
 				$input_to_add['parent_id'] = $id;
 				$input_to_add['order'] = $order;
 				$input_to_add['user_data'] = '';
-
 				$this->categories_m->create($input_to_add); //create simple just adds name/value not other optins
 				$order++;
 
+				Events::trigger('evt_category_created', $id );
 
 			}
 
@@ -209,7 +210,7 @@ class Categories extends Admin_Controller
 		}
 		
 
-		$data = (object) $row;
+		$this->data = (object) $row;
 		$this->form_validation->set_rules($this->_validation_rules);
 
 		// if postback-validate
@@ -232,20 +233,14 @@ class Categories extends Admin_Controller
 
 
 
-		$data->parent_category_select 	= $this->categories_m->build_dropdown( 
-
-											array('field_property_id' =>'parent_id', 
-													'type'=>'parent', 
-													'current_id' => $data->parent_id) 
-											);
-
+		$this->data->parent_category_select 	= $this->categories_m->build_dropdown(array(
+			'field_property_id' =>'parent_id', 
+			'type'=>'all', 
+			'ommit_id' => $this->data->id,
+			'current_id' => $this->data->parent_id
+		));
 		
-		//get children if a parent category
-		if($data->parent_id == 0)
-		{
-			$data->children = $this->categories_m->get_children($data->id);
-		}
-		
+		$this->data->children = $this->categories_m->get_children($this->data->id);
 
 		{
 		
@@ -255,8 +250,8 @@ class Categories extends Admin_Controller
 				->set('folders',$folders)
 				->append_js('module::admin/admin.js')
 				->append_js('module::admin/categories.js')
-				->append_metadata($this->load->view('fragments/wysiwyg', $data, TRUE))
-				->build('admin/categories/form', $data);
+				->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+				->build('admin/categories/form', $this->data);
 		}
 
 
@@ -283,13 +278,13 @@ class Categories extends Admin_Controller
 		//
 		//we need to bind the new option with the curreent object (id)
 		//
-		$data->id = $id;
+		$this->data->id = $id;
 	
 		
 		//
 		// return the view
 		//
-		return $this->load->view('admin/categories/addmultipleoption',$data); die;
+		return $this->load->view('admin/categories/addmultipleoption',$this->data); die;
 		
 
 	}
@@ -310,7 +305,6 @@ class Categories extends Admin_Controller
 		 
 		// Get All folders
 		$tree = $this->file_folders_m->order_by('parent_id', 'ASC')->order_by('id', 'ASC')->get_all();
-		 
 		 
 		// Build the Folder Tree
 		foreach ($tree as $folder) 
