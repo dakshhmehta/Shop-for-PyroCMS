@@ -4,9 +4,9 @@
 
 				<label>
 					
-					<?php echo shop_lang('shop:products:price_tab_description'); ?>
+					<?php echo lang('shop:products:price_tab_description'); ?>
 
-					<small><?php echo shop_lang('shop:products:price_tab_description_description'); ?></small>
+					<small><?php echo lang('shop:products:price_tab_description_description'); ?></small>
 
 				</label>
 
@@ -15,9 +15,9 @@
 				<div class="tabs">		
 
 					<ul class="tab-menu">
-						<li><a class=""  data-load="" href="#price-basic-tab"><span><?php echo shop_lang('shop:products:standard'); ?></span></a></li>		
-						<li><a class=""  data-load="" href="#price-qtydiscount-tab"><span><?php echo shop_lang('shop:products:qty_discount'); ?></span></a></li>	
-						<li><a class=""  data-load="" href="#price-mid-tab"><span><?php echo shop_lang('shop:products:mid_discount'); ?></span></a></li>																	
+						<li><a class=""  data-load="" href="#price-basic-tab"><span><?php echo lang('shop:products:standard'); ?></span></a></li>		
+						<li><a class=""  data-load="" href="#price-qtydiscount-tab"><span><?php echo lang('shop:products:qty_discount'); ?></span></a></li>	
+						<li><a class=""  data-load="" href="#price-mid-tab"><span><?php echo lang('shop:products:mid_discount'); ?></span></a></li>																	
 					</ul>	
 
 
@@ -25,8 +25,8 @@
 						<fieldset>
 								<ul>
 									<li>
-										<label for="price"><?php echo shop_lang('shop:products:price'); ?><span>*</span><br />
-											<small><?php echo shop_lang('shop:products:price_description'); ?></small>
+										<label for="price"><?php echo lang('shop:products:price'); ?><span>*</span><br />
+											<small><?php echo lang('shop:products:price_description'); ?></small>
 										</label>
 										<div class="input">
 											<?php echo ss_currency_symbol().' '.sf_text('price',$price);?>
@@ -34,16 +34,16 @@
 									</li>
 
 									<li>
-										<label for="price_base"><?php echo shop_lang('shop:products:base_price'); ?> <span></span><br />
-											<small><?php echo shop_lang('shop:products:base_price_description'); ?></small>
+										<label for="price_base"><?php echo lang('shop:products:base_price'); ?> <span></span><br />
+											<small><?php echo lang('shop:products:base_price_description'); ?></small>
 										</label>
 										<div class="input">
 											<?php echo ss_currency_symbol().' '.sf_text('price_base',$price_base);?>
 										</div>
 									</li>					
 									<li>
-										<label for="price"><?php echo shop_lang('shop:products:rrp'); ?> <span></span><br />
-											<small><?php echo shop_lang('shop:products:rrp_description'); ?></small>
+										<label for="price"><?php echo lang('shop:products:rrp'); ?> <span></span><br />
+											<small><?php echo lang('shop:products:rrp_description'); ?></small>
 										</label>
 										<div class="input">
 											<?php echo ss_currency_symbol().' '.sf_text('rrp',$rrp);?>
@@ -58,8 +58,8 @@
 						<fieldset>
 							<ul>
 							<li>
-								<label for=""><?php echo shop_lang('shop:products:qty_discounts'); ?><span></span>
-									<small><?php echo shop_lang('shop:products:qty_discounts_description'); ?></small>
+								<label for=""><?php echo lang('shop:products:qty_discounts'); ?><span></span>
+									<small><?php echo lang('shop:products:qty_discounts_description'); ?></small>
 						
 								</label>
 								<label for=""><span></span><br />
@@ -71,9 +71,9 @@
 										<div class="scrollable_panel">
 											<table id="discounts-list">
 														<tr>
-															  <th class='tooltip-s' title="<?php echo shop_lang('shop:products:min_purchase_req');?>"><?php echo shop_lang('shop:products:min_qty'); ?></th>
-															  <th class='tooltip-s' title="<?php echo shop_lang('shop:products:discounted_retail_price'); ?>"><?php echo shop_lang('shop:products:price'); ?></th>
-															  <th class='tooltip-s' title="<?php echo shop_lang('shop:products:remove'); ?>"><?php echo shop_lang('shop:products:actions'); ?></th>
+															  <th class='tooltip-s' title="<?php echo lang('shop:products:min_purchase_req');?>"><?php echo lang('shop:products:min_qty'); ?></th>
+															  <th class='tooltip-s' title="<?php echo lang('shop:products:discounted_retail_price'); ?>"><?php echo lang('shop:products:price'); ?></th>
+															  <th class='tooltip-s' title="<?php echo lang('shop:products:remove'); ?>"><?php echo lang('shop:products:actions'); ?></th>
 														</tr>					
 												<?php $index = 0; ?>
 													<?php foreach ($discounts as $atr): ?>
@@ -99,9 +99,9 @@
 							<ul>
 								<li class="<?php echo alternator('', 'even'); ?>">
 									<label for="pgroup_id">
-											<?php echo shop_lang('shop:products:pgroup'); ?>
+											<?php echo lang('shop:products:pgroup'); ?>
 										<small>
-										<?php echo shop_lang('shop:products:pgroup_description'); ?>
+										<?php echo lang('shop:products:pgroup_description'); ?>
 										</small>						
 									</label>
 									<div class="input">

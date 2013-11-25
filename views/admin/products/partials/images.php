@@ -6,8 +6,8 @@
 				<div class="tabs">		
 
 					<ul class="tab-menu">
-						<li><a class=""  data-load="" href="#files-tab"><span><?php echo shop_lang('shop:products:files'); ?></span></a></li>							
-						<li><a class=""  data-load="" href="#pc-tab"><span><?php echo shop_lang('shop:products:upload_from_computer'); ?></span></a></li>
+						<li><a class=""  data-load="" href="#files-tab"><span><?php echo lang('shop:products:files'); ?></span></a></li>							
+						<li><a class=""  data-load="" href="#pc-tab"><span><?php echo lang('shop:products:upload_from_computer'); ?></span></a></li>
 					</ul>					
 					<div class="form_inputs" id="files-tab">
 						<fieldset>
@@ -15,11 +15,11 @@
 								<li class="<?php echo alternator('', 'even'); ?>">
 									<label for="folder">
 
-										<?php echo shop_lang('shop:products:import_from_files'); ?>
+										<?php echo lang('shop:products:import_from_files'); ?>
 										<span>*</span> 
 										<br />
 										<small>
-											<?php echo shop_lang('shop:products:import_image_description'); ?>
+											<?php echo lang('shop:products:import_image_description'); ?>
 										</small>
 									</label>
 									<div class="input">
@@ -32,9 +32,9 @@
 												</div>
 												<div id='img_actions' style="margin-top:12px">
 													<!-- This is where the submit button to save the gallery goes -->
-													<a href='#' class="btn gray"  id='btn_select_all_images'><?php echo shop_lang('shop:products:select_all'); ?></a> 
-													<a href='#' class="btn gray"  id='btn_select_none_images'><?php echo shop_lang('shop:products:select_none'); ?></a> 
-													<a href='#' class="btn orange"  id='btn_add_images' pid='<?php echo $id; ?>'><?php echo shop_lang('shop:products:add_to_gallery'); ?></a>
+													<a href='#' class="btn gray"  id='btn_select_all_images'><?php echo lang('shop:products:select_all'); ?></a> 
+													<a href='#' class="btn gray"  id='btn_select_none_images'><?php echo lang('shop:products:select_none'); ?></a> 
+													<a href='#' class="btn orange"  id='btn_add_images' pid='<?php echo $id; ?>'><?php echo lang('shop:products:add_to_gallery'); ?></a>
 												</div>	
 			  
 									</div>
@@ -48,13 +48,13 @@
 						<ul>
 							<li>
 								<label for="">
-									<?php echo shop_lang('shop:products:upload_image'); ?>
+									<?php echo lang('shop:products:upload_image'); ?>
 									<span></span>
 									<br />
-									<small><?php echo shop_lang('shop:products:upload_image_description'); ?></small>
+									<small><?php echo lang('shop:products:upload_image_description'); ?></small>
 								</label>
 								<div class="input">		
-									<?php echo shop_lang('shop:products:you_must_select_an_upload_folder'); ?> <br />
+									<?php echo lang('shop:products:you_must_select_an_upload_folder'); ?> <br />
 									<?php  $_upload_folder = Settings::get('shop_upload_file_product');
 									echo form_dropdown('upload_folder_id', $folders, $_upload_folder, 'id="upload_folder_id" style=""'); ?>	 <br />			
 									<input type='file' name='fileupload_1' > <br />
@@ -87,11 +87,11 @@
 				<ul>
 					<li class="<?php echo alternator('', 'even'); ?>">
 							<label for="">
-								<?php echo shop_lang('shop:products:gallery_images'); ?>
+								<?php echo lang('shop:products:gallery_images'); ?>
 								<span></span>
 								<br />
 								<small>
-									<?php echo shop_lang('shop:products:gallery_images_description'); ?>
+									<?php echo lang('shop:products:gallery_images_description'); ?>
 								</small>
 							</label>
 							<div class="input">
@@ -105,8 +105,8 @@
 											{
 													
 												$dom_id = 'img_id_'.$image->file_id;
-												$rem = shop_lang('shop:products:remove');
-												$cov = shop_lang('shop:products:set_as_cover');
+												$rem = lang('shop:products:remove');
+												$cov = lang('shop:products:set_as_cover');
 
 												echo "<div  class='tooltip-s container' id='$dom_id'>";
 												echo "  <a title='$rem' class='img_icon img_delete remove_image gall_cover2' data-image='$image->file_id' data-parent='$dom_id'></a>";
