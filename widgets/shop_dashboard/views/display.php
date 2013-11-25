@@ -8,9 +8,9 @@
 	 <section class="chart-tabs">
 
 	        <ul class="tab-menu">
-	        	<li class=""><a href="admin/shop/stats/1" class="chart-data"><span><?php echo shop_lang('shop:dashboard:day');?></span></a></li>
-	            <li class=""><a href="admin/shop/stats/7" class="chart-data"><span><?php echo shop_lang('shop:dashboard:week');?></span></a></li>
-	            <li class="ui-state-active"><a href="admin/shop/stats/31" class="chart-data"><span><?php echo shop_lang('shop:dashboard:month');?></span></a></li>
+	        	<li class=""><a href="admin/shop/stats/1" class="chart-data"><span><?php echo lang('shop:dashboard:day');?></span></a></li>
+	            <li class=""><a href="admin/shop/stats/7" class="chart-data"><span><?php echo lang('shop:dashboard:week');?></span></a></li>
+	            <li class="ui-state-active"><a href="admin/shop/stats/31" class="chart-data"><span><?php echo lang('shop:dashboard:month');?></span></a></li>
 	        </ul>
 	    </section>
 
