@@ -509,6 +509,33 @@ class Package_library extends Core_library
 		return $html;
 	}	
 
+	public function build_product_type_select($params) 
+	{
+		 
+		$params = array_merge(array('current_id' => 0), $params);
+		
+		extract($params);
+		
+
+		$packages = array('digital_file','shippable');
+		
+		$html = '';
+
+		foreach ($packages as $item) 
+		{
+			
+
+			$html .= '<option value="' . $item . '"';
+			$html .= $current_id == $item ? ' selected="selected">' : '>';
+			$html .= $item . '</option>';
+		}
+		
+		
+		
+		return $html;
+	}	
+
+
 
 
 	//we have to handle packages deleted from system.

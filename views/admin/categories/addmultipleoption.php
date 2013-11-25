@@ -10,25 +10,25 @@
 	 			<section>
 					<ul id="" >
 							<li>
-								<label><?php echo shop_lang('shop:categories:category_name');?></label>        
+								<label><?php echo lang('shop:categories:category_name');?></label>        
 								<div class="">         
 									<?php echo form_input('value1'); ?>
 								</div>
 							</li>
 							<li>
-								<label><?php echo shop_lang('shop:categories:category_name');?></label>        
+								<label><?php echo lang('shop:categories:category_name');?></label>        
 								<div class="">         
 									<?php echo form_input('value2'); ?>
 								</div>
 							</li>							
 							<li>
-								<label><?php echo shop_lang('shop:categories:category_name');?></label>        
+								<label><?php echo lang('shop:categories:category_name');?></label>        
 								<div class="">         
 									<?php echo form_input('value3'); ?>
 								</div>
 							</li>
 							<li>
-								<label><?php echo shop_lang('shop:categories:category_name');?></label>        
+								<label><?php echo lang('shop:categories:category_name');?></label>        
 								<div class="">         
 									<?php echo form_input('value4'); ?>
 								</div>
@@ -42,25 +42,25 @@
 							<ul id="" >
 
 									<li>
-										<label><?php echo shop_lang('shop:categories:category_name');?></label>        
+										<label><?php echo lang('shop:categories:category_name');?></label>        
 										<div class="">         
 											<?php echo form_input('value5'); ?>
 										</div>
 									</li>
 									<li>
-										<label><?php echo shop_lang('shop:categories:category_name');?></label>        
+										<label><?php echo lang('shop:categories:category_name');?></label>        
 										<div class="">         
 											<?php echo form_input('value6'); ?>
 										</div>
 									</li>							
 									<li>
-										<label><?php echo shop_lang('shop:categories:category_name');?></label>        
+										<label><?php echo lang('shop:categories:category_name');?></label>        
 										<div class="">         
 											<?php echo form_input('value7'); ?>
 										</div>
 									</li>
 									<li>
-										<label><?php echo shop_lang('shop:categories:category_name');?></label>        
+										<label><?php echo lang('shop:categories:category_name');?></label>        
 										<div class="">         
 											<?php echo form_input('value8'); ?>
 										</div>
@@ -75,25 +75,25 @@
 							<ul id="" >
 
 									<li>
-										<label><?php echo shop_lang('shop:categories:category_name');?></label>        
+										<label><?php echo lang('shop:categories:category_name');?></label>        
 										<div class="">         
 											<?php echo form_input('value9'); ?>
 										</div>
 									</li>
 									<li>
-										<label><?php echo shop_lang('shop:categories:category_name');?></label>        
+										<label><?php echo lang('shop:categories:category_name');?></label>        
 										<div class="">         
 											<?php echo form_input('value10'); ?>
 										</div>
 									</li>							
 									<li>
-										<label><?php echo shop_lang('shop:categories:category_name');?></label>        
+										<label><?php echo lang('shop:categories:category_name');?></label>        
 										<div class="">         
 											<?php echo form_input('value11'); ?>
 										</div>
 									</li>
 									<li>
-										<label><?php echo shop_lang('shop:categories:category_name');?></label>        
+										<label><?php echo lang('shop:categories:category_name');?></label>        
 										<div class="">         
 											<?php echo form_input('value12'); ?>
 										</div>

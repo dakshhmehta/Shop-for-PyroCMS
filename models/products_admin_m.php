@@ -269,12 +269,16 @@ class Products_admin_m extends Products_m
 				'width' => $product->width,
 				'depth' => $product->depth,
 				'weight' => $product->weight,
+				'product_type' => $product->product_type,
+				'page_design_layout' => $product->page_design_layout,
+				'user_data' => $product->user_data,
 
 
 				'inventory_low_qty' => $product->inventory_low_qty,
 				'inventory_on_hand' => $product->inventory_on_hand,
 				'inventory_type' => $product->inventory_type,
 				'public' =>  0, 
+				'views' =>  0, 
 				'featured' => $product->featured,
 				'searchable' => $product->searchable,
 				'date_created' => date("Y-m-d H:i:s"),
@@ -380,6 +384,7 @@ class Products_admin_m extends Products_m
 
 
 			case 'page_design_layout':
+			case 'product_type':
 			case 'inventory_on_hand':
 			case 'inventory_low_qty':
 			case 'inventory_type':	

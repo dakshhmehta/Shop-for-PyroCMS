@@ -7,15 +7,15 @@
 				<thead>		
 					<tr>
 						<th class="collapse"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
-						<th class="collapse"><?php echo shop_lang('shop:dailydeals:id');?></th>
-						<th class="collapse"><?php echo shop_lang('shop:dailydeals:image');?></th>
-						<th class="collapse"><?php echo shop_lang('shop:dailydeals:name');?></th>
-						<th class="collapse"><?php echo shop_lang('shop:dailydeals:status');?></th>
-						<th class="collapse"><?php echo shop_lang('shop:dailydeals:stock_status');?></th>	
-						<th class="collapse"><?php echo shop_lang('shop:dailydeals:price');?></th>												
-						<th class="collapse"><?php echo shop_lang('shop:dailydeals:mode');?></th>
-						<th class="collapse"><?php echo shop_lang('shop:dailydeals:shares'); ?></th>
-						<th class="collapse"><?php echo shop_lang('shop:dailydeals:likes'); ?></th>
+						<th class="collapse"><?php echo lang('shop:dailydeals:id');?></th>
+						<th class="collapse"><?php echo lang('shop:dailydeals:image');?></th>
+						<th class="collapse"><?php echo lang('shop:dailydeals:name');?></th>
+						<th class="collapse"><?php echo lang('shop:dailydeals:status');?></th>
+						<th class="collapse"><?php echo lang('shop:dailydeals:stock_status');?></th>	
+						<th class="collapse"><?php echo lang('shop:dailydeals:price');?></th>												
+						<th class="collapse"><?php echo lang('shop:dailydeals:mode');?></th>
+						<th class="collapse"><?php echo lang('shop:dailydeals:shares'); ?></th>
+						<th class="collapse"><?php echo lang('shop:dailydeals:likes'); ?></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -101,8 +101,8 @@
 
 										<?php echo form_dropdown('multi_edit_option', array(
 
-																						'noaction' => shop_lang('shop:dailydeals:take_no_action'), 
-																						'archive' => shop_lang('shop:dailydeals:archive'), 
+																						'noaction' => lang('shop:dailydeals:take_no_action'), 
+																						'archive' => lang('shop:dailydeals:archive'), 
 																					 )
 
 																	,"style='vertical-align:top;'");
