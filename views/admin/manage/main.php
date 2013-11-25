@@ -155,15 +155,7 @@
 
 
 									<tr>
-										<td><?php echo lang('shop:manage:language_generator');?></td>
-										<td>
-											<a href="admin/shop/maintenance/run_lang" class="btn gray modal"><?php echo lang('shop:manage:compile');?></a>
-										</td>
-									</tr>
-
-
-									<tr>
-										<td><?php echo lang('shop:manage:rust_data_file');?></td>
+										<td><?php echo lang('shop:manage:trust_data_file');?></td>
 										<td>
 											<a href="admin/shop/maintenance/run_trustdata" class="btn gray modal"><?php echo lang('shop:manage:compile');?></a>
 											
