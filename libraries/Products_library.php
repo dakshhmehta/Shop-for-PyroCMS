@@ -140,7 +140,7 @@ class Products_library
 		{
 			//MID pricing
 			$_class = 's_status s_processing'; 
-			$_text = shop_lang('shop:products:variable_pricing');												
+			$_text = lang('shop:products:variable_pricing');												
 		}
 
 
@@ -157,7 +157,7 @@ class Products_library
 		if($product->inventory_type == 1)
 		{
 			$class_name = 's_unlimited';
-			$_inv_text = shop_lang('shop:products:unlimited');
+			$_inv_text = lang('shop:products:unlimited');
 		}
 		else
 		{

@@ -27,7 +27,7 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.127';  
+	public $version = '1.0.0.130';  
 
 
 
