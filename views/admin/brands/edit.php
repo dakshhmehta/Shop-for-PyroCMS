@@ -1,8 +1,8 @@
 <section class="title">
 	<?php if (isset($id) AND $id > 0): ?>
-		<h4><?php echo sprintf(shop_lang('shop:brands:edit'), $name); ?></h4>
+		<h4><?php echo sprintf(lang('shop:brands:edit'), $name); ?></h4>
 	<?php else: ?>
-		<h4><?php echo shop_lang('shop:brands:new'); ?></h4>
+		<h4><?php echo lang('shop:brands:new'); ?></h4>
 	<?php endif; ?>
 </section>
 
@@ -16,17 +16,17 @@
 		<fieldset>
 			<ul>
 				<li class="<?php echo alternator('even', ''); ?>">
-					<label for="name"><?php echo shop_lang('shop:brands:name'); ?> <span>*</span></label>
+					<label for="name"><?php echo lang('shop:brands:name'); ?> <span>*</span></label>
 					<div class="input">
 						<?php echo form_input('name', set_value('name', $name), 'id="name" '); ?>
 					</div>
 				</li>
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="slug"><?php echo shop_lang('shop:brands:slug'); ?> <span>*</span></label>
+					<label for="slug"><?php echo lang('shop:brands:slug'); ?> <span>*</span></label>
 					<div class="input"><?php echo form_input('slug', set_value('slug', $slug)); ?></div>
 				</li>			  
 				<li>
-					<label><?php echo shop_lang('shop:brands:image'); ?></label>
+					<label><?php echo lang('shop:brands:image'); ?></label>
 					<div id='cover_img' name='cover_img'>
 					 <?php if ($image_id > 0) 
 					 	{
@@ -38,7 +38,7 @@
 					<input type="hidden" value="<?php echo $image_id; ?>" name="image_id" />
 				</li>	
 				<li>
-					<label><?php echo shop_lang('shop:brands:change_image'); ?></label>
+					<label><?php echo lang('shop:brands:change_image'); ?></label>
 					 <?php echo form_dropdown('folder_id', $folders, $folder_id, 'id="folder_id"'); ?>	   
 				</li>																	
 				<li>
@@ -52,7 +52,7 @@
 													   
 				<li class="<?php echo alternator('', 'even'); ?>">
 					<label for="cover">
-						<?php echo shop_lang('shop:brands:description'); ?>
+						<?php echo lang('shop:brands:description'); ?>
 					</label>			
 					<div class="input">
 							<?php echo form_textarea('notes', set_value('notes', isset($notes)?$notes:""), 'class="wysiwyg-simple"'); ?>
