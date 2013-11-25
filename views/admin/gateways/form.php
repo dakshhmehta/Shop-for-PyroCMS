@@ -1,6 +1,6 @@
 <section class="title">
 
-	<h4><?php echo shop_lang('shop:gateways:gateways'); ?></h4>
+	<h4><?php echo lang('shop:gateways:gateways'); ?></h4>
 
 </section>
 
@@ -19,11 +19,11 @@
 				<legend><?php echo lang('shop:gateways:gateway'); ?></legend>
 				<ul>
 					<li class="<?php echo alternator('', 'even'); ?>">
-						<label for="name"><?php echo shop_lang('shop:gateways:name'); ?><span>*</span></label>
+						<label for="name"><?php echo lang('shop:gateways:name'); ?><span>*</span></label>
 						<div class="input"><?php echo form_input('title', set_value('name', $gateway->title), 'class="width-15"'); ?></div>
 					</li>
 					<li class="<?php echo alternator('', 'even'); ?>">
-						<label for="desc"><?php echo shop_lang('shop:gateways:description'); ?><span>*</span></label>
+						<label for="desc"><?php echo lang('shop:gateways:description'); ?><span>*</span></label>
 						<div class="input"><?php echo form_textarea('desc', set_value('desc', $gateway->desc), 'class="width-15"'); ?></div>
 					</li>
 				</ul>
