@@ -27,14 +27,16 @@ class Images extends Admin_Controller
  {
 
 	protected $section = 'images';
+	private $data;
 
 	public function __construct() 
 	{
 		parent::__construct();
 
+		$this->data = new StdClass();
+
 		// Load all the required classes
 		$this->load->model('products_admin_m');
-
 	}
 	
 	/**
@@ -46,17 +48,15 @@ class Images extends Admin_Controller
 	{
 		$response = array();
 		
-		if ( $this->input->post() ) 
+		if ($this->input->post()) 
 		{
 	
 			$input = $this->input->post();
 			$folder_id = intval( $input['folder_id'] );
 			
-
 			$this->load->library('files/files');
 			$folder_data = $this->files->folder_contents($folder_id);
 			$content = $folder_data['data'];
-			
 			
 			//prepare the array for javascript
 			$ret_objects = array();
@@ -67,17 +67,13 @@ class Images extends Admin_Controller
 				// We should also check for TYPE " i " = image and only 
 				// get the image type. - Perhaps make 2 functions 1 for images, 1 for all files.
 				//
-				
 				//image array
+				
 				$image_object = array();
-
-
 				$image_object['id'] = $file->id;	
 				$image_object['name'] = $file->name;	
-
 				//$ret_objects[] = $file->id;	
 				$ret_objects[] = $image_object;	
-
 			}
 			
 			$response['url'] = site_url();
@@ -85,8 +81,7 @@ class Images extends Admin_Controller
 			$response['length'] = sizeof($ret_objects);
 			$response['ststus'] = "success";
 			$response['message'] = "Found : ". $response['length'] . " Files";
-
-		} 
+		}
 		else
 		{
 			$response['ststus'] = "failed";
@@ -95,13 +90,10 @@ class Images extends Admin_Controller
 		}
 		
 		echo json_encode($response);die;
-
 	}
-
 
 	public function admin_view($file_id)
 	{
-		echo "<img src='files/thumb/".$file_id."/400'>";
+		echo '<img src="files/thumb/'.$file_id.'/400">';
 	}
-	
 }

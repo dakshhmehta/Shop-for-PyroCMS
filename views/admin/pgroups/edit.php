@@ -5,9 +5,9 @@
 
 		<section class="title">
 			<?php if (isset($id) AND $id > 0): ?>
-				<h4><?php echo sprintf(shop_lang('shop:pgroups:edit'), $name); ?></h4>
+				<h4><?php echo sprintf(lang('shop:pgroups:edit'), $name); ?></h4>
 			<?php else: ?>
-				<h4><?php echo shop_lang('shop:pgroups:new'); ?></h4>
+				<h4><?php echo lang('shop:pgroups:new'); ?></h4>
 			<?php endif; ?>
 		</section>		
 		
@@ -26,14 +26,14 @@
 					<fieldset>
 						<ul>
 							<li class="<?php echo alternator('even', ''); ?>">
-								<label for="name"><?php echo shop_lang('shop:pgroups:name'); ?><span>*</span></label>
+								<label for="name"><?php echo lang('shop:pgroups:name'); ?><span>*</span></label>
 								<div class="input">
 									<?php echo form_input('name', set_value('name', $name), 'id="name" '); ?>
 								</div>
 							</li>	  	
 							<li class="<?php echo alternator('', 'even'); ?>">
 								<label for="cover">
-									<?php echo shop_lang('shop:pgroups:description'); ?>
+									<?php echo lang('shop:pgroups:description'); ?>
 								</label>			
 								<div class="input">
 										<?php echo form_textarea('description', set_value('description', isset($description)?$description:""), 'class="wysiwyg-simple"'); ?>
@@ -57,7 +57,7 @@
 
 		<section class="title">
 
-				<h4><?php echo shop_lang('shop:pgroups:actions')?></h4>
+				<h4><?php echo lang('shop:pgroups:actions')?></h4>
 
 		</section>		
 		
@@ -86,9 +86,9 @@
 	<div class="one_full" id="" style="margin-top:30px;" >
 	
 		<section class="title">
-				<h4><?php echo shop_lang('shop:pgroups:mid_prices'); ?></h4>
+				<h4><?php echo lang('shop:pgroups:mid_prices'); ?></h4>
 				
-				<h4 style="float:right"><a id="add-price" title="<?php echo shop_lang('shop:pgroups:add_new_tier'); ?>" class="tooltip-s img_icon img_create" href="#"></a></h4>
+				<h4 style="float:right"><a id="add-price" title="<?php echo lang('shop:pgroups:add_new_tier'); ?>" class="tooltip-s img_icon img_create" href="#"></a></h4>
 
 		</section>
 		
@@ -98,7 +98,7 @@
 
 				<fieldset>
 					<div class="input">
-							<h4><?php echo shop_lang('shop:pgroups:mid_prices_description'); ?></h4>
+							<h4><?php echo lang('shop:pgroups:mid_prices_description'); ?></h4>
 					</div>
 				
 					<br />
@@ -108,10 +108,10 @@
 
 						
 						<tr>
-							  <th class='tooltip-s' title="<?php echo shop_lang('shop:pgroups:min_purchase_required');?>"><?php echo shop_lang('shop:pgroups:min_qty'); ?></th>
-							  <th class='tooltip-s' title="<?php echo shop_lang('shop:pgroups:discounted_retail_price');?>"><?php echo shop_lang('shop:pgroups:price'); ?></th>
-							  <th class='tooltip-s' title="<?php echo shop_lang('shop:pgroups:assign_to');?>"><?php echo shop_lang('shop:pgroups:assign_to'); ?></th>
-							  <th class='tooltip-s' title="<?php echo shop_lang('shop:pgroups:remove');?>"><?php echo shop_lang('shop:pgroups:actions'); ?></th>
+							  <th class='tooltip-s' title="<?php echo lang('shop:pgroups:min_purchase_required');?>"><?php echo lang('shop:pgroups:min_qty'); ?></th>
+							  <th class='tooltip-s' title="<?php echo lang('shop:pgroups:discounted_retail_price');?>"><?php echo lang('shop:pgroups:price'); ?></th>
+							  <th class='tooltip-s' title="<?php echo lang('shop:pgroups:assign_to');?>"><?php echo lang('shop:pgroups:assign_to'); ?></th>
+							  <th class='tooltip-s' title="<?php echo lang('shop:pgroups:remove');?>"><?php echo lang('shop:pgroups:actions'); ?></th>
 						</tr>	
 
 

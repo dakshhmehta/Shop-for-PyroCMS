@@ -19,9 +19,9 @@
 <fieldset>	
 	<ul>
 		<li class="<?php echo alternator('', 'even'); ?>">
-			<label for=""><?php echo shop_lang('shop:products:description'); ?><span></span>
+			<label for=""><?php echo lang('shop:products:description'); ?><span></span>
 				<small>
-				 <?php echo shop_lang('shop:products:description_description'); ?>
+				 <?php echo lang('shop:products:description_description'); ?>
 				</small>
 			</label>
 		</li>

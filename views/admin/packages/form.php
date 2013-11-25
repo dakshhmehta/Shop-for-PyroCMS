@@ -1,6 +1,6 @@
 <section class="title">
 	<h4>
-	<?php echo shop_lang('shop:packages:method_'. $this->method, 'method_'); ?>
+	<?php echo lang('shop:packages:method_'. $this->method, 'method_'); ?>
 	</h4>
 </section>
 
@@ -13,25 +13,25 @@
 	<div class="form_inputs">
 
 		<fieldset>
-			<legend><?php echo shop_lang('shop:packages:package_type'); ?></legend>
+			<legend><?php echo lang('shop:packages:package_type'); ?></legend>
 			<ul>		 
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="name"><?php echo shop_lang('shop:packages:type'); ?><span></span></label>
+					<label for="name"><?php echo lang('shop:packages:type'); ?><span></span></label>
 					<div class="input"><?php echo $package_type->type; ?></div>
 				</li>
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="name"><?php echo shop_lang('shop:packages:name'); ?> <span>*</span></label>
+					<label for="name"><?php echo lang('shop:packages:name'); ?> <span>*</span></label>
 					<div class="input"><?php echo form_input('title', set_value('name', $package_type->title), 'class="width-15"'); ?></div>
 				</li>
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="desc"><?php echo shop_lang('shop:packages:description'); ?><span></span></label>
+					<label for="desc"><?php echo lang('shop:packages:description'); ?><span></span></label>
 					<div class="input"><?php echo $package_type->desc; ?></div>
 				</li>
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="name"><?php echo shop_lang('shop:packages:ignor_shipping_cost'); ?><span>*</span></label>
+					<label for="name"><?php echo lang('shop:packages:ignor_shipping_cost'); ?><span>*</span></label>
 					<div class="input">
-						<label><?php echo form_radio('options[ignor_shipping]', 0, set_radio('options[ignor_shipping]', 0, $options['ignor_shipping'] == 0)); ?> <?php echo shop_lang('shop:packages:no'); ?> </label>
-						<label><?php echo form_radio('options[ignor_shipping]', 1, set_radio('options[ignor_shipping]', 1, $options['ignor_shipping'] == 1)); ?> <?php echo shop_lang('shop:packages:yes'); ?> </label>					
+						<label><?php echo form_radio('options[ignor_shipping]', 0, set_radio('options[ignor_shipping]', 0, $options['ignor_shipping'] == 0)); ?> <?php echo lang('shop:packages:no'); ?> </label>
+						<label><?php echo form_radio('options[ignor_shipping]', 1, set_radio('options[ignor_shipping]', 1, $options['ignor_shipping'] == 1)); ?> <?php echo lang('shop:packages:yes'); ?> </label>					
 					</div>
 				</li>				
 			</ul>

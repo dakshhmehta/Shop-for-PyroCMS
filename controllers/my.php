@@ -37,7 +37,7 @@ class My extends Public_Controller
 		// If User Not logged in
 		if (!$this->current_user) 
 		{
-			$this->session->set_flashdata('notice', shop_lang('shop:my:user_not_authenticated'));
+			$this->session->set_flashdata('notice', lang('shop:my:user_not_authenticated'));
 			
 			// Send User to login then Redirect back after login
 			$this->session->set_userdata('redirect_to', 'shop/my');
@@ -427,7 +427,7 @@ class My extends Public_Controller
 			// if all good add it to the db
 			$this->wishlist_m->add($this->current_user->id, $prod); // pass the price of product at time of adding (historical data)
 
-			$this->session->set_flashdata('success',  shop_lang('shop:wishlist:successfully_added_item_to_wishlist')  ); 
+			$this->session->set_flashdata('success',  lang('shop:wishlist:successfully_added_item_to_wishlist')  ); 
 		}
 		else
 		{
@@ -480,7 +480,7 @@ class My extends Public_Controller
 		}
 		else
 		{
-			$this->session->set_flashdata('error',  shop_lang('shop:wishlist:you_must_first_login_to_use_this_feature') ); 
+			$this->session->set_flashdata('error',  lang('shop:wishlist:you_must_first_login_to_use_this_feature') ); 
 			return FALSE;
 		}
 
@@ -491,7 +491,7 @@ class My extends Public_Controller
 		//
 		if ($this->wishlist_m->item_exist( $this->current_user->id, $product_id)) 
 		{
-			$this->session->set_flashdata('error',  shop_lang('shop:wishlist:item_already_in_wishlist') ); 
+			$this->session->set_flashdata('error',  lang('shop:wishlist:item_already_in_wishlist') ); 
 			return FALSE;
 		} 
 		
@@ -510,7 +510,7 @@ class My extends Public_Controller
 		//
 		if(!$product)
 		{
-			$this->session->set_flashdata('error',  shop_lang('shop:wishlist:product_not_found') ); 
+			$this->session->set_flashdata('error',  lang('shop:wishlist:product_not_found') ); 
 			return FALSE;
 		}
 		
@@ -520,7 +520,7 @@ class My extends Public_Controller
 		//
 		if ( is_deleted($product) || ($product->public == 0))
 		{
-			$this->session->set_flashdata('error',  shop_lang('shop:wishlist:product_unavailable') ); 
+			$this->session->set_flashdata('error',  lang('shop:wishlist:product_unavailable') ); 
 			return FALSE;
 		}
 		
@@ -559,7 +559,7 @@ class My extends Public_Controller
 			}
 		}
 
-		$this->session->set_flashdata($status,  shop_lang('shop:wishlist:delete_'.$status)  );  
+		$this->session->set_flashdata($status,  lang('shop:wishlist:delete_'.$status)  );  
 
 		redirect('shop/my/wishlist');
 

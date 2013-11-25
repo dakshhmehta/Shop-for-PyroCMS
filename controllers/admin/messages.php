@@ -25,10 +25,9 @@
  */
 class Messages extends Admin_Controller 
 {
-
 	// Define Section
 	protected $section = 'messages';
-
+	private $data;
 	
 	/**
 	 * @constructor
@@ -37,38 +36,28 @@ class Messages extends Admin_Controller
 	{
 		parent::__construct();
 
+		$this->data = new StdClass();
 
 		// Load all the required classes
 		$this->load->model('messages_m');
-
-
 	}
 	
-
 	/**
 	 * Can only view with an order id
 	 * @param  [type] $id [description]
 	 * @return [type]     [description]
 	 */
 	public function index($id) 
-	{
-		
+	{	
 		// Load Message Model
 		$this->load->model('messages_m');
 	
-
 		// Get All messages from customer
-		$data->messages = $this->messages_m->where('order_id', $id)->get_all();
+		$this->data->messages = $this->messages_m->where('order_id', $id)->get_all();
 		
-
-	
 		// Build Output
 		$this->template
-					->title($this->module_details['name'])
-					->build('admin/orders/order', $data);
+			->title($this->module_details['name'])
+			->build('admin/orders/order', $this->data);
 	}
-	
-		
-
-
 }

@@ -9,10 +9,10 @@
 
 								<?php echo form_dropdown('multi_edit_option', array(
 
-																				'noaction' => shop_lang('shop:products:take_no_action'), 
-																				'delete' => shop_lang('shop:products:delete_selected_products'),
-																				'invisible' => shop_lang('shop:products:make_all_invisible'),
-																				'visible' =>  shop_lang('shop:products:make_all_visible') )
+																				'noaction' => lang('shop:products:take_no_action'), 
+																				'delete' => lang('shop:products:delete_selected_products'),
+																				'invisible' => lang('shop:products:make_all_invisible'),
+																				'visible' =>  lang('shop:products:make_all_visible') )
 
 															,"style='vertical-align:top;'");
 														?>
@@ -31,7 +31,7 @@
 						<td colspan="8">
 							<span>
 								<select name="page_design_layout" id="page_design_layout">
-									<option value="products_single"><?php echo shop_lang('shop:products:default'); ?></option>
+									<option value="products_single"><?php echo lang('shop:products:default'); ?></option>
 									<?php echo $design_select; ?> hey
 								</select>
 							</span>

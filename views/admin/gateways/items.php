@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo shop_lang('shop:gateways:gateways'); ?></h4>
+	<h4><?php echo lang('shop:gateways:gateways'); ?></h4>
 	<a class="tooltip-s toggle" title="Toggle this element"></a>
 </section>
 
@@ -7,12 +7,12 @@
 
 	<div class="content">
 
-		<p><?php echo shop_lang('shop:gateways:main_description'); ?></p>
+		<p><?php echo lang('shop:gateways:main_description'); ?></p>
 
 		<div class="tabs">
 			  <ul class="tab-menu">
-				<li><a href="#installed"><?php echo shop_lang('shop:gateways:installed'); ?></a></li>
-				<li><a href="#available"><?php echo shop_lang('shop:gateways:available'); ?></a></li>
+				<li><a href="#installed"><?php echo lang('shop:gateways:installed'); ?></a></li>
+				<li><a href="#available"><?php echo lang('shop:gateways:available'); ?></a></li>
 			  </ul>
 				<div id="installed" class="form_inputs">
 					<fieldset>
@@ -21,9 +21,9 @@
 								<table>
 									<thead>
 										<tr>
-											<th><?php echo shop_lang('shop:gateways:name'); ?></th>
-											<th><?php echo shop_lang('shop:gateways:image'); ?></th>
-											<th><?php echo shop_lang('shop:gateways:description'); ?></th>
+											<th><?php echo lang('shop:gateways:name'); ?></th>
+											<th><?php echo lang('shop:gateways:image'); ?></th>
+											<th><?php echo lang('shop:gateways:description'); ?></th>
 											<th></th>
 										</tr>
 									</thead>
@@ -59,7 +59,7 @@
 
 
 							<?php else: ?>
-								<div class="no_data"><?php echo shop_lang('shop:gateways:no_data'); ?></div>
+								<div class="no_data"><?php echo lang('shop:gateways:no_data'); ?></div>
 							<?php endif; ?>
 
 							<?php echo form_close(); ?>
@@ -72,9 +72,9 @@
 								<table>
 									<thead>
 										<tr>
-											<th><?php echo shop_lang('shop:gateways:name'); ?></th>
-											<th><?php echo shop_lang('shop:gateways:image'); ?></th>
-											<th><?php echo shop_lang('shop:gateways:description'); ?></th>
+											<th><?php echo lang('shop:gateways:name'); ?></th>
+											<th><?php echo lang('shop:gateways:image'); ?></th>
+											<th><?php echo lang('shop:gateways:description'); ?></th>
 											<th></th>
 										</tr>
 									</thead>
@@ -99,7 +99,7 @@
 									</tfoot>
 								</table>
 							<?php else: ?>
-								<div class="no_data"><?php echo shop_lang('shop:gateways:no_data'); ?></div>
+								<div class="no_data"><?php echo lang('shop:gateways:no_data'); ?></div>
 							<?php endif; ?>
 							<?php echo form_close(); ?>
 					</fieldset>

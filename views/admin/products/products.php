@@ -2,14 +2,14 @@
 
 <section class="title">
 
-	<h4><?php echo shop_lang('shop:products:products');?></h4>
+	<h4><?php echo lang('shop:products:products');?></h4>
 	
 	<span style="float:right;">
 	
 		<?php //if ($products) : ?>
-		<a id="flink" href="javascript:toggle_filter()" class='tooltip-s img_icon_title img_filter' title='<?php echo shop_lang('shop:products:filter');?>'></a>
+		<a id="flink" href="javascript:toggle_filter()" class='tooltip-s img_icon_title img_filter' title='<?php echo lang('shop:products:filter');?>'></a>
 		<?php //endif; ?>
-		<a href="admin/shop/product/create" class='tooltip-s img_icon_title img_create' title='<?php echo shop_lang('shop:products:new');?>'></a>
+		<a href="admin/shop/product/create" class='tooltip-s img_icon_title img_create' title='<?php echo lang('shop:products:new');?>'></a>
 		
 	</span>
 	
@@ -33,14 +33,14 @@
 									<thead>		
 										<tr>
 											<th class="collapse"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
-											<th class="collapse"><?php echo shop_lang('shop:products:id');?></th>
-											<th class="collapse"><?php echo shop_lang('shop:products:image');?></th>
-											<th class="collapse"><?php echo shop_lang('shop:products:name');?></th>
-											<th class="collapse"><?php echo shop_lang('shop:products:on_hand');?></th>
-											<th class="collapse"><?php echo shop_lang('shop:products:visibility');?></th>
-											<th class="collapse"><?php echo shop_lang('shop:products:category'); ?></th>
-											<th class="collapse"><?php echo shop_lang('shop:products:custom_field'); ?></th>
-											<th class="collapse"><?php echo shop_lang('shop:products:price'); ?></th>
+											<th class="collapse"><?php echo lang('shop:products:id');?></th>
+											<th class="collapse"><?php echo lang('shop:products:image');?></th>
+											<th class="collapse"><?php echo lang('shop:products:name');?></th>
+											<th class="collapse"><?php echo lang('shop:products:on_hand');?></th>
+											<th class="collapse"><?php echo lang('shop:products:visibility');?></th>
+											<th class="collapse"><?php echo lang('shop:products:category'); ?></th>
+											<th class="collapse"><?php echo lang('shop:products:custom_field'); ?></th>
+											<th class="collapse"><?php echo lang('shop:products:price'); ?></th>
 
 											<th></th>
 										</tr>
@@ -62,7 +62,7 @@
 		
 			<div class="no_data">
 				<p></p>
-				<?php echo shop_lang('shop:products:no_data');?>
+				<?php echo lang('shop:products:no_data');?>
 			</div>
 			
 		<?php endif; ?>

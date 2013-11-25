@@ -761,13 +761,6 @@ class Details_library
 				'word' => array('type' => 'VARCHAR', 'constraint' => '200', 'default' => ''), /*product group */
 				'count' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'default' => 1),  /*times used*/
 				'enabled' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'default' => 1),  
-			),
-			'shop_lang' => array(
-				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-				'module' =>   array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), 
-				'area' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), 
-				'key' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), 
-				'value' => array('type' => 'VARCHAR', 'constraint' => '80', 'default' => ''), 
 			),		
 			);	
 

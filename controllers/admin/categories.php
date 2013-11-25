@@ -28,6 +28,7 @@ class Categories extends Admin_Controller
 
 	protected $section = 'categories';
 	private $data;
+
 	public function __construct() 
 	{
 		parent::__construct();
@@ -77,7 +78,7 @@ class Categories extends Admin_Controller
 
 		// Build the view with shop/views/admin/clearances.php
 		$this->data->categories = $this->categories_m->get_all_categories(); //get_all();
-		//$data->categories = $this->categories_m->get_all(); //get_all();
+		//$this->data->categories = $this->categories_m->get_all(); //get_all();
 		$this->template
 				->title($this->module_details['name'])
 				->build('admin/categories/categories', $this->data);
@@ -90,7 +91,7 @@ class Categories extends Admin_Controller
 	public function create() 
 	{
 	
-		$data = (object) array();
+		$this->data = (object) array();
 		// Check for post data
 		$this->form_validation->set_rules($this->_validation_rules);
 		
@@ -111,11 +112,11 @@ class Categories extends Admin_Controller
 		{
 			foreach ($this->_validation_rules as $key => $value) 
 			{
-				$data->{$value['field']} = '';
+				$this->data->{$value['field']} = '';
 			}
 		}
 
-		$data->parent_category_select 	= $this->categories_m->build_dropdown(array(
+		$this->data->parent_category_select 	= $this->categories_m->build_dropdown(array(
 			'type'	=> 'all'
 		));  
 
@@ -127,11 +128,11 @@ class Categories extends Admin_Controller
 		// Build page
 		$this->template
 			->title($this->module_details['name'])
-			->append_js('module::admin/admin.js')
 			->set('folders',$folders)
-			->append_js('module::admin/categories.js')			
-			->append_metadata($this->load->view('fragments/wysiwyg', $data, TRUE))
-			->build('admin/categories/form', $data);
+			->append_js('module::admin/categories.js')	
+			->append_js('module::admin/admin.js')		
+			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->build('admin/categories/form', $this->data);
 	}
 
 

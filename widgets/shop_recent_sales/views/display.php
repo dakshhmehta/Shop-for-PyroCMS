@@ -1,12 +1,12 @@
 
 			<table  style="color:#444">
 				<tr>
-					<th><?php echo shop_lang('shop:widget:date');?></th>
-					<th><?php echo shop_lang('shop:widget:alert');?></th>
-					<th style="text-align:right"><?php echo shop_lang('shop:widget:total');?></th>
-					<th><?php echo shop_lang('shop:widget:status');?></th>
-					<th><?php echo shop_lang('shop:widget:shipping_address');?></th>
-					<th><?php echo shop_lang('shop:widget:actions');?></th>
+					<th><?php echo lang('shop:widget:date');?></th>
+					<th><?php echo lang('shop:widget:alert');?></th>
+					<th style="text-align:right"><?php echo lang('shop:widget:total');?></th>
+					<th><?php echo lang('shop:widget:status');?></th>
+					<th><?php echo lang('shop:widget:shipping_address');?></th>
+					<th><?php echo lang('shop:widget:actions');?></th>
 				</tr>
 				<?php foreach ($recent_shop_order as $item): ?>
 				<tr>
@@ -29,7 +29,7 @@
 					</td>
 					
 					<td>
-						<strong><a href="{{url:site}}admin/shop/orders/order/<?php echo $item->id;?>"><?php echo shop_lang('shop:widget:you_made_a_sale');?></a></strong>
+						<strong><a href="{{url:site}}admin/shop/orders/order/<?php echo $item->id;?>"><?php echo lang('shop:widget:you_made_a_sale');?></a></strong>
 					</td>
 					<td style="text-align:right">
 					 $<?php echo ($item->cost_total); ?>
@@ -46,8 +46,8 @@
 					</td>
 					<!--- ACIONS -->
 					<td>
-						<a href="{{url:site}}admin/shop/orders/order/<?php echo $item->id;?>" class="button blue"><?php echo shop_lang('shop:widget:view');?></a>
-						<a href="{{url:site}}admin/shop/orders/order/<?php echo $item->id;?>/#contents-tab" class="button blue"><?php echo shop_lang('shop:widget:items');?></a>
+						<a href="{{url:site}}admin/shop/orders/order/<?php echo $item->id;?>" class="button blue"><?php echo lang('shop:widget:view');?></a>
+						<a href="{{url:site}}admin/shop/orders/order/<?php echo $item->id;?>/#contents-tab" class="button blue"><?php echo lang('shop:widget:items');?></a>
 					</td>
 				 </tr>
 				<?php endforeach; ?>
