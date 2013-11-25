@@ -27,10 +27,13 @@ class Brands extends Admin_Controller
 {
 
 	protected $section = 'brands';
+	private $data;
 
 	public function __construct() 
 	{
 		parent::__construct();
+
+		$this->data = new StdClass();
 
 		// Load all the required classes
 		$this->load->model('brands_m');
@@ -77,10 +80,10 @@ class Brands extends Admin_Controller
 	{
 
 		// Build the view with shop/views/admin/clearances.php
-		$data->brands = $this->brands_m->get_all();
+		$this->data->brands = $this->brands_m->get_all();
 		$this->template
 				->title($this->module_details['name'])
-				->build('admin/brands/brands', $data);
+				->build('admin/brands/brands', $this->data);
 	}
 
 	
@@ -90,7 +93,7 @@ class Brands extends Admin_Controller
 	public function create() 
 	{
 	
-		// Check for post data
+		// Check for post this->data
 		$this->form_validation->set_rules($this->_validation_rules);
 		
 		
@@ -106,20 +109,20 @@ class Brands extends Admin_Controller
 		{
 			foreach ($this->_validation_rules as $key => $value) 
 			{
-				$data->{$value['field']} = '';
+				$this->data->{$value['field']} = '';
 			}
 		}
 
 		// prepare dropdown image folders
-		$data->folders = $this->_prep_folders();
+		$this->data->folders = $this->_prep_folders();
 
 		// Build page
 		$this->template
 			->title($this->module_details['name'])
 			->append_js('module::admin/admin.js')
 			->append_js('module::admin/brands.js')			
-			->append_metadata($this->load->view('fragments/wysiwyg', $data, TRUE))
-			->build('admin/brands/edit', $data);
+			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->build('admin/brands/edit', $this->data);
 	}
 
 	/**
@@ -142,7 +145,7 @@ class Brands extends Admin_Controller
 			redirect('admin/shop/brands');
 		}
 		
-		$data = (object) $row;
+		$this->data = (object) $row;
 		$this->form_validation->set_rules($this->_validation_rules);
 
 		// if postback-validate
@@ -160,8 +163,8 @@ class Brands extends Admin_Controller
 			->set('folders',$folders)
 			->append_js('module::admin/admin.js')
 			->append_js('module::admin/brands.js')
-			->append_metadata($this->load->view('fragments/wysiwyg', $data, TRUE))
-			->build('admin/brands/edit', $data);
+			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->build('admin/brands/edit', $this->data);
 	}
 
 	/**

@@ -27,6 +27,7 @@ class Maintenance extends Admin_Controller
 {
 	// Set the section in the UI - Selected Menu
 	protected $section = 'manage';
+	private $data;
 
 	public function __construct() 
 	{
@@ -34,9 +35,8 @@ class Maintenance extends Admin_Controller
 
 		$this->data = new stdClass();
 
-
 		$this->template
-				->append_css('module::admin.css');
+			->append_css('module::admin.css');
 	}
 
 	/**
@@ -47,86 +47,65 @@ class Maintenance extends Admin_Controller
 			
 	}
 
-
-
-
-
-
-
     public function run_lang()
     {
-
     	$this->load->library('shop/core_library');
-    	$data->lang_data = build_lang();
+    	$this->data->lang_data = build_lang();
 
 		$this->load->library('shop/core_basiks/core_debug_library');
 
-		$this->core_debug_library->write_lang($data->lang_data);
+		$this->core_debug_library->write_lang($this->data->lang_data);
 
-
-		echo "program completed";die;
-
+		die("program completed");
     }
 
     public function run_trustdata()
     {
-
 		$this->ci->load->library('shop/Core_data_library');
 
-		$data = $this->ci->core_data_library->get_all();	
+		$this->data = $this->ci->core_data_library->get_all();	
+		$this->core_data_library->write($this->data);
 
-		$this->core_data_library->write($data);
-
-		echo "program completed";die; 	
+		die("program completed"); 	
 
     }
 
     public function install_trustdata()
     {
-
-
 		$this->ci->load->library('shop/core_data_library');
+		$this->data = $this->ci->core_data_library->get_all();	
 
-		$data = $this->ci->core_data_library->get_all();	
-
-
-		foreach($data as $key => $value)
+		$t_data = array();
+		foreach($this->data as $key => $value)
 		{
-			$data[] = array(
-					'score' => $value['score'],
-					'category' => $value['category'],
-					'word' => $value['word'],
-					'count' => 0,
-					'enabled' => 1,
-					);
+			$t_data[] = array(
+				'score' => $value['score'],
+				'category' => $value['category'],
+				'word' => $value['word'],
+				'count' => 0,
+				'enabled' => 1,
+			);
 		}
 
-		$this->db->insert_batch('shop_trust_data', $data);		
+		$this->db->insert_batch('shop_trust_data', $t_data);		
 
-
-		echo "program completed";die; 	
-
+		die("program completed"); 	
     }
 
-    public function run_re_index($data=array())
+    public function run_re_index($input=array())
     {
-
     	$this->load->library('shop/core_library');
 		$this->load->library('shop/core_basiks/core_debug_library');
 
 		$count = $this->core_debug_library->re_index_search();
 
-
-		echo "Indexed " . $count . ' products';die;
-
+		die('Indexed ' . $count . ' products');
     }
 
-    public function export($table='products', $format ='csv' )
+    public function export($table='products', $format ='csv')
     {
-
 		$this->load->helper('download');
 		$this->load->library('format');
-
 
 		switch ($table) 
 		{
@@ -138,12 +117,8 @@ class Maintenance extends Admin_Controller
 				break;
 		}
 
-
     	$this->load->model('shop_model');
 
     	$this->shop_model->export($table, $format);
     }
-    
-	
-
 }
