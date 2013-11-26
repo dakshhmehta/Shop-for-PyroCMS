@@ -58,7 +58,7 @@ class Dailydeals extends Admin_Controller
 
 		if($this->dailydeals_m->create($id))
 		{
-			$this->session->set_flashdata('success', shop_lang('shop:dailydeals:product_added'));
+			$this->session->set_flashdata('success', lang('shop:dailydeals:product_added'));
 		}
 
 		// Build the view with shop/views/admin/products.php
@@ -71,7 +71,7 @@ class Dailydeals extends Admin_Controller
 	{
 		if($this->dailydeals_m->start($id))
 		{
-			$this->session->set_flashdata('success', shop_lang('shop:dailydeals:deal_commenced'));
+			$this->session->set_flashdata('success', lang('shop:dailydeals:deal_commenced'));
 		}
 
 		redirect('shop/admin/dailydeals');
@@ -81,7 +81,7 @@ class Dailydeals extends Admin_Controller
 	{
 		if($this->dailydeals_m->stop($id))
 		{
-			$this->session->set_flashdata('success', shop_lang('shop:dailydeals:deal_stopped'));
+			$this->session->set_flashdata('success', lang('shop:dailydeals:deal_stopped'));
 		}
 
 		redirect('shop/admin/dailydeals');
@@ -91,7 +91,7 @@ class Dailydeals extends Admin_Controller
 	{
 		if($this->dailydeals_m->activate($id))
 		{
-			$this->session->set_flashdata('success', shop_lang('shop:dailydeals:deal_activated'));
+			$this->session->set_flashdata('success', lang('shop:dailydeals:deal_activated'));
 		}
 
 		redirect('shop/admin/dailydeals');
@@ -102,7 +102,7 @@ class Dailydeals extends Admin_Controller
 	{
 		if($this->dailydeals_m->archive($id))
 		{
-			$this->session->set_flashdata('success', shop_lang('shop:dailydeals:deal_archived'));
+			$this->session->set_flashdata('success', lang('shop:dailydeals:deal_archived'));
 		}
 
 		redirect('shop/admin/dailydeals');

@@ -80,28 +80,28 @@ class Cart extends Public_Controller
 		//
 		// Success add message
 		//
-		$this->_MESSAGES[100] = shop_lang('shop:cart:item_was_added_to_cart');
-		$this->_MESSAGES[101] = shop_lang('shop:cart:"%s"_was_added_to_cart'); 
+		$this->_MESSAGES[100] = lang('shop:cart:item_was_added_to_cart');
+		$this->_MESSAGES[101] = lang('shop:cart:"%s"_was_added_to_cart'); 
 
 		//
 		// Failed to add messagea
 		//
-		$this->_MESSAGES[200] = shop_lang('shop:cart:item_was_not_added_to_cart');  
-		$this->_MESSAGES[201] = shop_lang('shop:cart:id_or_qty_was_not_set');
-		$this->_MESSAGES[202] = shop_lang('shop:cart:product_is_not_available_or_does_not_exist');
-		$this->_MESSAGES[203] = shop_lang('shop:cart:product_is_no_longer_available');
-		$this->_MESSAGES[204] = shop_lang('shop:cart:product_is_currently_out_of_stock');
+		$this->_MESSAGES[200] = lang('shop:cart:item_was_not_added_to_cart');  
+		$this->_MESSAGES[201] = lang('shop:cart:id_or_qty_was_not_set');
+		$this->_MESSAGES[202] = lang('shop:cart:product_is_not_available_or_does_not_exist');
+		$this->_MESSAGES[203] = lang('shop:cart:product_is_no_longer_available');
+		$this->_MESSAGES[204] = lang('shop:cart:product_is_currently_out_of_stock');
 
 
-		$this->_MESSAGES[210] = shop_lang('shop:cart:you_must_login_before_shopping');
+		$this->_MESSAGES[210] = lang('shop:cart:you_must_login_before_shopping');
 
 
 		//
 		// Item removed messages
 		//
-		$this->_MESSAGES[300] = shop_lang('shop:cart:item_removed_from_cart'); 
-		$this->_MESSAGES[301] = shop_lang('shop:cart:%s_has_been_removed_from_cart');		
-		$this->_MESSAGES[302] = shop_lang('shop:cart:product_is_not_in_cart');		
+		$this->_MESSAGES[300] = lang('shop:cart:item_removed_from_cart'); 
+		$this->_MESSAGES[301] = lang('shop:cart:%s_has_been_removed_from_cart');		
+		$this->_MESSAGES[302] = lang('shop:cart:product_is_not_in_cart');		
 	}
 
 
@@ -616,7 +616,7 @@ class Cart extends Public_Controller
 		else
 		{
 			// item does not exist in cart
-			$prod_name = shop_lang('shop:cart:unknown');
+			$prod_name = lang('shop:cart:unknown');
 			$_MESSAGE_CODE = 302;
 			$_STATUS = JSONStatus::Error;
 		}

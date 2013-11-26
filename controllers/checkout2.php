@@ -430,7 +430,7 @@ class Checkout2 extends Public_Controller {
                 
 
 
-                $this->session->set_flashdata('success', shop_lang('shop:checkout:order_has_been_placed'));
+                $this->session->set_flashdata('success', lang('shop:checkout:order_has_been_placed'));
                 
                 // Notify Users/admin with Emails
                  //we can place a order in DB but it is set to pending so no action is required until payment complete

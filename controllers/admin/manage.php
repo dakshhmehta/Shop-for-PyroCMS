@@ -136,6 +136,6 @@ class Manage extends Admin_Controller
 
 		$response['status'] = 'success';
 
-		die(json_encode($response);
+		die(json_encode($response));
 	}
 }

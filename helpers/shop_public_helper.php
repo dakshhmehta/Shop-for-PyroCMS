@@ -570,23 +570,6 @@ if (!function_exists('sf_text'))
 	}
 }
 
-if (!function_exists('form_currency_textbox'))
- {
-	
-	/**
-	 * Creates a textbox that shows currency symbol on the side for that currency setting
-	 */
-	function form_currency_textbox($name,$value, $option = '')
-	{
-		
-		$currency_symbol = "$";
-		$c_before = $currency_symbol;
-		$c_after = "";
-
-		return $c_before. form_input($name, $value, 'id="'.$name.'" '.$option) . $c_after;
-			
-	}
-}
 
 
 
@@ -733,27 +716,4 @@ if (!function_exists('set_if_not'))
 		return;
 	}
 
-}
-
-
-if (!function_exists('shop_get_category')) 
-{
-	
-	//make sure the slug is valid
-	function shop_get_category($id, $as_array = FALSE) 
-	{
-
-		$ci =& get_instance();
-		
-		$ci->load->model('shop/categories_m');
-
-		
-		$cat = $ci->categories_m->get($id);
-		
-		if($as_array)
-			return (array) $cat;	
-
-		return $cat;	
-
-	}
 }

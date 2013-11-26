@@ -128,9 +128,9 @@ class Categories extends Admin_Controller
 		// Build page
 		$this->template
 			->title($this->module_details['name'])
-			->append_js('module::admin/admin.js')
 			->set('folders',$folders)
-			->append_js('module::admin/categories.js')			
+			->append_js('module::admin/categories.js')	
+			->append_js('module::admin/admin.js')		
 			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
 			->build('admin/categories/form', $this->data);
 	}

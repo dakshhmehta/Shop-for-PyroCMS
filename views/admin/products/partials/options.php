@@ -3,9 +3,9 @@
 					<ul id="options-list">
 						<li id="all_options_list">
 							<label>
-								<?php echo shop_lang('shop:products:options'); ?>
+								<?php echo lang('shop:products:options'); ?>
 								<small>
-									<?php echo shop_lang('shop:products:options_description'); ?>
+									<?php echo lang('shop:products:options_description'); ?>
 								</small>
 							</label>						
 							<div class="input">
@@ -43,16 +43,16 @@
 					<ul style="background:rgb(230,245,250);padding:10px;border-radius:10px;width:90%">
 						<li id="all_options_list">
 							<label>
-								<?php echo shop_lang('shop:products:new_option'); ?>
+								<?php echo lang('shop:products:new_option'); ?>
 								<small>
-									<?php echo shop_lang('shop:products:new_option_description'); ?>
+									<?php echo lang('shop:products:new_option_description'); ?>
 								</small>
 							</label>						
 							<div class="input">
 								<label>
 									 <?php echo $all_options; ?>
 									<small>
-										 <a class="tooltip-s img_icon img_create" id="add-option" title="<?php echo shop_lang('shop:products:add'); ?>" ></a>
+										 <a class="tooltip-s img_icon img_create" id="add-option" title="<?php echo lang('shop:products:add'); ?>" ></a>
 									</small>
 								</label>						
 							</div>

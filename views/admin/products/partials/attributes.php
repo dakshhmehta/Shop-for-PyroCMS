@@ -4,9 +4,9 @@
 					<ul>
 						<li>
 							<label>
-								<?php echo shop_lang('shop:products:attributes'); ?>
+								<?php echo lang('shop:products:attributes'); ?>
 								<small>
-									<?php echo shop_lang('shop:products:attributes_description'); ?>
+									<?php echo lang('shop:products:attributes_description'); ?>
 								</small>
 							</label>
 							<div class="input">
@@ -17,13 +17,13 @@
 					<hr />
 					<ul>
 						<li id="add_attrib">
-							<label><?php echo shop_lang('shop:products:add_new_attribute'); ?></label>
+							<label><?php echo lang('shop:products:add_new_attribute'); ?></label>
 							<div class="input">
 
 								<?php echo form_input('add_attrib_label'); ?>
 								<?php echo form_input('add_attrib_value'); ?>
 								 <a class="btn green" id="add-property" >
-										<?php echo shop_lang('shop:products:add'); ?>
+										<?php echo lang('shop:products:add'); ?>
 								</a>
 
 							</div>

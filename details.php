@@ -27,19 +27,23 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.127';  
+	/**
+	 * New dev version uses YMD as the final decimal format.
+	 * Only for dev builds
+	 * 
+	 * @var string
+	 */
+	public $version = '1.0.0.131126';  
 
 
 
 	public function __construct()
 	{
-
 		$this->load->library('shop/details_library');
 		$this->load->library('shop/enums');
 		$this->ci = get_instance();
-
-
 	}
+
 	
 	/**
 	 * info() 

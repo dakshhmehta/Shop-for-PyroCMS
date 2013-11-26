@@ -10,7 +10,7 @@
 			<ul>
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="type">
-						<?php echo shop_lang('shop:options:type'); ?> 
+						<?php echo lang('shop:options:type'); ?> 
 						<span>*</span>
 					</label>
 					<div class="input">
@@ -19,10 +19,10 @@
 				</li>				
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="name">
-						<?php echo shop_lang('shop:options:name'); ?> 
+						<?php echo lang('shop:options:name'); ?> 
 						<span>*</span>
 						<small>
-							<?php echo shop_lang('shop:options:name_description'); ?> 
+							<?php echo lang('shop:options:name_description'); ?> 
 						</small>
 					</label>
 					<div class="input">
@@ -31,10 +31,10 @@
 				</li>	
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="title">
-						<?php echo shop_lang('shop:options:title'); ?> 
+						<?php echo lang('shop:options:title'); ?> 
 						<span>*</span>
 						<small>
-							<?php echo shop_lang('shop:options:title_description'); ?> 
+							<?php echo lang('shop:options:title_description'); ?> 
 						</small>
 					</label>
 					<div class="input">
@@ -43,7 +43,7 @@
 				</li>	
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="description">
-						<?php echo shop_lang('shop:options:description'); ?> 
+						<?php echo lang('shop:options:description'); ?> 
 						<span></span>
 					</label>
 					<div class="input">
