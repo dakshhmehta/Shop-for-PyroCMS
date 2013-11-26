@@ -27,6 +27,7 @@ class Charts extends Admin_Controller
 {
 	// Set the section in the UI - Selected Menu
 	protected $section = 'analytics';
+	private $data;
 
 	public function __construct() 
 	{
@@ -91,7 +92,7 @@ class Charts extends Admin_Controller
 
 
 		// Build the view with shop/views/admin/items.php
-		//$data->items = & $items;
+		//$this->data->items = & $items;
 		$this->template->title($this->module_details['name'])	
 				->append_js('module::lib/flot/jquery.flot.js')	
 				->append_js('module::lib/flot/jquery.flot.time.js')
@@ -130,9 +131,9 @@ class Charts extends Admin_Controller
         if ($this->input->is_ajax_request()) 
         {
         	//for best sellers, days is actually the # of products
-            $data = $this->statistics_m->get_period($days, $chart );
+            $this->data = $this->statistics_m->get_period($days, $chart );
         	
-            echo json_encode($data);
+            echo json_encode($this->data);
 
         } 	    	
 

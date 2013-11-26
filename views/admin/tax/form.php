@@ -1,6 +1,6 @@
 
 <section class="title">
-	<h4><?php echo shop_lang('shop:tax:tax'); ?></h4>
+	<h4><?php echo lang('shop:tax:tax'); ?></h4>
 </section>
 <?php echo form_open_multipart($this->uri->uri_string()); ?>
 <?php echo form_hidden('id', set_value('id', $id)); ?>
@@ -8,17 +8,17 @@
 	<div class="content">	
 		<div class="tabs">	
 			<ul class="tab-menu">
-				<li><a href="#info-tab"><span><?php echo shop_lang('shop:tax:rates'); ?></span></a></li>						
+				<li><a href="#info-tab"><span><?php echo lang('shop:tax:rates'); ?></span></a></li>						
 			</ul>
 			<div class="form_inputs" id="info-tab">
 				<fieldset>
 					<ul>
 						<li class="<?php echo alternator('', 'even'); ?>">
-							<label for="name"><?php echo shop_lang('shop:tax:name'); ?> <span>*</span></label>
+							<label for="name"><?php echo lang('shop:tax:name'); ?> <span>*</span></label>
 							<div class="input"><?php echo form_input('name', set_value('name', $name) ); ?> </div>
 						</li>
 						<li class="<?php echo alternator('', 'even'); ?>">
-							<label for="discount_pcent"><?php echo shop_lang('shop:tax:rate'); ?><span></span></label>
+							<label for="discount_pcent"><?php echo lang('shop:tax:rate'); ?><span></span></label>
 							<div class="input"><?php echo form_input('rate', set_value('discount_pcent', $rate)); ?> %</div>
 						</li>								
 					</ul>

@@ -14,7 +14,7 @@
 						</li>
 						<li>
 							<div class="">
-								<?php echo form_submit('save', shop_lang('shop:orders:save')); ?>
+								<?php echo form_submit('save', lang('shop:orders:save')); ?>
 							</div>
 						</li>
 					</ul>

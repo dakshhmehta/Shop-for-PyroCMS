@@ -2,7 +2,7 @@
 
 	<div class="" id="">
 		<section class="draggable title">
-			<h4><?php echo shop_lang('shop:packages:manage_packages'); ?></h4>
+			<h4><?php echo lang('shop:packages:manage_packages'); ?></h4>
 			<a class="tooltip-s toggle" title="Toggle this element"></a>
 		</section>
 		
@@ -12,8 +12,8 @@
 			<div class="tabs">
 
 				  <ul class="tab-menu">
-					<li><a href="#installed"><?php echo shop_lang('shop:packages:installed'); ?></a></li>
-					<li><a href="#available"><?php echo shop_lang('shop:packages:available'); ?></a></li>
+					<li><a href="#installed"><?php echo lang('shop:packages:installed'); ?></a></li>
+					<li><a href="#available"><?php echo lang('shop:packages:available'); ?></a></li>
 				  </ul>
 					<div id="installed" class="form_inputs">
 						<fieldset>
@@ -22,10 +22,10 @@
 									<table>
 										<thead>
 											<tr>
-												<th><?php echo shop_lang('shop:packages:name');; ?></th>
-												<th><?php echo shop_lang('shop:packages:image');; ?></th>
-												<th><?php echo shop_lang('shop:packages:dimentions'); ?></th>
-												<th><?php echo shop_lang('shop:packages:type'); ?></th>
+												<th><?php echo lang('shop:packages:name');; ?></th>
+												<th><?php echo lang('shop:packages:image');; ?></th>
+												<th><?php echo lang('shop:packages:dimentions'); ?></th>
+												<th><?php echo lang('shop:packages:type'); ?></th>
 												<th></th>
 											</tr>
 										</thead>
@@ -46,14 +46,14 @@
 																<span class="button-dropdown" data-buttons="dropdown">
 															
 																	<a href="#" class="shopbutton button-rounded button-flat-primary"> 
-																		<?php echo shop_lang('shop:packages:actions');?> 
+																		<?php echo lang('shop:packages:actions');?> 
 																		<i class="icon-caret-down"></i>
 																	</a>
 																	 
 																	<!-- Dropdown Below Button -->
 																	<ul class="button-dropdown">
-																		<li class=''><a class="" href="<?php echo site_url('admin/shop/packages/edit/' . $item->id); ?>"><?php echo shop_lang('shop:packages:edit');?></a></li>
-																		<li class='button-dropdown-divider delete'><a class="confirm" href="<?php echo site_url('admin/shop/packages/uninstall/' . $item->id); ?>"><?php echo shop_lang('shop:packages:uninstall');?></a></li>
+																		<li class=''><a class="" href="<?php echo site_url('admin/shop/packages/edit/' . $item->id); ?>"><?php echo lang('shop:packages:edit');?></a></li>
+																		<li class='button-dropdown-divider delete'><a class="confirm" href="<?php echo site_url('admin/shop/packages/uninstall/' . $item->id); ?>"><?php echo lang('shop:packages:uninstall');?></a></li>
 																	</ul>
 																</span>
 
@@ -74,7 +74,7 @@
 
 
 								<?php else: ?>
-									<div class="no_data"><?php echo shop_lang('shop:packages:no_data'); ?></div>
+									<div class="no_data"><?php echo lang('shop:packages:no_data'); ?></div>
 								<?php endif; ?>
 
 								<?php echo form_close(); ?>
@@ -87,9 +87,9 @@
 									<table>
 										<thead>
 											<tr>
-												<th><?php echo shop_lang('shop:packages:name'); ?></th>
-												<th><?php echo shop_lang('shop:packages:image'); ?></th>
-												<th><?php echo shop_lang('shop:packages:description'); ?></th>
+												<th><?php echo lang('shop:packages:name'); ?></th>
+												<th><?php echo lang('shop:packages:image'); ?></th>
+												<th><?php echo lang('shop:packages:description'); ?></th>
 												<th></th>
 											</tr>
 										</thead>
@@ -100,7 +100,7 @@
 													<td><?php echo $item->image ? img($item->image) : ''; ?></td>
 													<td><?php echo $item->desc; ?></td>
 													<td class="actions">
-														<?php echo anchor('admin/shop/packages/install/' . $item->slug, shop_lang('shop:packages:install'), 'class="button"'); ?>
+														<?php echo anchor('admin/shop/packages/install/' . $item->slug, lang('shop:packages:install'), 'class="button"'); ?>
 													</td>
 												</tr>
 											<?php endforeach; ?>
@@ -115,7 +115,7 @@
 									</table>
 
 								<?php else: ?>
-									<div class="no_data"><?php echo shop_lang('shop:packages:no_data'); ?></div>
+									<div class="no_data"><?php echo lang('shop:packages:no_data'); ?></div>
 								<?php endif; ?>
 
 								<?php echo form_close(); ?>

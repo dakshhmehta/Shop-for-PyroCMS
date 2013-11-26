@@ -1,6 +1,6 @@
 
 <section class="title">
-	<h4><?php echo shop_lang('shop:orders:orders'); ?></h4>
+	<h4><?php echo lang('shop:orders:orders'); ?></h4>
 	<h4 style="float:right">
 		
 	</h4>	
@@ -11,19 +11,19 @@
 <?php $this->load->view('admin/orders/filter'); ?>
 
 	<?php if (empty($items)): ?>
-		<div class="no_data"><?php echo shop_lang('shop:orders:no_data'); ?></div>
+		<div class="no_data"><?php echo lang('shop:orders:no_data'); ?></div>
 	<?php else: ?>
 		<table>
 			<thead class='title'>		
 				<tr>
 					<th class="collapse" style="width:35px">ID</th>
-					<th class="collapse"><?php echo shop_lang('shop:orders:pmt_status'); ?></th>
+					<th class="collapse"><?php echo lang('shop:orders:pmt_status'); ?></th>
 					<th class="collapse"></th>
-					<th class="collapse"><?php echo shop_lang('shop:orders:customer'); ?></th>
-					<th class="collapse"><?php echo shop_lang('shop:orders:date'); ?></th>
-					<th class="collapse"><?php echo shop_lang('shop:orders:total'); ?></th>
-					<th class="collapse"><?php echo shop_lang('shop:orders:progress_status'); ?></th>
-					<th style="text-align:right"><?php echo shop_lang('shop:orders:actions'); ?></th>
+					<th class="collapse"><?php echo lang('shop:orders:customer'); ?></th>
+					<th class="collapse"><?php echo lang('shop:orders:date'); ?></th>
+					<th class="collapse"><?php echo lang('shop:orders:total'); ?></th>
+					<th class="collapse"><?php echo lang('shop:orders:progress_status'); ?></th>
+					<th style="text-align:right"><?php echo lang('shop:orders:actions'); ?></th>
 				</tr>
 			</thead>
 			<tbody>

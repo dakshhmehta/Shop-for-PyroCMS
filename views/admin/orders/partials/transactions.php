@@ -3,13 +3,13 @@
 					<table>
 						<thead>
 							<tr>
-								<th><?php echo shop_lang('shop:orders:status'); ?></th>
-								<th><?php echo shop_lang('shop:orders:reason'); ?></th>
-								<th><?php echo shop_lang('shop:orders:received'); ?></th>
-								<th><?php echo shop_lang('shop:orders:refunded'); ?></th>
-								<th><?php echo shop_lang('shop:orders:user'); ?></th>
-								<th><?php echo shop_lang('shop:orders:date'); ?></th>
-								<th><?php echo shop_lang('shop:orders:action'); ?></th>
+								<th><?php echo lang('shop:orders:status'); ?></th>
+								<th><?php echo lang('shop:orders:reason'); ?></th>
+								<th><?php echo lang('shop:orders:received'); ?></th>
+								<th><?php echo lang('shop:orders:refunded'); ?></th>
+								<th><?php echo lang('shop:orders:user'); ?></th>
+								<th><?php echo lang('shop:orders:date'); ?></th>
+								<th><?php echo lang('shop:orders:action'); ?></th>
 							</tr>
 						</thead>
 						<tbody>

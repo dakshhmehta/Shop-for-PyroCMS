@@ -35,9 +35,9 @@
 
 							<td class="collapse">
 							 		<?php if ($product->public == 1):?> 
-									<a href="javascript:sell(<?php echo $product->id;?>)" class="tooltip-s img_icon img_visible " title="<?php echo shop_lang('shop:products:click_to_change');?>" status="1" pid="<?php echo $product->id;?>" id="sf_ss_<?php echo $product->id;?>"></a>	
+									<a href="javascript:sell(<?php echo $product->id;?>)" class="tooltip-s img_icon img_visible " title="<?php echo lang('shop:products:click_to_change');?>" status="1" pid="<?php echo $product->id;?>" id="sf_ss_<?php echo $product->id;?>"></a>	
 									<?php else:?>
-									<a href="javascript:sell(<?php echo $product->id;?>)" class="tooltip-s img_icon img_invisible "  title="<?php echo shop_lang('shop:products:click_to_change');?>" status="0" pid="<?php echo $product->id;?>" id="sf_ss_<?php echo $product->id;?>"></a>		
+									<a href="javascript:sell(<?php echo $product->id;?>)" class="tooltip-s img_icon img_invisible "  title="<?php echo lang('shop:products:click_to_change');?>" status="0" pid="<?php echo $product->id;?>" id="sf_ss_<?php echo $product->id;?>"></a>		
 									<?php endif;?>
 							</td>
 

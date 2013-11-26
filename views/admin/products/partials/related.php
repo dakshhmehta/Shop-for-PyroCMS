@@ -4,9 +4,9 @@
 					<ul>
 						<li id="all_related_list">
 							<label>
-								<?php echo shop_lang('shop:products:related_products'); ?>
+								<?php echo lang('shop:products:related_products'); ?>
 								<small>
-									<?php echo shop_lang('shop:products:related_products_description'); ?>
+									<?php echo lang('shop:products:related_products_description'); ?>
 								</small>
 							</label>						
 						</li>	
@@ -43,25 +43,25 @@
 					<ul style="width:400px;">
 
 						<li class="<?php echo alternator('', 'even'); ?>">
-							<label for="related_products_category_filter"><?php echo shop_lang('shop:products:search_category'); ?> <span>*</span></label>
+							<label for="related_products_category_filter"><?php echo lang('shop:products:search_category'); ?> <span>*</span></label>
 							<div class="input">
 									<?php echo $category_select; ?> 
 							</div>
 						</li>
 												
 						<li>
-							<label><?php echo shop_lang('shop:products:search_for_products'); ?> </label>
+							<label><?php echo lang('shop:products:search_for_products'); ?> </label>
 							<div class="form_input">
 								
 								<?php echo form_input('related_filter') ?> 
 								<a id="related_search_btn" class="shopbutton button-rounded green">
-									<?php echo shop_lang('shop:products:search'); ?>
+									<?php echo lang('shop:products:search'); ?>
 								</a>
 							</div>
 
 						</li>
 						<li style="background:rgb(230,245,250);padding:10px;border-radius:10px;width:90%">
-							<label><?php echo shop_lang('shop:products:search_results'); ?></label>
+							<label><?php echo lang('shop:products:search_results'); ?></label>
 							<div class="form_input">
 
 							</div>

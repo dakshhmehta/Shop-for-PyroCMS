@@ -2,7 +2,7 @@
 
 <section class="title">
 
-	<h4><?php echo shop_lang('shop:dailydeals:daily_deals');?></h4>
+	<h4><?php echo lang('shop:dailydeals:daily_deals');?></h4>
 	<span style="float:right;">		
 	</span>
 	
@@ -31,7 +31,7 @@
 		
 			<div class="no_data">
 				<p></p>
-				<?php echo shop_lang('shop:dailydeals:you_have_no_deals_available');?>
+				<?php echo lang('shop:dailydeals:you_have_no_deals_available');?>
 			</div>
 			
 		<?php endif; ?>

@@ -1,13 +1,13 @@
 
 			<fieldset>
-			 	<strong><?php echo shop_lang('shop:orders:messages'); ?></strong>
+			 	<strong><?php echo lang('shop:orders:messages'); ?></strong>
 			 	
 			 	<table class='fixed' >
 					<thead class='fixed'>
 							<tr>
-								<th><?php echo shop_lang('shop:orders:from'); ?></th>
-								<th><?php echo shop_lang('shop:orders:date'); ?></th>
-								<th><?php echo shop_lang('shop:orders:message'); ?></th>
+								<th><?php echo lang('shop:orders:from'); ?></th>
+								<th><?php echo lang('shop:orders:date'); ?></th>
+								<th><?php echo lang('shop:orders:message'); ?></th>
 							</tr>
 					</thead>
 				</table>	   
@@ -27,13 +27,13 @@
 				</div>
 
 				<div style="display:none;">
-					<h4><?php echo shop_lang('shop:orders:view_message'); ?></h4>
+					<h4><?php echo lang('shop:orders:view_message'); ?></h4>
 					<div id="message_preview_window">
-					   <?php echo shop_lang('shop:orders:loading_messages'); ?>
+					   <?php echo lang('shop:orders:loading_messages'); ?>
 					</div>
 				</div>
 
-				<strong><?php echo shop_lang('shop:orders:compose'); ?></strong> <br /><br /><br />
+				<strong><?php echo lang('shop:orders:compose'); ?></strong> <br /><br /><br />
 				<?php echo form_open('admin/shop/orders/messages'); ?>
 				<?php echo form_hidden('order_id', $order->id); ?>
 				<?php echo form_hidden('user_name', ''.$user->username); ?>
@@ -41,7 +41,7 @@
 				<div class="form_inputs">
 					<ul>
 						<li>
-							<?php echo shop_lang('shop:orders:message'); ?>
+							<?php echo lang('shop:orders:message'); ?>
 							<div class="">
 								<?php echo form_textarea(array( 'name' => 'message', 'value' => set_value('message'), 'rows' => 3)); ?>
 							</div>

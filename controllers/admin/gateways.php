@@ -27,21 +27,21 @@ class Gateways extends Admin_Controller
 {
 
 	protected $section = 'gateways';
+	private $data;
 
 	public function __construct() 
 	{	
 		parent::__construct();
 
+		$this->data = new StdClass();
+
 		//check if has access
 		role_or_die('shop', 'admin_checkout');
 
 		$this->load->library('gateway_library');
-		$this->load->library('form_validation');
-		
+		$this->load->library('form_validation');		
 	}
 
-	
-	
 	/**
 	 * List all Installed and Not installed gateways
 	 * 
@@ -49,32 +49,25 @@ class Gateways extends Admin_Controller
 	 */
 	public function index() 
 	{
-		
-		$data->installed = $this->gateway_library->get_all();
-
-		$data->uninstalled = $this->gateway_library->get_uninstalled();
+		$this->data->installed = $this->gateway_library->get_all();
+		$this->data->uninstalled = $this->gateway_library->get_uninstalled();
 
 		$this->template
 				->title($this->module_details['name'])
 				->append_css('module::admin.css')
-				->build('admin/gateways/items', $data);
+				->build('admin/gateways/items', $this->data);
 	}
-	
-	
-	
 
 	public function edit($id) 
 	{
-
-		$data->gateway = $this->gateway_library->get($id);
-		$data->options = $data->gateway->options;
+		$this->data->gateway = $this->gateway_library->get($id);
+		$this->data->options = $this->data->gateway->options;
 
 		//  Load the fields from the Gateway
-		$this->form_validation->set_rules($data->gateway->fields);
+		$this->form_validation->set_rules($this->data->gateway->fields);
 
 		if ($this->form_validation->run()) 
 		{
-
 			if ($this->gateway_library->edit($this->input->post())) 
 			{
 				$this->session->set_flashdata('success', lang('success'));
@@ -85,21 +78,16 @@ class Gateways extends Admin_Controller
 				// error validating values
 				$this->session->set_flashdata('error', lang('error'));
 				redirect('admin/shop/gateways/edit/' . $id);  
-			}
-			
+			}	
 		}
 
 		$this->template
 				->title($this->module_details['name'], lang('create'))
-				->build('admin/gateways/form', $data);
+				->build('admin/gateways/form', $this->data);
 	}
 
-	
-	
-	
 	public function install($slug)
 	{
-
 		if ($this->gateway_library->install($slug))
 		{
 			$this->session->set_flashdata('success', lang('success'));
@@ -112,10 +100,8 @@ class Gateways extends Admin_Controller
 		redirect('admin/shop/gateways/');
 	}
 	
-
 	public function uninstall($id = 0) 
 	{
-
 		if (is_numeric($id))
 		{
 			$result = $this->gateway_library->uninstall($id);
@@ -128,7 +114,6 @@ class Gateways extends Admin_Controller
 		
 		redirect('admin/shop/gateways');
 	}
-	
 
 	/**
 	 * 
@@ -146,5 +131,4 @@ class Gateways extends Admin_Controller
 		
 		redirect('admin/shop/gateways/');
 	}
-
 }

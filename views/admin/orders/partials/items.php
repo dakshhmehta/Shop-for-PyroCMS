@@ -2,13 +2,13 @@
 				<table>
 					<thead>
 						<tr>
-							<th><?php echo shop_lang('shop:orders:image'); ?></th>
-							<th><?php echo shop_lang('shop:orders:item'); ?></th>
-							<th><?php echo shop_lang('shop:orders:item_code' ,'item_'); ?></th>
-							<th><?php echo shop_lang('shop:orders:price_base', 'price_'); ?></th>
-							<th><?php echo shop_lang('shop:orders:qty'); ?></th>
-							<th><?php echo shop_lang('shop:orders:price'); ?></th>
-							<th><?php echo shop_lang('shop:orders:subtotal'); ?></th>
+							<th><?php echo lang('shop:orders:image'); ?></th>
+							<th><?php echo lang('shop:orders:item'); ?></th>
+							<th><?php echo lang('shop:orders:item_code' ,'item_'); ?></th>
+							<th><?php echo lang('shop:orders:price_base', 'price_'); ?></th>
+							<th><?php echo lang('shop:orders:qty'); ?></th>
+							<th><?php echo lang('shop:orders:price'); ?></th>
+							<th><?php echo lang('shop:orders:subtotal'); ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -31,7 +31,7 @@
 												if($val->type == 'file')
 												{
 													echo "<br /><br />";
-													echo $val->name. ' : <a href="files/download/'.$val->value.'">'.shop_lang('shop:orders:download').'</a>';
+													echo $val->name. ' : <a href="files/download/'.$val->value.'">'.lang('shop:orders:download').'</a>';
 												}
 												elseif($val->type == 'text')
 												{

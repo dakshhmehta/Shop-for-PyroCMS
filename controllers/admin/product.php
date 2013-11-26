@@ -576,7 +576,7 @@ class Product extends Products_admin_Controller
 
 		if($_files_to_upload > 0)
 		{
-			return $this->session->set_flashdata('error', shop_lang('shop:products:no_upload_folder_set'));
+			return $this->session->set_flashdata('error', lang('shop:products:no_upload_folder_set'));
 		}
 
 

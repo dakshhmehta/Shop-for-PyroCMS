@@ -28,14 +28,14 @@ class Dailydeals extends Admin_Controller
 {
 
 	protected $section = 'dailydeals';
-
 	private $data;
 	
-
 	public function __construct() 
 	{
 		parent::__construct();
+		
 		$this->data = new StdClass();
+		
 		$this->load->model('dailydeals_m');		
 		$this->load->model('products_admin_m');		
 		Events::trigger('evt_admin_load_assests');
@@ -45,90 +45,68 @@ class Dailydeals extends Admin_Controller
 
 	public function index($offset = 0) 
 	{
-
 		$this->data->products = $this->dailydeals_m->get_all_admin();
-		
-
 		$this->template->title($this->module_details['name'])
 				->build('admin/dailydeals/list', $this->data);
-	
-
 	}	
 
 
 
 	public function add($id = 0) 
-	{
-		$data = new stdClass();
-
-		$data->products = array();
-
-
-
+	{	
+		$this->data->products = array();
 
 		if($this->dailydeals_m->create($id))
 		{
-			$this->session->set_flashdata('success', shop_lang('shop:dailydeals:product_added'));
+			$this->session->set_flashdata('success', lang('shop:dailydeals:product_added'));
 		}
 
 		// Build the view with shop/views/admin/products.php
 		$this->template->title($this->module_details['name'])
-				->build('admin/dailydeals/list', $data);
-	
-
+				->build('admin/dailydeals/list', $this->data);
 	}
 
 
 	public function start($id=0)
 	{
-
-
 		if($this->dailydeals_m->start($id))
 		{
-			$this->session->set_flashdata('success', shop_lang('shop:dailydeals:deal_commenced'));
+			$this->session->set_flashdata('success', lang('shop:dailydeals:deal_commenced'));
 		}
-
 
 		redirect('shop/admin/dailydeals');
 	}
-
-
 
 	public function stop($id=0)
 	{
 		if($this->dailydeals_m->stop($id))
 		{
-			$this->session->set_flashdata('success', shop_lang('shop:dailydeals:deal_stopped'));
+			$this->session->set_flashdata('success', lang('shop:dailydeals:deal_stopped'));
 		}
 
 		redirect('shop/admin/dailydeals');
 	}
-
 
 	public function activate($id=0)
 	{
 		if($this->dailydeals_m->activate($id))
 		{
-			$this->session->set_flashdata('success', shop_lang('shop:dailydeals:deal_activated'));
+			$this->session->set_flashdata('success', lang('shop:dailydeals:deal_activated'));
 		}
 
 		redirect('shop/admin/dailydeals');
 	}
-
 
 	/*remove from the list , and stop if active, still have data for reporting*/
 	public function archive($id=0)
 	{
 		if($this->dailydeals_m->archive($id))
 		{
-			$this->session->set_flashdata('success', shop_lang('shop:dailydeals:deal_archived'));
+			$this->session->set_flashdata('success', lang('shop:dailydeals:deal_archived'));
 		}
-
 
 		redirect('shop/admin/dailydeals');
 	}
-
-
 
 	/**
 	 * mnitor looks through the list and starts or stops 
@@ -139,10 +117,4 @@ class Dailydeals extends Admin_Controller
 	{
 
 	}
-
-
-
-
-
-
 }
