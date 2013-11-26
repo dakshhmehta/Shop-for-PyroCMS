@@ -27,11 +27,14 @@ class Pgroups extends Admin_Controller
 {
 
 	protected $section = 'pgroups';
+	private $data;
 
 	public function __construct() 
 	{
 		parent::__construct();
 
+		$this->data = new StdClass();
+		
 		role_or_die('shop', 'admin_pgroups');
 
 		// Load all the required classes
@@ -72,10 +75,10 @@ class Pgroups extends Admin_Controller
 	{
 
 		// Build the view with shop/views/admin/clearances.php
-		$data->productgroups = $this->pgroups_m->get_all();
+		$this->data->productgroups = $this->pgroups_m->get_all();
 		$this->template
 				->title($this->module_details['name'])
-				->build('admin/pgroups/list', $data);
+				->build('admin/pgroups/list', $this->data);
 	}
 
 	
@@ -88,8 +91,7 @@ class Pgroups extends Admin_Controller
 		// Check for post data
 		$this->form_validation->set_rules($this->_validation_rules);
 
-		
-
+		$post = new stdClass();
 		// if postback-validate
 		if ($this->form_validation->run()) 
 		{
@@ -102,16 +104,18 @@ class Pgroups extends Admin_Controller
 		{
 			foreach ($this->_validation_rules as $key => $value) 
 			{
-				$data->{$value['field']} = '';
+				$post->{$value['field']} = '';
 			}
 		}
+		
+		$this->data->post = $post;
 
 		// Build page
 		$this->template
 			->title($this->module_details['name'])
 			->append_js('module::admin/admin.js')		
-			->append_metadata($this->load->view('fragments/wysiwyg', $data, TRUE))
-			->build('admin/pgroups/edit', $data);
+			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->build('admin/pgroups/edit', $this->data);
 	}
 
 	/**
@@ -120,11 +124,9 @@ class Pgroups extends Admin_Controller
 	 */
 	public function edit($id) 
 	{
-
+		$post = new stdClass();
 		// Get row
 		$row = $this->pgroups_m->get($id, TRUE);
-
-
 		
 		// Check if exist
 		if (!$row) 
@@ -133,11 +135,11 @@ class Pgroups extends Admin_Controller
 			redirect('admin/shop/pgroups');
 		}
 		
-		$data = (object) $row;
+		$post = (object) $row;
 
         $this->load->library('users/ion_auth');
         $this->load->model('groups/group_m');
-		$data->user_groups = array_for_select($this->group_m->get_all(),'id', 'description');
+		$post->user_groups = array_for_select($this->group_m->get_all(),'id', 'description');
 
 
 		$this->form_validation->set_rules($this->_validation_rules);
@@ -151,13 +153,14 @@ class Pgroups extends Admin_Controller
 			redirect('admin/shop/pgroups');
 		} 
 
-
+		$this->data->post = $post;
+		
 		// Build page
 		$this->template
 			->title($this->module_details['name'])
 			->append_js('module::admin/admin.js')
-			->append_metadata($this->load->view('fragments/wysiwyg', $data, TRUE))
-			->build('admin/pgroups/edit', $data);
+			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->build('admin/pgroups/edit', $this->data);
 	}
 
 	/**
