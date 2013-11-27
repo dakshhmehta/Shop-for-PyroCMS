@@ -568,10 +568,21 @@ class Plugin_Shop extends Plugin
 
 	function images()
 	{
+
 		$id = $this->attribute('id', '0');
+		$limit = $this->attribute('max', '0');
 		$this->load->model('shop/products_front_m');
+
+		if($limit != '0')
+		{
+			$limit = intval($limit);
+			return (array) $this->products_front_m->limit($limit)->get_images($id);
+		}
+
+		return (array) $this->products_front_m->get_images($id);	
+		
 	  	
-		return (array) $this->products_front_m->get_images($id);
+
 
 	}
 
