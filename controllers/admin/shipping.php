@@ -27,10 +27,12 @@ class Shipping extends Admin_Controller
 {
 
 	protected $section = 'shipping';
+	private $data;
 
 	public function __construct() 
 	{
 		parent::__construct();
+		$this->data = new stdClass();
 
 		//check if has access
 		role_or_die('shop', 'admin_checkout');		
@@ -47,15 +49,15 @@ class Shipping extends Admin_Controller
 	{
 
 		
-		$data->installed = $this->shipping_library->get_all();
-		$data->uninstalled = $this->shipping_library->get_uninstalled();
-		$data->countries = $this->shipping_library->get_countries();
+		$this->data->installed = $this->shipping_library->get_all();
+		$this->data->uninstalled = $this->shipping_library->get_uninstalled();
+		$this->data->countries = $this->shipping_library->get_countries();
 
 		
 		$this->template
 				->title($this->module_details['name'])
 				->append_css('module::admin.css')
-				->build('admin/shipping/items', $data);
+				->build('admin/shipping/items', $this->data);
 				
 		
 	}
@@ -63,13 +65,13 @@ class Shipping extends Admin_Controller
 	public function edit($id)
 	{
 
-		$data->shipping_method = $this->shipping_library->get($id);
+		$this->data->shipping_method = $this->shipping_library->get($id);
 
-		$data->options = $data->shipping_method->options;
+		$this->data->options = $this->data->shipping_method->options;
 	
 	
 		//  Load the fields from the Gateway
-		$this->form_validation->set_rules($data->shipping_method->fields);
+		$this->form_validation->set_rules($this->data->shipping_method->fields);
 	
 
 		if ($this->form_validation->run()) 
@@ -95,7 +97,7 @@ class Shipping extends Admin_Controller
 	
 		$this->template
 					->title($this->module_details['name'], lang('create'))
-					->build('admin/shipping/form', $data);
+					->build('admin/shipping/form', $this->data);
 	}
 	
 	
