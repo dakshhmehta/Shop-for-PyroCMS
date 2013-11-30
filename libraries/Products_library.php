@@ -177,5 +177,41 @@ class Products_library
 
 
 	}
+	
+	/**
+	 * Function to get products
+	 * used by shop front end and widget
+	 * $params = array()
+	 */
+	public function get_products($params = array(), $details = false, $url = "", $row = 10, $page = 1){
+		
+		$results = Array('total'=> false, 'pagination'=> false, 'data'=> false);
+		if(empty($url)){
+			$url = site_url('shop/home/%s');
+		}
+		
+		$this->CI->load->library('shop/libpaging');
+		$this->CI->load->model('shop/products_front_m');
+
+        // Create pagination links
+        $total_rows = $this->CI->products_front_m->count_custom('public', $params);
+//        $total_rows = $this->pyrocache->model('products_front_m', 'count_custom', array('public', $params));
+        $paging_param = array('page' => $page, 'maxrow' => $total_rows, 'pagerow' => $row, 'wide' => 2, 'url' => $url);
+        $pagination = $this->CI->libpaging->_paging($paging_param);
+
+        $results['data'] = $this->CI->products_front_m->get_many_custom('public', $params+array('limit'=>$pagination['limit']));
+	//      $results['data'] = $this->pyrocache->model('products_front_m', 'get_many_custom', array('public', $params+array('limit'=>$pagination['limit'])));
+	
+		if($total_rows > 0){
+			foreach($results['data'] as $key => $row){
+				$results['data'][$key]->options = $this->CI->products_front_m->get_product_options_info($row->id);
+			}
+		}
+		$results['total'] = $total_rows;
+		if($details){
+			$results['pagination'] = $pagination;
+		}
+		return $results;
+	}
 }
 // END Cart Class

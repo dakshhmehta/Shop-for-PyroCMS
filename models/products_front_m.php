@@ -100,6 +100,294 @@ class Products_front_m extends Products_m
 	}
 
 
+	/**
+	 * Get count of products
+	 * 
+	 * @return Array Products Array
+	 */
+	public function count_custom($mode = 'public', $params = array())
+	{
+		$this->_table = 'shop_products';
+		if($mode!='public')
+		{
+			return array();
+		}
+		
+		$id_bestsellers = false;
+		if (isset($params['bestsellers']))
+		{
+			$id_bestsellers = $this->__get_best_sellers_info();
+			if(!empty($id_bestsellers)){
+				$this->db->where_in($this->_table.'.id', $id_bestsellers);
+			}else{
+				return array();
+			}
+		}
+		
+		if (!empty($params['category']))
+		{
+			$this->db->where($this->_table.'.id', $params['category']);
+		}
+
+		if (isset($params['public']))
+		{
+			$this->db->where($this->_table.'.public', $params['public']);
+		}
+		
+		if (isset($params['featured']))
+		{
+			$this->db->where($this->_table.'.featured', $params['featured']);
+		}
+		
+		if (array_key_exists('keywords', $params))
+		{
+			$matches = array();
+			if (strstr($params['keywords'], '%'))
+			{
+				preg_match_all('/%.*?%/i', $params['keywords'], $matches);
+			}
+
+			if (!empty($matches[0]))
+			{
+				foreach ($matches[0] as $match)
+				{
+					$phrases[] = str_replace('%', '', $match);
+				}
+			}
+			else
+			{
+				$temp_phrases = explode(' ', $params['keywords']);
+				foreach ($temp_phrases as $phrase)
+				{
+					$phrases[] = str_replace('%', '', $phrase);
+				}
+			}
+
+			$counter = 0;
+			foreach ($phrases as $phrase)
+			{
+				if ($counter == 0)
+				{
+					$this->db->like($this->_table.'.name', $phrase);
+					$this->db->or_like($this->_table.'.keywords', $phrase);
+				}
+				else
+				{
+					$this->db->or_like($this->_table.'.name', $phrase);
+					$this->db->or_like($this->_table.'.keywords', $phrase);
+				}
+				$counter++;
+			}
+		}
+
+		// Limit the results based on 1 number or 2 (2nd is offset)
+		if (isset($params['limit']) && is_array($params['limit']))
+			$this->db->limit($params['limit'][0], $params['limit'][1]);
+		elseif (isset($params['limit']))
+			$this->db->limit($params['limit']);
+		
+		// Is a label set?
+		if (!empty($params['related_content']))
+		{
+			$caseQuery = ' CASE ';
+			if(!empty($params['related_content']['category'])){
+				$caseQuery .= ' WHEN '.$this->db->dbprefix($this->_table).'.category_id = '.$params['related_content']['category'].' THEN 1';
+			}
+			$caseQuery .= ' ELSE 4 END ';
+			$this->db->order_by($caseQuery, null, false);
+		}
+	
+	    $this->db->select('count('.$this->db->dbprefix($this->_table).'.id) AS totalrow')
+			->join('shop_categories', 'shop_products.category_id = shop_categories.id', 'left');
+
+		//$this->db->join('profiles', "profiles.user_id = ".$tblp.".author_id", 'left');
+		$results = $this->db->get($this->_table)->row();
+	    return $results->totalrow;
+	}
+
+	
+	/**
+	 * Get many public and non deleted products
+	 * 
+	 * @return Array Products Array
+	 */
+	public function get_many_custom($mode = 'public', $params = array())
+	{
+		$this->_table = 'shop_products';
+		if($mode!='public')
+		{
+			return array();
+		}
+		
+		$id_bestsellers = false;
+		if (isset($params['bestsellers']))
+		{
+			$id_bestsellers = $this->__get_best_sellers_info();
+			if(!empty($id_bestsellers)){
+				$this->db->where_in($this->_table.'.id', $id_bestsellers);
+			}else{
+				return array();
+			}
+		}
+		
+		if (!empty($params['category']))
+		{
+			$this->db->where($this->_table.'.id', $params['category']);
+		}
+
+		if (isset($params['public']))
+		{
+			$this->db->where($this->_table.'.public', $params['public']);
+		}
+		
+		if (isset($params['featured']))
+		{
+			$this->db->where($this->_table.'.featured', $params['featured']);
+		}
+		
+		if (array_key_exists('keywords', $params))
+		{
+			$matches = array();
+			if (strstr($params['keywords'], '%'))
+			{
+				preg_match_all('/%.*?%/i', $params['keywords'], $matches);
+			}
+
+			if (!empty($matches[0]))
+			{
+				foreach ($matches[0] as $match)
+				{
+					$phrases[] = str_replace('%', '', $match);
+				}
+			}
+			else
+			{
+				$temp_phrases = explode(' ', $params['keywords']);
+				foreach ($temp_phrases as $phrase)
+				{
+					$phrases[] = str_replace('%', '', $phrase);
+				}
+			}
+
+			$counter = 0;
+			foreach ($phrases as $phrase)
+			{
+				if ($counter == 0)
+				{
+					$this->db->like($this->_table.'.name', $phrase);
+					$this->db->or_like($this->_table.'.keywords', $phrase);
+				}
+				else
+				{
+					$this->db->or_like($this->_table.'.name', $phrase);
+					$this->db->or_like($this->_table.'.keywords', $phrase);
+				}
+				$counter++;
+			}
+		}
+
+		// Limit the results based on 1 number or 2 (2nd is offset)
+		if (isset($params['limit']) && is_array($params['limit']))
+			$this->db->limit($params['limit'][0], $params['limit'][1]);
+		elseif (isset($params['limit']))
+			$this->db->limit($params['limit']);
+		
+		// Is a label set?
+		if (!empty($params['related_content']))
+		{
+			$caseQuery = ' CASE ';
+			if(!empty($params['related_content']['category'])){
+				$caseQuery .= ' WHEN '.$this->db->dbprefix($this->_table).'.category_id = '.$params['related_content']['category'].' THEN 1';
+			}
+			$caseQuery .= ' ELSE 4 END ';
+			$this->db->order_by($caseQuery, null, false);
+		}
+		
+		$tblp = $this->_table;
+		if(!empty($params['details'])){
+			$select_products = $tblp.".`id`, ".$tblp.".`slug`, ".$tblp.".`name`, ".$tblp.".`code`, ".$tblp.".`pgroup_id`, ".$tblp.".`category_id`, ".$tblp.".`cover_id`, ".$tblp.".`brand_id`, ".$tblp.".`package_id`, ".$tblp.".`description`, ".$tblp.".`keywords`, ".$tblp.".`meta_desc`, ".$tblp.".`user_data`, ".$tblp.".`height`, ".$tblp.".`width`, ".$tblp.".`depth`, ".$tblp.".`weight`, ".$tblp.".`price`, ".$tblp.".`price_base`, ".$tblp.".`rrp`, ".$tblp.".`tax_id`, ".$tblp.".`tax_dir`, ".$tblp.".`featured`, ".$tblp.".`public`, ".$tblp.".`min_qty`, ".$tblp.".`max_qty`, ".$tblp.".`views`, ".$tblp.".`status`, ".$tblp.".`date_updated`, ".$tblp.".`page_design_layout`";
+	    }else{
+			$select_products = $tblp.".`id`, ".$tblp.".`slug`, ".$tblp.".`name`, ".$tblp.".`code`, ".$tblp.".`pgroup_id`, ".$tblp.".`category_id`, ".$tblp.".`cover_id`, ".$tblp.".`brand_id`, ".$tblp.".`package_id`, ".$tblp.".`description`, ".$tblp.".`keywords`, ".$tblp.".`meta_desc`, ".$tblp.".`related`, ".$tblp.".`user_data`, ".$tblp.".`height`, ".$tblp.".`width`, ".$tblp.".`depth`, ".$tblp.".`weight`, ".$tblp.".`price`, ".$tblp.".`price_bt`, ".$tblp.".`price_at`, ".$tblp.".`price_base`, ".$tblp.".`rrp`, ".$tblp.".`tax_id`, ".$tblp.".`tax_dir`, ".$tblp.".`digital`, ".$tblp.".`featured`, ".$tblp.".`searchable`, ".$tblp.".`public`, ".$tblp.".`min_qty`, ".$tblp.".`max_qty`, ".$tblp.".`views`, ".$tblp.".`inventory_on_hand`, ".$tblp.".`inventory_low_qty`, ".$tblp.".`inventory_type`, ".$tblp.".`status`, ".$tblp.".`created_by`, ".$tblp.".`date_created`, ".$tblp.".`date_updated`, ".$tblp.".`date_archived`, ".$tblp.".`page_design_layout`";
+	    }
+	
+	    $this->db->select($select_products.', shop_categories.name AS category_name, shop_categories.slug AS category_slug')
+			->join('shop_categories', $tblp.'.category_id = shop_categories.id', 'left');
+
+		//$this->db->join('profiles', "profiles.user_id = ".$tblp.".author_id", 'left');
+	    $this->db->order_by($tblp.".`date_created`", "DESC");
+
+	    return $this->db->get($this->_table)->result();
+		//return parent::get_all('public');
+	}
+
+	private function __get_best_sellers_info()
+	{
+		
+		$tblp = 'shop_transactions';
+	    $this->db->select('shop_order_items.`product_id`')
+			->join('shop_order_items', $tblp.'.order_id = shop_order_items.order_id');
+
+	    $this->db->where($tblp.".`status`", "accepted");
+	    $this->db->group_by("shop_order_items.`product_id`");
+	    $this->db->order_by("count(".$this->db->dbprefix('shop_order_items').".`product_id`)", "DESC");
+
+	    $results = $this->db->get($tblp)->result();
+		if(!empty($results)){
+			$id_list = array();
+			foreach($results as $row){
+				$id_list[] = $row->product_id;
+			}
+			return $id_list;
+		}
+		
+		return false;
+	}
+
+	public function get_product_options_info($product_id = 0)
+	{
+		if(empty($product_id)){
+			return false;
+		}
+		$tblp = 'shop_prod_options';
+	    $this->db->select($tblp.'.`prod_id`,'.$tblp.'.`option_id`,'.$tblp.'.`order`, shop_options.`name`, shop_options.`title`, shop_options.`description`, shop_options.`slug`, shop_options.`type`, shop_options.`show_title`')
+			->join('shop_options', $tblp.'.option_id = shop_options.id');
+
+	    $this->db->where($tblp.".`prod_id`", $product_id);
+	    $this->db->order_by($tblp.".`order`", "ASC");
+
+	    $results = $this->db->get($tblp)->result();
+		if(!empty($results)){
+			
+			foreach($results as $key => $row){
+				if(!isset($results[$key]->option_values)){
+					$results[$key]->option_values = array();
+				}
+				$results[$key]->option_values = $this->get_product_options_value($row->option_id);
+			}
+			return $results;
+		}
+		
+		return false;
+	}
+	
+	
+	public function get_product_options_value($option_id = 0)
+	{
+		if(empty($option_id)){
+			return false;
+		}
+	    $this->db->select('shop_option_values.`id`, shop_option_values.`label`, shop_option_values.`value` as option_value, shop_option_values.`user_data`, shop_option_values.`max_qty`, shop_option_values.`operator`, shop_option_values.`operator_value`, shop_option_values.`default`, shop_option_values.`ignor_shipping` as ignore, shop_option_values.`order` as order_option_val');
+
+	    $this->db->where("shop_option_values.`shop_options_id`", $option_id);
+	    $this->db->order_by("shop_option_values.`order`", "ASC");
+
+	    $results = $this->db->get('shop_option_values')->result();
+		if(!empty($results)){
+			return $results;
+		}
+		
+		return false;
+	}
 
 	/**
 	 * Add view counter
@@ -193,7 +481,7 @@ class Products_front_m extends Products_m
 	 * @param unknown_type $limit
 	 * @param unknown_type $offset
 	 */
-	public function filter( $filter, $limit, $offset ) 
+	public function filter( $filter, $limit, $offset = 0 ) 
 	{
 		 
 		$this->load->model('categories_m');

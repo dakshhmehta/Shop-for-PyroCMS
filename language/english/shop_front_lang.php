@@ -49,17 +49,26 @@ $lang['msg_no_longer_exist']				=	'The product you are looking for does not exis
 $lang['code_sample_page']					=	'Code Sample Page';
 $lang['code_sample_page_desc']				=	'This page is a test for the plugins to see if they are working correctly';
 
-
+#
+# Label
+#
+$lang['label_featured_products']				=	'Featured Products';
+$lang['label_recent_products']				    =	'Recent Products';
+$lang['label_best_sellers_products']			=	'Best Sellers';
 
 #
 # Product Alert  messages
 #
-$lang['info_alert']				=	'Alert:';
-$lang['info_almost_gone']		=	'Running out fast!';
+$lang['info_alert']				    =	'Alert:';
+$lang['info_almost_gone']		    =	'Running out fast!';
+$lang['info_no_data']		        =	'No Data';
+$lang['info_no_products']		    =	'No Products';
+$lang['info_no_featured_products']	=	'No featured products';
 
 
 # A
 $lang['action']					=	'Action';
+$lang['add_label']			    =	'Add';
 $lang['add_to_cart']			=	'Add to Cart';
 $lang['add_to_wishlist']		=	'Add to Wishlist';
 $lang['agreement_field']		=	'Agree to our Terms and Conditions';
