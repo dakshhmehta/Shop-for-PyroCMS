@@ -31,6 +31,7 @@ class Products_library
 
 	// Private variables.  Do not change!
 	private $CI;
+	protected $shop_setting;
 	
 
 	public function __construct($params = array())
@@ -38,7 +39,10 @@ class Products_library
 	
 		// Set the super object to a local variable for use later
 		$this->CI =& get_instance();
-
+		$this->CI->load->library('settings/settings');
+		if(empty($this->shop_setting)){
+			$this->shop_setting = $this->get_shop_setting();
+		}
 		log_message('debug', "Products Library Class Initialized");
 		
 	}
@@ -179,6 +183,35 @@ class Products_library
 	}
 	
 	/**
+	 * Function to get Shop Setting
+	 *
+	 */
+	public function get_shop_setting(){
+		$results = array();
+		$this->CI->load->model('settings/settings_m');
+		
+		$results['country_id'] = $this->CI->settings->get('ss_distribution_loc');
+		$results['shop_name'] = $this->CI->settings->get('ss_name');
+		$results['shop_slogan'] = $this->CI->settings->get('ss_slogan');
+		$results['currency_code'] = $this->CI->settings->get('ss_currency_code');
+		
+		$shopset = $this->CI->settings_m->get_by(array('slug' => 'ss_currency_symbol'));
+		$currency_symbol = "";
+		$symbol_opt = explode('|', $shopset->options);
+		if(!empty($symbol_opt) && !empty($shopset->value)){
+			$symval = explode("=", $symbol_opt[$shopset->value]);
+			$currency_symbol = trim($symval[1]);
+		}
+		
+		$results['currency_symbol'] = $currency_symbol;
+		$results['currency_layout'] = $this->CI->settings->get('ss_currency_layout');
+		$separator = array(",", ".", " ");
+		$results['thousand_sep'] = $separator[$this->CI->settings->get('ss_currency_thousand_sep')];
+		$results['decimal_sep'] = $separator[$this->CI->settings->get('ss_currency_decimal_sep')];
+		return $results;
+	}
+	
+	/**
 	 * Function to get products
 	 * used by shop front end and widget
 	 * $params = array()
@@ -192,19 +225,29 @@ class Products_library
 		
 		$this->CI->load->library('shop/libpaging');
 		$this->CI->load->model('shop/products_front_m');
+		
+		// default only show available inventory (instock, on hand > low qty, unlimited stock)
+		if(empty($params['show_available'])){
+			$params['show_available'] = true;
+		}
 
-        // Create pagination links
         $total_rows = $this->CI->products_front_m->count_custom('public', $params);
-//        $total_rows = $this->pyrocache->model('products_front_m', 'count_custom', array('public', $params));
+        //$total_rows = $this->CI->pyrocache->model('products_front_m', 'count_custom', array('public', $params));
         $paging_param = array('page' => $page, 'maxrow' => $total_rows, 'pagerow' => $row, 'wide' => 2, 'url' => $url);
         $pagination = $this->CI->libpaging->_paging($paging_param);
 
         $results['data'] = $this->CI->products_front_m->get_many_custom('public', $params+array('limit'=>$pagination['limit']));
-	//      $results['data'] = $this->pyrocache->model('products_front_m', 'get_many_custom', array('public', $params+array('limit'=>$pagination['limit'])));
+	    //$results['data'] = $this->CI->pyrocache->model('products_front_m', 'get_many_custom', array('public', $params+array('limit'=>$pagination['limit'])));
 	
 		if($total_rows > 0){
+			if(strtoupper($this->shop_setting["currency_code"]) == "IDR"){
+				$decimal = 0;
+			}else{
+				$decimal = 2;
+			}
 			foreach($results['data'] as $key => $row){
 				$results['data'][$key]->options = $this->CI->products_front_m->get_product_options_info($row->id);
+				$results['data'][$key]->price = number_format($results['data'][$key]->price, $decimal, $this->shop_setting["decimal_sep"], $this->shop_setting["thousand_sep"]);
 			}
 		}
 		$results['total'] = $total_rows;

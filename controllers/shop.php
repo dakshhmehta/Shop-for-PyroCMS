@@ -82,6 +82,7 @@ class Shop extends Public_Controller
 		
 		$this->template
 			->append_css('module::default/shop.css')
+			->append_js('module::shop_cart.js')
 			->set('options', $options)
 			->build('special/shop_home', $this->data);
 	}

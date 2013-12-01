@@ -17,7 +17,7 @@
 				<span class="price">
 					<?php echo $row->price; ?>
 				</span>
-				<button><?php echo lang('add_label'); ?></button>
+				<button class="_addcart" product-value="<?php echo $row->id; ?>"><?php echo lang('add_label'); ?></button>
 			</span>
 		</p>
 		<?php
@@ -46,7 +46,10 @@
 				<span class="price">
 					<?php echo $row->price; ?>
 				</span>
-				<button><?php echo lang('add_label'); ?></button>
+				<?php if(!empty($row->options)): ?>
+				<span class="options"><?php echo lang('other_type'); ?></span>
+				<?php endif; ?>
+				<button class="_addcart" product-value="<?php echo $row->id; ?>"><?php echo lang('add_label'); ?></button>
 			</span>
 		</p>
 		<?php
@@ -75,7 +78,7 @@
 				<span class="price">
 					<?php echo $row->price; ?>
 				</span>
-				<button><?php echo lang('add_label'); ?></button>
+				<button class="_addcart" product-value="<?php echo $row->id; ?>"><?php echo lang('add_label'); ?></button>
 			</span>
 		</p>
 		<?php
@@ -84,4 +87,8 @@
 		<div class="fullinfo"><?php echo lang('info_no_data'); ?></div>
 		<?php endif; ?>
 	</div>
+</div>
+<input type="hidden" id="cartShopURL" value="<?php echo site_url();?>" />
+<div id="progressCart" style="display: none;">
+	<img src="<?php echo $module_path.'img/progress_green.gif';?>"/><br/><?php echo lang('shop_cart_progress'); ?>
 </div>

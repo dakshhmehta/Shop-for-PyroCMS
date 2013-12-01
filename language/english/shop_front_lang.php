@@ -40,6 +40,7 @@ $lang['user_nostock_warning']		=	'This item is not currently in stock...';
 $lang['per_page']					=	'Show'; 
 $lang['order_by']					=	'Order By'; 
 $lang['shop_is_disabled']			=	'The Store is currently disabled';
+$lang['shop_cart_progress']			=	'In progress ...';
 
 #
 # Messages on sample special page
@@ -71,6 +72,7 @@ $lang['action']					=	'Action';
 $lang['add_label']			    =	'Add';
 $lang['add_to_cart']			=	'Add to Cart';
 $lang['add_to_wishlist']		=	'Add to Wishlist';
+$lang['other_type']		        =	'Other type';
 $lang['agreement_field']		=	'Agree to our Terms and Conditions';
 $lang['address']				=	'Address';
 $lang['addresses']				=	'Addresses';

@@ -107,6 +107,7 @@ class Widget_Shop_home extends Widgets
 		Asset::add_path('shoppath', $module_path);
 		$no_image = $module_path.'img/default/no_img_trans_128.gif';
         $this->template->append_css('shoppath::'.$options['widget_theme'].'/shop.css');
+        $this->template->append_js('shoppath::shop_cart.js');
 				
 		return array(
 			'recent' => $recent,

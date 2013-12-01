@@ -186,17 +186,23 @@ class Products_front_m extends Products_m
 		elseif (isset($params['limit']))
 			$this->db->limit($params['limit']);
 		
-		// Is a label set?
-		if (!empty($params['related_content']))
-		{
-			$caseQuery = ' CASE ';
-			if(!empty($params['related_content']['category'])){
-				$caseQuery .= ' WHEN '.$this->db->dbprefix($this->_table).'.category_id = '.$params['related_content']['category'].' THEN 1';
-			}
-			$caseQuery .= ' ELSE 4 END ';
-			$this->db->order_by($caseQuery, null, false);
-		}
+		
+		//if (!empty($params['related_content']))
+		//{
+		//	$caseQuery = ' CASE ';
+		//	if(!empty($params['related_content']['category'])){
+		//		$caseQuery .= ' WHEN '.$this->db->dbprefix($this->_table).'.category_id = '.$params['related_content']['category'].' THEN 1';
+		//	}
+		//	$caseQuery .= ' ELSE 4 END ';
+		//	$this->db->order_by($caseQuery, null, false);
+		//}
 	
+		if (isset($params['show_available']) and $params['show_available'])
+		{
+			$ftbl = $this->db->dbprefix($this->_table);
+			$this->db->where("(".$ftbl.".status = 'in_stock' OR ".$ftbl.".inventory_on_hand > ".$ftbl.".inventory_low_qty OR ".$ftbl.".inventory_type = 1 )");
+		}
+		
 	    $this->db->select('count('.$this->db->dbprefix($this->_table).'.id) AS totalrow')
 			->join('shop_categories', 'shop_products.category_id = shop_categories.id', 'left');
 
@@ -292,15 +298,21 @@ class Products_front_m extends Products_m
 		elseif (isset($params['limit']))
 			$this->db->limit($params['limit']);
 		
-		// Is a label set?
-		if (!empty($params['related_content']))
+		
+		//if (!empty($params['related_content']))
+		//{
+		//	$caseQuery = ' CASE ';
+		//	if(!empty($params['related_content']['category'])){
+		//		$caseQuery .= ' WHEN '.$this->db->dbprefix($this->_table).'.category_id = '.$params['related_content']['category'].' THEN 1';
+		//	}
+		//	$caseQuery .= ' ELSE 4 END ';
+		//	$this->db->order_by($caseQuery, null, false);
+		//}
+		
+		if (isset($params['show_available']) and $params['show_available'])
 		{
-			$caseQuery = ' CASE ';
-			if(!empty($params['related_content']['category'])){
-				$caseQuery .= ' WHEN '.$this->db->dbprefix($this->_table).'.category_id = '.$params['related_content']['category'].' THEN 1';
-			}
-			$caseQuery .= ' ELSE 4 END ';
-			$this->db->order_by($caseQuery, null, false);
+			$ftbl = $this->db->dbprefix($this->_table);
+			$this->db->where("(".$ftbl.".status = 'in_stock' OR ".$ftbl.".inventory_on_hand > ".$ftbl.".inventory_low_qty OR ".$ftbl.".inventory_type = 1 )");
 		}
 		
 		$tblp = $this->_table;
