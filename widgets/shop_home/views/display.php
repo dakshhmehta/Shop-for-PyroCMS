@@ -90,5 +90,5 @@
 </div>
 <input type="hidden" id="cartShopURL" value="<?php echo site_url();?>" />
 <div id="progressCart" style="display: none;">
-	<img src="<?php echo $this->module_details['path'].'/img/progress_green.gif';?>"/><br/><?php echo lang('shop_cart_progress'); ?>
+	<img src="<?php echo $module_path.'img/progress_green.gif';?>"/><br/><?php echo lang('shop_cart_progress'); ?>
 </div>

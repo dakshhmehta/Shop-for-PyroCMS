@@ -45,6 +45,7 @@ $route['shop/product(/:any)']		 		= 'product/index$1';
 $route['shop/products(/:num)']		 		= 'products/index$1';
 $route['shop/categories(/:num)']		 	= 'categories/index$1';
 $route['shop/brands(/:num)']		 		= 'brands/index$1';
+$route['shop/home(/:num)']		 		    = 'shop/index$1';
 /*
 $route['shop/special(/:any)']		 		= 'special/index$1';
 $route['shop/brand(/:any)?']  				= 'brands/brand$1';

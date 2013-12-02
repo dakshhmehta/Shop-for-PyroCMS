@@ -40,6 +40,7 @@ $lang['user_nostock_warning']		=	'This item is not currently in stock...';
 $lang['per_page']					=	'Show'; 
 $lang['order_by']					=	'Order By'; 
 $lang['shop_is_disabled']			=	'The Store is currently disabled';
+$lang['shop_cart_progress']			=	'In progress ...';
 
 #
 # Messages on sample special page
@@ -49,19 +50,29 @@ $lang['msg_no_longer_exist']				=	'The product you are looking for does not exis
 $lang['code_sample_page']					=	'Code Sample Page';
 $lang['code_sample_page_desc']				=	'This page is a test for the plugins to see if they are working correctly';
 
-
+#
+# Label
+#
+$lang['label_featured_products']				=	'Featured Products';
+$lang['label_recent_products']				    =	'Recent Products';
+$lang['label_best_sellers_products']			=	'Best Sellers';
 
 #
 # Product Alert  messages
 #
-$lang['info_alert']				=	'Alert:';
-$lang['info_almost_gone']		=	'Running out fast!';
+$lang['info_alert']				    =	'Alert:';
+$lang['info_almost_gone']		    =	'Running out fast!';
+$lang['info_no_data']		        =	'No Data';
+$lang['info_no_products']		    =	'No Products';
+$lang['info_no_featured_products']	=	'No featured products';
 
 
 # A
 $lang['action']					=	'Action';
+$lang['add_label']			    =	'Add';
 $lang['add_to_cart']			=	'Add to Cart';
 $lang['add_to_wishlist']		=	'Add to Wishlist';
+$lang['other_type']		        =	'Other type';
 $lang['agreement_field']		=	'Agree to our Terms and Conditions';
 $lang['address']				=	'Address';
 $lang['addresses']				=	'Addresses';
