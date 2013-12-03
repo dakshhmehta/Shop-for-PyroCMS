@@ -241,7 +241,10 @@ class My extends Public_Controller
 		$data->messages = $this->db->where('order_id', $id)->get('shop_order_messages')->result();
 		$data->transactions = $this->db->where('order_id', $id)->get('shop_transactions')->result();
 		$data->contents = $this->orders_m->get_order_items($data->order->id);
-	
+
+
+		//if and ONLY if the order is paid we can present the file
+
 		// mark as read
 		$this->messages_m->markAsRead($data->order->id);
 	
@@ -251,6 +254,19 @@ class My extends Public_Controller
 				->set_breadcrumb(lang('order'))
 				->title($this->module_details['name'])
 				->build('my/order', $data);
+	}
+
+
+
+
+	public function download_file($id, $pin)
+	{
+		//we must check that both the file and the pin are correct
+		$data = 'Here is some text!';
+		$name = 'mytext.txt';
+
+		force_download($name, $data); 
+
 	}
 	 
 	

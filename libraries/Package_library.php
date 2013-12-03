@@ -509,7 +509,7 @@ class Package_library extends Core_library
 		return $html;
 	}	
 
-	public function build_product_type_select($params) 
+	public function build_requires_shipping_select($params) 
 	{
 		 
 		$params = array_merge(array('current_id' => 0), $params);
@@ -517,21 +517,21 @@ class Package_library extends Core_library
 		extract($params);
 		
 
-		$packages = array('digital_file','shippable');
+		$rs = array(	
+							0 	=> 'No'  , 
+							1 	=> 'Yes'
+						);
 		
 		$html = '';
 
-		foreach ($packages as $item) 
+		foreach ($rs as $key=>$value) 
 		{
-			
-
-			$html .= '<option value="' . $item . '"';
-			$html .= $current_id == $item ? ' selected="selected">' : '>';
-			$html .= $item . '</option>';
+			$html .= '<option value="' . $key . '"';
+			$html .= $current_id == $key ? ' selected="selected">' : '>';
+			$html .= $value . '</option>';
 		}
 		
-		
-		
+	
 		return $html;
 	}	
 

@@ -54,37 +54,8 @@ class Shop extends Public_Controller
 			$this->template->set_layout('default.html');
 		}
 
-		//$this->template->set_theme('shop_theme');
-		$this->load->library('shop/products_library');
-		$this->lang->load('shop/shop_front');
 		
-		$uri1 = $this->uri->segment(1);
-		$uri2 = $this->uri->segment(2);
-		if(!empty($uri1) and empty($uri2)){
-			$page = $uri1;
-		}elseif(!empty($uri2)){
-			$page = $uri2;
-		}else{
-			$page = 1;
-		}
-		
-		$options = array();
-		if(!isset($options['page_url'])){ $options['page_url'] = ''; }
-		if(!isset($options['limit_products'])){ $options['limit_products'] = 5; }
-		if(!isset($options['limit_featured'])){ $options['limit_featured'] = 5; }
-		if(!isset($options['limit_bestsellers'])){ $options['limit_bestsellers'] = 5; }
-		
-		$this->data->recent = $this->products_library->get_products(array('public'=>1), true, $options['page_url'], $options['limit_products'], $page);
-		$this->data->featured = $this->products_library->get_products(array('public'=>1, 'featured'=>1), true, $options['page_url'], $options['limit_featured'], 1);
-		$this->data->bestsellers = $this->products_library->get_products(array('public'=>1, 'bestsellers'=>1), true, $options['page_url'], $options['limit_bestsellers'], 1);
-        
-		$this->data->no_image = $this->module_details['path'].'/img/default/no_img_trans_128.gif';
-		
-		$this->template
-			->append_css('module::default/shop.css')
-			->append_js('module::shop_cart.js')
-			->set('options', $options)
-			->build('special/shop_home', $this->data);
+		$this->template->build('special/shop_home', $this->data);
 	}
 
 	/**

@@ -33,7 +33,7 @@ class Module_Shop extends Module
 	 * 
 	 * @var string
 	 */
-	public $version = '1.0.0.131126';  
+	public $version = '1.0.0.133';  
 
 
 
@@ -206,27 +206,19 @@ class Module_Shop extends Module
 	public function upgrade($old_version) 
 	{
 		 
-	
 		switch ($old_version) 
 		{
-			case '1.0.0.126':
-				//changes to cart controller - no db changes
-				$this->_install_table_col('shop_products','product_type');
-				break;
-			case '1.0.0.110':
-				$this->_install_settings('shop_trust_score_threshold');
-				$this->_install_table_col('shop_products','page_design_layout');
+			case '1.0.0.132':			
+				$this->_install_table('shop_product_files');
+				//break;
+			case '1.0.0.125':
+				$this->_install_table('shop_product_files');
+				$this->_install_table('shop_downloads');
 
-				$this->dbforge->drop_table('shop_dailydeals'); //important
-				$this->_install_table('shop_dailydeals');
+				$this->_install_table_col('shop_products','req_shipping');
+
 				break;
-			case '1.0.0.109':
-				//$this->_install_table_col('shop_orders','pmt_status');
-				//$this->_install_table_col('shop_categories','user_data');
-			 	//$this->_upgrade_orders();
-				//$this->_install_settings('shop_upload_file_product');
-				//$this->_install_settings('shop_upload_file_orders');
-				break;
+
 			default:
 				break;
 		}
@@ -237,10 +229,11 @@ class Module_Shop extends Module
 
 
 				
-
-
 	private function _install_table($table)
 	{
+
+		$this->dbforge->drop_table($table);
+
  		$table_to_install = $this->details_library->get_tables($table);
 
 

@@ -48,7 +48,7 @@
 						<div id='img_view' style="overflow-y:scroll;min-height:50px;max-height:300px;">
 								<!-- This is where the response from search folder images goes -->
 						</div>		
-					</li>									
+				</li>									
 													   
 				<li class="<?php echo alternator('', 'even'); ?>">
 					<label for="cover">
