@@ -587,6 +587,13 @@ class Plugin_Shop extends Plugin
 	}
 
 
+	/**
+	 * {{shop:digital files order_id="5" }}
+	 * 		{{id}} {{filename}}
+	 * {{/shop:digital_files}}
+	 * 
+	 * @return [type] [description]
+	 */
 	function digital_files() 
 	{
 

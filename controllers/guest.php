@@ -58,12 +58,16 @@ class Guest extends Public_Controller
 		{
 			$input = $this->input->post();
 			$this->order($input['guest_order_id'], $input['guest_email']);
-		}	
+		}
+		else
+		{
 
-		$this->template
-				->set_breadcrumb(lang('my'))
-				->title($this->module_details['name'].' | '.lang('dashboard'))
-				->build('guest/dashboard');
+
+			$this->template
+					->set_breadcrumb(lang('my'))
+					->title($this->module_details['name'].' | '.lang('dashboard'))
+					->build('guest/dashboard');
+		}
 	}
 
 
@@ -74,7 +78,7 @@ class Guest extends Public_Controller
 	 * TODO:This will need some changing to make it unique
 	 * @param unknown_type $id
 	 */
-	public function order($id,$email) 
+	public function order($order_id,$email) 
 	{
 		 
 		// after viewing the order mark all messages to READ
@@ -83,7 +87,7 @@ class Guest extends Public_Controller
 	
 	
 		$data->order = $this->orders_m->where('user_id', 0)->get($order_id);
-		$billing_address = $this->orders_m->get_address($order->billing_address_id);
+		$billing_address = $this->orders_m->get_address($data->order->billing_address_id);
 
 
 
@@ -117,9 +121,13 @@ class Guest extends Public_Controller
 	
 		$data->shipping = $this->orders_m->get_address($data->order->billing_address_id);
 		$data->invoice = $this->orders_m->get_address($data->order->shipping_address_id);
-		$data->messages = $this->db->where('order_id', $id)->get('shop_order_messages')->result();
-		$data->transactions = $this->db->where('order_id', $id)->get('shop_transactions')->result();
+		$data->messages = $this->db->where('order_id', $order_id)->get('shop_order_messages')->result();
+		$data->transactions = $this->db->where('order_id', $order_id)->get('shop_transactions')->result();
 		$data->contents = $this->orders_m->get_order_items($data->order->id);
+
+
+
+		$data->download_key = md5($billing_address->email);
 
 		
 
@@ -134,7 +142,7 @@ class Guest extends Public_Controller
 
 
 
-	public function download_file($id, $order_id, $email)
+	public function download_file($id, $order_id, $key)
 	{
 		//pin is only req for guest customers, logged in customers will be valiated against logged in status
 		$this->load->helper('download');
@@ -146,7 +154,7 @@ class Guest extends Public_Controller
 		$billing_address = $this->orders_m->get_address($order->billing_address_id);
 
 
-		if($billing_address->email != $email)
+		if(md5($billing_address->email) != $key)
 		{
 			echo 'The data you have entered does not match our records';die;	
 		}
@@ -157,15 +165,24 @@ class Guest extends Public_Controller
 		}
 
 
+		$fileObject = $this->shop_files_m->do_download($id, $order_id);
 
 
-		$file = $this->shop_files_m->get($id);
+		if(!$fileObject->pass)
+		{
+			die(json_encode(
+						array(
+								'status' => 'error', 
+								'message'=>$fileObject->message,
+								'dlcount'=>$fileObject->download_count
+							)
+						)
+			);
+		}
 
 
-		$data = $file->data;
-		$name = $file->filename;
+		force_download($fileObject->file->filename, $fileObject->file->data); 
 
-		force_download($name, $data); 
 
 	}
 	 

@@ -286,13 +286,23 @@ class My extends Public_Controller
 		}
 
 
-		$file = $this->shop_files_m->get($id);
+		$fileObject = $this->shop_files_m->do_download($id, $order_id);
 
 
-		$data = $file->data;
-		$name = $file->filename;
+		if(!$fileObject->pass)
+		{
+			die(json_encode(
+						array(
+								'status' => 'error', 
+								'message'=>$fileObject->message,
+								'dlcount'=>$fileObject->download_count
+							)
+						)
+			);
+		}
 
-		force_download($name, $data); 
+
+		force_download($fileObject->file->filename, $fileObject->file->data); 
 
 	}
 	 

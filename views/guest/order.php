@@ -94,7 +94,7 @@
 					<td></td>
 					<td>{{id}}</td>
 					<td>{{filename}}</td>
-					<td><a href='{{url:site}}shop/guest/download_file/{{id}}/{{order.id}}/<?php echo $invoice->email;?>'>download {{filename}}</a></td>
+					<td><a href='{{url:site}}shop/guest/download_file/{{id}}/{{order.id}}/<?php echo $download_key;?>'>download {{filename}}</a></td>
 					
 				</tr>
 			{{/shop:digital_files}}

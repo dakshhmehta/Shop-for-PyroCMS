@@ -32,7 +32,114 @@ class Shop_files_m extends MY_Model
 	{
 		parent::__construct();
 	}
+
+
+
+	public function get_download_count($order_id, $product_id, $file_id)
+	{
+		$result = $this->db->where('order_id', $order_id)->where('product_id', $product_id)->where('file_id', $file_id)->get('shop_downloads')->result();
+
+		if($result)
+		{
+			var_dump($result);die;
+		}
+		die;
+		return -1;
+	}
+
+
+	/**
+	 * re->pass = Boolean
+	 * re->file = File
+	 * re->download_count = INT
+	 *
+	 * 
+	 * @param  [type] $file_id  [description]
+	 * @param  [type] $order_id [description]
+	 * @return [type]           [description]
+	 */
+	public function do_download($file_id, $order_id)
+	{
+		$returnFile = new stdClass();
+
+
+		// First get the file
+		$returnFile->file = $this->get($file_id);
+		$returnFile->pass = ($returnFile->file)? TRUE : FALSE;
+		$returnFile->download_count = 0;
+		$returnFile->message = 'not initialized';
+
+
+
+		//See if a record exist for this customer
+		if($this->key_exist($order_id, $returnFile->file->product_id, $file_id))
+		{
+
+			$record = $this->db->where('order_id', $order_id)->where('product_id', $returnFile->file->product_id)->where('file_id', $file_id)->limit(1)->get('shop_downloads')->result();
+
+			$record = $record[0];
+
+			if($record->attempts >= $record->max_attempts)
+			{
+				$returnFile->pass = FALSE;
+				$returnFile->message = 'You have reached the maximum number of downloads for this file.';
+			}
+		
+			$to_update = array(
+					'ip_addresss' => $this->input->ip_address(), 
+					'user_agent' => $this->agent->agent_string(), 
+					'attempts' => ($record->attempts + 1),
+			);
+
+	    	$this->db->where('order_id', $order_id)->where('product_id', $returnFile->file->product_id)->where('file_id', $file_id);
+			$this->db->update('shop_downloads', $to_update );
+		}
+		else //if not create a record for tracking
+		{
+
+			$to_insert = array(
+					'order_id' => $order_id,
+					'product_id' => $returnFile->file->product_id,
+					'file_id' => $file_id,
+					'ip_addresss' => $this->input->ip_address(), 
+					'user_agent' => $this->agent->agent_string(), 
+					'attempts' => 1,
+					'max_attempts' => 3,
+					'pin' => substr(md5('AE'.rand(1,999)),1,6),
+			);
+
+			$this->db->insert('shop_downloads', $to_insert );
+			
+		}
+
+		//otherwise we fail and do not allow to download
+		return $returnFile;
+	}
 	
+	/**
+	 * Check to see if the key values exist
+	 * 
+	 * @param  [type] $order_id   [description]
+	 * @param  [type] $product_id [description]
+	 * @param  [type] $file_id    [description]
+	 * @return [type]             [description]
+	 */
+	private function key_exist($order_id, $product_id, $file_id)
+	{
+
+	    $this->db->where('order_id', $order_id)->where('product_id', $product_id)->where('file_id', $file_id);
+
+	    $query = $this->db->get('shop_downloads');
+
+	    if ($query->num_rows() > 0)
+	    {
+	        return TRUE;
+	    }
+
+	    return FALSE;
+	}
+
+
 
 	/**
 	 * This creates a file in the DB
