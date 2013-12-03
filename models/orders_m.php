@@ -184,43 +184,18 @@ class Orders_m extends MY_Model
 		return $this->db->get('shop_order_messages')->result();
 
 	}
+
 	
 	/*
-	 *
-	 *@deprecated - use addresses_m set_address
-	 *
-	public function set_address($input) 
+	 * get the file contents for a download
+	 */
+	public function get_file($file_id)
 	{
-		$data = array(
-				'user_id' => $input['user_id'],
-				'email' => $input['email'],
-				'first_name' => $input['first_name'],
-				'last_name' => $input['last_name'],
-				'company' => $input['company'],
-				'address1' => $input['address1'],
-				'address2' => $input['address2'],
-				'city' => $input['city'],
-				'state' => $input['state'],
-				'country' => $input['country'],
-				'zip' => $input['zip'],
-				'phone' => $input['phone'],
-		);
-	
-		if (isset($input['id'])) 
-		{
-			$this->db->where('id', $input['id']);
-			$this->db->update('shop_addresses', $data);
-			return $input['id'];
-		} 
-		else 
-		{
-			$this->db->insert('shop_addresses', $data);
-			return $this->db->insert_id();
-		}
-	}
-	*/
-		
 
+		return $this->db->where('id',$file_id)->get('shop_product_files')->result(); 	
+
+		
+	}	
 	
 	public function set_status($id,$status) 
 	{
@@ -402,23 +377,14 @@ class Orders_m extends MY_Model
 	/**
 	 * Get All items in Order
 	 * @param INT $id Order ID
-	 * @old if old then we use the old method
+	 * @old Set to TRUE for admin, the admin collects all product data for display
 	 */
-	public function get_order_items($id, $old = FALSE) 
+	public function get_order_items($id) 
 	{
-		if($old)
-		{
-			return $this->db
-				->select('shop_products.*, shop_order_items.*')
-				->join('shop_products', 'shop_order_items.product_id = shop_products.id')
-				->where('order_id', $id)->get('shop_order_items')->result();
-		}
-
 
 		return $this->db
-			->select('shop_order_items.*')
-			->select('shop_products.cover_id')
-			->join('shop_products', 'shop_order_items.product_id = shop_products.id')
+			->select('shop_products.*, shop_order_items.*, shop_products.id as `id`')
+			->join('shop_products', 'shop_order_items.product_id = shop_products.id','right')
 			->where('order_id', $id)->get('shop_order_items')->result();
 		
 	}

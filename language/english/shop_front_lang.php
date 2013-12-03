@@ -1,29 +1,17 @@
 <?php if (!defined('BASEPATH'))  exit('No direct script access allowed');
 /*
- * SHOP for PyroCMS
+ *
+ *
+ * This file is to be deprecated.
+ *
+ * For the public lang file we should be using shop_lang.php
+ *
+ * In shop lang the FORMAt is shop:area:variable, ie: shop:cart:item_added.
+ *
+ *
  * 
- * Copyright (c) 2013, Salvatore Bordonaro
- * All rights reserved.
- *
- * Author: Salvatore Bordonaro
- * Version: 1.0.0.051
- *
- *
- *
- * 
- * See Full license details on the License.txt file
- */
- 
-/**
- * SHOP			A full featured shopping cart system for PyroCMS
- *
- * @author		Salvatore Bordonaro
- * @version		1.0.0.051
- * @website		http://www.inspiredgroup.com.au/
- * @system		PyroCMS 2.1.x
  *
  */
-
 
 $lang['save']							=	'Save'; 
 $lang['properties']							=	'Properties'; 

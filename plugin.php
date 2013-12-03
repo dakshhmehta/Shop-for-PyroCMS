@@ -586,6 +586,36 @@ class Plugin_Shop extends Plugin
 
 	}
 
+
+	/**
+	 * {{shop:digital files order_id="5" }}
+	 * 		{{id}} {{filename}}
+	 * {{/shop:digital_files}}
+	 * 
+	 * @return [type] [description]
+	 */
+	function digital_files() 
+	{
+
+		$this->load->model('shop_files_m');
+		$order_id = $this->attribute('order_id', '');
+		$product_id = $this->attribute('product_id', 'notset');
+		
+		if($product_id !== 'notset')
+		{
+			$files =  $this->shop_files_m->get_files($product_id);
+		}
+		else
+		{
+			$files =  $this->shop_files_m->get_files_by_order($order_id);
+		}
+		
+		//var_dump($product);die;
+		return (array) $files;	
+
+	}
+
+
 	function product() 
 	{
 
