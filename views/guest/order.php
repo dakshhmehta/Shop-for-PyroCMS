@@ -5,12 +5,6 @@
 	</h2>
 
 
-	<ul id="menu">
-		{{ shop:mylinks remove='shop messages' active='orders' }}
-			{{link}}
-		{{ /shop:mylinks }}	
-	</ul>
-
 	 <?php if($order->pmt_status =='unpaid'):?>
 			<a href="{{ url:site }}shop/payment/order/<?php echo $order->id; ?>" class="blue">pay now</a>
 	 <?php endif;?>
@@ -79,7 +73,7 @@
 					<td><img src="{{ url:site }}files/thumb/{{cover_id}}/90" alt="" /></td>
 					<td>{{qty}}</td>
 					<td>{{title}}</td>
-					<td>{{cost_item}}</td>
+					<td>{{cost_item}}</td>$id, $order_id, $email
 					<td><a href="{{ url:site }}shop/product/{{ product_id }}">view</a></td>
 				</tr>
 
@@ -100,7 +94,7 @@
 					<td></td>
 					<td>{{id}}</td>
 					<td>{{filename}}</td>
-					<td><a href='{{url:site}}shop/my/download_file/{{id}}/{{order.id}}'>download {{filename}}</a></td>
+					<td><a href='{{url:site}}shop/guest/download_file/{{id}}/{{order.id}}/<?php echo $invoice->email;?>'>download {{filename}}</a></td>
 					
 				</tr>
 			{{/shop:digital_files}}

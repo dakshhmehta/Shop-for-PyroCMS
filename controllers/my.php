@@ -242,8 +242,7 @@ class My extends Public_Controller
 		$data->transactions = $this->db->where('order_id', $id)->get('shop_transactions')->result();
 		$data->contents = $this->orders_m->get_order_items($data->order->id);
 
-
-		//if and ONLY if the order is paid we can present the file
+		
 
 		// mark as read
 		$this->messages_m->markAsRead($data->order->id);
@@ -258,12 +257,40 @@ class My extends Public_Controller
 
 
 
-
-	public function download_file($id, $pin)
+	/**
+	 * Can only request 1 file at a time.
+	 * Future enhancement could allow for a a single ZIP of all files
+	 * @param  [type] $id       [description]
+	 * @param  [type] $order_id [description]
+	 * @param  string $pin      [description]
+	 * @return [type]           [description]
+	 */
+	public function download_file($id, $order_id)
 	{
+		//pin is only req for guest customers, logged in customers will be valiated against logged in status
+		$this->load->helper('download');
+		$this->load->model('orders_m');
+		$this->load->model('shop_files_m');
 		//we must check that both the file and the pin are correct
-		$data = 'Here is some text!';
-		$name = 'mytext.txt';
+		
+		$order = $this->orders_m->get($order_id);
+
+
+		if($order->pmt_status == 'paid')
+		{
+
+		}
+		else
+		{
+			echo 'Please pay for your order first';die;
+		}
+
+
+		$file = $this->shop_files_m->get($id);
+
+
+		$data = $file->data;
+		$name = $file->filename;
 
 		force_download($name, $data); 
 

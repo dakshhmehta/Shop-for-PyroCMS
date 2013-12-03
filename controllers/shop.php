@@ -32,7 +32,17 @@ class Shop extends Public_Controller
 		$this->data = new stdClass();
 	}
 
-	/*just for play/testing in future builds*/
+	/**
+	 * To add a custom home page for the domain.com/shop name space add a layout to your theme.
+	 * Call it shop_home.html
+	 *
+	 * Then create a page in your pages module called shop.
+	 *
+	 * In the content/description area you can add widgets or plugins to display whatever content you like.
+	 * 
+	 * @param  string $param [description]
+	 * @return [type]        [description]
+	 */
 	public function index($param = '') 	
 	{
 

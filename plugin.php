@@ -586,6 +586,22 @@ class Plugin_Shop extends Plugin
 
 	}
 
+
+	function digital_files() 
+	{
+
+		$order_id = $this->attribute('order_id', '');
+
+		
+		$files =  $this->orders_m->get_files($order_id);
+		
+
+		//var_dump($product);die;
+		return (array) $files;	
+
+	}
+
+
 	function product() 
 	{
 

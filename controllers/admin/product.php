@@ -296,53 +296,6 @@ class Product extends Products_admin_Controller
 	
 	
 
-	/*
-	 * View as customer:same as the public handler, just gets data even if hidden
-	 * 
-	public function view($id = 0) 
-	{
-		
-		//Always get by id here
-		$data->product = $this->pyrocache->model('products_admin_m', 'get', $id);  
-
-		// redirect if not found
-		if (count($data->product)==0) { echo "Unable to find"; die;};
-		
-
-		$data->display_views = $this->show_views;
-		
-		
-		// Collect info about the product
-		$data->product->category = $this->pyrocache->model('categories_m', 'get', $data->product->category_id);  
-		$data->images = $this->pyrocache->model('products_admin_m', 'get_images', $data->product->id);  
-		$data->product->keywords = Keywords::get_array($data->product->keywords);
-
-		$data->product->properties = $this->products_admin_m->get_product_attributes($data->product->id); 
-		$data->product->options = $this->options_m->get_options($data->product->id); 
-
-
-		
-		// set brand name (string)
-		$branddata = $this->pyrocache->model('brands_m', 'get', $data->product->brand_id);  
-		$data->product->brand_name = ($branddata)?$branddata->name : NULL;
-
-		
-
-		// Display the product
-		$this->template	
-				->enable_parser(TRUE)
-				->enable_minify(TRUE)
-				->set_layout(FALSE)
-				//->set_layout('default')
-				//->set_theme($this->settings->default_theme)	
-				->build('products/single', $data);
-
-	}
-	*/
-	
-
-
-
 	public function load( $id, $panel = '' ) 
 	{
 
@@ -403,7 +356,8 @@ class Product extends Products_admin_Controller
 
 		if($panel =='files')
 		{
-			$data->digital_files = $this->products_admin_m->get_files($data->id);
+			$this->load->model('shop_files_m');
+			$data->digital_files = $this->shop_files_m->get_files($data->id);
 		}	
 
 		if($panel =='design')
@@ -426,7 +380,9 @@ class Product extends Products_admin_Controller
 
 	public function delete_file($file_id)
 	{
-		$status = $this->products_admin_m->delete_file($file_id);
+		$this->load->model('shop_files_m');
+
+		$status = $this->shop_files_m->delete_file($file_id);
 
 
 		if($status)
@@ -563,8 +519,8 @@ class Product extends Products_admin_Controller
 	public function upload_files($product_id)
 	{
 
-		
-		$this->load->model('shop/products_admin_m');
+		$this->load->model('shop_files_m');
+
 
 
 		foreach($_FILES as $key => $_file)
@@ -583,7 +539,7 @@ class Product extends Products_admin_Controller
 				$data['data'] = file_get_contents ( $_file['tmp_name'] );
 
 
-				$this->products_admin_m->add_file($data);
+				$this->shop_files_m->add_file($data);
 	    	}	
 
 

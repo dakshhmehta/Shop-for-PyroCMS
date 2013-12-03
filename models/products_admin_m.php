@@ -478,38 +478,7 @@ class Products_admin_m extends Products_m
 	
 	}
 
-	/**
-	 * This creates a file in the DB
-	 * 
-	 * @param  [type] $input [description]
-	 * @return [type]        [description]
-	 */
-	public function add_file($input)
-	{
 
-		$to_insert = array(
-				'product_id' => $input['product_id'],
-				'filename' => $input['filename'], 
-				'type' => $input['type'], 
-				'ext' => $input['ext'],
-				'data' => $input['data'],
-		);
-
-		$this->db->insert('shop_product_files', $to_insert );
-	
-	}	
-
-	public function delete_file($file_id)
-	{
-		$this->db->where('id', $file_id);
-		return $this->db->delete('shop_product_files'); 		
-	}
-
-	public function get_files($product_id)
-	{
-		return $this->db->select('id,product_id,filename,ext,type')->where('product_id',$product_id)->get('shop_product_files')->result(); 
-	}
-	
 
 	
 	protected function filter_category_list($filter = array())
