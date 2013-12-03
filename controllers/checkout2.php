@@ -61,6 +61,10 @@ class Checkout2 extends Public_Controller {
             $this->session->set_userdata('user_id', $this->current_user->id);
             redirect('shop/checkout2/billing');
         }
+        else
+        {
+            $this->session->set_userdata('user_id', 0);
+        }
 
         if( $this->input->post() ) 
         {
@@ -466,7 +470,7 @@ class Checkout2 extends Public_Controller {
     private function _get_order_params()
     {
 
-        $input['user_id'] =  $this->session->userdata('customer_id');
+        $input['user_id'] =  $this->session->userdata('user_id');
         $input['cost_items'] =  $this->sfcart->items_total();
         $input['cost_shipping'] =   $this->session->userdata('shipping_cost'); 
         //$input['cost_total'] = ($inputs['cost_items'] + $inputs['cost_shipping']);
@@ -526,7 +530,7 @@ class Checkout2 extends Public_Controller {
         $array_data = array();
         $array_data['email'] = $address->email;
         $array_data['phone'] = $address->phone;
-        $array_data['user_id'] =  $this->session->userdata('customer_id');
+        $array_data['user_id'] =  $this->session->userdata('user_id');
         $array_data['cost_total'] =  $this->sfcart->total();
         $array_data['shipping_address'] = $this->session->userdata('shipping_address_id');
         $array_data['billing_address'] =  $this->session->userdata('billing_address_id');

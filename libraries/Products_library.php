@@ -186,7 +186,8 @@ class Products_library
 	 * Function to get Shop Setting
 	 *
 	 */
-	public function get_shop_setting(){
+	public function get_shop_setting()
+	{
 		$results = array();
 		$this->CI->load->model('settings/settings_m');
 		
@@ -198,7 +199,9 @@ class Products_library
 		$shopset = $this->CI->settings_m->get_by(array('slug' => 'ss_currency_symbol'));
 		$currency_symbol = "";
 		$symbol_opt = explode('|', $shopset->options);
-		if(!empty($symbol_opt) && !empty($shopset->value)){
+
+		if(!empty($symbol_opt) && !empty($shopset->value))
+		{
 			$symval = explode("=", $symbol_opt[$shopset->value]);
 			$currency_symbol = trim($symval[1]);
 		}
@@ -216,10 +219,13 @@ class Products_library
 	 * used by shop front end and widget
 	 * $params = array()
 	 */
-	public function get_products($params = array(), $details = false, $url = "", $row = 10, $page = 1){
+	public function get_products($params = array(), $details = false, $url = "", $row = 10, $page = 1)
+	{
 		
 		$results = Array('total'=> false, 'pagination'=> false, 'data'=> false);
-		if(empty($url)){
+
+		if(empty($url))
+		{
 			$url = site_url('shop/home/%s');
 		}
 		
@@ -227,7 +233,8 @@ class Products_library
 		$this->CI->load->model('shop/products_front_m');
 		
 		// default only show available inventory (instock, on hand > low qty, unlimited stock)
-		if(empty($params['show_available'])){
+		if(empty($params['show_available']))
+		{
 			$params['show_available'] = true;
 		}
 
@@ -239,22 +246,33 @@ class Products_library
         $results['data'] = $this->CI->products_front_m->get_many_custom('public', $params+array('limit'=>$pagination['limit']));
 	    //$results['data'] = $this->CI->pyrocache->model('products_front_m', 'get_many_custom', array('public', $params+array('limit'=>$pagination['limit'])));
 	
-		if($total_rows > 0){
-			if(strtoupper($this->shop_setting["currency_code"]) == "IDR"){
+		if($total_rows > 0)
+		{
+			if(strtoupper($this->shop_setting["currency_code"]) == "IDR")
+			{
 				$decimal = 0;
-			}else{
+			}
+			else
+			{
 				$decimal = 2;
 			}
-			foreach($results['data'] as $key => $row){
+
+			foreach($results['data'] as $key => $row)
+			{
 				$results['data'][$key]->options = $this->CI->products_front_m->get_product_options_info($row->id);
 				$results['data'][$key]->price = number_format($results['data'][$key]->price, $decimal, $this->shop_setting["decimal_sep"], $this->shop_setting["thousand_sep"]);
 			}
 		}
+
 		$results['total'] = $total_rows;
-		if($details){
+
+		if($details)
+		{
 			$results['pagination'] = $pagination;
 		}
+
 		return $results;
+
 	}
 }
 // END Cart Class

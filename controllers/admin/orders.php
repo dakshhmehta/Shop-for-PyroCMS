@@ -119,7 +119,7 @@ class Orders extends Admin_Controller
 		$this->data->order = $this->orders_m->get($id);
 		
 		// Order Contents
-		$this->data->contents = $this->orders_m->get_order_items($this->data->order->id,TRUE);		
+		$this->data->contents = $this->orders_m->get_order_items($this->data->order->id);		
 				
 		// Get Shipping Address
 		$this->data->shipping_address = $this->orders_m->get_address($this->data->order->shipping_address_id);
