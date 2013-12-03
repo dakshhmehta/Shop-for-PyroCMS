@@ -6,21 +6,16 @@
 if you are a developer or designer please look through the [Wiki](https://bitbucket.org/pyromaniac/shop-for-pyrocms/wiki/Home)
 
 
-## Support ##
+# Support #
 Support for `SHOP 1.x` will be available until `1 Quarter of 2015`. We will be moving to the `PyroCMS 3.0` framework as of `1 November 2014`.
 
 
 **********
 
-* [[For Developers]]
-* [[For Designers]]
-* [[Features]]
-* [[Installation]]
-* [[License]]
-* [[Roadmap]]
-* [[Video Tutorials]]
-* [[Feedback]]
-* [[The Team]]
+* [For Designers](https://bitbucket.org/pyromaniac/shop-for-pyrocms/wiki/For_Designers)
+* [License](https://bitbucket.org/pyromaniac/shop-for-pyrocms/wiki/License)
+* [The Team](https://bitbucket.org/pyromaniac/shop-for-pyrocms/wiki/The_Team)
+* [Wiki](https://bitbucket.org/pyromaniac/shop-for-pyrocms/wiki/Home)
 
 **********
 
