@@ -17,5 +17,4 @@ Support for `SHOP 1.x` will be available until `1 Quarter of 2015`. We will be m
 * [The Team](https://bitbucket.org/pyromaniac/shop-for-pyrocms/wiki/The_Team)
 * [Wiki](https://bitbucket.org/pyromaniac/shop-for-pyrocms/wiki/Home)
 
-**********
 

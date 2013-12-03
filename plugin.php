@@ -25,6 +25,121 @@
  */
 class Plugin_Shop extends Plugin 
 {
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Shop',
+	);
+	public $description = array(
+		'en' => 'Access user and cart information for almost any part of SHOP.',
+	);
+
+
+	/**
+	 * Returns a PluginDoc array that PyroCMS uses 
+	 * to build the reference in the admin panel
+	 *
+	 * All options are listed here but refer 
+	 * to the Asset plugin for a larger example
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array(
+			'daily_deal' => array(
+				'description' => array(
+					'en' => 'Display the current daily deal active in SHOP.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|cover_id|slug|name|description',
+				'attributes' => array(),
+			),		
+			'related' => array(
+				'description' => array(
+					'en' => 'Display a list of related products to another product.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|cover_id|slug|name|description',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'int',
+						'required' => true,
+					),
+					'max' => array(
+						'type' => 'integer',
+						'default' => '0',
+						'required' => false,
+					),
+				),
+			),	
+			'options' => array(
+				'description' => array(
+					'en' => 'Display all hte options assigned to a Product.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'display|label|type',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'integer',
+						'required' => true,
+					),
+					'txtBoxClass' => array(
+						'type' => 'String',
+						'default' => '',
+						'required' => false,
+					),
+				),
+			),
+			'category' => array(
+				'description' => array(
+					'en' => 'Get all fields of a particular category by Category-ID, OR just get the value of a particular field.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|slug|name|user_data',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'integer',
+						'required' => true,
+					),
+					'field' => array(
+						'type' => 'String',
+						'default' => '',
+						'required' => false,
+					),
+				),
+			),	
+			'cart' => array(
+				'description' => array(
+					'en' => 'Display the cart contents.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|rowid|name|qty|price|subtotal',
+				'attributes' => array(),
+			),			
+			'currency' => array(
+				'description' => array(
+					'en' => 'Display the Shop default currency symbol OR format a float value to the Shop currency format.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => 'id|rowid|name|qty|price|subtotal',
+				'attributes' => array(
+					'format' => array(
+						'type' => 'float',
+						'required' => false,
+					),
+				),
+			),		
+						
+		);
+	
+		return $info;
+	}
 
 	function dailydeal() 
 	{
@@ -302,7 +417,6 @@ class Plugin_Shop extends Plugin
 
 		$id = $this->attribute('id', '');
 		$field = $this->attribute('field', '');
-		$is = $this->attribute('is', '');
 
 		$category = $this->categories_m->get( $id );
 	
