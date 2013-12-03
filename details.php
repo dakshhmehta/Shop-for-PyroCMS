@@ -33,7 +33,7 @@ class Module_Shop extends Module
 	 * 
 	 * @var string
 	 */
-	public $version = '1.0.0.133';  
+	public $version = '1.0.0.135';  
 
 
 
@@ -208,15 +208,11 @@ class Module_Shop extends Module
 		 
 		switch ($old_version) 
 		{
+			
 			case '1.0.0.132':			
 				$this->_install_table('shop_product_files');
-				//break;
-			case '1.0.0.125':
-				$this->_install_table('shop_product_files');
 				$this->_install_table('shop_downloads');
-
 				$this->_install_table_col('shop_products','req_shipping');
-
 				break;
 
 			default:

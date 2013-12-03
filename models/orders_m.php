@@ -185,32 +185,6 @@ class Orders_m extends MY_Model
 
 	}
 
-
-	/**
-	 * First get all product by this order
-	 * Then get each file and return in the right format for the plugin
-	 * 
-	 * @param  [type] $order_id [description]
-	 * @return [type]           [description]
-	 */
-	public function get_files($order_id)
-	{
-		$products = $this->db->select('product_id,order_id')->where('order_id',$order_id)->get('shop_order_items')->result(); 
-
-		$files = array();
-		foreach($products as $product)
-		{
-			$f = $this->db->select('id,product_id,filename,ext,type')->where('product_id',$product->product_id)->get('shop_product_files')->result(); 	
-
-			foreach ($f as $key => $value) 
-			{
-				$files[$key] = $value;
-			}
-		}	
-
-		return $files;
-		
-	}	
 	
 	/*
 	 * get the file contents for a download

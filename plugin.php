@@ -597,12 +597,19 @@ class Plugin_Shop extends Plugin
 	function digital_files() 
 	{
 
+		$this->load->model('shop_files_m');
 		$order_id = $this->attribute('order_id', '');
-
+		$product_id = $this->attribute('product_id', 'notset');
 		
-		$files =  $this->orders_m->get_files($order_id);
+		if($product_id !== 'notset')
+		{
+			$files =  $this->shop_files_m->get_files($product_id);
+		}
+		else
+		{
+			$files =  $this->shop_files_m->get_files_by_order($order_id);
+		}
 		
-
 		//var_dump($product);die;
 		return (array) $files;	
 

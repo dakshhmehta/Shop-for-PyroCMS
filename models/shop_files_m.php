@@ -192,9 +192,9 @@ class Shop_files_m extends MY_Model
 		{
 			$f = $this->db->select('id,product_id,filename,ext,type')->where('product_id',$product->product_id)->get('shop_product_files')->result(); 	
 
-			foreach ($f as $key => $value) 
+			foreach ($f as  $value) 
 			{
-				$files[$key] = $value;
+				$files[] = $value;
 			}
 		}	
 
