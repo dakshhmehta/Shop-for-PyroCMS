@@ -13,7 +13,7 @@ I created the SHOP program because there is a lack of ecommerce options for `Pyr
 ## Developer
 * `Salvatore Bordonaro` - Creator / Developer - since `2013`
 
-# Contributors
+## Contributors
 * `Alison McDonald` - Language, Usability and Testing  - Contributor since `2013`
 * `Eko isa` / Developer - Developer / Contributor since `2013`
 * `John Ashton` / Developer /UX  - Contributor since `2013`
