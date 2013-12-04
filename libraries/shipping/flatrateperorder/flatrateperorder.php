@@ -56,10 +56,7 @@ class FlatratePerOrder_ShippingMethod {
 	public function calc($options, $packages, $from_address = array(), $to_address = array() )
 	{
 		
-
-		$handling = 0;
 		$cost = 0;
-		$discount = 0;
 
 		$shippable_item_count = 0; //if no shiipable items - return free shpping
 		
@@ -91,10 +88,8 @@ class FlatratePerOrder_ShippingMethod {
 		$this->trim_shipping($cost, $options, $shippable_item_count);
 
 
-		//
-		// This is the simplest, just return the amount set by the admin
-		//
-		return array($this->id,$this->title,$this->desc, $cost, $handling, $discount); // == $0 total
+
+		return $cost;
 
 	}
 	

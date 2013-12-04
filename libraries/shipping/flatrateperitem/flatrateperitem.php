@@ -61,28 +61,35 @@ class FlatratePerItem_ShippingMethod {
 	public function calc($options, $packages, $from_address = array(), $to_address = array() )
 	{
 		
-		//
-		//	In the options we store the multiplier
-		//
+		/**
+		 * In the options we store the multiplier
+		 * @var [type]
+		 */
 		$pi  = floatval($options['amount']); 
-		$cost = 0;
-		$handling =  floatval($options['handling']);
-		$discount = 0;
+
+
+
+		/**
+		 * Set the cost to the default handling
+		 * @var [type]
+		 */
+		$cost = floatval($options['handling']);
+
 		
-		
-		//
-		// Each package contains a set of items
-		// We count the items multiply by the amount per item
-		//
+		/**
+		 * Each package contains a set of items,
+		 * We count the items multiply by the amount per item
+		 */
 		foreach ($packages as $package)
 		{
 			$cost += ($package->item_count * $pi);
 		}
-		
-		//
-		// Then simply return the total cost
-		//
-		return array($this->id,'Flat Rate Shipping Per Item','', $cost ,$handling,$discount); // == $0 total
+
+
+		/**
+		 * Then simply return the total cost
+		 */
+		return $cost;
 
 	}
 	

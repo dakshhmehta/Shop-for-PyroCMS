@@ -55,10 +55,7 @@ class FreePost_ShippingMethod {
 
 	public function calc($options, $packages, $from_address = array(), $to_address = array() )
 	{
-
-		$cost = 0; $handling = 0; $discount = 0;
-
-		return array($this->id,$this->title,$this->desc, $cost, $handling, $discount); // == $0 total
+		return 0; 		
 	}
 	
 

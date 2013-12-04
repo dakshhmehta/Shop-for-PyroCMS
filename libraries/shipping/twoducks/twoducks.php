@@ -85,8 +85,6 @@ class Twoducks_ShippingMethod extends Twoducks_base
 		$this->add('Start calc for:' . $this->title);
 
 		$cost = 0;
-		$handling = 0;
-		$discount = 0;
 
 		$shippable_item_count = 0; //if no shiipable items - return free shpping
 
@@ -220,13 +218,8 @@ class Twoducks_ShippingMethod extends Twoducks_base
 
 
 		$this->add('shippable count: ' .$shippable_item_count);
-		//echo $this->show();
-		//die;
-
-
 	 
-
-		return array($this->id,$this->title,$this->desc, $cost, 0, 0); // == $0 total
+		return $cost; 
 
 	}
 

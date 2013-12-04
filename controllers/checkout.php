@@ -570,14 +570,21 @@ class Checkout extends Public_Controller {
     
         $from_address = array(); //dispatch address
 
+
         $parcels = sf_sort_into_packages( $this->sfcart );
     
+
+        /**
+         * Create a dispatcher/shipping method object
+         */
         $dispatcher = $this->shipping_library->get( $id );
+
     
 
-        $shipping_cost_array = $dispatcher->calc($dispatcher->options, $parcels, $to_address, $to_address);
+        $shipping_cost = $dispatcher->calc($dispatcher->options, $parcels, $to_address, $to_address);
 
-        return $shipping_cost_array[3];
+
+        return $shipping_cost;
 
     }  
 
