@@ -75,7 +75,7 @@ class Core_debug_library extends Core_library
 		    'shop:product', 
 		    'shop:products', 
 		    $id,
-		    'shop/product/'.$id,
+		    'shop/products/product/'.$id,
 		    $name,
 		    $desc, 
 		    array(

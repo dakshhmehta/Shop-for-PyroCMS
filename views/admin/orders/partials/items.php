@@ -15,7 +15,7 @@
 						<?php foreach ($contents as $item): ?>
 							<tr>
 								<td><?php echo img(site_url('files/thumb/' . $item->cover_id)); ?></td>
-								<td><?php echo anchor('shop/product/' . $item->slug, $item->name, array('class'=>'nc_links')); ?>
+								<td><?php echo anchor('shop/products/product/' . $item->slug, $item->name, array('class'=>'nc_links')); ?>
 								<br /><br />
 									<?php 
 										

@@ -74,7 +74,7 @@
 					<td>{{qty}}</td>
 					<td>{{title}}</td>
 					<td>{{cost_item}}</td>$id, $order_id, $email
-					<td><a href="{{ url:site }}shop/product/{{ product_id }}">view</a></td>
+					<td><a href="{{ url:site }}shop/products/product/{{ product_id }}">view</a></td>
 				</tr>
 
 

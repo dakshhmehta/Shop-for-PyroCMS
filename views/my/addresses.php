@@ -17,7 +17,7 @@ if (validation_errors())
 ?>
 <div class="NC-Address_List">
 
-						<?php echo anchor('shop/my/address/', lang('new'), 'class="button"'); ?>
+	<?php echo anchor('shop/my/addresses/address/', lang('new'), 'class="button"'); ?>
 
 	<?php if (count($items)) : ?>
 		<table>
@@ -40,7 +40,7 @@ if (validation_errors())
 					<td><?php echo $item->email; ?></td>
 					<td><?php echo $item->address1.' '.$item->address2.', '.$item->zip. ' '. $item->city; ?></td>
 					<td>
-						<?php echo anchor('shop/my/delete_address/'.$item->id, lang('delete'), 'class="confirm button"'); ?>
+						<?php echo anchor('shop/my/addresses/delete/'.$item->id, lang('delete'), 'class="confirm button"'); ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>

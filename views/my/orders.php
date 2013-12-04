@@ -36,7 +36,7 @@
 						<td>{{cost_total}}</td>
 						<td>{{status}}</td>
 						<td>
-								<a href="{{ url:site }}shop/my/order/{{id}}" class="">view</a>
+								<a href="{{ url:site }}shop/my/orders/order/{{id}}" class="">view</a>
 
 								{{shop:order_is_unpaid id="{{id}}" }}
 									<a href="{{ url:site }}shop/payment/order/{{id}}" class="">pay now</a>

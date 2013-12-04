@@ -79,7 +79,8 @@ class Orders_m extends MY_Model
 				'shipping_address_id' => $inputs['shipping_address_id'],
 				'session_id' => $inputs['session_id'], 
 				'ip_address' => $inputs['ip_address'],	
-				'trust_score' => $inputs['trust_score'],			
+				'trust_score' => $inputs['trust_score'],	
+				'pin' => $inputs['pin'],		
 				'order_date' => time(),
 		));
 	

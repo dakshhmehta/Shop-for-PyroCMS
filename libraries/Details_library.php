@@ -609,7 +609,7 @@ class Details_library
 				'shipping_address_id' => array('type' => "INT", 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0),
 				'session_id' => array('type' => 'VARCHAR', 'constraint' => '40', 'default' => '',),
 				'ip_address' => array('type' => 'VARCHAR', 'constraint' => '40', 'default' => '',),
-				'tracking_code' => array('type' => 'VARCHAR', 'constraint' => '110', 'default' => '',),
+				'pin' => array('type' => 'VARCHAR', 'constraint' => '20', 'default' => '',),
 				'data' => array('type' => 'VARCHAR', 'constraint' => '500', 'default' => '',),
 				'trust_core' => array('type' => 'INT', 'constraint' => '11'),
 				'order_date' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE,),

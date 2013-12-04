@@ -208,8 +208,12 @@ class Module_Shop extends Module
 		 
 		switch ($old_version) 
 		{
-			
-			case '1.0.0.132':			
+			case '1.0.0.135':
+				break;				
+			case '1.0.0.133':	
+				//$this->_remove_table_col('shop_orders','tracking_code');
+				$this->_install_table_col('shop_orders','pin');
+
 				$this->_install_table('shop_product_files');
 				$this->_install_table('shop_downloads');
 				$this->_install_table_col('shop_products','req_shipping');
@@ -251,7 +255,7 @@ class Module_Shop extends Module
 	{
 		
 		//first drop the col if exist
-		$this->dbforge->drop_column($table_name, $col_name);
+		//$this->dbforge->drop_column($table_name, $col_name);
 
  		$_table = $this->details_library->get_tables($table_name);
 
@@ -262,6 +266,11 @@ class Module_Shop extends Module
 		
 	}
 
+	private function _remove_table_col($table_name,$col_name)
+	{	
+		$this->dbforge->drop_column($table_name, $col_name);
+		return TRUE;
+	}
 
 	/**
 	 * Upgrades 103 -> 104
