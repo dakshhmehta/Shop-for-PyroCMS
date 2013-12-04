@@ -27,11 +27,13 @@ class Packages extends Admin_Controller
 {
 
 	protected $section = 'packages';
+	private $data;
 
 	public function __construct() 
 	{
 		
 		parent::__construct();
+		$this->data = new stdClass();
 
 		//check if has access
 		role_or_die('shop', 'admin_checkout');
@@ -49,12 +51,12 @@ class Packages extends Admin_Controller
 	public function index() 
 	{
 
-		$data->installed = $this->package_library->get_all_merge();
-		$data->uninstalled = $this->package_library->get_uninstalled();
+		$this->data->installed = $this->package_library->get_all_merge();
+		$this->data->uninstalled = $this->package_library->get_uninstalled();
 
 		$this->template
 				->title($this->module_details['name'])
-				->build('admin/packages/items', $data);
+				->build('admin/packages/items', $this->data);
 	}
 
 	/**
@@ -65,14 +67,14 @@ class Packages extends Admin_Controller
 	{
 	
 		// Get the Package from the system 
-		$data->package_type = $this->package_library->get($id);
+		$this->data->package_type = $this->package_library->get($id);
 
 		//Get any package options
-		$data->options = $data->package_type->options;
+		$this->data->options = $this->data->package_type->options;
 	
 
 		//  Set Validation Rules Package fields
-		$this->form_validation->set_rules($data->package_type->fields);
+		$this->form_validation->set_rules($this->data->package_type->fields);
 	
 		// If post back lets call validation
 		if ($this->form_validation->run()) 
@@ -95,7 +97,7 @@ class Packages extends Admin_Controller
 	
 		$this->template
 					->title($this->module_details['name'], lang('create'))
-					->build('admin/packages/form', $data);
+					->build('admin/packages/form', $this->data);
 	}
 	
 	

@@ -29,17 +29,12 @@ include_once( dirname(__FILE__) . '/'. 'twoducks_base.php');
 class Twoducks_ShippingMethod extends Twoducks_base
 {
 
-	public $name = 'Two Ducks Custom Shipping'; 
-	public $title =  'Two Ducks Custom Shipping'; 
+	public $name =  'Two Ducks Custom Shipping'; 
 	public $desc = 'Australia wide - Shipping';
 	public $author = 'inspiredgroup.com.au';
 	public $website = 'http://inspiredgroup.com.au';
 	public $version = '1.0';
 	public $image = '';
-
-	public $_shipping = 0;
-	public $_handling = 0;
-	public $_discount = 0;
 
 
 	public $fields = array(	
@@ -85,8 +80,6 @@ class Twoducks_ShippingMethod extends Twoducks_base
 		$this->add('Start calc for:' . $this->title);
 
 		$cost = 0;
-		$handling = 0;
-		$discount = 0;
 
 		$shippable_item_count = 0; //if no shiipable items - return free shpping
 
@@ -220,13 +213,21 @@ class Twoducks_ShippingMethod extends Twoducks_base
 
 
 		$this->add('shippable count: ' .$shippable_item_count);
-		//echo $this->show();
-		//die;
-
-
 	 
+		return $cost; 
 
-		return array($this->id,$this->title,$this->desc, $cost, 0, 0); // == $0 total
+	}
+
+
+	/**
+	 * The estimate shipping method used for single product est
+	 * @param  [type] $product [description]
+	 * @param  string $zip     [description]
+	 * @param  string $country [description]
+	 * @return [type]          [description]
+	 */
+	public function estimate($product, $zip = '2000', $country = 'AU')
+	{
 
 	}
 
@@ -250,13 +251,6 @@ class Twoducks_ShippingMethod extends Twoducks_base
 		{
 			//$count++;
 
-			
-			//var_dump($val);
-
-			
-			//if($count >= 2)
-			
-
 	
 			if( ($val['ignor_shipping']==1) OR ($val['ignor_shipping']=='1') )
 			{
@@ -269,39 +263,10 @@ class Twoducks_ShippingMethod extends Twoducks_base
 			}
 		
 
-			/*
-			if(isset($package->items[$key]['options']['delivery-type-inv']))
-			{
-
-				if($package->items[$key]['options']['delivery-type-inv']['value'] == 'digital')
-				{
-					// Remove from package
-					unset($package->items[$key]);
-					continue;
-					
-				}
-			}
-
-			if(isset($package->items[$key]['options']['delivery-type-birth']))
-			{
-				
-
-				if($package->items[$key]['options']['delivery-type-birth']['value'] == 'digital')
-				{
-					// Remove from package
-					unset($package->items[$key]);
-					continue;
-					
-				}
-			}
-			*/
-
 
 		}
 	
 	}
-
-
 
 
 

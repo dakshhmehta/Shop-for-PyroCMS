@@ -164,8 +164,14 @@ class Product extends Products_admin_Controller
 			$input = $this->input->post();
 
 
+
 			//upload files
+			$this->upload_files($data->id);
+
+			//upload images
 			$this->upload($data->id);
+
+
 
 
 
@@ -290,53 +296,6 @@ class Product extends Products_admin_Controller
 	
 	
 
-	/*
-	 * View as customer:same as the public handler, just gets data even if hidden
-	 * 
-	public function view($id = 0) 
-	{
-		
-		//Always get by id here
-		$data->product = $this->pyrocache->model('products_admin_m', 'get', $id);  
-
-		// redirect if not found
-		if (count($data->product)==0) { echo "Unable to find"; die;};
-		
-
-		$data->display_views = $this->show_views;
-		
-		
-		// Collect info about the product
-		$data->product->category = $this->pyrocache->model('categories_m', 'get', $data->product->category_id);  
-		$data->images = $this->pyrocache->model('products_admin_m', 'get_images', $data->product->id);  
-		$data->product->keywords = Keywords::get_array($data->product->keywords);
-
-		$data->product->properties = $this->products_admin_m->get_product_attributes($data->product->id); 
-		$data->product->options = $this->options_m->get_options($data->product->id); 
-
-
-		
-		// set brand name (string)
-		$branddata = $this->pyrocache->model('brands_m', 'get', $data->product->brand_id);  
-		$data->product->brand_name = ($branddata)?$branddata->name : NULL;
-
-		
-
-		// Display the product
-		$this->template	
-				->enable_parser(TRUE)
-				->enable_minify(TRUE)
-				->set_layout(FALSE)
-				//->set_layout('default')
-				//->set_theme($this->settings->default_theme)	
-				->build('products/single', $data);
-
-	}
-	*/
-	
-
-
-
 	public function load( $id, $panel = '' ) 
 	{
 
@@ -391,9 +350,16 @@ class Product extends Products_admin_Controller
 		if($panel =='shipping')
 		{
 			$data->package_select 	= $this->package_library->build_list_select(array('current_id' => $data->package_id));			
-			$data->product_type_select = $this->package_library->build_product_type_select(array('current_id' => $data->product_type));
+			$data->req_shipping_select = $this->package_library->build_requires_shipping_select(array('current_id' => $data->req_shipping));
+
 		}	
-		
+
+		if($panel =='files')
+		{
+			$this->load->model('shop_files_m');
+			$data->digital_files = $this->shop_files_m->get_files($data->id);
+		}	
+
 		if($panel =='design')
 		{
 			$this->load->library('design_library');
@@ -409,6 +375,24 @@ class Product extends Products_admin_Controller
 		$this->load->view('admin/products/partials/'.$panel, $data); 
 
 
+
+	}
+
+	public function delete_file($file_id)
+	{
+		$this->load->model('shop_files_m');
+
+		$status = $this->shop_files_m->delete_file($file_id);
+
+
+		if($status)
+		{
+			echo json_encode(array('status' => 'success'));die;
+		}
+		else
+		{
+			echo json_encode(array('status' => 'error'));die;
+		}
 
 	}
 
@@ -525,6 +509,48 @@ class Product extends Products_admin_Controller
 
 	}
 
+
+
+	/**
+	 * Upload images from the images tab
+	 * 
+	 * @return [INT] [ID of the image uploaded]
+	 */
+	public function upload_files($product_id)
+	{
+
+		$this->load->model('shop_files_m');
+
+
+
+		foreach($_FILES as $key => $_file)
+		{
+
+
+			if( ! in_array($key, array("digital_downloads_1") )) 
+			{
+				continue;
+			}
+			else
+			{
+				$data = array();
+				$data['product_id'] = $product_id;
+				$data['filename'] = $_file['name'];
+				$data['data'] = file_get_contents ( $_file['tmp_name'] );
+
+
+				$this->shop_files_m->add_file($data);
+	    	}	
+
+
+		}
+
+
+	}	
+
+
+
+
 	/**
 	 * Upload images from the images tab
 	 * 
@@ -551,6 +577,12 @@ class Product extends Products_admin_Controller
 
 		foreach($_FILES as $key => $_file)
 		{
+			//only process image upload fields here
+			if( ! in_array($key, array("fileupload_1","fileupload_2","fileupload_3","fileupload_4") )) 
+			{
+				continue;
+			}
+
 
 			//check to see if tried to upload file
 			if($folder_id==NULL) 

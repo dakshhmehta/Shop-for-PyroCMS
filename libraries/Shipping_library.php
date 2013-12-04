@@ -431,9 +431,6 @@ class Shipping_library extends Core_library
 		);
 
 
-		//var_dump($input);die;
-
-
 		//not all gateways have options
 		if(isset($input['options']))
 		{

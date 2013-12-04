@@ -85,9 +85,10 @@ class Events_Shop
 
 
 
-    public function load_cart($data = array()) {
+    public function load_cart($data = array()) 
+    {
 
-        class_exists('Cart') OR $this->load->library('cart');
+        class_exists('SFCart') OR $this->load->library('shop/SFCart');
     }
 
 
@@ -204,7 +205,7 @@ class Events_Shop
 		
 		//Lang
 		$this->ci->lang->load('shop/shop_front');  
-
+		$this->ci->lang->load('shop/shop');  
 
 
 	}

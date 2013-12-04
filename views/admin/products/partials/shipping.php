@@ -15,15 +15,15 @@
 
 						<li class="<?php echo alternator('', 'even'); ?>">
 
-									<label for="brand_id"><?php echo lang('shop:products:product_type'); ?> <span>*</span>
+									<label for="brand_id"><?php echo lang('shop:products:req_shipping'); ?> <span>*</span>
 										<small>
-											<?php echo lang('shop:products:product_type_description'); ?>
+											<?php echo lang('shop:products:req_shipping_description'); ?>
 										</small>
 									</label>
 									<div class="input">
-										<select name="product_type" id="product_type">
+										<select name="req_shipping" id="req_shipping">
 											<option value=""><?php echo lang('global:select-pick'); ?></option>
-											<?php echo $product_type_select; ?> 
+											<?php echo $req_shipping_select; ?> 
 										</select>
 									</div>
 						</li>	

@@ -1,6 +1,6 @@
 
 
-<form name="" method="post" action="{{url:site}}shop/checkout2/">
+<form name="" method="post" action="{{url:site}}shop/checkout/">
     <fieldset>
         <p>Continue as guest or register a user account</p><br />
 
@@ -42,7 +42,7 @@
 
     <form name="logincheckout" method="post" action="{{url:site}}users/login">
 
-        <input type='hidden' name='redirect_to' value='shop/checkout2'>
+        <input type='hidden' name='redirect_to' value='shop/checkout'>
 
         <ul>
             <li>

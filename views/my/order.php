@@ -82,12 +82,30 @@
 					<td>{{cost_item}}</td>
 					<td><a href="{{ url:site }}shop/product/{{ product_id }}">view</a></td>
 				</tr>
+
+
+
 			{{/contents}}
+
 		</tbody>
+
+
+
 	</table>
-	
-
-
+	<h2>Downloads</h2>
+	<table>
+		<tfoot>
+			{{shop:digital_files order_id=order.id }}
+				<tr>
+					<td></td>
+					<td>{{id}}</td>
+					<td>{{filename}}</td>
+					<td><a href='{{url:site}}shop/my/download_file/{{id}}/{{order.id}}'>download {{filename}}</a></td>
+					
+				</tr>
+			{{/shop:digital_files}}
+		</tfoot>
+	</table>
 	
 	<h4>Order Messages</h4>
 	

@@ -24,6 +24,7 @@
 				<?php endif; ?>
 
 				<li><a class="tab-loader"  data-load="shipping" href="#shipping-tab"><span><?php echo lang('shop:products:shipping'); ?></span></a></li>
+				<li><a class="tab-loader"  data-load="files" href="#files-tab"><span><?php echo lang('shop:products:files'); ?></span></a></li>
 
 				<li><a class="tab-loader"  data-load="design" href="#design-tab"><span><?php echo lang('shop:products:design'); ?></span></a></li>
 
