@@ -26,17 +26,11 @@
 class FlatratePerItem_ShippingMethod {
 
 	public $name = 'Flat Rate Per Item'; 
-	public $title = 'Flat Rate Per Item'; 
 	public $desc = 'Flat Rate Per Item';
 	public $author = 'inspiredgroup.com.au';
 	public $website = 'http://inspiredgroup.com.au';
 	public $version = '1.0';
 	public $image = '';
-
-	public $_shipping = 0;
-	public $_handling = 0;
-	public $_discount = 0;
-
 
 	public $fields = array(
 		array(
