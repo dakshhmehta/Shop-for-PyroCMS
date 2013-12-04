@@ -142,7 +142,7 @@ class Orders extends Admin_Controller
 		$this->data->notes = $this->orders_m->get_notes_by_order($id);
 		
 		// Get User Details
-		$this->data->customer = $this->orders_m->get_user_data($this->data->order->user_id);  
+		$this->data->customer = $this->orders_m->get_user_data($this->data->order->user_id,  $this->data->invoice );  
 
 		//var_dump($this->data);die;
 		

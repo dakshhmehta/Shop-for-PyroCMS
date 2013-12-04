@@ -7,6 +7,13 @@
 								<?php echo anchor('user/' . $customer->id, $customer->display_name,array('class'=>'nc_links')); ?>
 							</div>
 						</li>
+					<?php else: ?>
+						<li>
+							<label><?php echo lang('shop:orders:customer'); ?>:</label>
+							<div class="value">
+								<?php echo $customer->display_name; ?> (Guest)
+							</div>
+						</li>
 					<?php endif; ?>
 					<li>
 						<label><?php echo lang('shop:orders:items_amount'); ?></label>

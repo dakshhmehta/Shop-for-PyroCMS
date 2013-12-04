@@ -33,7 +33,7 @@
 						<?php $class_name = 's_'.$order->status.''; ?>
 						<div class='s_status <?php echo $class_name;?>'><?php echo lang('shop:orders:'.$order->status); ?></div>
 				</div>
-			</li>					  
+			</li>								  
 		 </ul>	
 	</div>	
 </fieldset>
