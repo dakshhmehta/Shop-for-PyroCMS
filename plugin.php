@@ -68,7 +68,7 @@ class Plugin_Shop extends Plugin
 						'required' => true,
 					),
 					'max' => array(
-						'type' => 'integer',
+						'type' => 'Integer',
 						'default' => '0',
 						'required' => false,
 					),
@@ -83,7 +83,7 @@ class Plugin_Shop extends Plugin
 				'variables' => 'display|label|type',
 				'attributes' => array(
 					'id' => array(
-						'type' => 'integer',
+						'type' => 'Integer',
 						'required' => true,
 					),
 					'txtBoxClass' => array(
@@ -93,6 +93,15 @@ class Plugin_Shop extends Plugin
 					),
 				),
 			),
+			'categories' => array(
+				'description' => array(
+					'en' => 'Display a list of Categories.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'link|categories',
+				'attributes' => array(),
+			),				
 			'category' => array(
 				'description' => array(
 					'en' => 'Get all fields of a particular category by Category-ID, OR just get the value of a particular field.'
@@ -102,7 +111,7 @@ class Plugin_Shop extends Plugin
 				'variables' => 'id|slug|name|user_data',
 				'attributes' => array(
 					'id' => array(
-						'type' => 'integer',
+						'type' => 'Integer',
 						'required' => true,
 					),
 					'field' => array(
@@ -134,8 +143,102 @@ class Plugin_Shop extends Plugin
 						'required' => false,
 					),
 				),
-			),		
-						
+			),	
+			'products' => array(
+				'description' => array(
+					'en' => 'Display a list of ALL products'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|slug|name|cover_id|price|category_id',
+				'attributes' => array(
+					'limit' => array(
+						'type' => 'Integer',
+						'required' => false,
+						'default' => '0',
+					),
+					'order-by' => array(
+						'type' => 'String',
+						'required' => false,
+						'default' => 'date_created',
+					),		
+					'order-dir' => array(
+						'type' => 'String',
+						'required' => false,
+						'default' => 'asc',
+					),	
+					'category_id' => array(
+						'type' => 'Integer',
+						'required' => false,
+						'default' => '0',
+					),														
+				),
+			),							
+			'product' => array(
+				'description' => array(
+					'en' => 'Display basic information about a product, Only 1 attribute is required.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|slug|name|cover_id|price|category_id',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'Integer',
+						'required' => false,
+					),
+					'slug' => array(
+						'type' => 'Integer',
+						'required' => false,
+					),					
+				),
+			),	
+			'digital_files' => array(
+				'description' => array(
+					'en' => 'Display a list of files associated with an order or product.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|filename|ext',
+				'attributes' => array(
+					'order_id' => array(
+						'type' => 'Integer',
+						'required' => false,
+					),
+					'product_id' => array(
+						'type' => 'Integer',
+						'required' => false,
+					),					
+				),
+			),	
+			'in_wishlist' => array(
+				'description' => array(
+					'en' => 'Displays contents ONLY if the Product is IN the users wishlist.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => '',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'Integer',
+						'required' => TRUE,
+					),				
+				),
+			),	
+			'notin_wishlist' => array(
+				'description' => array(
+					'en' => 'Displays contents ONLY if the Product is NOT-IN the users wishlist.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => '',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'Integer',
+						'required' => TRUE,
+					),				
+				),
+			),							
+			
 		);
 	
 		return $info;
@@ -694,9 +797,6 @@ class Plugin_Shop extends Plugin
 		}
 
 		return (array) $this->products_front_m->get_images($id);	
-		
-	  	
-
 
 	}
 
@@ -940,6 +1040,9 @@ class Plugin_Shop extends Plugin
 
 
 	/**
+	 *
+	 * @experimental and should not be documented until we know what we want to do with this.
+	 * 
 	 * This is really only used like base_url() but we need an option that allows us to get the https:// prefix.
 	 * 
 	 * {{ shop:domain }} 					- return http://mysite.com
@@ -975,46 +1078,6 @@ class Plugin_Shop extends Plugin
 		return url_domain($use_https);
 		
 	}	
-
-
-
-
-	/*
-	 * {{cart_contents}}
-	 *
-	 * {{/cart_contents}}
-	 * 
-	 * @return Array All items in cart
-
-	function cart_contents() 
-	{
-		
-		$CI =& get_instance();
-		$CI->load->library('shop/SFCart');
-		$i = 1;
-		$items = array();
-		$arr = $CI->sfcart->contents();
-
-		if($arr ===null)
-			return $arr;
-
-		foreach($arr as $item)
-		{
-
-				$item['counter'] = $i;
-				$items[] = $item;
-				$i++;
-
-	
-		}
-
-		return $items;
-
-
-
-	}
-
-	 */
 
 }
 
