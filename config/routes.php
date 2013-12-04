@@ -36,25 +36,21 @@ $route['admin(/:any)?']			  			= 'admin/shop$1';
 
 
 
+
+
 /*
- * Front end routes
+ * The next line is ONLY used for backwards compatibilty of the links - 
+ * all links should now be pointing shop/products/product/{{$}}
+ *
+ * Left Uncommented Shop will support both old and new URI structure.
+ * 
+ * Comment this lline out if you only want to use the new structure
  */
-$route['shop/product(/:any)']		 		= 'product/index$1';
-$route['shop/products(/:num)']		 		= 'products/index$1';
-$route['shop/categories(/:num)']		 	= 'categories/index$1';
-$route['shop/brands(/:num)']		 		= 'brands/index$1';
-$route['shop/home(/:num)']		 		    = 'shop/index$1';
+$route['shop/product(/:any)']		 		= 'products/product$1';
 
-//We only need 1 route to the dashboard,
+
+
+/**
+ * We need this to map the dashboard to the shop/my URI
+ */
 $route['shop/my']		 		    		= 'my/dashboard/index';
-
-/*
-$route['shop/special(/:any)']		 		= 'special/index$1';
-$route['shop/brand(/:any)?']  				= 'brands/brand$1';
-$route['shop/brands(/:any)?']  				= 'brands/index$1';
-$route['shop/product(/:any)?']		 		= 'product/index$1';
-$route['shop/category(/:any)?']  			= 'categories/category$1';
-$route['shop/products(/:any)?']		 		= 'products/index$1';
-$route['shop/my/wishlist(/:any)?'] 			= 'wishlist$1';
-$route['products(/:num)?']		 			= 'shop/products/index$1';
-*/
