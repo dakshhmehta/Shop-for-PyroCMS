@@ -269,7 +269,7 @@ class Products_admin_m extends Products_m
 				'width' => $product->width,
 				'depth' => $product->depth,
 				'weight' => $product->weight,
-				'product_type' => $product->product_type,
+				'req_shipping' => $product->req_shipping,
 				'page_design_layout' => $product->page_design_layout,
 				'user_data' => $product->user_data,
 
@@ -384,7 +384,7 @@ class Products_admin_m extends Products_m
 
 
 			case 'page_design_layout':
-			case 'product_type':
+			case 'req_shipping':
 			case 'inventory_on_hand':
 			case 'inventory_low_qty':
 			case 'inventory_type':	
@@ -477,7 +477,8 @@ class Products_admin_m extends Products_m
 		return $this->db->insert('shop_images',$to_insert); //returns id
 	
 	}
-	
+
+
 
 	
 	protected function filter_category_list($filter = array())

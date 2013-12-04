@@ -115,6 +115,11 @@
 				<?php //$this->load->view('admin/products/partials/shipping'); ?>		
 			</div>
 
+			<div class="form_inputs" id="files-tab">
+				<div class='not-loaded'></div>
+				<?php //$this->load->view('admin/products/partials/shipping'); ?>		
+			</div>			
+
 			<div class="form_inputs" id="design-tab">
 				<div class='not-loaded'></div>
 				<?php //$this->load->view('admin/products/partials/shipping'); ?>		

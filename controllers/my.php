@@ -241,7 +241,9 @@ class My extends Public_Controller
 		$data->messages = $this->db->where('order_id', $id)->get('shop_order_messages')->result();
 		$data->transactions = $this->db->where('order_id', $id)->get('shop_transactions')->result();
 		$data->contents = $this->orders_m->get_order_items($data->order->id);
-	
+
+		
+
 		// mark as read
 		$this->messages_m->markAsRead($data->order->id);
 	
@@ -251,6 +253,57 @@ class My extends Public_Controller
 				->set_breadcrumb(lang('order'))
 				->title($this->module_details['name'])
 				->build('my/order', $data);
+	}
+
+
+
+	/**
+	 * Can only request 1 file at a time.
+	 * Future enhancement could allow for a a single ZIP of all files
+	 * @param  [type] $id       [description]
+	 * @param  [type] $order_id [description]
+	 * @param  string $pin      [description]
+	 * @return [type]           [description]
+	 */
+	public function download_file($id, $order_id)
+	{
+		//pin is only req for guest customers, logged in customers will be valiated against logged in status
+		$this->load->helper('download');
+		$this->load->model('orders_m');
+		$this->load->model('shop_files_m');
+		//we must check that both the file and the pin are correct
+		
+		$order = $this->orders_m->get($order_id);
+
+
+		if($order->pmt_status == 'paid')
+		{
+
+		}
+		else
+		{
+			echo 'Please pay for your order first';die;
+		}
+
+
+		$fileObject = $this->shop_files_m->do_download($id, $order_id);
+
+
+		if(!$fileObject->pass)
+		{
+			die(json_encode(
+						array(
+								'status' => 'error', 
+								'message'=>$fileObject->message,
+								'dlcount'=>$fileObject->download_count
+							)
+						)
+			);
+		}
+
+
+		force_download($fileObject->file->filename, $fileObject->file->data); 
+
 	}
 	 
 	

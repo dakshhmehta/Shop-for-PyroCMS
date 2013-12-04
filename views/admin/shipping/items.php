@@ -79,7 +79,7 @@
 											<tbody>
 												<?php foreach ($uninstalled as $item): ?>
 													<tr>
-														<td><?php echo $item->title; ?></td>
+														<td><?php echo $item->name; ?></td>
 														<td><?php echo $item->image ? img($item->image) : ''; ?></td>
 														<td><?php echo $item->desc; ?></td>
 														<td class="actions">

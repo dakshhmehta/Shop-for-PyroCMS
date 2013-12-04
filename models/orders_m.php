@@ -184,43 +184,18 @@ class Orders_m extends MY_Model
 		return $this->db->get('shop_order_messages')->result();
 
 	}
+
 	
 	/*
-	 *
-	 *@deprecated - use addresses_m set_address
-	 *
-	public function set_address($input) 
+	 * get the file contents for a download
+	 */
+	public function get_file($file_id)
 	{
-		$data = array(
-				'user_id' => $input['user_id'],
-				'email' => $input['email'],
-				'first_name' => $input['first_name'],
-				'last_name' => $input['last_name'],
-				'company' => $input['company'],
-				'address1' => $input['address1'],
-				'address2' => $input['address2'],
-				'city' => $input['city'],
-				'state' => $input['state'],
-				'country' => $input['country'],
-				'zip' => $input['zip'],
-				'phone' => $input['phone'],
-		);
-	
-		if (isset($input['id'])) 
-		{
-			$this->db->where('id', $input['id']);
-			$this->db->update('shop_addresses', $data);
-			return $input['id'];
-		} 
-		else 
-		{
-			$this->db->insert('shop_addresses', $data);
-			return $this->db->insert_id();
-		}
-	}
-	*/
-		
 
+		return $this->db->where('id',$file_id)->get('shop_product_files')->result(); 	
+
+		
+	}	
 	
 	public function set_status($id,$status) 
 	{
@@ -402,23 +377,14 @@ class Orders_m extends MY_Model
 	/**
 	 * Get All items in Order
 	 * @param INT $id Order ID
-	 * @old if old then we use the old method
+	 * @old Set to TRUE for admin, the admin collects all product data for display
 	 */
-	public function get_order_items($id, $old = FALSE) 
+	public function get_order_items($id) 
 	{
-		if($old)
-		{
-			return $this->db
-				->select('shop_products.*, shop_order_items.*')
-				->join('shop_products', 'shop_order_items.product_id = shop_products.id')
-				->where('order_id', $id)->get('shop_order_items')->result();
-		}
-
 
 		return $this->db
-			->select('shop_order_items.*')
-			->select('shop_products.cover_id')
-			->join('shop_products', 'shop_order_items.product_id = shop_products.id')
+			->select('shop_products.*, shop_order_items.*, shop_products.id as `id`')
+			->join('shop_products', 'shop_order_items.product_id = shop_products.id','right')
 			->where('order_id', $id)->get('shop_order_items')->result();
 		
 	}
@@ -433,9 +399,45 @@ class Orders_m extends MY_Model
 		return (count($items) > 0)? TRUE : FALSE ;
 	}
 	
-	public function get_user_data($user_id) 
+	/**
+	 * Get the information from a users profile, if guest return an pre-defined array merged with the contact info.
+	 *
+	 * 
+	 * @param  [type] $user_id         [description]
+	 * @param  array  $billing_address This is only used for guest customers. Some of the data is used to populate info
+	 * @return [type]                  [description]
+	 */
+	public function get_user_data($user_id, $billing_address = array() ) 
 	{
-		return $this->db->where('user_id', $user_id)->get('profiles')->row();
+
+		if($user_id == 0)
+		{
+			$guest = new stdClass();
+
+			  $guest->id = 0;
+			  $guest->created = 0;
+			  $guest->updated = 0;
+			  $guest->created_by = 0;
+			  $guest->ordering_count = 0;
+			  $guest->user_id = 0;
+			  $guest->display_name = $billing_address->first_name;
+			  $guest->first_name  = $billing_address->first_name;
+			  $guest->last_name = $billing_address->last_name;
+			  $guest->bio = '';
+			  $guest->dob = '';
+			  $guest->gender = NULL;
+			  $guest->updated_on = NULL;
+			  $guest->is_guest = TRUE;
+
+			  return $guest;
+		}
+
+		// Else
+		$profile =  $this->db->where('user_id', $user_id)->get('profiles')->row();
+
+		$profile->is_guest = FALSE;
+
+		return $profile;
 		
 	}
 }

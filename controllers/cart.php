@@ -77,31 +77,24 @@ class Cart extends Public_Controller
 	private function _init_messages()
 	{
 
-		//
 		// Success add message
-		//
-		$this->_MESSAGES[100] = lang('shop:cart:item_was_added_to_cart');
-		$this->_MESSAGES[101] = lang('shop:cart:"%s"_was_added_to_cart'); 
+		//$this->_MESSAGES[100] = lang('shop:cart:item_was_added_to_cart');
+		$this->_MESSAGES[101] = lang('shop:cart:item_added'); 
 
-		//
 		// Failed to add messagea
-		//
-		$this->_MESSAGES[200] = lang('shop:cart:item_was_not_added_to_cart');  
-		$this->_MESSAGES[201] = lang('shop:cart:id_or_qty_was_not_set');
-		$this->_MESSAGES[202] = lang('shop:cart:product_is_not_available_or_does_not_exist');
-		$this->_MESSAGES[203] = lang('shop:cart:product_is_no_longer_available');
-		$this->_MESSAGES[204] = lang('shop:cart:product_is_currently_out_of_stock');
-
-
+		$this->_MESSAGES[200] = lang('shop:cart:item_not_added'); 
+		$this->_MESSAGES[201] = lang('shop:cart:id_qty_not_set');
+		$this->_MESSAGES[202] = lang('shop:cart:product_not_found');
+		$this->_MESSAGES[203] = lang('shop:cart:product_not_available');
+		$this->_MESSAGES[204] = lang('shop:cart:product_out_of_stock');
 		$this->_MESSAGES[210] = lang('shop:cart:you_must_login_before_shopping');
 
 
-		//
 		// Item removed messages
-		//
-		$this->_MESSAGES[300] = lang('shop:cart:item_removed_from_cart'); 
-		$this->_MESSAGES[301] = lang('shop:cart:%s_has_been_removed_from_cart');		
-		$this->_MESSAGES[302] = lang('shop:cart:product_is_not_in_cart');		
+		$this->_MESSAGES[300] = lang('shop:cart:item_removed1'); 
+		$this->_MESSAGES[301] = lang('shop:cart:item_removed2');		
+		$this->_MESSAGES[302] = lang('shop:cart:not_in_cart');	
+
 	}
 
 
@@ -113,7 +106,6 @@ class Cart extends Public_Controller
 	{
 
 		$this->template->title($this->module_details['name'])
-				->append_css('module::shop.css')
 				->build('common/cart');
 
 	}

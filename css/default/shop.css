@@ -1,0 +1,102 @@
+div.product_box{
+    background: url("../../img/default/noise_bg_lb.jpg") repeat-x scroll 0 0 #cccccc;
+    padding: 1px; margin: 5px 0;
+    color: rgb(51, 51, 51);
+    text-shadow: 1px 1px 0px rgb(226, 226, 226);
+    border: 1px solid #ADADAD;
+    border-radius: 2px;
+}
+div.product_box h4{
+    background: url("../../img/default/gray_highlight.png") repeat-x scroll 0 3px #F9F9F9;
+    padding: 5px 10px 5px 30px; margin: 2px;
+    color: rgb(234, 164, 0);
+    text-shadow: 1px 1px 0px rgb(147, 123, 50);
+    border: 1px solid #ADADAD;
+    border-radius: 2px;
+}
+div.product_box .sticker{
+    background: url("../../img/default/sticker_ss_green.png") no-repeat scroll 0 -10px transparent;
+    padding: 5px 20px; margin: 3px 7px; height: 50px;
+    border: none;
+    position: absolute;
+    border-radius: 2px;
+}
+div.product_box .product_outer{
+    /*background: url("../../img/default/bg_gray_down_light.png") repeat-x scroll 0 0 #f7f7f7;*/
+    padding: 5px; margin: 2px;
+    color: rgb(68, 68, 68);
+    text-shadow: 1px 1px 0px rgb(226, 226, 226);
+    /*border: 1px solid #ADADAD;*/
+    border-radius: 2px;
+}
+div.product_box .product_outer > p{
+    /*background-color: #2C9E63;*/
+    background-color: rgba(140, 180, 190, 0.5);
+    display: inline-block;
+    padding: 5px 5px 10px 5px; margin: 0 2px 2px 0;
+    border: 1px solid #2C9E63;
+    width: 177px;
+    border-radius: 2px;
+    box-shadow: 0px 1px 2px rgba(50, 50, 50, 0.7);
+}
+div.product_box .product_outer > p > span{
+    background-color: #f7f7f7;
+    display: inline-block;
+    padding: 5px; margin: 0;
+    border: 1px solid #ADADAD;
+    width: 165px; height: auto;
+    border-radius: 2px;
+}
+div.product_box .product_outer > p > span.product_image{
+    height: 170px; text-align: center; vertical-align: middle;
+    overflow: hidden;
+}
+div.product_box .product_outer > p > span.product_image img{
+    margin: 0; border: none;
+    border-radius: 2px;
+}
+div.product_box .product_outer > p > span.product_info{
+    /*background-color: #2C9E63;
+    border: 2px solid #2C9E63;*/
+    background-color: transparent;
+    border: 2px solid transparent;
+    margin: 1px -5px -9px -6px; padding: 2px 5px 5px 5px;
+    height: 70px;
+    width: 175px; text-align: center;
+    border-radius: 0 0 2px 2px;
+}
+div.product_box .product_outer > p > span.product_info a{
+    color: #A04F03; text-shadow: 1px 1px 0 #E5D0BE; cursor: pointer;
+}
+div.product_box .product_outer > p > span.product_info a:hover{
+    color: #821705; text-shadow: 1px 1px 0 #F2E5DA;
+}
+div.product_box .product_outer > p > span.product_info .head{
+    display: block; font-weight: bold;
+    margin: 1px auto; text-align: center; font-size: 14px;
+    width: 95%;
+}
+div.product_box .product_outer > p > span.product_info button{
+    background: url("../../img/default/shopping-add-24.png") no-repeat scroll right -2px #BAE285;
+    display: inline-block; text-shadow: 1px 1px 0 #DDDDDD;
+    margin: 1px auto 2px; padding: 2px 30px 2px 7px; box-shadow: 0px 1px 2px rgba(50, 50, 50, 0.7);
+    border: 1px solid #A5BC87; cursor: pointer; float: right;
+    border-radius: 5px; 
+}
+div.product_box .product_outer > p > span.product_info .price{
+    background: url("../../img/default/price_sign.png") no-repeat scroll 0 -1px #94D1F7;
+    display: inline-block; text-shadow: 1px 1px 0 #D9EBF7;
+    margin: 1px auto 3px; padding: 1px 7px 1px 30px; box-shadow: 0px 1px 2px rgba(50, 50, 50, 0.7);
+    border: 1px solid #2E7CAD; height: 24px; text-align: center;
+    width: 78%; font-size: 16px; font-weight: bold;
+    border-radius: 7px;
+}
+div.product_box .product_outer > p > span.product_info .options{
+    display: inline-block; text-shadow: 1px 1px 0 #DDDDDD;
+    margin: 1px auto 3px; padding: 1px 7px; box-shadow: 0px 1px 2px rgba(50, 50, 50, 0.7);
+    height: 20px; text-align: left;
+    width: auto; font-size: 14px; 
+}
+
+#progressCart{display: block; position: fixed; width: 300px; height:auto; top: -3px; left: 50%; margin-left: -160px; padding: 10px; text-align: center; background-color: rgba(75, 210, 175, 0.7); border-radius: 0px 0px 10px 10px;}
+#progressCart img{ border: none; }
