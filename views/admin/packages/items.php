@@ -12,8 +12,8 @@
 			<div class="tabs">
 
 				  <ul class="tab-menu">
-					<li><a href="#installed"><?php echo lang('shop:packages:installed'); ?></a></li>
-					<li><a href="#available"><?php echo lang('shop:packages:available'); ?></a></li>
+					<li><a href="#installed"><?php echo lang('shop:common:installed'); ?></a></li>
+					<li><a href="#available"><?php echo lang('shop:common:available'); ?></a></li>
 				  </ul>
 					<div id="installed" class="form_inputs">
 						<fieldset>
@@ -46,7 +46,7 @@
 																<span class="button-dropdown" data-buttons="dropdown">
 															
 																	<a href="#" class="shopbutton button-rounded button-flat-primary"> 
-																		<?php echo lang('shop:packages:actions');?> 
+																		<?php echo lang('shop:common:actions');?> 
 																		<i class="icon-caret-down"></i>
 																	</a>
 																	 
@@ -89,7 +89,7 @@
 											<tr>
 												<th><?php echo lang('shop:common:name'); ?></th>
 												<th><?php echo lang('shop:common:image'); ?></th>
-												<th><?php echo lang('shop:packages:description'); ?></th>
+												<th><?php echo lang('shop:common:description'); ?></th>
 												<th></th>
 											</tr>
 										</thead>

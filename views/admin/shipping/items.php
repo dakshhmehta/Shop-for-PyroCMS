@@ -9,8 +9,8 @@
 
 				<div class="tabs">
 					  <ul class="tab-menu">
-						<li><a href="#installed"><?php echo lang('shop:shipping:installed'); ?></a></li>
-						<li><a href="#available"><?php echo lang('shop:shipping:available'); ?></a></li>
+						<li><a href="#installed"><?php echo lang('shop:common:installed'); ?></a></li>
+						<li><a href="#available"><?php echo lang('shop:common:available'); ?></a></li>
 						<li><a href="#countries">Country List</a></li>
 					  </ul>
 						<div id="installed" class="form_inputs">

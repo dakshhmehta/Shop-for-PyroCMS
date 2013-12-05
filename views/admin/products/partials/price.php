@@ -25,7 +25,7 @@
 						<fieldset>
 								<ul>
 									<li>
-										<label for="price"><?php echo lang('shop:products:price'); ?><span>*</span><br />
+										<label for="price"><?php echo lang('shop:common:price'); ?><span>*</span><br />
 											<small><?php echo lang('shop:products:price_description'); ?></small>
 										</label>
 										<div class="input">
@@ -72,8 +72,8 @@
 											<table id="discounts-list">
 														<tr>
 															  <th class='tooltip-s' title="<?php echo lang('shop:products:min_purchase_req');?>"><?php echo lang('shop:products:min_qty'); ?></th>
-															  <th class='tooltip-s' title="<?php echo lang('shop:products:discounted_retail_price'); ?>"><?php echo lang('shop:products:price'); ?></th>
-															  <th class='tooltip-s' title="<?php echo lang('shop:common:remove'); ?>"><?php echo lang('shop:products:actions'); ?></th>
+															  <th class='tooltip-s' title="<?php echo lang('shop:products:discounted_retail_price'); ?>"><?php echo lang('shop:common:price'); ?></th>
+															  <th class='tooltip-s' title="<?php echo lang('shop:common:remove'); ?>"><?php echo lang('shop:common:actions'); ?></th>
 														</tr>					
 												<?php $index = 0; ?>
 													<?php foreach ($discounts as $atr): ?>

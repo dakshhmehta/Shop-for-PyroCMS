@@ -39,7 +39,7 @@
 								</div>
 							</li>	
 							<li class="<?php echo alternator('even', ''); ?>">
-								<label for="description"><?php echo lang('shop:options:description'); ?><span></span></label>
+								<label for="description"><?php echo lang('shop:common:description'); ?><span></span></label>
 								<div class="input">
 									<?php echo form_input('description', set_value('description', $description), 'id="description" '); ?>
 								</div>

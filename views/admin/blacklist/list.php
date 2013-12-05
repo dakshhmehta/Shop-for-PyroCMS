@@ -38,7 +38,7 @@
 
 							<span class="button-dropdown" data-buttons="dropdown">
 								<a href="#" class="shopbutton button-rounded button-flat-primary"> 
-									<?php echo lang('shop:blacklist:actions');?> 
+									<?php echo lang('shop:common:actions');?> 
 									<i class="icon-caret-down"></i>
 								</a>
 								 

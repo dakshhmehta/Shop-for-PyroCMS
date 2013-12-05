@@ -43,7 +43,7 @@
 				</li>	
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="description">
-						<?php echo lang('shop:options:description'); ?> 
+						<?php echo lang('shop:common:description'); ?> 
 						<span></span>
 					</label>
 					<div class="input">
