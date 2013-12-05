@@ -8,12 +8,12 @@
 		?>
 		<p>
 			<span class="product_image">
-				<a class="head" href="<?php echo site_url('shop/product/'.$row->slug); ?>">
+				<a class="head" href="<?php echo site_url('shop/products/product/'.$row->slug); ?>">
 				<img src="<?php echo $no_image; ?>" />
 				</a>
 			</span>
 			<span class="product_info">
-				<a class="head" href="<?php echo site_url('shop/product/'.$row->slug); ?>"><?php echo $row->name; ?></a>
+				<a class="head" href="<?php echo site_url('shop/products/product/'.$row->slug); ?>"><?php echo $row->name; ?></a>
 				<span class="price">
 					<?php echo $row->price; ?>
 				</span>
@@ -37,12 +37,12 @@
 		?>
 		<p>
 			<span class="product_image">
-				<a class="head" href="<?php echo site_url('shop/product/'.$row->slug); ?>">
+				<a class="head" href="<?php echo site_url('shop/products/product/'.$row->slug); ?>">
 				<img src="<?php echo $no_image; ?>" />
 				</a>
 			</span>
 			<span class="product_info">
-				<a class="head" href="<?php echo site_url('shop/product/'.$row->slug); ?>"><?php echo $row->name; ?></a>
+				<a class="head" href="<?php echo site_url('shop/products/product/'.$row->slug); ?>"><?php echo $row->name; ?></a>
 				<span class="price">
 					<?php echo $row->price; ?>
 				</span>
@@ -69,12 +69,12 @@
 		?>
 		<p>
 			<span class="product_image">
-				<a class="head" href="<?php echo site_url('shop/product/'.$row->slug); ?>">
+				<a class="head" href="<?php echo site_url('shop/products/product/'.$row->slug); ?>">
 				<img src="<?php echo $no_image; ?>" />
 				</a>
 			</span>
 			<span class="product_info">
-				<a class="head" href="<?php echo site_url('shop/product/'.$row->slug); ?>"><?php echo $row->name; ?></a>
+				<a class="head" href="<?php echo site_url('shop/products/product/'.$row->slug); ?>"><?php echo $row->name; ?></a>
 				<span class="price">
 					<?php echo $row->price; ?>
 				</span>

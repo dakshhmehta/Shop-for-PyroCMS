@@ -25,8 +25,8 @@
 							</li>
 
 
-							<li><?php echo anchor('shop/product/'.$slug, lang('shop:products:view_as_administrator') , 'target="_blank" class="nc_links"'); ?></li>				
-							<li><?php echo anchor('shop/product/'.$slug.'/customer', lang('shop:products:view_as_customer') , 'target="_blank" class="nc_links"'); ?></li>		
+							<li><?php echo anchor('shop/products/product/'.$slug, lang('shop:products:view_as_administrator') , 'target="_blank" class="nc_links"'); ?></li>				
+							<li><?php echo anchor('shop/products/product/'.$slug.'/customer', lang('shop:products:view_as_customer') , 'target="_blank" class="nc_links"'); ?></li>		
 		
 							
 							   

@@ -22,7 +22,7 @@
 			{{items}}
 				<tr>
 					<td><img src="{{url:site}}files/thumb/{{cover_id}}/100/100"></td>
-					<td><a href="{{ url:site }}shop/product/{{slug}}">{{name}}</a></td>
+					<td><a href="{{ url:site }}shop/products/product/{{slug}}">{{name}}</a></td>
 					<td>{{price_at}}</td>
 					<td><a class="DeleteButton" href="{{ url:site }}shop/my/wishlist/delete/{{id}}">remove</a></td>
 				</tr>

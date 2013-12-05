@@ -4,7 +4,7 @@
 <form action="{{url:site}}shop/guest" method="POST">
 <div id="">
 
-		<table>
+		<table style=''>
 			<thead>
 				<tr>
 					<th></th>
@@ -14,15 +14,20 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>Email Address</td>
+					<td>Email Address : </td>
 					<td></td>
 					<td><input type='text' name='guest_email'></td>
 				</tr>
 				<tr>
-					<td>Order ID</td>
+					<td>Order ID : </td>
 					<td></td>
 					<td><input type='text' name='guest_order_id'></td>
 				</tr>
+				<tr>
+					<td>Your PIN Code: </td>
+					<td></td>
+					<td><input type='text' name='guest_pin'></td>
+				</tr>				
 				<tr>
 					<td></td>
 					<td></td>

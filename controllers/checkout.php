@@ -131,7 +131,7 @@ class Checkout extends Public_Controller {
             $data->zip = isset($this->current_user->postcode) ? $this->current_user->postcode : '';
 
 
-            $data->addresses = $this->db->where('user_id', $this->current_user->id)->get('shop_addresses')->result();
+            $data->addresses = $this->db->where('deleted','0')->where('user_id', $this->current_user->id)->get('shop_addresses')->result();
         } 
 
         //for both
@@ -237,10 +237,8 @@ class Checkout extends Public_Controller {
             $data->city = isset($this->current_user->address_line3) ? $this->current_user->address_line3 : '';
             $data->zip = isset($this->current_user->postcode) ? $this->current_user->postcode : '';
 
-
-            $data->addresses = $this->db->where('user_id', $this->current_user->id)->get('shop_addresses')->result();
+            $data->addresses = $this->db->where('deleted','0')->where('user_id', $this->current_user->id)->get('shop_addresses')->result();            
         } 
-
 
 
 
@@ -408,8 +406,13 @@ class Checkout extends Public_Controller {
                 $this->session->set_flashdata('error', 'Unable to place order - You have been blocked by the administrator');
                 return 0;
             }
-  
-           
+
+
+            //
+            // Create a PIN - Only needed if user is guest. This helps the user access the guest portal to check status of order
+            //
+            $input['pin'] = ($input['user_id'] == 0)? generate_pin() : '' ;
+
 
             $cart_items = $this->sfcart->contents();
 
@@ -431,7 +434,6 @@ class Checkout extends Public_Controller {
                 // Store the new order id in session
                 $this->session->set_userdata('order_id', $order_id);
 
-                
 
 
                 $this->session->set_flashdata('success', lang('shop:checkout:order_has_been_placed'));
@@ -452,7 +454,6 @@ class Checkout extends Public_Controller {
                 
 
 
-
                 // Step 6 
                 return $order_id;
     
@@ -461,6 +462,7 @@ class Checkout extends Public_Controller {
 
             // You need to select a payment method
             $this->session->set_flashdata('error', 'Unable to place order - ERROR CHK2' . __LINE__);
+
             return 0;
             
 
@@ -473,16 +475,13 @@ class Checkout extends Public_Controller {
         $input['user_id'] =  $this->session->userdata('user_id');
         $input['cost_items'] =  $this->sfcart->items_total();
         $input['cost_shipping'] =   $this->session->userdata('shipping_cost'); 
-        //$input['cost_total'] = ($inputs['cost_items'] + $inputs['cost_shipping']);
         $input['shipping_id'] =  $this->session->userdata('shipment_id');
         $input['gateway_method_id'] =  $this->session->userdata('gateway_id');;
-
         $input['billing_address_id'] = $this->session->userdata('billing'); 
         $input['shipping_address_id'] = $this->session->userdata('shipping');
         $input['session_id'] = $this->_session;
         $input['ip_address'] =  $this->input->ip_address();
         $input['trust_score'] =  0;
-
         $input['checkout_version'] = $this->checkout_version;
         $input['order_total'] = $this->sfcart->total();        
 

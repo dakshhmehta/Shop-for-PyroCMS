@@ -11,7 +11,7 @@
 
 		<li>
 
-			<a href="{{url:site}}shop/product/{{slug}}">
+			<a href="{{url:site}}shop/products/product/{{slug}}">
 
 				<img src="{{url:site}}files/thumb/{{cover_id}}/140" />
 		
