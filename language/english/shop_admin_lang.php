@@ -44,9 +44,11 @@ $lang['shop:common:setinvisible'] 						 	= 'Set to Invisible';
 $lang['shop:common:setvisible'] 						 	= 'Set to Visible';
 $lang['shop:common:save']  									= 'Save';
 $lang['shop:common:image']  								= 'Image';
+$lang['shop:common:images']  								= 'Images';
 $lang['shop:common:item']  									= 'Item';
 $lang['shop:common:product']  								= 'Product';
 $lang['shop:common:order']  								= 'Order';
+$lang['shop:common:orders']  								= 'Orders';
 $lang['shop:common:yes']  									= 'Yes';
 $lang['shop:common:no']  									= 'No';
 $lang['shop:common:value']  								= 'Value';
@@ -54,6 +56,10 @@ $lang['shop:common:installed']  							= 'Installed';
 $lang['shop:common:price']  								= 'Price';
 $lang['shop:common:message']  								= 'Message';
 $lang['shop:common:messages']  								= 'Messages';
+$lang['shop:common:category']  								= 'Category';
+$lang['shop:common:shipping']  								= 'Shipping';
+$lang['shop:common:label']									= 'Label';
+
 
 # Status : Order
 $lang['shop:status:status']  								= 'Status';
@@ -73,6 +79,7 @@ $lang['shop:status:cancelled']  							= 'Cancelled';
 $lang['shop:status:complete'] 	 							= 'Complete';
 $lang['shop:status:closed']  								= 'Closed';
 
+
 #Order status descriptions
 $lang['shop:status:description:placed']  					= 'The order has been placed by user but awaiting payment.';
 $lang['shop:status:description:processing']  				= 'processing description';
@@ -86,9 +93,8 @@ $lang['shop:status:description:cancelled']  				= 'Order has been cancelled';
 $lang['shop:status:description:complete']  					= 'The order is complete';
 $lang['shop:status:description:closed']  					= 'The order is complete and finalized';
 
-
+## START HERE and WORK DOWN ##
 # To be changed later (do not touch)
-$lang['shop:admin:replicate_to_child_categories']  = 'Replicate to child categories';
 $lang['shop:admin:user_data']  				= 'User data';
 $lang['shop:dashboard:alerts']  			= 'Alerts';
 
@@ -117,10 +123,11 @@ $lang['shop:buttons:save_and_exit']  = 'Save and exit';
 
 # Admin/Categories
 $lang['shop:categories:categories']  = 'Categories';
-$lang['shop:categories:category']  = 'Category';
+
 $lang['shop:categories:category_name']  = 'Category name';
 $lang['shop:categories:change_image']  = 'Change image';
 $lang['shop:categories:parent_category']  = 'Parent category';
+$lang['shop:categories:replicate_to_children']  			= 'Replicate to child categories';
 
 # Admin/Daily Delas
 $lang['shop:dailydeals:daily_deals']  = 'Daily deals';
@@ -158,6 +165,10 @@ $lang['shop:dashboard:week']  = 'Week';
 $lang['shop:gateways:gateways']  = 'Gateways';
 $lang['shop:gateways:main_description']  = 'Main description';
 
+
+
+
+
 # Admin/Manage
 $lang['shop:manage:all_cache']  = 'All cache';
 $lang['shop:manage:apearance']  = 'Apearance';
@@ -169,7 +180,6 @@ $lang['shop:manage:export_data']  = 'Export data';
 $lang['shop:manage:files']  = 'Files';
 $lang['shop:manage:language_generator']  = 'Language generator';
 $lang['shop:manage:login_location']  = 'Login location';
-$lang['shop:manage:orders']  = 'Orders';
 $lang['shop:manage:products']  = 'Products';
 $lang['shop:manage:products_cache']  = 'Products cache';
 $lang['shop:manage:re_index_search']  = 'Re index search';
@@ -184,7 +194,7 @@ $lang['shop:manage:upload_products']  = 'Upload products';
 $lang['shop:manage:utility']  = 'Utility';
 
 # Admin/Options
-$lang['shop:options:are_you_sure']  = 'Are you sure';;
+$lang['shop:options:are_you_sure']  = 'Are you sure';
 $lang['shop:options:info']  = 'Info';
 $lang['shop:options:info_description']  = 'Info description';
 $lang['shop:options:name_description']  = 'Name description';
@@ -196,55 +206,61 @@ $lang['shop:options:title']  = 'Title';
 $lang['shop:options:title_description']  = 'Title description';
 $lang['shop:options:type']  = 'Type';
 $lang['shop:options:type_can_not_be_modified']  = 'Type can not be modified';
+$lang['shop:options:operator']  					= 'operator';
+$lang['shop:options:operator_value']  				= 'operator value';
+$lang['shop:options:max_qty']  						= 'max_qty';
+$lang['shop:options:max_qty_description']  			= 'What is the MAX QTY of products with this option that can be added to the cart. ';
+$lang['shop:options:default']  						= 'Default';
+$lang['shop:options:default_description']  			= 'Is this the default selected option ?';
+$lang['shop:options:order']  						= 'order';
+$lang['shop:options:order_description']  			= 'This is a numeric value to assist order the values the way you would like them';
+$lang['shop:options:user_data_description']  		= 'The user_data field allows you to enter any kind on information. Sometimes this is used with a custom module or shipping calculation. Check with your developer if you need this.';
+$lang['shop:options:value_description']  			= 'Give this option a name to identify it. (This is not displayed to the user)';
+$lang['shop:options:label_description']  			= 'This is the text that will be displayed to the user';
+$lang['shop:options:operator_description']  		= 'If selected, will this option conduct some kind of alteration to the cost of the product, how ?';
+$lang['shop:options:operator_value']  				= 'The amount to alter the price by operation.';
+$lang['shop:options:ignor_shipping']  				= 'Ignor shipping';
+$lang['shop:options:ignor_shipping_description']  	= 'If selected by the user, this product will not go to the shipping cost calculator, It will ignor all shipping cost.';
+
 
 # Admin/Orders
 $lang['shop:orders:account']  								= 'Account';
 $lang['shop:orders:address']  								= 'Address';
 $lang['shop:orders:ago']  									= 'Ago';
 $lang['shop:orders:billing']  = 'Billing';
-$lang['shop:orders:city']  = 'City';
-$lang['shop:orders:company']  = 'Company';
 $lang['shop:orders:compose']  = 'Compose';
-$lang['shop:orders:country']  = 'Country';
 $lang['shop:orders:customer']  = 'Customer';
 $lang['shop:orders:date']  = 'Date';
 $lang['shop:orders:date_order_placed']  = 'Date order placed';
 $lang['shop:orders:details']  = 'Details';
 $lang['shop:orders:download']  = 'Download';
-$lang['shop:orders:email']  = 'Email';
 $lang['shop:orders:filter']  = 'Filter';
-$lang['shop:orders:first_name']  = 'First name';
 $lang['shop:orders:from']  = 'From';
 $lang['shop:orders:ip_address']  = 'Ip address';
 $lang['shop:orders:item_code']  = 'Code';
 $lang['shop:orders:items']  = 'Items';
 $lang['shop:orders:items_amount']  = 'Items amount';
-$lang['shop:orders:last_name']  = 'Last name';
 $lang['shop:orders:loading_messages']  = 'Loading messages';
 $lang['shop:orders:notes']  = 'Notes';
-$lang['shop:orders:order']  = 'Order';
 $lang['shop:orders:order_id']  = 'Order id';
 $lang['shop:orders:order_id_description']  = 'Order id description';
 $lang['shop:orders:order_status']  = 'Order status';
 $lang['shop:orders:pmt_status']  							= 'Pmt status';
 $lang['shop:orders:order_total']  = 'Order total';
-$lang['shop:orders:orders']  = 'Orders';
 $lang['shop:orders:payment_type']  = 'Payment type';
-$lang['shop:orders:phone']  = 'Phone';
 $lang['shop:orders:price_base']  = 'Base';
 $lang['shop:orders:progress_status']  = 'Progress status';
 $lang['shop:orders:qty']  = 'Qty';
 $lang['shop:orders:reason']  = 'Reason';
-$lang['shop:orders:shipping']  = 'Shipping';
 $lang['shop:orders:shipping_amount']  = 'Shipping amount';
 $lang['shop:orders:shipping_method']  = 'Shipping method';
-$lang['shop:orders:state']  = 'State';
+
 $lang['shop:orders:subtotal']  = 'Subtotal';
 $lang['shop:orders:total']  = 'Total';
 $lang['shop:orders:transactions']  = 'Transactions';
 $lang['shop:orders:user']  = 'User';
 $lang['shop:orders:view_message']  = 'View message';
-$lang['shop:orders:zip']  = 'Zip';
+
 
 # Admin/Packages
 $lang['shop:packages:depth']  = 'Depth';
@@ -280,7 +296,6 @@ $lang['shop:products:attributes']  = 'Attributes';
 $lang['shop:products:attributes_description']  = 'Attributes description';
 $lang['shop:products:base_price']  = 'Base price';
 $lang['shop:products:base_price_description']  = 'Base price description';
-$lang['shop:products:category']  = 'Category';
 $lang['shop:products:category_id']  = 'Category id';
 $lang['shop:products:click_to_change']  = 'Click to change';
 $lang['shop:products:code']  = 'Code';
@@ -365,7 +380,6 @@ $lang['shop:products:select_all']  = 'Select all';
 $lang['shop:products:select_none']  = 'Select none';
 $lang['shop:products:seo']  = 'Seo';
 $lang['shop:products:set_as_cover']  = 'Set as cover';
-$lang['shop:products:shipping']  = 'Shipping';
 $lang['shop:products:shipping_description']  = 'Shipping description';
 $lang['shop:products:slug_description']  = 'Slug description';
 $lang['shop:products:standard']  = 'Standard';
@@ -399,10 +413,8 @@ $lang['shop:shipping:cost']  = 'Cost';
 $lang['shop:shipping:details']  = 'Details';
 $lang['shop:shipping:disable']  = 'Disable';
 $lang['shop:shipping:handling']  = 'Handling';
-$lang['shop:shipping:label']  = 'Label';
 $lang['shop:shipping:max_shipping_amount']  				= 'Max shipping amount';
 $lang['shop:shipping:min_shipping_amount']  				= 'Min shipping amount';
-$lang['shop:shipping:shipping']  							= 'Shipping';
 $lang['shop:shipping:uninstall']  							= 'Uninstall';
 $lang['shop:shipping:view_all']  							= 'View all';
 

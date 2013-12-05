@@ -38,7 +38,7 @@
 											<th class="collapse"><?php echo lang('shop:common:name');?></th>
 											<th class="collapse"><?php echo lang('shop:products:on_hand');?></th>
 											<th class="collapse"><?php echo lang('shop:products:visibility');?></th>
-											<th class="collapse"><?php echo lang('shop:products:category'); ?></th>
+											<th class="collapse"><?php echo lang('shop:common:category'); ?></th>
 											<th class="collapse"><?php echo lang('shop:products:custom_field'); ?></th>
 											<th class="collapse"><?php echo lang('shop:common:price'); ?></th>
 

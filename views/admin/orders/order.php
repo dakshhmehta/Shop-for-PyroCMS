@@ -1,6 +1,6 @@
 
 <section class="title">
-	<h4><?php echo lang('shop:orders:order'); ?> - ( <?php echo lang('shop:orders:account'); ?>: <?php echo  $customer->display_name; ?> )</h4>
+	<h4><?php echo lang('shop:common:order'); ?> - ( <?php echo lang('shop:orders:account'); ?>: <?php echo  $customer->display_name; ?> )</h4>
 	<h4 style="float:right">
 		<?php echo anchor('admin/shop/orders', ' ', 'class="img_icon img_view"'); ?>
 	</h4>		

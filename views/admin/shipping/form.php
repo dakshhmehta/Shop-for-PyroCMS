@@ -1,6 +1,6 @@
 
 <section class="title">
-	<h4><?php echo lang('shop:shipping:shipping') ; ?></h4>
+	<h4><?php echo lang('shop:common:shipping') ; ?></h4>
 	<h4 style="float:right"><a href="admin/shop/shipping/" class='button'><?php echo lang('shop:shipping:view_all') ; ?></a></h4>		
 </section>
 
@@ -27,7 +27,7 @@
 								<div class="input"><?php echo $shipping_method->name; ?></div>
 							</li>						
 							<li class="<?php echo alternator('', 'even'); ?>">
-								<label for="name"><?php echo lang('shop:shipping:label') ; ?> <span>*</span></label>
+								<label for="name"><?php echo lang('shop:common:label') ; ?> <span>*</span></label>
 								<div class="input"><?php echo form_input('title', set_value('name', $shipping_method->title), 'class="width-15"'); ?></div>
 							</li>
 						</ul>

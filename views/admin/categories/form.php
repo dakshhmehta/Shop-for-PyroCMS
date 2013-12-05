@@ -69,7 +69,7 @@
 					<label for="user_data"><?php echo lang('shop:admin:user_data');?><span></span></label>
 					<div class="input">
 						<?php echo form_input('user_data', set_value('user_data', $user_data)); ?><br />
-						<a href="admin/shop/categories/ajax_update_child_data" class="cat_update_userdata_children btn orange"><?php echo lang('shop:admin:replicate_to_child_categories');?></a>
+						<a href="admin/shop/categories/ajax_update_child_data" class="cat_update_userdata_children btn orange"><?php echo lang('shop:categories:replicate_to_children');?></a>
 					</div>
 				</li>								   
 				<li class="<?php echo alternator('', 'even'); ?>">
@@ -77,7 +77,7 @@
 					<div class="input">
 							<?php echo form_textarea('description', set_value('description', isset($description)?$description:""), 'class="wysiwyg-simple"'); ?>
 							<br />
-							<a href="admin/shop/categories/ajax_update_child_data" class="cat_update_description_children btn orange"><?php echo lang('shop:admin:replicate_to_child_categories');?></a>
+							<a href="admin/shop/categories/ajax_update_child_data" class="cat_update_description_children btn orange"><?php echo lang('shop:categories:replicate_to_children');?></a>
 					</div>
 				</li>   
 			</ul>

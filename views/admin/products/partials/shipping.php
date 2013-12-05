@@ -3,7 +3,7 @@
 					<ul>
 						<li>
 							<label>
-								<?php echo lang('shop:products:shipping'); ?>
+								<?php echo lang('shop:common:shipping'); ?>
 								<small>
 									<?php echo lang('shop:products:shipping_description'); ?>
 								</small>

@@ -1,6 +1,6 @@
 
 <section class="title">
-	<h4><?php echo lang('shop:orders:orders'); ?></h4>
+	<h4><?php echo lang('shop:common:orders'); ?></h4>
 	<h4 style="float:right">
 		
 	</h4>	

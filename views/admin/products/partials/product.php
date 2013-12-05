@@ -34,7 +34,7 @@
 							<div class="input"><?php echo form_input('code', set_value('code', $code)); ?></div>
 						</li>					
 						<li class="<?php echo alternator('', 'even'); ?>">
-							<label for="category_id"><?php echo lang('shop:products:category'); ?> <span>*</span></label>
+							<label for="category_id"><?php echo lang('shop:common:category'); ?> <span>*</span></label>
 							<div class="input">
 									<?php echo $category_select; ?> 
 							</div>

@@ -91,7 +91,7 @@
 									</tr>
 
 									<tr>
-										<td><?php echo lang('shop:manage:orders');?></td>
+										<td><?php echo lang('shop:common:orders');?></td>
 										<td>
 											<span style='float:right'>
 												<a href="admin/shop/export/orders/csv" class="btn green"><?php echo lang('shop:dashboard:as_csv');?></a>

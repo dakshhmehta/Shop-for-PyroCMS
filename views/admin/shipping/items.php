@@ -1,7 +1,7 @@
 <div id="sortable">
 	<div class="" id="">
 		<section class="draggable title">
-			<h4><?php echo lang('shop:shipping:shipping'); ?></h4>
+			<h4><?php echo lang('shop:common:shipping'); ?></h4>
 			<a class="tooltip-s toggle" title="Toggle this element"></a>
 		</section>
 		<section class="item">

@@ -58,7 +58,7 @@
 				<ul>  
 					<li>
 						<label>
-							<?php echo lang('shop:products:category'); ?>
+							<?php echo lang('shop:common:category'); ?>
 						</label>
 						<div class="input">
 
