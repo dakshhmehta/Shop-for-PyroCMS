@@ -19,7 +19,7 @@
 				</li>				
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="name">
-						<?php echo lang('shop:options:name'); ?> 
+						<?php echo lang('shop:common:name'); ?> 
 						<span>*</span>
 						<small>
 							<?php echo lang('shop:options:name_description'); ?> 

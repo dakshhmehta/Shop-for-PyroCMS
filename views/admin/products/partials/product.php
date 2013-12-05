@@ -10,7 +10,7 @@
 						</li>			
 						<?php endif; ?>
 						<li class="<?php echo alternator('', 'even'); ?>">
-							<label for="name"><?php echo lang('shop:products:name'); ?> <span>*</span>
+							<label for="name"><?php echo lang('shop:common:name'); ?> <span>*</span>
 								<small>
 									<?php echo lang('shop:products:name_description'); ?>
 								</small>
@@ -18,7 +18,7 @@
 							<div class="input" ><?php echo form_input('name', set_value('name', $name)); ?></div>
 						</li>
 						<li class="<?php echo alternator('', 'even'); ?>">
-							<label for="slug"><?php echo lang('shop:products:slug'); ?> <span>*</span>
+							<label for="slug"><?php echo lang('shop:common:slug'); ?> <span>*</span>
 								<small>
 									<?php echo lang('shop:products:slug_description'); ?>
 								</small>

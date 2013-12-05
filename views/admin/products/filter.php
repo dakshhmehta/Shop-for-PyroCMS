@@ -18,8 +18,8 @@
 							<?php echo form_dropdown('f_order_by',  
 
 									array(
-										0=> lang('shop:products:id'),
-										1=> lang('shop:products:name'),
+										0=> lang('shop:common:id'),
+										1=> lang('shop:common:name'),
 										2=> lang('shop:products:category_id'),
 										3=> lang('shop:products:id_descending'),
 										4=> lang('shop:products:name_descending')

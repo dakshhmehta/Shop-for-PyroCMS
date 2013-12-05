@@ -94,65 +94,6 @@ class Addresses_m extends MY_Model {
 
 		);
 		
-		$this->shipping_address_validation = array(
-		
-			array(
-				'field' => 'shipping_first_name',
-				'label' => lang('shipping_first_name'),
-				'rules' => 'required|trim'
-			),
-			array(
-				'field' => 'shipping_last_name',
-				'label' => lang('shipping_last_name'),
-				'rules' => 'required|trim'
-			),
-			array(
-				'field' => 'shipping_company',
-				'label' => lang('shipping_company'),
-				'rules' => 'trim'
-			),
-			array(
-				'field' => 'shipping_phone',
-				'label' => lang('shipping_phone'),
-				'rules' => 'required|trim'
-			),
-			array(
-				'field' => 'shipping_email',
-				'label' => lang('shipping_email'),
-				'rules' => 'required|trim|valid_email'
-			),
-			array(
-				'field' => 'shipping_address1',
-				'label' => lang('shipping_address1'),
-				'rules' => 'required|trim'
-			),
-			array(
-				'field' => 'shipping_address2',
-				'label' => lang('shipping_address2'),
-				'rules' => 'trim'
-			),
-			array(
-				'field' => 'shipping_city',
-				'label' => lang('shipping_city'),
-				'rules' => 'required|trim'
-			),
-			array(
-				'field' => 'shipping_state',
-				'label' => lang('shipping_state'),
-				'rules' => 'required|trim'
-			),
-			array(
-				'field' => 'shipping_country',
-				'label' => lang('shipping_country'),
-				'rules' => 'required|trim'
-			),
-			array(
-				'field' => 'shipping_zip',
-				'label' => lang('shipping_zip'),
-				'rules' => 'required|trim'
-			),
-
-		);		
 	}
 	
 	// create a new item

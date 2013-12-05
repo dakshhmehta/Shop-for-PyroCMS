@@ -5,7 +5,7 @@
 
 		<section class="title">
 			<?php if (isset($post->id) AND $post->id > 0): ?>
-				<h4><?php echo sprintf(lang('shop:pgroups:edit'), $post->name); ?></h4>
+				<h4><?php echo sprintf(lang('shop:common:edit'), $post->name); ?></h4>
 			<?php else: ?>
 				<h4><?php echo lang('shop:pgroups:new'); ?></h4>
 			<?php endif; ?>
@@ -26,7 +26,7 @@
 					<fieldset>
 						<ul>
 							<li class="<?php echo alternator('even', ''); ?>">
-								<label for="name"><?php echo lang('shop:pgroups:name'); ?><span>*</span></label>
+								<label for="name"><?php echo lang('shop:common:name'); ?><span>*</span></label>
 								<div class="input">
 									<?php echo form_input('name', set_value('name', $post->name), 'id="name" '); ?>
 								</div>
@@ -111,7 +111,7 @@
 							  <th class='tooltip-s' title="<?php echo lang('shop:pgroups:min_purchase_required');?>"><?php echo lang('shop:pgroups:min_qty'); ?></th>
 							  <th class='tooltip-s' title="<?php echo lang('shop:pgroups:discounted_retail_price');?>"><?php echo lang('shop:pgroups:price'); ?></th>
 							  <th class='tooltip-s' title="<?php echo lang('shop:pgroups:assign_to');?>"><?php echo lang('shop:pgroups:assign_to'); ?></th>
-							  <th class='tooltip-s' title="<?php echo lang('shop:pgroups:remove');?>"><?php echo lang('shop:pgroups:actions'); ?></th>
+							  <th class='tooltip-s' title="<?php echo lang('shop:common:remove');?>"><?php echo lang('shop:pgroups:actions'); ?></th>
 						</tr>	
 
 

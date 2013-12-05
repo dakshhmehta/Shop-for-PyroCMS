@@ -45,7 +45,7 @@ class Downloads extends Public_Controller
 	
 		
 		// Define the top level breadcrumb
-		$this->template->set_breadcrumb(lang('shop'), 'shop');
+		$this->template->set_breadcrumb(lang('shop:label:shop'), 'shop');
 
 	}
 	

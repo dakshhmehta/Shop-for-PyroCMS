@@ -22,8 +22,8 @@
 	<table style="width: 100%">
 		<tr>
 			<td>
-				<div><?php echo lang('order_id'); ?> : {{order.id}}</div>
-				<div><?php echo lang('date'); ?> : {{order.order_date}}</div>
+				<div><?php echo lang('shop:label:order_id'); ?> : {{order.id}}</div>
+				<div><?php echo lang('shop:label:date'); ?> : {{order.order_date}}</div>
 			</td>
 			<td>
 				<div>Order Status : {{order.status}}</div> 
@@ -38,8 +38,8 @@
 	<!--  ORDER ADDRESS  -->
 	<table style="width: 100%">
 		<tr>
-			<th><?php echo lang('billing_address'); ?></th>
-			<th><?php echo lang('shipping_address'); ?></th>
+			<th><?php echo lang('shop:label:billing_address'); ?></th>
+			<th><?php echo lang('shop:label:shipping_address'); ?></th>
 		</tr>
 		<tr>
 			<td>
@@ -65,11 +65,11 @@
 	<table style="width: 100%">
 		<thead>
 			<tr>
-				<th><?php echo lang('image'); ?></th>
-				<th><?php echo lang('qty'); ?></th>
-				<th><?php echo lang('name'); ?></th>
-				<th><?php echo lang('price'); ?></th>
-				<th><?php echo lang('action'); ?></th>
+				<th><?php echo lang('shop:label:image'); ?></th>
+				<th><?php echo lang('shop:label:qty'); ?></th>
+				<th><?php echo lang('shop:label:name'); ?></th>
+				<th><?php echo lang('shop:label:price'); ?></th>
+				<th><?php echo lang('shop:label:action'); ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -100,7 +100,7 @@
 					<td></td>
 					<td>{{id}}</td>
 					<td>{{filename}}</td>
-					<td><a href='{{url:site}}shop/my/downloads/file/{{id}}/{{order.id}}'>download {{filename}}</a></td>
+					<td><a href='{{url:site}}shop/my/downloads/file/{{id}}/{{order.id}}'><?php echo lang('shop:label:download'); ?> {{filename}}</a></td>
 					
 				</tr>
 			{{/shop:digital_files}}

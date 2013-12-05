@@ -79,7 +79,7 @@
                 </div>
             </li>
             <li>
-                <label>ZIP/Postcode<span>*</span></label>
+                <label><?php echo lang('shop:label:zip');?><span>*</span></label>
                 <div class="input">
                     <input type="text" name="zip" value="{{zip}}">
                 </div>

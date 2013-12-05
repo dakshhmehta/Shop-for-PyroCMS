@@ -20,7 +20,7 @@
 					<div class="input"><?php echo $package_type->type; ?></div>
 				</li>
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="name"><?php echo lang('shop:packages:name'); ?> <span>*</span></label>
+					<label for="name"><?php echo lang('shop:common:name'); ?> <span>*</span></label>
 					<div class="input"><?php echo form_input('title', set_value('name', $package_type->title), 'class="width-15"'); ?></div>
 				</li>
 				<li class="<?php echo alternator('', 'even'); ?>">

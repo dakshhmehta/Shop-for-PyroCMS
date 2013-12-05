@@ -22,8 +22,8 @@
 									<table>
 										<thead>
 											<tr>
-												<th><?php echo lang('shop:packages:name');; ?></th>
-												<th><?php echo lang('shop:packages:image');; ?></th>
+												<th><?php echo lang('shop:common:name');; ?></th>
+												<th><?php echo lang('shop:common:image');; ?></th>
 												<th><?php echo lang('shop:packages:dimentions'); ?></th>
 												<th><?php echo lang('shop:packages:type'); ?></th>
 												<th></th>
@@ -52,7 +52,7 @@
 																	 
 																	<!-- Dropdown Below Button -->
 																	<ul class="button-dropdown">
-																		<li class=''><a class="" href="<?php echo site_url('admin/shop/packages/edit/' . $item->id); ?>"><?php echo lang('shop:packages:edit');?></a></li>
+																		<li class=''><a class="" href="<?php echo site_url('admin/shop/packages/edit/' . $item->id); ?>"><?php echo lang('shop:common:edit');?></a></li>
 																		<li class='button-dropdown-divider delete'><a class="confirm" href="<?php echo site_url('admin/shop/packages/uninstall/' . $item->id); ?>"><?php echo lang('shop:packages:uninstall');?></a></li>
 																	</ul>
 																</span>
@@ -87,8 +87,8 @@
 									<table>
 										<thead>
 											<tr>
-												<th><?php echo lang('shop:packages:name'); ?></th>
-												<th><?php echo lang('shop:packages:image'); ?></th>
+												<th><?php echo lang('shop:common:name'); ?></th>
+												<th><?php echo lang('shop:common:image'); ?></th>
 												<th><?php echo lang('shop:packages:description'); ?></th>
 												<th></th>
 											</tr>

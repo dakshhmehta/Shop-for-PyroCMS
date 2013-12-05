@@ -18,8 +18,8 @@
 		<thead>
 			<tr>
 				<th><input type="checkbox" name="action_to_all" value="" class="check-all" /></th>
-				<th><?php echo lang('shop:categories:id');?></th>
-				<th><?php echo lang('shop:categories:image');?></th>
+				<th><?php echo lang('shop:common:id');?></th>
+				<th><?php echo lang('shop:common:image');?></th>
 				<th><?php echo lang('shop:categories:category');?></th>
 				<th style="width: 120px"></th>
 			</tr>

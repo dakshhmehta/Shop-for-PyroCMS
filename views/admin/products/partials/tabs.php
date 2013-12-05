@@ -2,7 +2,7 @@
 			
 		
 				<li><a class=""  data-load="" href="#start-tab"><span><?php echo lang('shop:products:start'); ?></span></a></li>
-				<li><a class="tab-loader"  data-load="product" href="#product-tab"><span><?php echo lang('shop:products:product'); ?></span></a></li>
+				<li><a class="tab-loader"  data-load="product" href="#product-tab"><span><?php echo lang('shop:common:product'); ?></span></a></li>
 				<li><a class="tab-loader"  data-load="description" href="#description-tab"><span><?php echo lang('shop:products:description'); ?></span></a></li>
 				<li><a class="tab-loader"  data-load="price" href="#price-tab"><span><?php echo lang('shop:products:price'); ?></span></a></li>
 				<li><a class="tab-loader"  data-load="images" href="#images-tab"><span><?php echo lang('shop:products:images'); ?></span></a></li>

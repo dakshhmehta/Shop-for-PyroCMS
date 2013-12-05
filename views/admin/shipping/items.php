@@ -19,9 +19,9 @@
 										<table>
 											<thead>
 												<tr>
-													<th><?php echo lang('shop:shipping:name'); ?></th>
-													<th><?php echo lang('shop:shipping:image'); ?></th>
-													<th><?php echo lang('shop:shipping:description'); ?></th>
+													<th><?php echo lang('shop:common:name'); ?></th>
+													<th><?php echo lang('shop:common:image'); ?></th>
+													<th><?php echo lang('shop:common:description'); ?></th>
 													<th></th>
 												</tr>
 											</thead>
@@ -40,7 +40,7 @@
 															}; ?>
 															<?php
 															echo
-															anchor('admin/shop/shipping/edit/' . $item->id, ' ', array('title' => lang('shop:shipping:edit')  , 'class' => 'tooltip-s img_icon img_edit')) . ' ' .
+															anchor('admin/shop/shipping/edit/' . $item->id, ' ', array('title' => lang('shop:common:edit')  , 'class' => 'tooltip-s img_icon img_edit')) . ' ' .
 															anchor('admin/shop/shipping/uninstall/' . $item->id, ' ', array('title'=>lang('shop:shipping:uninstall') , 'class' => 'tooltip-s img_icon img_delete confirm'));
 															?>
 															</span>
@@ -70,9 +70,9 @@
 										<table>
 											<thead>
 												<tr>
-													<th><?php echo lang('shop:admin:name'); ?></th>
-													<th><?php echo lang('shop:admin:image'); ?></th>
-													<th><?php echo lang('shop:admin:description'); ?></th>
+													<th><?php echo lang('shop:common:name'); ?></th>
+													<th><?php echo lang('shop:common:image'); ?></th>
+													<th><?php echo lang('shop:common:description'); ?></th>
 													<th></th>
 												</tr>
 											</thead>
@@ -112,7 +112,7 @@
 											<thead>
 												<tr>
 													<th><?php echo lang('shop:admin:id'); ?></th>
-													<th><?php echo lang('shop:admin:name'); ?></th>
+													<th><?php echo lang('shop:common:name'); ?></th>
 													<th><?php echo lang('shop:admin:code'); ?></th>
 													<th><?php echo lang('shop:admin:enabled'); ?></th>
 												</tr>
@@ -125,9 +125,9 @@
 														<td><?php echo $item->code2; ?></td>
 														<td class="actions">
 															<?php if ($item->enabled) {
-																echo anchor('admin/shop/shipping/country/0/' . $item->id, ' ',  array('title' => lang('setinvisible') , 'class' => 'tooltip-s img_icon img_visible') );
+																echo anchor('admin/shop/shipping/country/0/' . $item->id, ' ',  array('title' => lang('shop:common:setinvisible') , 'class' => 'tooltip-s img_icon img_visible') );
 															} else {
-																echo anchor('admin/shop/shipping/country/1/' . $item->id, ' ', array('title' => lang('setvisible') , 'class' => 'tooltip-s img_icon img_invisible') );
+																echo anchor('admin/shop/shipping/country/1/' . $item->id, ' ', array('title' => lang('shop:common:setvisible') , 'class' => 'tooltip-s img_icon img_invisible') );
 															}; ?>
 														</td>
 													</tr>

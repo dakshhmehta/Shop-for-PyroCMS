@@ -35,7 +35,7 @@ class Messages extends Public_Controller
 		// If User Not logged in
 		if (!$this->current_user) 
 		{
-			$this->session->set_flashdata('notice', lang('shop:my:user_not_authenticated'));
+			$this->session->set_flashdata('error', lang('shop:my:user_not_authenticated'));
 			
 			// Send User to login then Redirect back after login
 			$this->session->set_userdata('redirect_to', 'shop/my');
@@ -45,7 +45,7 @@ class Messages extends Public_Controller
 	
 		
 		// Define the top level breadcrumb
-		$this->template->set_breadcrumb(lang('shop'), 'shop');
+		$this->template->set_breadcrumb(lang('shop:label:shop'), 'shop');
 
 	}
 	
@@ -65,8 +65,8 @@ class Messages extends Public_Controller
 
 		// Display the page
 		$this->template
-			->set_breadcrumb(lang('my'), 'shop/my')
-			->set_breadcrumb(lang('messages'))
+			->set_breadcrumb(lang('shop:my:my'), 'shop/my')
+			->set_breadcrumb(lang('shop:label:messages'))
 			->title($this->module_details['name'])
 			->build('my/messages', $data);
 

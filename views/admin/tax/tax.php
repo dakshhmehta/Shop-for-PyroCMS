@@ -12,7 +12,7 @@
 	<div class="content">
 		<?php if (empty($taxes)): ?>
 			<div class="no_data">
-			<p><?php echo lang('shop:tax:description'); ?></p>
+			<p><?php echo lang('shop:common:description'); ?></p>
 			<?php echo lang('shop:tax:no_data'); ?>
 			</div>
 		<?php else: ?>
@@ -20,8 +20,8 @@
 			<thead>
 				<tr>
 					<th><input type="checkbox" name="action_to_all" value="" class="check-all" /></th>
-					<th><?php echo lang('shop:tax:id'); ?></th>
-					<th><?php echo lang('shop:tax:name'); ?></th>
+					<th><?php echo lang('shop:common:id'); ?></th>
+					<th><?php echo lang('shop:common:name'); ?></th>
 					<th><?php echo lang('shop:tax:rate'); ?></th>
 					<th style="width: 120px"></th>
 				</tr>
@@ -34,8 +34,8 @@
 						<td><?php echo $tax->name; ?></td>
 						<td><?php echo $tax->rate; ?> %</td>
 						<td>
-							<a title='<?php echo lang('shop:tax:edit'); ?>' class="tooltip-s img_icon img_edit" href="<?php echo site_url('admin/shop/tax/edit/' . $tax->id); ?>"></a>
-							<a title= '<?php echo lang('shop:tax:delete'); ?>' class="tooltip-s img_icon img_delete confirm" href="<?php echo site_url('admin/shop/tax/delete/' . $tax->id); ?>"></a>
+							<a title='<?php echo lang('shop:common:edit'); ?>' class="tooltip-s img_icon img_edit" href="<?php echo site_url('admin/shop/tax/edit/' . $tax->id); ?>"></a>
+							<a title= '<?php echo lang('shop:common:delete'); ?>' class="tooltip-s img_icon img_delete confirm" href="<?php echo site_url('admin/shop/tax/delete/' . $tax->id); ?>"></a>
 						</td>
 					</tr>
 				<?php endforeach; ?>

@@ -21,8 +21,8 @@
 								<table>
 									<thead>
 										<tr>
-											<th><?php echo lang('shop:gateways:name'); ?></th>
-											<th><?php echo lang('shop:gateways:image'); ?></th>
+											<th><?php echo lang('shop:common:name'); ?></th>
+											<th><?php echo lang('shop:common:image'); ?></th>
 											<th><?php echo lang('shop:gateways:description'); ?></th>
 											<th></th>
 										</tr>
@@ -72,8 +72,8 @@
 								<table>
 									<thead>
 										<tr>
-											<th><?php echo lang('shop:gateways:name'); ?></th>
-											<th><?php echo lang('shop:gateways:image'); ?></th>
+											<th><?php echo lang('shop:common:name'); ?></th>
+											<th><?php echo lang('shop:common:image'); ?></th>
 											<th><?php echo lang('shop:gateways:description'); ?></th>
 											<th></th>
 										</tr>

@@ -99,7 +99,7 @@
 									<?php echo lang('shop:options:save'); ?>
 								</a>
 								<a href="#" data-id="<?php echo $id;?>" class="btn gray" id="btn_cancel_edit" >
-									<?php echo lang('shop:options:cancel'); ?>
+									<?php echo lang('shop:common:cancel'); ?>
 								</a>								
 							</li>							
 					</ul>	

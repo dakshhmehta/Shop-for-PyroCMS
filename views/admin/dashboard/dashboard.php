@@ -74,7 +74,7 @@
 									<div class="no_data"><?php echo lang('shop:dashboard:low_stock_level_ok'); ?></div>
 								<?php else: ?>			
 									<tr>
-										<th><?php echo lang('shop:dashboard:id'); ?></th>
+										<th><?php echo lang('shop:common:id'); ?></th>
 										<th><?php echo lang('shop:dashboard:product'); ?></th>
 										<th><?php echo lang('shop:dashboard:on_hand'); ?></th>
 										<th><?php echo lang('shop:dashboard:low_level'); ?></th>
@@ -86,7 +86,7 @@
 										<td><a class="nc_links" href="admin/shop/product/edit/<?php echo $low_stock->id;?>"><?php echo $low_stock->name; ?></a></td>
 										<td><em><?php echo $low_stock->inventory_on_hand; ?></em></td>
 										<td><em><?php echo $low_stock->inventory_low_qty; ?></em></td>
-										<td><a class="nc_links" href="admin/shop/product/edit/<?php echo $low_stock->id;?>"><?php echo lang('shop:dashboard:edit'); ?></a></td>
+										<td><a class="nc_links" href="admin/shop/product/edit/<?php echo $low_stock->id;?>"><?php echo lang('shop:common:edit'); ?></a></td>
 									</tr>
 								<?php endforeach; ?>
 								<?php endif; ?>
@@ -100,7 +100,7 @@
 									<div class="no_data"><?php echo lang('shop:dashboard:desc_out_stock_level_ok'); ?></div>
 								<?php else: ?>			
 									<tr>
-										<th><?php echo lang('shop:dashboard:id'); ?></th>
+										<th><?php echo lang('shop:common:id'); ?></th>
 										<th><?php echo lang('shop:dashboard:product'); ?></th>
 										<th><?php echo lang('shop:dashboard:low_level'); ?></th>
 										<th></th>
@@ -110,7 +110,7 @@
 											<th><?php echo $low_stock->id; ?></th>
 											<td><a class="nc_links" href="admin/shop/product/edit/<?php echo $low_stock->id;?>"><?php echo $low_stock->name; ?></a></td>
 											<td><em><?php echo $low_stock->inventory_low_qty; ?></em></td>
-											<td><a class="nc_links" href="admin/shop/product/edit/<?php echo $low_stock->id;?>"><?php echo lang('shop:dashboard:edit'); ?></a></td>
+											<td><a class="nc_links" href="admin/shop/product/edit/<?php echo $low_stock->id;?>"><?php echo lang('shop:common:edit'); ?></a></td>
 										</tr>
 									<?php endforeach; ?>
 								<?php endif; ?>
@@ -124,7 +124,7 @@
 									<div class="no_data"><?php echo lang('shop:dashboard:no_messages'); ?></div>
 								<?php else: ?>			
 									<tr>					
-										<th><?php echo lang('shop:dashboard:id'); ?></th>
+										<th><?php echo lang('shop:common:id'); ?></th>
 										<th><?php echo lang('shop:dashboard:product'); ?></th>
 										<th><?php echo lang('shop:dashboard:notification_date'); ?></th>
 										<th><?php echo lang('shop:dashboard:message'); ?></th>
@@ -167,7 +167,7 @@
 													<a href="admin/shop/orders/map/<?php echo $order->shipping_id;?>" class="nc_links modal"><?php echo $order->city; ?></a>
 												</td>
 												<td>
-													<?php echo anchor('admin/shop/orders/order/' . $order->id, ' ', 'title="'.lang('shop:dashboard:view').'" class="tooltip-s img_icon img_view" style="float:right"'); ?>
+													<?php echo anchor('admin/shop/orders/order/' . $order->id, ' ', 'title="'.lang('shop:common:view').'" class="tooltip-s img_icon img_view" style="float:right"'); ?>
 													<?php echo anchor('admin/shop/orders/order/' . $order->id.'#message-tab', ' ', 'title="'.lang('shop:dashboard:message').'" class="tooltip-s img_icon img_message" style="float:right"'); ?>
 												</td>
 											</tr>

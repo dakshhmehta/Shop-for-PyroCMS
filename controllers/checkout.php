@@ -295,7 +295,7 @@ class Checkout extends Public_Controller {
 
 
         //set rules
-        $this->form_validation->set_rules('shipment_id', lang('store:shipment_field'), 'required|numeric|trim');
+        $this->form_validation->set_rules('shipment_id', lang('shop:checkout:shipment'), 'required|numeric|trim');
 
 
         //validate if postback

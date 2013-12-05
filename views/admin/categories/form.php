@@ -38,7 +38,7 @@
 				</li>		
 					  
 				<li>
-					<label><?php echo lang('shop:categories:image');?></label>
+					<label><?php echo lang('shop:common:image');?></label>
 					<input type='hidden' value='' id='image_id' name='image_id' />
 					<div id='cover_img' name='cover_img'>
 					 <?php 	 if ($image_id > 0) 

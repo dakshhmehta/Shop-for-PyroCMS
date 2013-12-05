@@ -22,7 +22,7 @@
 					<th><input type="checkbox" name="action_to_all" value="" class="check-all" /></th>
 					<th></th>
 					<th><?php echo lang('shop:options:title'); ?></th>
-					<th><?php echo lang('shop:options:name'); ?></th>
+					<th><?php echo lang('shop:common:name'); ?></th>
 					<th><?php echo lang('shop:options:type'); ?></th>
 					<th style="width: 120px"></th>
 				</tr>
@@ -53,9 +53,9 @@
 										<!-- Dropdown Below Button -->
 										<ul class="button-dropdown-menu-below">
 
-											<li class=''><a title='<?php echo lang('shop:options:edit'); ?>' class="" href="<?php echo site_url('admin/shop/options/edit/' . $item->id); ?>"> <?php echo lang('shop:options:edit');?>  </a></li>
-											<li class=''><a title='<?php echo lang('shop:options:copy'); ?>' class="" href="<?php echo site_url('admin/shop/options/duplicate/' . $item->id); ?>"> <?php echo lang('shop:options:copy');?> </a></li>
-											<li class='button-dropdown-divider delete'><a title='<?php echo lang('shop:options:are_you_sure'); ?>' class="tooltip-e confirm" href="<?php echo site_url('admin/shop/options/delete/' . $item->id); ?>"><?php echo lang('shop:options:delete');?>  </a></li>
+											<li class=''><a title='<?php echo lang('shop:common:edit'); ?>' class="" href="<?php echo site_url('admin/shop/options/edit/' . $item->id); ?>"> <?php echo lang('shop:common:edit');?>  </a></li>
+											<li class=''><a title='<?php echo lang('shop:common:copy'); ?>' class="" href="<?php echo site_url('admin/shop/options/duplicate/' . $item->id); ?>"> <?php echo lang('shop:common:copy');?> </a></li>
+											<li class='button-dropdown-divider delete'><a title='<?php echo lang('shop:options:are_you_sure'); ?>' class="tooltip-e confirm" href="<?php echo site_url('admin/shop/options/delete/' . $item->id); ?>"><?php echo lang('shop:common:delete');?>  </a></li>
 
 										</ul>
 

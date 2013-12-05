@@ -2,8 +2,8 @@
 				<table>
 					<thead>
 						<tr>
-							<th><?php echo lang('shop:orders:image'); ?></th>
-							<th><?php echo lang('shop:orders:item'); ?></th>
+							<th><?php echo lang('shop:common:image'); ?></th>
+							<th><?php echo lang('shop:common:item'); ?></th>
 							<th><?php echo lang('shop:orders:item_code' ,'item_'); ?></th>
 							<th><?php echo lang('shop:orders:price_base', 'price_'); ?></th>
 							<th><?php echo lang('shop:orders:qty'); ?></th>

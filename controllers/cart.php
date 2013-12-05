@@ -78,7 +78,6 @@ class Cart extends Public_Controller
 	{
 
 		// Success add message
-		//$this->_MESSAGES[100] = lang('shop:cart:item_was_added_to_cart');
 		$this->_MESSAGES[101] = lang('shop:cart:item_added'); 
 
 		// Failed to add messagea
@@ -146,29 +145,19 @@ class Cart extends Public_Controller
 			// The POST must contain the QTY
 			$qty = intval( $this->input->post('quantity') );
 
-			if($qty)
+			if(!$qty)
 			{
-
-			}
-			else
-			{	
-				//
 				// Accept either qty or quantity
-				//
 				$qty = intval( $this->input->post('qty') );
 
 				//final check, if not set then set as 1 as the qty
 				$qty = ($qty)?$qty:1;
 				
 			}
-
 			
 		}
 		
 		
-
-
-
 		
 		//
 		// pre-Add checks
@@ -196,9 +185,6 @@ class Cart extends Public_Controller
 
 
 
-
-		
-		
 		// 
 		// get the options that may have been passed up
 		// 
@@ -245,8 +231,6 @@ class Cart extends Public_Controller
 		//
 		
 
-
-		
 
 		// 1. Get the current QTY of items assigned to PGROUP
 		// 2. Add to incoming QTY
@@ -939,11 +923,7 @@ class Cart extends Public_Controller
 
 		$valid_files = array('png', 'jpg', 'jpeg', 'bmp' ,'zip', 'txt', 'doc', 'docx');
 
-		if(in_array($extension, $valid_files))
-		{
-			//File ok to upload
-		}
-		else
+		if(!in_array($extension, $valid_files)) 
 		{
 			return FALSE;
 		}

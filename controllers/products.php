@@ -87,7 +87,7 @@ class Products extends Public_Controller
 		// finally
 		//
 		$this->template
-			->title($this->module_details['name'].' |' .lang('products'))
+			->title(lang('shop:label:shop').' |' .lang('shop:label:products'))
 			->set_breadcrumb($this->shop_title)
 			->build('common/products_list', $data);
 			
@@ -162,7 +162,7 @@ class Products extends Public_Controller
 
 			if($data->product->public == 0)
 			{
-				$notification_messages['error'][] = 'This product is hidden from your customers view';
+				$notification_messages['error'][] = lang('shop:messages:product_is_hidden') ;
 			}
 		}
 

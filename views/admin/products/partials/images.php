@@ -105,7 +105,7 @@
 											{
 													
 												$dom_id = 'img_id_'.$image->file_id;
-												$rem = lang('shop:products:remove');
+												$rem = lang('shop:common:remove');
 												$cov = lang('shop:products:set_as_cover');
 
 												echo "<div  class='tooltip-s container' id='$dom_id'>";

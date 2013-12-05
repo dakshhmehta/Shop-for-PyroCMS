@@ -19,7 +19,7 @@
 				<legend><?php echo lang('shop:gateways:gateway'); ?></legend>
 				<ul>
 					<li class="<?php echo alternator('', 'even'); ?>">
-						<label for="name"><?php echo lang('shop:gateways:name'); ?><span>*</span></label>
+						<label for="name"><?php echo lang('shop:common:name'); ?><span>*</span></label>
 						<div class="input"><?php echo form_input('title', set_value('name', $gateway->title), 'class="width-15"'); ?></div>
 					</li>
 					<li class="<?php echo alternator('', 'even'); ?>">

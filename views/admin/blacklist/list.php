@@ -44,8 +44,8 @@
 								 
 								<!-- Dropdown Below Button -->
 								<ul class="button-dropdown">
-									<li><a class="" href="<?php echo site_url('admin/shop/blacklist/edit/' . $item->id); ?>"><?php echo lang('shop:blacklist:edit');?> </a></li>
-									<li class='delete'><a class="confirm" href="<?php echo site_url('admin/shop/blacklist/delete/' . $item->id); ?>"><?php echo lang('shop:blacklist:delete');?> </a></li>
+									<li><a class="" href="<?php echo site_url('admin/shop/blacklist/edit/' . $item->id); ?>"><?php echo lang('shop:common:edit');?> </a></li>
+									<li class='delete'><a class="confirm" href="<?php echo site_url('admin/shop/blacklist/delete/' . $item->id); ?>"><?php echo lang('shop:common:delete');?> </a></li>
 								</ul>
 
 							</span>

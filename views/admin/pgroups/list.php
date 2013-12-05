@@ -14,7 +14,7 @@
 		<thead>
 			<tr>
 				<th><input type="checkbox" name="action_to_all" value="" class="check-all" /></th>
-				<th><?php echo lang('shop:pgroups:name'); ?></th>
+				<th><?php echo lang('shop:common:name'); ?></th>
 				<th><?php echo lang('shop:pgroups:price_group'); ?></th>
 				<th style=""><?php echo lang('shop:pgroups:actions'); ?></th>
 			</tr>
@@ -35,7 +35,7 @@
 
 								<span style="float:right;">
 									
-									<a class="tooltip-s shopbutton button-rounded" href="<?php echo site_url('admin/shop/pgroups/edit/' . $group->id); ?>"><?php echo lang('shop:pgroups:edit');?></a>
+									<a class="tooltip-s shopbutton button-rounded" href="<?php echo site_url('admin/shop/pgroups/edit/' . $group->id); ?>"><?php echo lang('shop:common:edit');?></a>
 								
 									<span class="button-dropdown" data-buttons="dropdown">
 										<a href="#" class="shopbutton button-rounded button-flat-primary"> 
@@ -46,8 +46,8 @@
 										<!-- Dropdown Below Button -->
 										<ul class="button-dropdown">
 
-											<li class=''><a class="tooltip-s" href="<?php echo site_url('admin/shop/pgroups/edit/' . $group->id); ?>"><?php echo lang('shop:pgroups:edit');?></a></li>
-											<li class='button-dropdown-divider delete'><a class="tooltip-s confirm" href="<?php echo site_url('admin/shop/pgroups/delete/' . $group->id); ?>"><?php echo lang('shop:pgroups:delete');?></a></li>
+											<li class=''><a class="tooltip-s" href="<?php echo site_url('admin/shop/pgroups/edit/' . $group->id); ?>"><?php echo lang('shop:common:edit');?></a></li>
+											<li class='button-dropdown-divider delete'><a class="tooltip-s confirm" href="<?php echo site_url('admin/shop/pgroups/delete/' . $group->id); ?>"><?php echo lang('shop:common:delete');?></a></li>
 												 
 										</ul>
 

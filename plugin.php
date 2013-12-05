@@ -983,19 +983,18 @@ class Plugin_Shop extends Plugin
 	 */
 	function mylinks()
 	{
-
+		//active make the link active, as the active display section
 		$active = $this->attribute('active', '');
 		$remove = $this->attribute('remove', '');
 		$remove = explode(' ', $remove);
 
 		$links = array();
 
-		$links['dashboard']['link'] = anchor('shop/my/dashboard', lang('dashboard'));
-		$links['orders']['link'] = anchor('shop/my/orders', lang('orders'));
-		$links['wishlist']['link'] = anchor('shop/my/wishlist', lang('wishlist'));
-		$links['messages']['link'] = anchor('shop/my/messages', lang('messages'));
-		$links['addresses']['link'] = anchor('shop/my/addresses', lang('addresses'));
-		$links['shop']['link'] = anchor('shop/', lang('back_to_shop'));
+		$links['dashboard']['link'] = anchor('shop/my/dashboard', lang('shop:my:dashboard'));
+		$links['orders']['link'] = anchor('shop/my/orders', lang('shop:my:orders'));
+		$links['wishlist']['link'] = anchor('shop/my/wishlist', lang('shop:my:wishlist'));
+		$links['messages']['link'] = anchor('shop/my/messages', lang('shop:my:messages'));
+		$links['addresses']['link'] = anchor('shop/my/addresses', lang('shop:my:addresses'));
 
 		foreach($remove as $link)
 		{
@@ -1005,7 +1004,7 @@ class Plugin_Shop extends Plugin
 		if(isset($links[$active]))
 		{
 			//set the active class
-			$links[$active]['link'] = anchor('shop/my/'.$active, lang($active), 'style="font-weight:bold"');
+			$links[$active]['link'] = anchor('shop/my/'.$active, lang('shop:my:' .$active), 'style="font-weight:bold"');
 		}
 
 		return $links;

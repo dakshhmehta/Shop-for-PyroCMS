@@ -73,7 +73,7 @@
 														<tr>
 															  <th class='tooltip-s' title="<?php echo lang('shop:products:min_purchase_req');?>"><?php echo lang('shop:products:min_qty'); ?></th>
 															  <th class='tooltip-s' title="<?php echo lang('shop:products:discounted_retail_price'); ?>"><?php echo lang('shop:products:price'); ?></th>
-															  <th class='tooltip-s' title="<?php echo lang('shop:products:remove'); ?>"><?php echo lang('shop:products:actions'); ?></th>
+															  <th class='tooltip-s' title="<?php echo lang('shop:common:remove'); ?>"><?php echo lang('shop:products:actions'); ?></th>
 														</tr>					
 												<?php $index = 0; ?>
 													<?php foreach ($discounts as $atr): ?>
