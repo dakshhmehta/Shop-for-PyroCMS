@@ -131,7 +131,7 @@ class Checkout extends Public_Controller {
             $data->zip = isset($this->current_user->postcode) ? $this->current_user->postcode : '';
 
 
-            $data->addresses = $this->db->where('user_id', $this->current_user->id)->get('shop_addresses')->result();
+            $data->addresses = $this->db->where('deleted','0')->where('user_id', $this->current_user->id)->get('shop_addresses')->result();
         } 
 
         //for both
@@ -237,10 +237,8 @@ class Checkout extends Public_Controller {
             $data->city = isset($this->current_user->address_line3) ? $this->current_user->address_line3 : '';
             $data->zip = isset($this->current_user->postcode) ? $this->current_user->postcode : '';
 
-
-            $data->addresses = $this->db->where('user_id', $this->current_user->id)->get('shop_addresses')->result();
+            $data->addresses = $this->db->where('deleted','0')->where('user_id', $this->current_user->id)->get('shop_addresses')->result();            
         } 
-
 
 
 

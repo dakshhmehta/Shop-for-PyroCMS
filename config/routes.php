@@ -38,19 +38,22 @@ $route['admin(/:any)?']			  			= 'admin/shop$1';
 
 
 
-/*
- * The next line is ONLY used for backwards compatibilty of the links - 
- * all links should now be pointing shop/products/product/{{$}}
- *
- * Left Uncommented Shop will support both old and new URI structure.
- * 
- * Comment this lline out if you only want to use the new structure
- */
+#
+# Uncomment the next line if you want to have the uri for diplsaying products
+# work with the following notations (not just the standard);
+#
+# Standard domain.com/shop/products/product/{slug}
+# 
+# After  domain.com/shop/product/{slug}
+# After  domain.com/product/{slug}
+# 
 $route['shop/product(/:any)']		 		= 'products/product$1';
 
 
 
-/**
- * We need this to map the dashboard to the shop/my URI
- */
+
+
+#
+# We need this to map the dashboard to the shop/my URI
+#
 $route['shop/my']		 		    		= 'my/dashboard/index';

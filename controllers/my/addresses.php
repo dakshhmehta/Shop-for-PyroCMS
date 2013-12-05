@@ -132,7 +132,69 @@ class Addresses extends Public_Controller
 			->build('my/addresses', $data);
 	}
 	
-	
+	public function create()
+	{
+
+		$this->data = new stdClass();
+
+
+		$this->load->model('addresses_m');
+
+
+		$this->data->user_id = $this->current_user->id;
+
+
+		// Add new address
+		if ($input = $this->input->post())
+		{
+
+			unset($input['submit']);
+
+			$input['user_id'] = $this->current_user->id;
+
+
+			$this->form_validation->set_rules($this->address_validation);
+			$this->form_validation->set_rules('useragreement', 'User Agreement field', 'required|numeric|trim');
+
+
+			if ( $this->form_validation->run() )
+			{
+				$this->session->set_flashdata('success', lang('success'));
+				$success = $this->addresses_m->create($input);
+				redirect('shop/my/addresses');
+			}
+
+			
+		}
+
+
+		$countryList = get_country_from_iso2alpha( '','normal', TRUE );
+		$this->data->countries = array(); 	
+		foreach($countryList as $code => $name)
+		{
+			$this->data->countries[] = array('code'=>$code,'name'=>$name);
+		}
+
+
+		foreach ($this->address_validation as $item)
+		{
+			$this->data->{$item['field']} = '';
+		}
+
+
+		$this->template->set_breadcrumb(lang('my'), 'shop/my')
+						->set_breadcrumb(lang('address'), 'shop/my/addresses')
+						->title($this->module_details['name'])
+						->build('my/create_address', $this->data);
+
+
+	}
+
+	/**
+	 * @deprecated - use my/addresses/create. 
+	 * @param  integer $id [description]
+	 * @return [type]      [description]
+	 */
 	public function address($id = 0)
 	{
 
