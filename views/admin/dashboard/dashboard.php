@@ -38,7 +38,7 @@
 						?>
 						<li><a href="#stock-low"><?php echo lang('shop:dashboard:low_stock').$not_color;?></a></li>
 						<li><a href="#stock-out"><?php echo lang('shop:dashboard:out_of_stock').$oos_color;?></a></li>
-						<li><a href="#order-messages"><?php echo lang('shop:dashboard:messages')?></a></li>
+						<li><a href="#order-messages"><?php echo lang('shop:common:messages')?></a></li>
 						<li><a href="#recent-orders"><?php echo lang('shop:dashboard:recent_orders')?></a></li>
 					</ul>
 					<div id="a5" class="form_inputs">
@@ -127,7 +127,7 @@
 										<th><?php echo lang('shop:common:id'); ?></th>
 										<th><?php echo lang('shop:dashboard:product'); ?></th>
 										<th><?php echo lang('shop:dashboard:notification_date'); ?></th>
-										<th><?php echo lang('shop:dashboard:message'); ?></th>
+										<th><?php echo lang('shop:common:message'); ?></th>
 									</tr>				
 								<?php foreach ($order_messages as $message) : ?>
 									<tr>
@@ -168,7 +168,7 @@
 												</td>
 												<td>
 													<?php echo anchor('admin/shop/orders/order/' . $order->id, ' ', 'title="'.lang('shop:common:view').'" class="tooltip-s img_icon img_view" style="float:right"'); ?>
-													<?php echo anchor('admin/shop/orders/order/' . $order->id.'#message-tab', ' ', 'title="'.lang('shop:dashboard:message').'" class="tooltip-s img_icon img_message" style="float:right"'); ?>
+													<?php echo anchor('admin/shop/orders/order/' . $order->id.'#message-tab', ' ', 'title="'.lang('shop:common:message').'" class="tooltip-s img_icon img_message" style="float:right"'); ?>
 												</td>
 											</tr>
 										<?php endforeach; ?>

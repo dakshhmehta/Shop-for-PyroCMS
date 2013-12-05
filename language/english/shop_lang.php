@@ -1,10 +1,7 @@
 <?php if (!defined('BASEPATH'))  exit('No direct script access allowed');
 
 
-
-//
 // My Account Section - These are the title/Links (my-links)
-//
 $lang['shop:my:my']										=	'MY';
 $lang['shop:my:dashboard']								=	'Dashboard';
 $lang['shop:my:wishlist']								=	'Wishlist';
@@ -19,10 +16,7 @@ $lang['shop:guest:guest']								= 	"Guest";
 $lang['shop:guest:dashboard']							= 	"Dashboard";
 
 
-
-//
 // Cart
-//
 $lang['shop:cart:item_added'] 							= 	"<em>'%s'</em> was added to cart";
 $lang['shop:cart:item_not_added'] 						= 	"Item was not added to the cart";
 $lang['shop:cart:id_qty_not_set']						= 	"Product id or qty has not been set";
@@ -35,16 +29,11 @@ $lang['shop:cart:item_removed2'] 						= 	"%s has been removed from the cart";
 $lang['shop:cart:not_in_cart'] 							= 	"Product is not in cart";
 $lang['shop:cart:unknown'] 								= 	"Unknown";
 
-//
 // Status and Status Messages
-//
 $lang['shop:status:success']							=	'Success';
 $lang['shop:status:error']								=	'Error';
 
-
-//
 // Address field labels
-//
 $lang['shop:address:field:first_name']					= 	"First Name";
 $lang['shop:address:field:last_name']					= 	"Surname";
 $lang['shop:address:field:company']						= 	"company";
@@ -57,11 +46,7 @@ $lang['shop:address:field:country']						= 	"country";
 $lang['shop:address:field:zip']							= 	"zip";
 
 
-//
 // These variables are used all over the front end (non specif to a section)
-//
-
-
 
 //labels
 $lang['shop:label:qty']									=	'Qty';
@@ -97,9 +82,7 @@ $lang['shop:label:save']								=	'Save';
 $lang['shop:label:new']									=	'New';
 
 
-//
 // Messages
-//
 $lang['shop:messages:product_is_hidden']				= 'This product is hidden from your customers view';
 $lang['shop:messages:closed_maintenance']				= "The store is closed for maintenance";
 $lang['shop:messages:no_items']							= "There are no items available to show.";
@@ -124,20 +107,13 @@ $lang['shop:messages:address:address_deleted_success']	=	'Your address has been 
 //Product messages
 $lang['shop:messages:product:not_found']				= "Product not found";
 
-
-
-//
 // Payments
-//
 $lang['shop:payments:no_order_found']					= "No order found";
 $lang['shop:payments:order_already_paid']				= "This order has already been paid for.";
 $lang['shop:payments:payment_cancelled']				= "Payment cancelled";
 $lang['shop:payments:order_does_not_exist']				= "The order # (number) does not exist.";
 $lang['shop:payments:order_has_been_paid']				= "The has been paid";
 
-
-//
 // Checkout
-//
 $lang['shop:checkout:shipment']							= "Shipment";
 $lang['shop:checkout:order_has_been_placed']			= "Your order has been placed.";

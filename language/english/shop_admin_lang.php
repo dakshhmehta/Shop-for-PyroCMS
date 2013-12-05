@@ -2,10 +2,7 @@
 
 # SHOP For PyroCMS (Admin language File)
 
-
-#
 # SECTION AND MENU LABELS
-#
 $lang['shop:admin:shop']									=	'SHOP';
 $lang['shop:admin:shop_admin']								=	'SHOP Admin';
 $lang['shop:admin:dashboard']								=	'Dashboard';
@@ -26,13 +23,12 @@ $lang['shop:admin:analytics']								=	'Analytics';
 $lang['shop:admin:manage']									=	'Manage';
 $lang['shop:admin:view_shop']								=	'Goto Shop';
 
-#
 # COMMON LABELS USED EVERYWHERE
-# 
 # Common labels - When changing the text for these take note that they are used in many sections
-#
 $lang['shop:common:actions']  								= 'Actions';
+$lang['shop:common:action']  								= 'Action';
 $lang['shop:common:available']  							= 'Available';
+$lang['shop:common:enabled']  								= 'Enabled';
 $lang['shop:common:delete']  								= 'Delete';
 $lang['shop:common:remove']  								= 'Remove';
 $lang['shop:common:cancel']  								= 'Cancel';
@@ -56,6 +52,39 @@ $lang['shop:common:no']  									= 'No';
 $lang['shop:common:value']  								= 'Value';
 $lang['shop:common:installed']  							= 'Installed';
 $lang['shop:common:price']  								= 'Price';
+$lang['shop:common:message']  								= 'Message';
+$lang['shop:common:messages']  								= 'Messages';
+
+# Status : Order
+$lang['shop:status:status']  								= 'Status';
+$lang['shop:status:status_all']  							= 'All';
+$lang['shop:status:status_all_closed']  					= 'All closed';
+$lang['shop:status:status_all_open']  						= 'All open';
+$lang['shop:status:placed']  								= 'Placed';
+$lang['shop:status:processing']  							= 'Processing';
+$lang['shop:status:shipped']  								= 'Shipped';
+$lang['shop:status:paid']  									= 'Paid';
+$lang['shop:status:received']  								= 'Received';
+$lang['shop:status:refunded']  								= 'Refunded';
+$lang['shop:status:reopen']  								= 'Reopen';
+$lang['shop:status:returned']  								= 'Returned';
+$lang['shop:status:pending']  								= 'Pending';
+$lang['shop:status:cancelled']  							= 'Cancelled';
+$lang['shop:status:complete'] 	 							= 'Complete';
+$lang['shop:status:closed']  								= 'Closed';
+
+#Order status descriptions
+$lang['shop:status:description:placed']  					= 'The order has been placed by user but awaiting payment.';
+$lang['shop:status:description:processing']  				= 'processing description';
+$lang['shop:status:description:paid']  						= 'The order has been paid';
+$lang['shop:status:description:received']  					= 'The order has been received';
+$lang['shop:status:description:refunded']  					= 'The order was refunded to the customer';
+$lang['shop:status:description:reopen']  					= 'The order was previously closed and now re-opened';
+$lang['shop:status:description:returned']  					= 'The order was returned by the customer';
+$lang['shop:status:description:pending']  					= 'Pending payment';
+$lang['shop:status:description:cancelled']  				= 'Order has been cancelled';
+$lang['shop:status:description:complete']  					= 'The order is complete';
+$lang['shop:status:description:closed']  					= 'The order is complete and finalized';
 
 
 # To be changed later (do not touch)
@@ -64,10 +93,7 @@ $lang['shop:admin:user_data']  				= 'User data';
 $lang['shop:dashboard:alerts']  			= 'Alerts';
 
 
-
-#
 # Admin/Analytics
-#
 $lang['shop:analytics:180_day']  					= '180 day';
 $lang['shop:analytics:30_day']  					= '30 day';
 $lang['shop:analytics:all_orders']  				= 'All orders';
@@ -84,33 +110,23 @@ $lang['shop:analytics:top_clients']  				= 'Top clients';
 $lang['shop:analytics:unpaid_orders']  				= 'Unpaid orders';
 $lang['shop:analytics:week']  						= 'Week';
 
-
-#
 # Admin/Blacklist
-#
-$lang['shop:blacklist:enabled']  = 'Enabled';
 $lang['shop:blacklist:method']  = 'Method';
 $lang['shop:blacklist:value_description']  = 'Value description';
 $lang['shop:buttons:save_and_exit']  = 'Save and exit';
 
-#
 # Admin/Categories
-#
 $lang['shop:categories:categories']  = 'Categories';
 $lang['shop:categories:category']  = 'Category';
 $lang['shop:categories:category_name']  = 'Category name';
 $lang['shop:categories:change_image']  = 'Change image';
 $lang['shop:categories:parent_category']  = 'Parent category';
 
-#
 # Admin/Daily Delas
-#
 $lang['shop:dailydeals:daily_deals']  = 'Daily deals';
 $lang['shop:dailydeals:you_have_no_deals_available']  = 'You have no deals available';
 
-#
 # Admin/Dashboard
-#
 $lang['shop:dashboard:as_csv']  = 'As csv';
 $lang['shop:dashboard:as_json']  = 'As json';
 $lang['shop:dashboard:as_xml']  = 'As xml';
@@ -124,8 +140,6 @@ $lang['shop:dashboard:day']  = 'Day';
 $lang['shop:dashboard:low_level']  = 'Low level';
 $lang['shop:dashboard:low_stock']  = 'Low stock';
 $lang['shop:dashboard:low_stock_level_ok']  = 'Low stock level ok';
-$lang['shop:dashboard:message']  = 'Message';
-$lang['shop:dashboard:messages']  = 'Messages';
 $lang['shop:dashboard:metric']  = 'Metric';
 $lang['shop:dashboard:month']  = 'Month';
 $lang['shop:dashboard:notification_date']  = 'Notification date';
@@ -140,16 +154,11 @@ $lang['shop:dashboard:total_online_products']  = 'Total online products';
 $lang['shop:dashboard:total_products']  = 'Total products';
 $lang['shop:dashboard:week']  = 'Week';
 
-#
 # Admin/Gateways
-#
 $lang['shop:gateways:gateways']  = 'Gateways';
 $lang['shop:gateways:main_description']  = 'Main description';
 
-#
 # Admin/Manage
-#
-$lang['shop:manage:action']  = 'Action';
 $lang['shop:manage:all_cache']  = 'All cache';
 $lang['shop:manage:apearance']  = 'Apearance';
 $lang['shop:manage:categories_cache']  = 'Categories cache';
@@ -174,9 +183,7 @@ $lang['shop:manage:upload_order']  = 'Upload order';
 $lang['shop:manage:upload_products']  = 'Upload products';
 $lang['shop:manage:utility']  = 'Utility';
 
-#
 # Admin/Options
-#
 $lang['shop:options:are_you_sure']  = 'Are you sure';;
 $lang['shop:options:info']  = 'Info';
 $lang['shop:options:info_description']  = 'Info description';
@@ -190,19 +197,13 @@ $lang['shop:options:title_description']  = 'Title description';
 $lang['shop:options:type']  = 'Type';
 $lang['shop:options:type_can_not_be_modified']  = 'Type can not be modified';
 
-#
 # Admin/Orders
-#
-$lang['shop:orders:account']  = 'Account';
-$lang['shop:orders:action']  = 'Action';
-$lang['shop:orders:address']  = 'Address';
-$lang['shop:orders:ago']  				= 'Ago';
+$lang['shop:orders:account']  								= 'Account';
+$lang['shop:orders:address']  								= 'Address';
+$lang['shop:orders:ago']  									= 'Ago';
 $lang['shop:orders:billing']  = 'Billing';
-$lang['shop:orders:cancelled']  = 'Cancelled';
 $lang['shop:orders:city']  = 'City';
-$lang['shop:orders:closed']  = 'Closed';
 $lang['shop:orders:company']  = 'Company';
-$lang['shop:orders:complete']  = 'Complete';
 $lang['shop:orders:compose']  = 'Compose';
 $lang['shop:orders:country']  = 'Country';
 $lang['shop:orders:customer']  = 'Customer';
@@ -220,48 +221,24 @@ $lang['shop:orders:items']  = 'Items';
 $lang['shop:orders:items_amount']  = 'Items amount';
 $lang['shop:orders:last_name']  = 'Last name';
 $lang['shop:orders:loading_messages']  = 'Loading messages';
-$lang['shop:orders:message']  = 'Message';
-$lang['shop:orders:messages']  = 'Messages';
 $lang['shop:orders:notes']  = 'Notes';
 $lang['shop:orders:order']  = 'Order';
 $lang['shop:orders:order_id']  = 'Order id';
 $lang['shop:orders:order_id_description']  = 'Order id description';
 $lang['shop:orders:order_status']  = 'Order status';
-$lang['shop:orders:order_status_pending_description']  = 'Order status pending description';
+$lang['shop:orders:pmt_status']  							= 'Pmt status';
 $lang['shop:orders:order_total']  = 'Order total';
 $lang['shop:orders:orders']  = 'Orders';
-$lang['shop:orders:paid']  = 'Paid';
 $lang['shop:orders:payment_type']  = 'Payment type';
-$lang['shop:orders:pending']  = 'Pending';
 $lang['shop:orders:phone']  = 'Phone';
-$lang['shop:orders:pmt_status']  = 'Pmt status';
 $lang['shop:orders:price_base']  = 'Base';
-$lang['shop:orders:processing']  = 'Processing';
 $lang['shop:orders:progress_status']  = 'Progress status';
 $lang['shop:orders:qty']  = 'Qty';
 $lang['shop:orders:reason']  = 'Reason';
-$lang['shop:orders:received']  = 'Received';
-$lang['shop:orders:refunded']  = 'Refunded';
-$lang['shop:orders:reopen']  = 'Reopen';
-$lang['shop:orders:returned']  = 'Returned';
-$lang['shop:orders:shipped']  = 'Shipped';
 $lang['shop:orders:shipping']  = 'Shipping';
 $lang['shop:orders:shipping_amount']  = 'Shipping amount';
 $lang['shop:orders:shipping_method']  = 'Shipping method';
 $lang['shop:orders:state']  = 'State';
-$lang['shop:orders:status']  = 'Status';
-$lang['shop:orders:status_all']  = 'All';
-$lang['shop:orders:status_all_closed']  = 'All closed';
-$lang['shop:orders:status_all_open']  = 'All open';
-$lang['shop:orders:status_cancelled']  = 'Cancelled';
-$lang['shop:orders:status_closed']  = 'Closed';
-$lang['shop:orders:status_complete']  = 'Complete';
-$lang['shop:orders:status_paid']  = 'Paid';
-$lang['shop:orders:status_pending']  = 'Pending';
-$lang['shop:orders:status_placed']  = 'Placed';
-$lang['shop:orders:status_processing']  = 'Processing';
-$lang['shop:orders:status_returned']  = 'Returned';
-$lang['shop:orders:status_shipped']  = 'Shipped';
 $lang['shop:orders:subtotal']  = 'Subtotal';
 $lang['shop:orders:total']  = 'Total';
 $lang['shop:orders:transactions']  = 'Transactions';
@@ -269,9 +246,7 @@ $lang['shop:orders:user']  = 'User';
 $lang['shop:orders:view_message']  = 'View message';
 $lang['shop:orders:zip']  = 'Zip';
 
-#
 # Admin/Packages
-#
 $lang['shop:packages:depth']  = 'Depth';
 $lang['shop:packages:dimentions']  = 'Dimentions';
 $lang['shop:packages:height']  = 'Height';
@@ -285,10 +260,7 @@ $lang['shop:packages:type']  = 'Type';
 $lang['shop:packages:uninstall']  = 'Uninstall';
 $lang['shop:packages:width']  = 'Width';
 
-#
 # Admin/PGroups
-#
-
 $lang['shop:pgroups:add_new_tier']  = 'Add new tier';
 $lang['shop:pgroups:assign_to']  = 'Assign to';
 $lang['shop:pgroups:discounted_retail_price']  = 'Discounted retail price';
@@ -299,10 +271,7 @@ $lang['shop:pgroups:min_qty']  = 'Min qty';
 $lang['shop:pgroups:price_group']  = 'Price group';
 $lang['shop:pgroups:price_groups']  = 'Price groups';
 
-#
 # Admin/Products
-#
-
 $lang['shop:products:add']  = 'Add';
 $lang['shop:products:add_new_attribute']  = 'Add new attribute';
 $lang['shop:products:add_to_daily_deals']  = 'Add to daily deals';
@@ -425,9 +394,7 @@ $lang['shop:products:width']  = 'Width';
 $lang['shop:products:width_description']  = 'Width description';
 $lang['shop:products:you_must_select_an_upload_folder']  = 'You must select an upload folder';
 
-#
 # Admin/Shipping
-#
 $lang['shop:shipping:cost']  = 'Cost';
 $lang['shop:shipping:details']  = 'Details';
 $lang['shop:shipping:disable']  = 'Disable';
@@ -439,9 +406,7 @@ $lang['shop:shipping:shipping']  							= 'Shipping';
 $lang['shop:shipping:uninstall']  							= 'Uninstall';
 $lang['shop:shipping:view_all']  							= 'View all';
 
-#
 # Admin/Tax
-#
 $lang['shop:tax:rate']  									= 'Rate';
 $lang['shop:tax:rates']  									= 'Rates';
 $lang['shop:tax:tax']  										= 'Tax';

@@ -25,13 +25,13 @@
 				<label>
 					<?php echo lang('shop:orders:order_status'); ?>:
 					<small>
-						<?php echo lang('shop:orders:order_status_'.$order->status.'_description'); ?>:
+						<?php echo lang('shop:status:description:'.$order->status); ?>:
 					</small>
 				</label>
 
 				<div class="value">
 						<?php $class_name = 's_'.$order->status.''; ?>
-						<div class='s_status <?php echo $class_name;?>'><?php echo lang('shop:orders:'.$order->status); ?></div>
+						<div class='s_status <?php echo $class_name;?>'><?php echo lang('shop:status:'.$order->status); ?></div>
 				</div>
 			</li>								  
 		 </ul>	

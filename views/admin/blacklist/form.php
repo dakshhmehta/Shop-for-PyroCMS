@@ -37,7 +37,7 @@
 					</div>
 				</li>				  
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="brand_id"><?php echo lang('shop:blacklist:enabled'); ?> <span></span>
+					<label for="brand_id"><?php echo lang('shop:common:enabled'); ?> <span></span>
 						<small>
 						</small>
 					</label>

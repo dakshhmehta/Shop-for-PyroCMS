@@ -126,7 +126,7 @@
 								<table>
 									<tr>
 										<th><?php echo lang('shop:manage:table');?></th>
-										<th><?php echo lang('shop:manage:action');?></th>
+										<th><?php echo lang('shop:common:action');?></th>
 									</tr>
 
 									<tr>
