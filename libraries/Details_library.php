@@ -609,7 +609,7 @@ class Details_library
 				'shipping_address_id' => array('type' => "INT", 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0),
 				'session_id' => array('type' => 'VARCHAR', 'constraint' => '40', 'default' => '',),
 				'ip_address' => array('type' => 'VARCHAR', 'constraint' => '40', 'default' => '',),
-				'tracking_code' => array('type' => 'VARCHAR', 'constraint' => '110', 'default' => '',),
+				'pin' => array('type' => 'VARCHAR', 'constraint' => '20', 'default' => '',),
 				'data' => array('type' => 'VARCHAR', 'constraint' => '500', 'default' => '',),
 				'trust_core' => array('type' => 'INT', 'constraint' => '11'),
 				'order_date' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE,),
@@ -624,7 +624,6 @@ class Details_library
 				'cost_item' => array('type' => 'DECIMAL(10,2)', 'unsigned' => TRUE),
 				'cost_sub' => array('type' => 'DECIMAL(10,2)', 'unsigned' => TRUE),
 				'cost_base' => array('type' => 'DECIMAL(10,2)', 'unsigned' => TRUE),
-				
 			),
 			'shop_product_files' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
@@ -696,7 +695,6 @@ class Details_library
 				'base_cost' => array('type' => 'DECIMAL(10,2)', 'null' => TRUE,  'default' => 0),				
 				'date_changed' => array('type' => 'TIMESTAMP'),	 
 			),	
-			/*shipping,packages,gateways*/
 			'shop_gateways' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'title' => array('type' => 'VARCHAR', 'constraint' => '100'),
@@ -705,7 +703,6 @@ class Details_library
 				'enabled' => array('type' => 'INT', 'constraint' => '1', 'default' => 0),
 				'options' => array('type' => 'TEXT'),
 			),	
-			/*shipping,packages,gateways*/
 			'shop_shipping' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'title' => array('type' => 'VARCHAR', 'constraint' => '100'),
@@ -714,7 +711,6 @@ class Details_library
 				'enabled' => array('type' => 'INT', 'constraint' => '1', 'default' => 0),
 				'options' => array('type' => 'TEXT'),
 			),	
-			/*shipping,packages,gateways*/
 			'shop_packages' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'title' => array('type' => 'VARCHAR', 'constraint' => '100'),
@@ -739,7 +735,6 @@ class Details_library
 				'phone' => array('type' => 'VARCHAR', 'constraint' => '15'),
 				'deleted' => array('type' => 'INT', 'constraint' => '1', 'default' => 0),
 			),	
-			/*shipping,packages,gateways*/
 			'shop_countries' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'name' => array('type' => 'VARCHAR', 'constraint' => '150'),

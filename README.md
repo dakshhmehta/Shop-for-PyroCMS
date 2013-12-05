@@ -2,20 +2,18 @@
 
 **********
 
-# Introduction
+## Introduction
 
-I created the SHOP program because there is a lack of ecommerce options for `PyroCMS`. The idea behind SHOP is to create a `FREE` and open platform for designers to rapidly set up a ecommerce website using `PyroCMS`. SHOP has many free built in features by default, you will not need any more addons or plugins to setup a ecommerce site.
-
-If you want to contact myself or take part in developing please feel free to email me at: `sal@nitrocart.net`
+I created the SHOP program because there is a lack of ecommerce options for `PyroCMS`. The idea behind SHOP is to create a `FREE` and open platform for designers to rapidly set up a ecommerce website using `PyroCMS`.
 
 
 **********
 
 
-# Developer
+## Developer
 * `Salvatore Bordonaro` - Creator / Developer - since `2013`
 
-# Contributors
+## Contributors
 * `Alison McDonald` - Language, Usability and Testing  - Contributor since `2013`
 * `Eko isa` / Developer - Developer / Contributor since `2013`
 * `John Ashton` / Developer /UX  - Contributor since `2013`
@@ -25,7 +23,7 @@ If you want to contact myself or take part in developing please feel free to ema
 **********
 
 
-# Installation
+## Installation
 
 Before attempting installation please ensure you meet the following requirements and you have:
 
@@ -37,7 +35,7 @@ Before attempting installation please ensure you meet the following requirements
 
 **********
 
-# License
+## License
 
 http://creativecommons.org/licenses/by/3.0/au/
 
@@ -50,7 +48,7 @@ You are free to:
 
 **********
 
-# Feedback
+## Feedback
 Feel free to send us your feedback, report bugs and feature request. You can create an issue or feature request [here](https://bitbucket.org/pyromaniac/shop-for-pyrocms/issues?status=new&status=open)
 
 Your feedback means that we can deliver updates sooner and make the system more reliable to use.

@@ -17,7 +17,7 @@
 								{{ name }}
 							</div>
 
-							<a itemprop="url" href="{{ url:site }}shop/product/{{ slug }}">
+							<a itemprop="url" href="{{ url:site }}shop/products/product/{{ slug }}">
 								<img itemprop="image" src="{{ url:site }}files/thumb/{{ cover_id }}/200/200" />
 							</a>
 							
@@ -28,7 +28,7 @@
 								<input type="hidden" name="id" value="{{ id }}">
 
 									{{ if status != "in_stock" }}
-										<a class="" href="{{ url:site }}shop/product/{{ slug }}">view</a>
+										<a class="" href="{{ url:site }}shop/products/product/{{ slug }}">view</a>
 									{{ else }}
 										
 

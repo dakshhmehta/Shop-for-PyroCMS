@@ -6,7 +6,7 @@
 		{{ /shop:mylinks }}	
 	</ul>
 
-<form name="form2" action="{{url:site}}shop/my/addresses/address/" method="POST">
+<form name="form2" action="{{url:site}}shop/my/addresses/create" method="POST">
 
     <fieldset>
         <h2>New Address</h2>

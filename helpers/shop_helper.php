@@ -35,3 +35,27 @@ if (!function_exists('nc_format_date'))
 	}
 
 }
+
+
+if (!function_exists('generate_pin')) 
+{
+
+	/**
+	 * 
+	 * @param  [type] $min [description]
+	 * @param  [type] $max [description]
+	 * @return [type]      [description]
+	 */
+	function generate_pin() 
+	{
+       
+		//create a PIN - Only needed if user is guest. This helps the user access the guest portal to check status of order
+		$pin = md5(  time() . mt_rand(1000000,9999999) );
+		$pin = substr($pin ,0,5);
+
+		return $pin;
+
+	}
+
+}
+

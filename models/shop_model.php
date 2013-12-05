@@ -61,7 +61,7 @@ class Shop_model extends MY_Model
 		    'shop:'.$this->_pyrosearch_singular, 
 		    'shop:'.$this->_pyrosearch_plural,  
 		    $id,
-		    'shop/product/'.$id,
+		    'shop/products/product/'.$id,
 		    $name,
 		    $desc, 
 		    array(

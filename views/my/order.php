@@ -80,7 +80,7 @@
 					<td>{{qty}}</td>
 					<td>{{title}}</td>
 					<td>{{cost_item}}</td>
-					<td><a href="{{ url:site }}shop/product/{{ product_id }}">view</a></td>
+					<td><a href="{{ url:site }}shop/products/product/{{ product_id }}">view</a></td>
 				</tr>
 
 
@@ -100,7 +100,7 @@
 					<td></td>
 					<td>{{id}}</td>
 					<td>{{filename}}</td>
-					<td><a href='{{url:site}}shop/my/download_file/{{id}}/{{order.id}}'>download {{filename}}</a></td>
+					<td><a href='{{url:site}}shop/my/downloads/file/{{id}}/{{order.id}}'>download {{filename}}</a></td>
 					
 				</tr>
 			{{/shop:digital_files}}

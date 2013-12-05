@@ -990,7 +990,7 @@ class Plugin_Shop extends Plugin
 
 		$links = array();
 
-		$links['dashboard']['link'] = anchor('shop/my/', lang('dashboard'));
+		$links['dashboard']['link'] = anchor('shop/my/dashboard', lang('dashboard'));
 		$links['orders']['link'] = anchor('shop/my/orders', lang('orders'));
 		$links['wishlist']['link'] = anchor('shop/my/wishlist', lang('wishlist'));
 		$links['messages']['link'] = anchor('shop/my/messages', lang('messages'));

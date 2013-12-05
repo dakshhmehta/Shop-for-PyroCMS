@@ -36,31 +36,24 @@ $route['admin(/:any)?']			  			= 'admin/shop$1';
 
 
 
-/*
- * Front end routes
- *
- * 
- */
-$route['shop/product(/:any)']		 		= 'product/index$1';
-$route['shop/products(/:num)']		 		= 'products/index$1';
-$route['shop/categories(/:num)']		 	= 'categories/index$1';
-$route['shop/brands(/:num)']		 		= 'brands/index$1';
-$route['shop/home(/:num)']		 		    = 'shop/index$1';
-/*
-$route['shop/special(/:any)']		 		= 'special/index$1';
-$route['shop/brand(/:any)?']  				= 'brands/brand$1';
-$route['shop/brands(/:any)?']  				= 'brands/index$1';
-$route['shop/product(/:any)?']		 		= 'product/index$1';
+
+
+#
+# Uncomment the next line if you want to have the uri for diplsaying products
+# work with the following notations (not just the standard);
+#
+# Standard domain.com/shop/products/product/{slug}
+# 
+# After  domain.com/shop/product/{slug}
+# After  domain.com/product/{slug}
+# 
+$route['shop/product(/:any)']		 		= 'products/product$1';
 
 
 
-$route['shop/category(/:any)?']  			= 'categories/category$1';
 
 
-$route['shop/products(/:any)?']		 		= 'products/index$1';
-
-$route['shop/my/wishlist(/:any)?'] 			= 'wishlist$1';
-
-$route['products(/:num)?']		 			= 'shop/products/index$1';
-*/
-
+#
+# We need this to map the dashboard to the shop/my URI
+#
+$route['shop/my']		 		    		= 'my/dashboard/index';
