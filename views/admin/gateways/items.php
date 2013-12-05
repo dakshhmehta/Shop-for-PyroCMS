@@ -11,8 +11,8 @@
 
 		<div class="tabs">
 			  <ul class="tab-menu">
-				<li><a href="#installed"><?php echo lang('shop:gateways:installed'); ?></a></li>
-				<li><a href="#available"><?php echo lang('shop:gateways:available'); ?></a></li>
+				<li><a href="#installed"><?php echo lang('shop:common:installed'); ?></a></li>
+				<li><a href="#available"><?php echo lang('shop:common:available'); ?></a></li>
 			  </ul>
 				<div id="installed" class="form_inputs">
 					<fieldset>
@@ -23,7 +23,7 @@
 										<tr>
 											<th><?php echo lang('shop:common:name'); ?></th>
 											<th><?php echo lang('shop:common:image'); ?></th>
-											<th><?php echo lang('shop:gateways:description'); ?></th>
+											<th><?php echo lang('shop:common:description'); ?></th>
 											<th></th>
 										</tr>
 									</thead>
@@ -74,7 +74,7 @@
 										<tr>
 											<th><?php echo lang('shop:common:name'); ?></th>
 											<th><?php echo lang('shop:common:image'); ?></th>
-											<th><?php echo lang('shop:gateways:description'); ?></th>
+											<th><?php echo lang('shop:common:description'); ?></th>
 											<th></th>
 										</tr>
 									</thead>

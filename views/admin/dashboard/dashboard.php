@@ -47,7 +47,7 @@
 								<table>
 									<tr>
 										<th><?php echo lang('shop:dashboard:metric');?></th>
-										<th><?php echo lang('shop:dashboard:value');?></th>
+										<th><?php echo lang('shop:common:value');?></th>
 									</tr>
 
 									<?php 
@@ -57,7 +57,7 @@
 									?>
 									<tr>
 										<th><?php echo lang('shop:dashboard:metric');?></th>
-										<th><?php echo lang('shop:dashboard:value');?></th>
+										<th><?php echo lang('shop:common:value');?></th>
 									</tr>
 									<?php
 									echo "<tr><td>".lang('shop:dashboard:total_offline_products')."  : </td><td>".  $shop_products_count['total_offline_products']."</td></tr>";

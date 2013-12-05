@@ -61,8 +61,8 @@
 							<div class="input">
 							<?php
 									echo form_dropdown('featured', array(
-										1 => lang('shop:products:yes'), 
-										0 => lang('shop:products:no'), 
+										1 => lang('shop:common:yes'), 
+										0 => lang('shop:common:no'), 
 										), set_value('featured', $featured));
 									?>
 							</div>
@@ -76,8 +76,8 @@
 							<div class="input">
 							<?php
 									echo form_dropdown('searchable', array(
-										1 => lang('shop:products:yes'), 
-										0 => lang('shop:products:no'), 
+										1 => lang('shop:common:yes'), 
+										0 => lang('shop:common:no'), 
 										), set_value('searchable', $searchable));
 									?>								
 							</div>

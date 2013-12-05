@@ -23,7 +23,7 @@
 					<th class="collapse"><?php echo lang('shop:orders:date'); ?></th>
 					<th class="collapse"><?php echo lang('shop:orders:total'); ?></th>
 					<th class="collapse"><?php echo lang('shop:orders:progress_status'); ?></th>
-					<th style="text-align:right"><?php echo lang('shop:orders:actions'); ?></th>
+					<th style="text-align:right"><?php echo lang('shop:common:actions'); ?></th>
 				</tr>
 			</thead>
 			<tbody>

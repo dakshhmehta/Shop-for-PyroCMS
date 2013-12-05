@@ -25,7 +25,7 @@
 								<table>
 									<tr>
 										<th><?php echo lang('shop:manage:detail');?></th>
-										<th><?php echo lang('shop:manage:value');?></th>
+										<th><?php echo lang('shop:common:value');?></th>
 									</tr>
 
 									<tr>
@@ -53,7 +53,7 @@
 								<table>
 									<tr>
 										<th><?php echo lang('shop:manage:detail');?></th>
-										<th><?php echo lang('shop:manage:value');?></th>
+										<th><?php echo lang('shop:common:value');?></th>
 									</tr>
 
 									<tr>

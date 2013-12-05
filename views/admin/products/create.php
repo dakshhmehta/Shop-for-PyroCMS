@@ -29,7 +29,7 @@
 						<div class="input"><?php echo form_input('slug', set_value('slug', $slug)); ?></div>
 					</li>
 					<li>
-						<label for="price"><?php echo lang('shop:products:price'); ?><span>*</span><br />
+						<label for="price"><?php echo lang('shop:common:price'); ?><span>*</span><br />
 							<small><?php echo lang('shop:products:price_description'); ?></small>
 						</label>
 						<div class="input">

@@ -9,7 +9,7 @@
 		<?php //if ($products) : ?>
 		<a id="flink" href="javascript:toggle_filter()" class='tooltip-s img_icon_title img_filter' title='<?php echo lang('shop:products:filter');?>'></a>
 		<?php //endif; ?>
-		<a href="admin/shop/product/create" class='tooltip-s img_icon_title img_create' title='<?php echo lang('shop:products:new');?>'></a>
+		<a href="admin/shop/product/create" class='tooltip-s img_icon_title img_create' title='<?php echo lang('shop:common:new');?>'></a>
 		
 	</span>
 	
@@ -40,7 +40,7 @@
 											<th class="collapse"><?php echo lang('shop:products:visibility');?></th>
 											<th class="collapse"><?php echo lang('shop:products:category'); ?></th>
 											<th class="collapse"><?php echo lang('shop:products:custom_field'); ?></th>
-											<th class="collapse"><?php echo lang('shop:products:price'); ?></th>
+											<th class="collapse"><?php echo lang('shop:common:price'); ?></th>
 
 											<th></th>
 										</tr>

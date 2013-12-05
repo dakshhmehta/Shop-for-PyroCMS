@@ -23,7 +23,7 @@
 						<div class="input"><?php echo form_input('title', set_value('name', $gateway->title), 'class="width-15"'); ?></div>
 					</li>
 					<li class="<?php echo alternator('', 'even'); ?>">
-						<label for="desc"><?php echo lang('shop:gateways:description'); ?><span>*</span></label>
+						<label for="desc"><?php echo lang('shop:common:description'); ?><span>*</span></label>
 						<div class="input"><?php echo form_textarea('desc', set_value('desc', $gateway->desc), 'class="width-15"'); ?></div>
 					</li>
 				</ul>

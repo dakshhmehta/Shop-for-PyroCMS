@@ -1,7 +1,7 @@
 <section class="title">
 	<h4><?php echo lang('shop:options:options'); ?></h4>
 	<h4 style="float:right">
-	<a title='<?php echo lang('shop:options:new'); ?>' href="admin/shop/options/create" class='tooltip-s modal img_icon_title img_create'></a>
+	<a title='<?php echo lang('shop:common:new'); ?>' href="admin/shop/options/create" class='tooltip-s modal img_icon_title img_create'></a>
 	</h4>
 </section>
 <?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
@@ -10,7 +10,7 @@
 		<?php if (empty($options)): ?>
 			<div class="no_data">
 				<p>
-					<?php echo lang('shop:options:description'); ?>
+					<?php echo lang('shop:common:description'); ?>
 				</p>
 				<?php echo lang('shop:options:no_data'); ?>
 			</div>
@@ -46,7 +46,7 @@
 								<span class="button-dropdown" data-buttons="dropdown">
 								
 										<a href="#" class="shopbutton button-rounded button-flat-primary"> 
-											<?php echo lang('shop:options:actions');?> 
+											<?php echo lang('shop:common:actions');?> 
 											<i class="icon-caret-down"></i>
 										</a>
 										 

@@ -16,7 +16,7 @@
 				<th><input type="checkbox" name="action_to_all" value="" class="check-all" /></th>
 				<th><?php echo lang('shop:common:name'); ?></th>
 				<th><?php echo lang('shop:pgroups:price_group'); ?></th>
-				<th style=""><?php echo lang('shop:pgroups:actions'); ?></th>
+				<th style=""><?php echo lang('shop:common:actions'); ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -39,7 +39,7 @@
 								
 									<span class="button-dropdown" data-buttons="dropdown">
 										<a href="#" class="shopbutton button-rounded button-flat-primary"> 
-											<?php echo lang('shop:pgroups:actions');?> 
+											<?php echo lang('shop:common:actions');?> 
 											<i class="icon-caret-down"></i>
 										</a>
 										 

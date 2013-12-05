@@ -3,7 +3,7 @@
 	<?php if (isset($id) AND $id > 0): ?>
 		<h4><?php echo sprintf(lang('shop:common:edit'), $name); ?></h4>
 	<?php else: ?>
-		<h4><?php echo lang('shop:blacklist:new'); ?></h4>
+		<h4><?php echo lang('shop:common:new'); ?></h4>
 	<?php endif; ?>
 	
 </section>
@@ -29,7 +29,7 @@
 					</div>
 				</li>  				
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="value"><?php echo lang('shop:blacklist:value'); ?>  <span>*</span> - 
+					<label for="value"><?php echo lang('shop:common:value'); ?>  <span>*</span> - 
 					<?php echo lang('shop:blacklist:value_description'); ?> 
 					</label>
 					<div class="input">

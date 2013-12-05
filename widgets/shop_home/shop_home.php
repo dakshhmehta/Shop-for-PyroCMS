@@ -83,7 +83,7 @@ class Widget_Shop_home extends Widgets
 		//$module_path = site_url('assets/modules/shop/');
 		
 		$this->load->library('shop/products_library');
-		$this->lang->load('shop/shop_front');
+		$this->lang->load('shop/shop');
 		
 		$uri1 = $this->uri->segment(1);
 		$uri2 = $this->uri->segment(2);

@@ -2,7 +2,7 @@
 
 <section class="title">
 	<?php if (isset($id) AND $id > 0): ?>
-		<h4><?php echo sprintf(lang('shop:admin:edit'), $name); ?></h4>
+		<h4><?php echo sprintf(lang('shop:common:edit'), $name); ?></h4>
 	<?php else: ?>
 		<h4><?php echo lang('shop:admin:new'); ?></h4>
 	<?php endif; ?>
@@ -19,17 +19,17 @@
 		<fieldset>
 			<ul>
 				<li class="<?php echo alternator('even', ''); ?>">
-					<label for="name"><?php echo lang('shop:admin:name');?><span>*</span></label>
+					<label for="name"><?php echo lang('shop:common:name');?><span>*</span></label>
 					<div class="input">
 						<?php echo form_input('name', set_value('name', $name), 'id="name" '); ?>
 					</div>
 				</li>
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="slug"><?php echo lang('shop:admin:slug');?><span>*</span></label>
+					<label for="slug"><?php echo lang('shop:common:slug');?><span>*</span></label>
 					<div class="input"><?php echo form_input('slug', set_value('slug', $slug)); ?></div>
 				</li>		
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="slug"><?php echo lang('shop:admin:order');?><span>*</span></label>
+					<label for="slug"><?php echo lang('shop:common:order');?><span>*</span></label>
 					<div class="input"><?php echo form_input('order', set_value('order', $order)); ?></div>
 				</li>				
 				<li class="<?php echo alternator('', 'even'); ?>">
@@ -73,7 +73,7 @@
 					</div>
 				</li>								   
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="user_data"><?php echo lang('shop:admin:description');?><span></span></label>		
+					<label for="user_data"><?php echo lang('shop:common:description');?><span></span></label>		
 					<div class="input">
 							<?php echo form_textarea('description', set_value('description', isset($description)?$description:""), 'class="wysiwyg-simple"'); ?>
 							<br />
