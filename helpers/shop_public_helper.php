@@ -284,28 +284,6 @@ if (!function_exists('nc_option_price_calc'))
 
 }
 
-if (!function_exists('_setJQ')) 
-{
-	
-	function _setJQ($template,$ps =0) 
-	{
-		$template->append_metadata('<script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>');
-		
-		return $template;
-	
-	
-	
-		$template->append_js('module::lib/jquery.js');
-		
-		return $template;
-		
-		$template->append_metadata('<script src="http://code.jquery.com/jquery-1.9.1.js"></script>');
-		
-		return $template;
-	}
-}
-
-
 
 if (!function_exists('sf_parcel_is_smaller')) 
 {

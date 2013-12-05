@@ -193,7 +193,6 @@ class Products_library
 		
 		$results['country_id'] = $this->CI->settings->get('ss_distribution_loc');
 		$results['shop_name'] = $this->CI->settings->get('ss_name');
-		$results['shop_slogan'] = $this->CI->settings->get('ss_slogan');
 		$results['currency_code'] = $this->CI->settings->get('ss_currency_code');
 		
 		$shopset = $this->CI->settings_m->get_by(array('slug' => 'ss_currency_symbol'));

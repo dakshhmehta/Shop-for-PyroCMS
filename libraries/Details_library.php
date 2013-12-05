@@ -829,19 +829,7 @@ class Details_library
 				'is_gui' => TRUE, 
 				'module' => 'shop', 
 				'order' => 950
-			),	  
-			'ss_slogan' => array(
-				'title' => 'Shop Slogan', 
-				'description' => 'The slogan will be used in the Shops title pages. You may also use the plugin { Shop:slogan }',
-				'type' => 'text', 
-				'default' => '', 
-				'value' => '', 
-				'options' => '', 
-				'is_required' => FALSE,
-				'is_gui' => TRUE, 
-				'module' => 'shop', 
-				'order' => 940
-			),				  
+			),	  				  
 			'ss_currency_code' => array(
 				'title' => 'Shop Currency', 
 				'description' => 'Currency Code you will accept (ISO-4217 format, ex. AUD)',
@@ -916,8 +904,8 @@ class Details_library
 			),			 
 				
 			'ss_qty_perpage_limit' => array(
-				'title' => 'Products per page',
-				'description' => 'How many products show in category view (0 - general pagination settings will be used)',
+				'title' => 'Products per page (admin area)',
+				'description' => 'How many products show in list view ',
 				'type' => 'text', 
 				'default' => 20, 
 				'value' => '', 
@@ -928,8 +916,8 @@ class Details_library
 				'order' => 820
 			),
 			'ss_qty_perpage_limit_front' => array(
-				'title' => 'Products per page',
-				'description' => 'How many products show in list view (front end only)',
+				'title' => 'Products per page (public site)',
+				'description' => 'How many products show in list view ',
 				'type' => 'text', 
 				'default' => 10, 
 				'value' => '', 
@@ -974,31 +962,7 @@ class Details_library
 				'is_gui' => TRUE, 
 				'module' => 'shop', 
 				'order' => 760
-			),	 
-			'nc_menu_style' => array(
-				'title' => 'Admin Menu', 
-				'description' => 'Chose a view (Lite or Advanced)',
-				'type' => 'radio', 
-				'default' => 0, 
-				'value' => '', 
-				'options' => '1=Lite|0=Advanced', 
-				'is_required' => FALSE,
-				'is_gui' => TRUE, 
-				'module' => 'shop', 
-				'order' => 750
-			),   		
-			'nc_jq' => array(
-				'title' => 'Include jQuery for Checkout page',
-				'description' => 'The default checkout page requires jQuery - If you have it in your sites template you do not need to re-ad this library. Otherwise please leave it on.',
-				'type' => 'radio',
-				'default' => 1,
-				'value' => '',
-				'options' => '1=On|0=Off',
-				'is_required' => FALSE,
-				'is_gui' => TRUE,
-				'module' => 'shop',
-				'order' => 740
-				),		
+			),	 			
 			'shop_maps_api_key' => array(
 				'title' => 'Maps API Key', 
 				'description' => 'Your Bing Maps API key',

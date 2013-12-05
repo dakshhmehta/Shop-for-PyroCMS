@@ -32,7 +32,6 @@ class Categories extends Public_Controller
 		
 		// Retrieve some core settings
 		$this->shop_title = Settings::get('ss_name');		//Get the shop name
-		//$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 		$this->limit = Settings::get('ss_qty_perpage_limit_front');
 		
 		

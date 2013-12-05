@@ -39,9 +39,7 @@ class Cart extends Public_Controller
 		$this->load->helper('shop/shop_prices');
 
 		// Retrieve some core settings
-		//$this->use_css =  Settings::get('nc_css');
 		$this->shop_title = Settings::get('ss_name');		//Get the shop name
-		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 		$this->login_required = Settings::get('ss_require_login');
 		$this->has_logged_in_user =  ($this->current_user)? TRUE : FALSE ;
 
@@ -132,10 +130,7 @@ class Cart extends Public_Controller
 		$url_redir = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'shop/cart';
 		
 
-
-		// 
 		// Check the post header to see if the item come from a post or a direct link
-		//
 		if( $this->input->post('id') ) 
 		{
 		
@@ -216,7 +211,6 @@ class Cart extends Public_Controller
 
 
 	
-
 	
 		//
 		// Requested new qty 
@@ -230,7 +224,6 @@ class Cart extends Public_Controller
 		// Override the item price - if the new quantaty (nq) changes and a lower price is available
 		//
 		
-
 
 		// 1. Get the current QTY of items assigned to PGROUP
 		// 2. Add to incoming QTY
