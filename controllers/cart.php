@@ -697,6 +697,7 @@ class Cart extends Public_Controller
 				'options' => $options,
 				'pgroup_id' => $item->pgroup_id,			
 				'price_bt' => $item->price_bt, /*before tax value*/
+				'user_data' => $item->user_data,  
 
 		);
 		

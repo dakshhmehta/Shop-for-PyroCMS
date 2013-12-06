@@ -25,6 +25,7 @@
  */
 
 include_once( dirname(__FILE__) . '/'. 'twoducks_base.php');
+include_once( dirname(__FILE__) . '/'. 'twoducks_packages.php');
 
 class Twoducks_ShippingMethod extends Twoducks_base
 {
@@ -64,6 +65,7 @@ class Twoducks_ShippingMethod extends Twoducks_base
 	public function __construct() 
 	{
 		parent::__construct();
+
 	}
 
 	
@@ -76,8 +78,10 @@ class Twoducks_ShippingMethod extends Twoducks_base
 	public function calc($options, $items, $from_address = array(), $to_address = array() )
 	{
 
+		//var_dump($items);die;
 
-		$this->add('Start calc for:' . $this->title);
+
+		$this->package_list = new twoducks_packages();
 
 		$cost = 0;
 
@@ -95,114 +99,126 @@ class Twoducks_ShippingMethod extends Twoducks_base
 			}
 
 
-
-
 			//default calculation method
 			$func = 'calc_cards';
 
-			switch ($item->user_data) 
+			switch ($item['user_data']) 
 			{
 
 				case 'cards':
-					$func = 'calc_cards';
+					$this->package_list->add($item, 'cards' , 'calc_cards');
 					break;
 
 				case 'invitations':
-					$func = 'calc_invitations';
+					$this->package_list->add($item, 'invitations' , 'calc_invitations');
 					break;	
 
 
 				case 'invitation-pack':
-					$func = 'calc_invitation_pack';
+					$this->package_list->add($item, 'invitations' , 'calc_invitation_pack');	
 					break;	
 
 
 				case 'tags':
-					$func = 'calc_tags';
+					$this->package_list->add($item, 'tags' , 'calc_tags');					
 					break;
 
 
 				case 'birth':
-					$func = 'calc_birth';
+					$this->package_list->add($item, 'birth' , 'calc_birth');		
 					break;
 
 				case 'personalized-xmas-postcards':
-					$func = 'calc_pxmascards';
+					$this->package_list->add($item, 'personalized-xmas-postcards' , 'calc_pxmascards');							
 					break;
 					
 				case 'name-charts':
-					$func = 'calc_name_charts';
+					$this->package_list->add($item, 'name-charts' , 'calc_name_charts');						
 					break;
 
 
 				case 'posters':
-					$func = 'calc_posters';
+					$this->package_list->add($item, 'posters' , 'calc_posters');
 					break;
 
 
 				case 'flash-cards':
-					$func = 'calc_flash_cards';
+					$this->package_list->add($item, 'flash-cards' , 'calc_flash_cards');
 					break;
 
-					
+
 				case 'calandar':
-					$func = 'calc_calandar';
+					$this->package_list->add($item, 'calandar' , 'calc_calandar');
 					break;
-
 
 				case 'prints':
-					$func = 'calc_prints';
+					$this->package_list->add($item, 'prints' , 'calc_prints');					
 					break;
 
 				case 'gift-wrap':
-					$func = 'calc_gift_wrap';
+					$this->package_list->add($item, 'gift-wrap' , 'calc_gift_wrap');						
 					break;
-					
 
-				case 'free-shipping':
+				case 'framed-name-charts':
+					$this->package_list->add($item, 'framed-name-charts' , 'calc_framed_name_charts', 'post');						
+					break;
+
 				default:
 					break;
 
 			}
 
 			
-
-			//now we have the calc method, go there and calc
-			$cost += $this->$func($item);
-
 		}
 
 
-	
-		//
-		// trim shipping does 1 of 2 things.
-		// It will round up if shipping is too low,
-		// or round down if shipping is too high
-		//
+		//var_dump($this->package_list->packages);die;
+
+
+		//Do some Pre calc on the packages + items
+		$cost += $this->calc_package($this->package_list->packages, 'pre');
+
+
+		// trim shipping does 1 of 2 things. It will round up if shipping is too low,or round down if shipping is too high
 		$this->trim_shipping($cost, $options, $shippable_item_count);
 
 
-		//now we add on the framed charts as they do not reuire trimming
-		foreach ($items as $item)
-		{	
-			if($item->user_data == 'name-charts')
-			{
+		// Now do some POST calc for items that MUST be calc after trimming
+		$cost += $this->calc_package($this->package_list->packages, 'post');
+		
 
-				$cost += $this->calc_framed_name_charts($item);
-			}
-
-		}
-
+		//add handling
 		$this->add_handling_charge($cost,$options);
 
 
-		$this->add('shippable count: ' .$shippable_item_count);
-	 
+		var_dump($cost);die;
+
+	 	//return the cost
 		return $cost; 
 
 	}
 
 
+	private function calc_package($packages, $mode = 'pre')
+	{
+		$cost = 0;
+
+		foreach($packages as $package)
+		{
+			if($package['calc-mode'] == $mode)
+			{
+				//get the function name
+				$func = $package['function'];
+
+				//now we have the calc method, go there and calc
+				$cost += $this->$func($package);	
+				
+			}		
+		}	
+
+		return $cost;
+
+	}
 
 
 
@@ -227,13 +243,6 @@ class Twoducks_ShippingMethod extends Twoducks_base
 			$max_shipping = $options['shipping_max'];
 
 
-			$this->add( "Before Trim:" . $cost   );
-
-			//
-			// Add handling
-			//
-			//$cost += $handling;
-
 			//check min
 			$cost = ($cost < $min_shipping)?  $min_shipping : $cost ;
 
@@ -243,7 +252,6 @@ class Twoducks_ShippingMethod extends Twoducks_base
 				$cost =  ($cost > $max_shipping)?  $max_shipping : $cost ; 
 			}
 
-			$this->add( "After Trim:" . $cost   );
 
 		}
 
@@ -252,12 +260,6 @@ class Twoducks_ShippingMethod extends Twoducks_base
 	private function add_handling_charge(&$cost,$options)
 	{
 		$handling = $options['handling'];
-
-
-		if($cost == 0)
-		{
-			$cost = 0;
-		}
 
 		if($cost > 25.00)
 		{

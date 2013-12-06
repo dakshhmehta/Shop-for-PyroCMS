@@ -68,7 +68,7 @@ class Twoducks_base extends Twoducks_debug
 	 * 
 	 * @return Float      Returns ZERO
 	 */
-	protected function calc_default($package)
+	protected function calc_default($item)
 	{
 		$qty = $package->item_count;
 		
@@ -90,10 +90,8 @@ class Twoducks_base extends Twoducks_debug
 	protected function calc_cards($package)
 	{
 		
+		$qty = $package['count'];
 
-		$qty = $package->item_count;
-
-		$this->add('cards-qty: '.$qty);
 
 		if($qty <= 4) return 2.00;
 
@@ -113,7 +111,7 @@ class Twoducks_base extends Twoducks_debug
 	protected function calc_calandar($package)
 	{
 
-		$qty = $package->item_count;
+		$qty = $package['count'];
 
 		return ($qty * 2.00);
 
@@ -130,17 +128,15 @@ class Twoducks_base extends Twoducks_debug
 	protected function calc_invitations($package)
 	{
 
-		$qty = $package->item_count;
+		$qty = $package['count'];
 		
-		$this->add('inv-qty: ' . $qty);		
-
 		return 10;
 	}
 
 
 	protected function calc_invitation_pack($package)
 	{
-		$qty = $package->item_count;
+		$qty = $package['count'];
 
 		return $this->_price_step($qty, 5.00, 2);			
 	}
@@ -155,7 +151,7 @@ class Twoducks_base extends Twoducks_debug
 	 */
 	protected function calc_tags($package)
 	{
-		$qty = $package->item_count;
+		$qty = $package['count'];
 
 		return $this->_price_step($qty, 2.00, 5);		
 
@@ -171,18 +167,19 @@ class Twoducks_base extends Twoducks_debug
 	 */
 	protected function calc_birth($package)
 	{
-		$qty = $package->item_count;
+		$qty = $package['count'];
 		
 		return 10;
 	}
 	
 	protected function calc_pxmascards($package)
 	{
-		$qty = $package->item_count;
+		$qty = $package['count'];
 		$found = FALSE;
 		
 
-		foreach($package->items as $item)
+		var_dump($package['items']);die;
+		foreach($package['items'] as $item)
 		{
 
 			foreach( $item['options'] as $option_key => $selected_option_value)
@@ -219,10 +216,8 @@ class Twoducks_base extends Twoducks_debug
 		$cost = 0;
 		$count_print_1 = 0;
 		$count_print_2 = 0;		
-		$count_framed = 0;
 
-
-		$qty = $package->item_count;
+		$qty = $package['count'];
 
 
 		foreach($package->items as $item)
@@ -243,7 +238,6 @@ class Twoducks_base extends Twoducks_debug
 						break;
 					case 'framed':					
 					default:
-						$count_framed += $item['qty'];
 						break;
 				}
 
@@ -255,9 +249,6 @@ class Twoducks_base extends Twoducks_debug
 		$cost += $this->calc_name_charts_unframed_8_10_and_8_12($count_print_1);
  
 		$cost += $this->calc_name_charts_unframed_10_14($count_print_2);
- 
-		//$cost += $this->calc_name_charts_framed($count_framed);
-
  
 
 		return $cost;
@@ -272,9 +263,7 @@ class Twoducks_base extends Twoducks_debug
 		$count_print_2 = 0;		
 		$count_framed = 0;
 
-
-		$qty = $package->item_count;
-
+		$qty = $package['count'];
 
 		foreach($package->items as $item)
 		{
@@ -286,30 +275,20 @@ class Twoducks_base extends Twoducks_debug
 
 				switch ( $_user_data ) 
 				{
-					case 'print_1':
-						$count_print_1 += $item['qty'];
-						break;
-					case 'print_2':
-						$count_print_2 += $item['qty'];
-						break;
 					case 'framed':					
-					default:
 						$count_framed += $item['qty'];
 						break;
+					default:
+						break;					
 				}
 
 			}
 
 		}			
 
- 
-		//$cost += $this->calc_name_charts_unframed_8_10_and_8_12($count_print_1);
- 
-		//$cost += $this->calc_name_charts_unframed_10_14($count_print_2);
- 
+  
 		$cost += $this->calc_name_charts_framed($count_framed);
 
- 
 
 		return $cost;
 	}
@@ -324,7 +303,7 @@ class Twoducks_base extends Twoducks_debug
 	 */
 	protected function calc_posters($package)
 	{
-		$qty = $package->item_count;
+		$qty = $package['count'];
 		
 		return $this->_price_step($qty, 10, 5);		
 	}
@@ -333,15 +312,14 @@ class Twoducks_base extends Twoducks_debug
 
 	protected function calc_flash_cards($package)
 	{
-		$qty = $package->item_count;
+		$qty = $package['count'];
 		
-
 		return $this->_price_step($qty, 2, 2);		
 	}
 
 	protected function calc_prints($package)
 	{
-		$qty = $package->item_count;
+		$qty = $package['count'];
 
 		$a3_qty = 0;
 		$a4_qty = 0;
@@ -351,7 +329,6 @@ class Twoducks_base extends Twoducks_debug
 		$cost = 0;
 
 	
-
 		foreach($package->items as $item)
 		{
 
@@ -397,7 +374,7 @@ class Twoducks_base extends Twoducks_debug
 	 */
 	protected function calc_gift_wrap($package)
 	{
-		$qty = $package->item_count;
+		$qty = $package['count'];
 		
 		return $this->_price_step($qty, 2, 5);		
 	}
