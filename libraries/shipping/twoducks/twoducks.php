@@ -115,7 +115,7 @@ class Twoducks_ShippingMethod extends Twoducks_base
 
 
 				case 'invitation-pack':
-					$this->package_list->add($item, 'invitations' , 'calc_invitation_pack');	
+					$this->package_list->add($item, 'invitation-pack' , 'calc_invitation_pack');	
 					break;	
 
 

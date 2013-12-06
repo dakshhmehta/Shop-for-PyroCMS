@@ -100,11 +100,8 @@ class Twoducks_base extends Twoducks_debug
 		if($qty <= 25) return 10.00;
 		
 
-		//
 		//26 and larger
-		//
 		return 15.00;
-
 
 	}
 
@@ -142,6 +139,7 @@ class Twoducks_base extends Twoducks_debug
 	}
 
 
+
 	/**
 	 * Tags
 	 * 1-5 pack of tags $2 flat rate
@@ -158,12 +156,10 @@ class Twoducks_base extends Twoducks_debug
 	}
 
 
+
+
 	/**
-	 * Tags
-	 * 1-5 pack of tags $2 flat rate
-	 * 
-	 * @param  [type] $qty [description]
-	 * @return [type]      [description]
+	 * Birth announcements : $10 flat rate
 	 */
 	protected function calc_birth($package)
 	{
@@ -172,7 +168,8 @@ class Twoducks_base extends Twoducks_debug
 		return 10;
 	}
 	
-	
+
+
 	/**
 	 * 
 	 * If there exist to be a printed xmas-post card the rate is $10 flat rate for 1 or many - not based on qty
@@ -215,6 +212,9 @@ class Twoducks_base extends Twoducks_debug
 		//not found implies digital only
 		return 0.00;
 	}
+
+
+	##########   need to verify below  ###########	
 
 	protected function calc_name_charts($package)
 	{

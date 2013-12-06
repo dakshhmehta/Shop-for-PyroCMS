@@ -1060,6 +1060,24 @@ class Details_library
 				'module' => 'shop'
 			),
 			array(
+				'slug' => 'sf_guest_order_notification',
+				'name' => 'shop: Guest Lodged Order',
+				'description' => 'Email sent to user when order is submitted',
+				'subject' => '{{ settings:ss_name }} - Order has been submitted',
+				'body' => '<h1>You have successfully created an order with {{ settings:ss_name }}</h1>
+
+					<b>Email:</b> {{ email }}<br />
+					<b>Order ID:</b> {{ order_id }}<br />	
+					<b>PIN:</b> {{ pin }}<br />				
+					<b>Order Date:</b> {{ order_date }}<br />
+					<b>Order Total:</b> {{ cost_total }}<br />
+					<p><a href="{{ url:site }}shop/guest/">Login to your PIN, email and Order #</a> to </p>
+				',
+				'lang' => 'en',
+				'is_default' => 1,
+				'module' => 'shop'
+			),			
+			array(
 				'slug' => 'sf_admin_order_notification',
 				'name' => 'Shop: New order has been submitted',
 				'description' => 'This email will be sent to Administrators when new orders are submitted',
