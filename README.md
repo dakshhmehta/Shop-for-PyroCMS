@@ -1,10 +1,6 @@
-*SHOP is still in early alpha mode, many features are still being built - If you download a newer nightly build then do not attempt to upgrade unless you understand the system. It is recommended that you install a fresh copy each time.*
-
-**********
-
 ## Introduction
 
-I created the SHOP program because there is a lack of ecommerce options for `PyroCMS`. The idea behind SHOP is to create a `FREE` and open platform for designers to rapidly set up a ecommerce website using `PyroCMS`.
+*I created the SHOP program because there is a lack of ecommerce options for `PyroCMS`. The idea behind SHOP is to create a `FREE` and open platform for designers to rapidly set up a ecommerce website using `PyroCMS`.*
 
 
 **********
@@ -38,7 +34,7 @@ You are free to:
 
 ## {{ WIKI }}
 
-Checkout our wiki [https://bitbucket.org/pyromaniac/shop-for-pyrocms/wiki/]
+Checkout our [Wiki](https://bitbucket.org/pyromaniac/shop-for-pyrocms/wiki/)
 
 **********
 
