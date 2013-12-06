@@ -273,5 +273,31 @@ class Products_library
 		return $results;
 
 	}
+	
+	public function build_requires_shipping_select($params) 
+	{
+		 
+		$params = array_merge(array('current_id' => 0), $params);
+		
+		extract($params);
+		
+
+		$rs = array(	
+							0 	=> 'No'  , 
+							1 	=> 'Yes'
+						);
+		
+		$html = '';
+
+		foreach ($rs as $key=>$value) 
+		{
+			$html .= '<option value="' . $key . '"';
+			$html .= $current_id == $key ? ' selected="selected">' : '>';
+			$html .= $value . '</option>';
+		}
+		
+	
+		return $html;
+	}	
 }
 // END Cart Class

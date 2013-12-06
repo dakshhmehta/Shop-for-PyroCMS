@@ -51,8 +51,6 @@ class Products_admin_Controller extends Admin_Controller
 		$this->load->library('form_validation');
 		$this->load->library('keywords/keywords');
 		
-		//Load Core Libraries
-		$this->load->library('package_library');
 		
 
 		// Set the validation rules

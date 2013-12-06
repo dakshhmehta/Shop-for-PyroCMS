@@ -695,10 +695,8 @@ class Cart extends Public_Controller
 				'name' => $name,
 				'ignor_shipping' => $item->ignor_shipping,
 				'options' => $options,
-				'pgroup_id' => $item->pgroup_id,
-				
+				'pgroup_id' => $item->pgroup_id,			
 				'price_bt' => $item->price_bt, /*before tax value*/
-				'package_id' => $item->package_id,
 
 		);
 		

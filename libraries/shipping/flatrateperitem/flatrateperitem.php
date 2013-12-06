@@ -52,7 +52,7 @@ class FlatratePerItem_ShippingMethod {
 
 	public function run($options)  { return $options; }
 
-	public function calc($options, $packages, $from_address = array(), $to_address = array() )
+	public function calc($options, $items, $from_address = array(), $to_address = array() )
 	{
 		
 		/**
@@ -60,8 +60,6 @@ class FlatratePerItem_ShippingMethod {
 		 * @var [type]
 		 */
 		$pi  = floatval($options['amount']); 
-
-
 
 		/**
 		 * Set the cost to the default handling
@@ -71,12 +69,11 @@ class FlatratePerItem_ShippingMethod {
 
 		
 		/**
-		 * Each package contains a set of items,
 		 * We count the items multiply by the amount per item
 		 */
-		foreach ($packages as $package)
+		foreach ($items as $item)
 		{
-			$cost += ($package->item_count * $pi);
+			$cost += $pi;
 		}
 
 

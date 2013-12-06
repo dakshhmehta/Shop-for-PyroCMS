@@ -73,7 +73,7 @@ class Twoducks_ShippingMethod extends Twoducks_base
 
 
 
-	public function calc($options, $packages, $from_address = array(), $to_address = array() )
+	public function calc($options, $items, $from_address = array(), $to_address = array() )
 	{
 
 
@@ -83,43 +83,29 @@ class Twoducks_ShippingMethod extends Twoducks_base
 
 		$shippable_item_count = 0; //if no shiipable items - return free shpping
 
-		foreach ($packages as $package)
+		foreach ($items as $item)
 		{	
 
-
-			//
-			// Remove any unnessesary items from package,
-			// items that do not require shipping
-			//
-			$this->prepare_package($package);
+			$shippable_item_count++;
 
 
-			//
-			// If no items left in package - do not send it (do not calc)
-			//
-			if(!$package->item_count)
+			if( ($item['ignor_shipping']==1) OR ($item['ignor_shipping']=='1') )
 			{
 				continue;
 			}
 
-			
-			$shippable_item_count += $package->item_count;
 
 
 
-
-			//var_dump($package);
 			//default calculation method
 			$func = 'calc_cards';
 
-			switch ($package->title) 
+			switch ($item->user_data) 
 			{
-
 
 				case 'cards':
 					$func = 'calc_cards';
 					break;
-
 
 				case 'invitations':
 					$func = 'calc_invitations';
@@ -134,7 +120,6 @@ class Twoducks_ShippingMethod extends Twoducks_base
 				case 'tags':
 					$func = 'calc_tags';
 					break;
-
 
 
 				case 'birth':
@@ -176,7 +161,6 @@ class Twoducks_ShippingMethod extends Twoducks_base
 
 				case 'free-shipping':
 				default:
-					$func = 'calc_default';
 					break;
 
 			}
@@ -184,7 +168,7 @@ class Twoducks_ShippingMethod extends Twoducks_base
 			
 
 			//now we have the calc method, go there and calc
-			$cost += $this->$func($package);
+			$cost += $this->$func($item);
 
 		}
 
@@ -199,12 +183,12 @@ class Twoducks_ShippingMethod extends Twoducks_base
 
 
 		//now we add on the framed charts as they do not reuire trimming
-		foreach ($packages as $package)
+		foreach ($items as $item)
 		{	
-			if($package->title == 'name-charts')
+			if($item->user_data == 'name-charts')
 			{
 
-				$cost += $this->calc_framed_name_charts($package);
+				$cost += $this->calc_framed_name_charts($item);
 			}
 
 		}
@@ -218,55 +202,6 @@ class Twoducks_ShippingMethod extends Twoducks_base
 
 	}
 
-
-	/**
-	 * The estimate shipping method used for single product est
-	 * @param  [type] $product [description]
-	 * @param  string $zip     [description]
-	 * @param  string $country [description]
-	 * @return [type]          [description]
-	 */
-	public function estimate($product, $zip = '2000', $country = 'AU')
-	{
-
-	}
-
-
-
-	/**
-	 * 
-	 * Remove items that do not require shipping
-	 *
-	 *
-	 * 
-	 * @param  [type] $package [description]
-	 * @return [type]          [description]
-	 */
-	private function prepare_package(&$package)
-	{
-
-
-		//$count = 0;
-		foreach($package->items as $key => $val)
-		{
-			//$count++;
-
-	
-			if( ($val['ignor_shipping']==1) OR ($val['ignor_shipping']=='1') )
-			{
-
-
-				$package->item_count = ($package->item_count - 1);
-				unset($package->items[$key]);
-				continue;
-				
-			}
-		
-
-
-		}
-	
-	}
 
 
 

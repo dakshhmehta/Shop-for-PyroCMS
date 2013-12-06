@@ -348,10 +348,9 @@ class Product extends Products_admin_Controller
 		}
 
 		if($panel =='shipping')
-		{
-			$data->package_select 	= $this->package_library->build_list_select(array('current_id' => $data->package_id));			
-			$data->req_shipping_select = $this->package_library->build_requires_shipping_select(array('current_id' => $data->req_shipping));
-
+		{		
+			$this->load->library('products_library');
+			$data->req_shipping_select = $this->products_library->build_requires_shipping_select(array('current_id' => $data->req_shipping));
 		}	
 
 		if($panel =='files')

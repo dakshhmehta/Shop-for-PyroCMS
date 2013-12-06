@@ -29,23 +29,6 @@
 						</li>	
 
 
-						<li class="<?php echo alternator('', 'even'); ?>">
-
-									<label for="brand_id"><?php echo lang('shop:products:package'); ?> <span>*</span>
-										<small>
-											<?php echo lang('shop:products:package_description'); ?>
-										</small>
-									</label>
-									<div class="input">
-										<select name="package_id" id="package_id">
-											<option value=""><?php echo lang('global:select-pick'); ?></option>
-											<?php echo $package_select; ?> 
-										</select>
-									</div>
-						</li>	
-
-
-
 
 						<li class="<?php echo alternator('', 'even'); ?>">
 							<label for="user_data"><?php echo lang('shop:products:user_data'); ?> 

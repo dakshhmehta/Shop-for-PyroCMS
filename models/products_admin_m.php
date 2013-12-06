@@ -97,8 +97,7 @@ class Products_admin_m extends Products_m
 				'pgroup_id' => NULL,
 				'status' => 0,
 				'category_id' => 0,
-				'brand_id' => NULL,
-				'package_id' => NULL,			
+				'brand_id' => NULL,			
 				'created_by' => $this->current_user->id,
 				'inventory_low_qty' => 5,
 				'inventory_on_hand' => 0,
@@ -264,7 +263,6 @@ class Products_admin_m extends Products_m
 				'brand_id' => $product->brand_id,
 
 				//shipping
-				'package_id' => $product->package_id,
 				'height' => $product->height,
 				'width' => $product->width,
 				'depth' => $product->depth,
@@ -407,7 +405,6 @@ class Products_admin_m extends Products_m
 				break;
 
 			case 'brand_id':
-			case 'package_id':
 			case 'pgroup_id':
 				$out = ($value=='')?NULL:$value;
 				$pass = TRUE;	

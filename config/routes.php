@@ -11,7 +11,6 @@ $route['shop/admin/maintenance(/:any)?']	= 'admin/maintenance$1';
 $route['shop/admin/dailydeals(/:any)?']		= 'admin/dailydeals$1';
 $route['shop/admin/images(/:any)?']			= 'admin/images$1';
 $route['shop/admin/shipping(:any)?']		= 'admin/shipping$1';
-$route['shop/admin/packages(:any)?']		= 'admin/packages$1';
 $route['shop/admin/options(:any)?']			= 'admin/options$1';
 $route['shop/admin/pgroups(:any)?']			= 'admin/pgroups$1';
 $route['shop/admin/gateways(:any)?']		= 'admin/gateways$1';

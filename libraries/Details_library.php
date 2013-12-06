@@ -194,22 +194,6 @@ class Details_library
 		}
 
 
-		if($and_get_menu == 'packages')
-		{
-
-			if(group_has_role('shop', 'admin_checkout'))
-			{
-				$info['sections']['packages'] = array(
-				
-					'name' => 'shop:admin:packages', 
-					'uri' => 'admin/shop/packages',
-					'shortcuts' => array()
-				 	
-				);
-
-			}
-		}
-
 
 		if($and_get_menu == 'pgroups')
 		{
@@ -366,12 +350,7 @@ class Details_library
 
 
 
-		if (function_exists('group_has_role'))
-		{
-
-
-		}
-		else
+		if (!function_exists('group_has_role'))
 		{
 			return;
 		}
@@ -411,10 +390,6 @@ class Details_library
 			if(group_has_role('shop', 'admin_blacklist'))
 			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:blacklist'] = 'admin/shop/blacklist';
-			}
-			if(group_has_role('shop', 'admin_checkout'))
-			{
-				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:packages'] = 'admin/shop/packages';
 			}
 			if(group_has_role('shop', 'admin_checkout'))
 			{
@@ -458,7 +433,6 @@ class Details_library
 				'cover_id' => 		array('type' => 'CHAR', 'constraint' => 15, 'null' => TRUE, 'default' => NULL),
 				
 				'brand_id' => 		array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
-				'package_id' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
 				
 				'description' => 	array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),
 				//'short_desc' => 	array('type' => 'VARCHAR', 'constraint' => '255', 'default' => NULL), /*new*/
@@ -469,7 +443,6 @@ class Details_library
 				
 				'page_design_layout' => 	array('type' => "VARCHAR", 'constraint' => '75', 'default' => 'products_single'), //limit to files that are smaller than 75 char long
 				'req_shipping' => 	array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 1),  /* 1 is shippable item */
-				# default package ing data - not required but if enetered it is used.
 				'height' => array('type' => 'INT', 'constraint' => '5'	, 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL), /* KG - 100g = 0.001 */
 				'width' => array('type' => 'INT', 'constraint' => '5'	, 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL), /* KG - 100g = 0.001 */
 				'depth' => array('type' => 'INT', 'constraint' => '5'	, 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL), /* KG - 100g = 0.001 */
@@ -538,7 +511,6 @@ class Details_library
 				'name' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => TRUE, 'default' => NULL ),
 				'value' => array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),	  
 			),
-			
 			'shop_options' => array( 
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'name' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => TRUE, 'default' => NULL ),
@@ -548,7 +520,6 @@ class Details_library
 				'type' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => TRUE, 'default' => NULL ), /*null|select|checkbox|text|radio*/
 				'show_title' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'default' => 1 ),
 			),
-			
 			'shop_option_values' => array( 
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'shop_options_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE),
@@ -704,14 +675,6 @@ class Details_library
 				'options' => array('type' => 'TEXT'),
 			),	
 			'shop_shipping' => array(
-				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-				'title' => array('type' => 'VARCHAR', 'constraint' => '100'),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => '100'), 
-				'desc' => array('type' => 'TEXT'),
-				'enabled' => array('type' => 'INT', 'constraint' => '1', 'default' => 0),
-				'options' => array('type' => 'TEXT'),
-			),	
-			'shop_packages' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'title' => array('type' => 'VARCHAR', 'constraint' => '100'),
 				'slug' => array('type' => 'VARCHAR', 'constraint' => '100'), 

@@ -14,7 +14,6 @@ $lang['shop:admin:categories']								=	'Categories';
 $lang['shop:admin:brands']									=	'Brands';
 $lang['shop:admin:pgroups']									=	'Price Groups';
 $lang['shop:admin:gateways']								=	'Gateways';
-$lang['shop:admin:packages']								=	'Packages';
 $lang['shop:admin:shipping']								=	'Shipping';
 $lang['shop:admin:blacklist']								=	'Blacklist';
 $lang['shop:admin:tax']										=	'Tax';
@@ -262,19 +261,6 @@ $lang['shop:orders:user']  = 'User';
 $lang['shop:orders:view_message']  = 'View message';
 
 
-# Admin/Packages
-$lang['shop:packages:depth']  = 'Depth';
-$lang['shop:packages:dimentions']  = 'Dimentions';
-$lang['shop:packages:height']  = 'Height';
-$lang['shop:packages:ignor_shipping_cost']  = 'Ignor shipping cost';
-$lang['shop:packages:install']  = 'Install';
-$lang['shop:packages:manage_packages']  = 'Manage packages';
-$lang['shop:packages:max_height']  = 'Max height';
-$lang['shop:packages:max_units']  = 'Max units';
-$lang['shop:packages:package_type']  = 'Package type';
-$lang['shop:packages:type']  = 'Type';
-$lang['shop:packages:uninstall']  = 'Uninstall';
-$lang['shop:packages:width']  = 'Width';
 
 # Admin/PGroups
 $lang['shop:pgroups:add_new_tier']  = 'Add new tier';
@@ -349,8 +335,6 @@ $lang['shop:products:on_hand']  = 'On hand';
 $lang['shop:products:options']  = 'Options';
 $lang['shop:products:options_description']  = 'Options description';
 $lang['shop:products:order_by']  = 'Order by';
-$lang['shop:products:package']  = 'Package';
-$lang['shop:products:package_description']  = 'Package description';
 $lang['shop:products:page_design']  = 'Page design';
 $lang['shop:products:page_design_description']  = 'Page design description';
 $lang['shop:products:page_design_layout']  = 'Page design layout';
