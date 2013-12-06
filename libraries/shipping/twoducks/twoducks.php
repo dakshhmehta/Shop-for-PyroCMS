@@ -172,9 +172,6 @@ class Twoducks_ShippingMethod extends Twoducks_base
 		}
 
 
-		//var_dump($this->package_list->packages);die;
-
-
 		//Do some Pre calc on the packages + items
 		$cost += $this->calc_package($this->package_list->packages, 'pre');
 
@@ -190,8 +187,6 @@ class Twoducks_ShippingMethod extends Twoducks_base
 		//add handling
 		$this->add_handling_charge($cost,$options);
 
-
-		var_dump($cost);die;
 
 	 	//return the cost
 		return $cost; 

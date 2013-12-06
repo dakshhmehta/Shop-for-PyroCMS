@@ -759,6 +759,7 @@ class Cart extends Public_Controller
 
 
 
+
 			//
 			// Check to see if we have a File Upload
 			//
@@ -844,28 +845,41 @@ class Cart extends Public_Controller
 			}	
 			else
 			{
-				
+
+
+				//if the option wasnt selected move on next
 				if(!$this->input->post(  $_OP_INPUT_NAME) ) continue;
+
 				
 
 				$POST_value = $this->input->post(  $_OP_INPUT_NAME  );
 
 
+				//now we need to get the values on the server that match the POST_value 
+				//$option = $this->options_m->get_option_by_id(  $_OP_INPUT_NAME, $POST_value  );	
+				//
+				
+				$this->load->model('options_values_m');
 
-				$option = $this->options_m->get_option_by_id(  $_OP_INPUT_NAME, $POST_value  );	
+				//todo:we still need to verify that the $POST_value is linked to the parent option_id
+				//This is a security issue as someone may change the post req. We cant rely on this.
+				$option_value = $this->options_values_m->get( $POST_value  );	
 
 
+
+
+				//var_dump($option->values);die;
 			
 				//build the option array that will be sent to the cart
 				
 				// Get the label from the db/cache
 				$OPTIONS_TO_Return[$_OP_INPUT_NAME] = array('name' => $option->name, 
 										'value' => $POST_value, /* $option->values->value */
-										'label' => $option->values->label,  /*used in cart view*/
-										'user_data' => $option->values->user_data,  /*used in cart view*/
-										'max_qty' => $option->values->max_qty, 
-										'operator'=>$option->values->operator, 
-										'operator_value' => $option->values->operator_value, 
+										'label' => $option_value->label,  /*used in cart view*/
+										'user_data' => $option_value->user_data,  /*used in cart view*/
+										'max_qty' => $option_value->max_qty, 
+										'operator'=>$option_value->operator, 
+										'operator_value' => $option_value->operator_value, 
 										'type' => $option->type);
 
 

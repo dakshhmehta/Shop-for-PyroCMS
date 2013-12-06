@@ -172,19 +172,25 @@ class Twoducks_base extends Twoducks_debug
 		return 10;
 	}
 	
+	
+	/**
+	 * 
+	 * If there exist to be a printed xmas-post card the rate is $10 flat rate for 1 or many - not based on qty
+	 * 
+	 * @param  [type] $package [description]
+	 * @return [type]          [description]
+	 */
 	protected function calc_pxmascards($package)
 	{
 		$qty = $package['count'];
 		$found = FALSE;
 		
-
-		var_dump($package['items']);die;
 		foreach($package['items'] as $item)
 		{
 
 			foreach( $item['options'] as $option_key => $selected_option_value)
 			{
-
+	
 				$_user_data = trim($selected_option_value['user_data']);
 
 				switch ( $_user_data ) 
