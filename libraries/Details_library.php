@@ -450,8 +450,6 @@ class Details_library
 
 				# Prices
 				'price' => 			array('type' => 'DECIMAL(10,2)', 'default' => 0), /* indexed at price for quick display */
-				'price_bt' => 		array('type' => 'DECIMAL(10,2)', 'default' => 0),
-				'price_at' => 		array('type' => 'DECIMAL(10,2)', 'default' => 0),
 				'price_base' => 	array('type' => 'DECIMAL(10,2)', 'null' => TRUE,  'default' => 0), /*for every aditional item added to cart*/
 				'rrp' => 			array('type' => 'DECIMAL(10,2)', 'null' => TRUE,  'default' => 0), /*always with tax, no need without - only for front end display, if price_at < rrp then show to custoemr */
 				'tax_id' => 		array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),	/*gst,nogst ect..*/
@@ -597,12 +595,14 @@ class Details_library
 				'cost_base' => array('type' => 'DECIMAL(10,2)', 'unsigned' => TRUE),
 			),
 			'shop_product_files' => array(
-				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-				'product_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE,),
-				'filename' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => TRUE, 'default' => NULL ), 
-				'type' => array('type' => 'VARCHAR', 'constraint' => '5', 'null' => TRUE, 'default' => NULL ), 	
-				'ext' => array('type' => 'VARCHAR', 'constraint' => '5', 'null' => TRUE, 'default' => NULL ), 								
-				'data' => array('type' => 'BLOB', 'null' => TRUE, 'default' => NULL), /*the file BINARY*/				
+				'id' => 			array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
+				'product_id' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE,),
+				'filename' => 		array('type' => 'VARCHAR', 'constraint' => '100', 'null' => TRUE, 'default' => NULL ), 
+				'type' => 			array('type' => 'VARCHAR', 'constraint' => '5', 'null' => TRUE, 'default' => NULL ), 	
+				'ext' => 			array('type' => 'VARCHAR', 'constraint' => '5', 'null' => TRUE, 'default' => NULL ), 					
+				'filesize' => 		array('type' => 'VARCHAR', 'constraint' => '5', 'null' => TRUE, 'default' => NULL ), 								
+				'data' => 			array('type' => 'LONGBLOB', 'null' => TRUE, 'default' => NULL), /*the file BINARY*/			
+				'date_added' => 	array('type' => 'DATETIME', 'null' => TRUE, 'default' => NULL), 		
 			),				
 			'shop_downloads' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),

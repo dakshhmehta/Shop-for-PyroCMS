@@ -1,16 +1,16 @@
-*I created the SHOP program because there is a lack of ecommerce options for `PyroCMS`. The idea behind SHOP is to create a `FREE` and open platform for designers to rapidly set up a ecommerce website using `PyroCMS`.*  - Checkout our [Wiki](https://bitbucket.org/pyromaniac/shop-for-pyrocms/wiki/)
+* SHOP is a full featured and Open module for PyroCMS. It allows developers and designers to rapidly set up a ecommerce sites using `PyroCMS`.*  - Checkout our [Wiki](https://bitbucket.org/pyromaniac/shop-for-pyrocms/wiki/)
 
 
 **********
 
-# {{ Developer }}
-* `Salvatore Bordonaro` - Creator / Developer - since `2013`
+### {{ Developers }}
+* `Salvatore Bordonaro` - Creator / Developer
 
 ### {{ Contributors }} 
-* `Alison McDonald` - Language, Usability and Testing  - Contributor since `2013`
 * `Eko isa` / Developer - Developer / Contributor since `2013`
-* `John Ashton` / Developer /UX  - Contributor since `2013`
 * `Daksh Mehta` / Developer - Contributor since `2013`
+* `John Ashton` / Developer /UX  - Contributor since `2013`
+* [checkout the full list of contributers here](https://bitbucket.org/pyromaniac/shop-for-pyrocms/wiki/The_Team)
 
 
 **********

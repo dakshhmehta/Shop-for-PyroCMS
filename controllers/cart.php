@@ -432,7 +432,7 @@ class Cart extends Public_Controller
 
 				hlp_get_price($item, $d_item['qty'], $mid_qty);
 
-				$update_item['price'] = $item->price_at;
+				$update_item['price'] = $item->price;
 
 				$update_item['base'] = $item->price_base;
 
@@ -536,7 +536,7 @@ class Cart extends Public_Controller
 
 				//if options we have to run the recalc here
 				$update_item['rowid'] = $item['rowid'];
-				$update_item['price'] = $product->price_at;
+				$update_item['price'] = $product->price;
 				$update_item['base'] = $product->price_base;
 
 

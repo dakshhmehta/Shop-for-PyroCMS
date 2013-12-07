@@ -409,9 +409,7 @@ class Products_admin_Controller extends Admin_Controller
 		if(isset($input['price']))
 		{
 			$input['price'] = sf_string_to_decimal($input['price']);
-
-			$input['price_at'] = $input['price'];
-			$input['price_bt'] = $input['price'];		
+			$input['price_at'] = $input['price'];		
 		}
 
 		if(isset($input['price_base']))

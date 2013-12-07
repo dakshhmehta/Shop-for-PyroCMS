@@ -173,8 +173,6 @@ class Product extends Products_admin_Controller
 
 
 
-
-
 			// 
 			// sanitize prepares the fields for saving
 			// It also processes the keywords 
@@ -182,9 +180,7 @@ class Product extends Products_admin_Controller
 			$this->sanitize_fields($input, $data, 'edit');
 			
 		
-			//
 			// save
-			//
 			if ($this->products_admin_m->edit($data->id, $input)) 
 			{	
 
@@ -211,7 +207,6 @@ class Product extends Products_admin_Controller
 		}
 		
 
-		
 
 		// Build Template
 		$this->template->title($this->module_details['name'], lang('edit'))
@@ -227,9 +222,6 @@ class Product extends Products_admin_Controller
 	
 	
 
-	
-	
-	
 
 	/**
 	 * Delete the Item -set delete flag to 0 
@@ -251,7 +243,6 @@ class Product extends Products_admin_Controller
 	
 
 	
-
 	
 	
 	/**
@@ -298,7 +289,6 @@ class Product extends Products_admin_Controller
 
 	public function load( $id, $panel = '' ) 
 	{
-
 
 		//get the data for the product
 		$data =  $this->products_admin_m->get($id);
@@ -369,8 +359,6 @@ class Product extends Products_admin_Controller
 		}	
 
 
-
-
 		$this->load->view('admin/products/partials/'.$panel, $data); 
 
 
@@ -398,47 +386,32 @@ class Product extends Products_admin_Controller
 	protected function _validate_product()
 	{
 
-		//
 		// Prepare Postback & Validation
-		//
 		if( ! $this->input->post() )
 		{
 			return FALSE; //do not allow to enter the saveing of data section
 		}
 
 
-		//
 		// Lets get the data from the post headers
-		// 
 		$input = $this->input->post();
-
-		//var_dump($input);die;
 
 		foreach($this->_validation_rules as $key => $field_to_check)
 		{
 
-
 			$_field = $field_to_check['field'];
 		
-			
-			//
 			// only process is exist
-			//
-			if(isset($input[$_field]))
-			{
-
-			}
-			else
+			if(!(isset($input[$_field])) )
 			{
 				//remove for now as we do not require them
 				unset($this->_validation_rules[$key]);
 			}
+
 		}
 
 
-		//
 		// Now set the rules
-		//
 		$this->form_validation->set_rules($this->_validation_rules);
 
 
@@ -447,13 +420,10 @@ class Product extends Products_admin_Controller
 			return TRUE;
 
 
-		//
 		// Test and return
-		//
 		return $this->form_validation->run();
 
 	
-
 	}
 
 
@@ -520,30 +490,21 @@ class Product extends Products_admin_Controller
 
 		$this->load->model('shop_files_m');
 
-
-
 		foreach($_FILES as $key => $_file)
 		{
 
-
-			if( ! in_array($key, array("digital_downloads_1") )) 
-			{
-				continue;
-			}
-			else
+			if( in_array($key, array("digital_downloads_1") )) 
 			{
 				$data = array();
 				$data['product_id'] = $product_id;
 				$data['filename'] = $_file['name'];
 				$data['data'] = file_get_contents ( $_file['tmp_name'] );
-
+				$data['filesize'] = $_file['size'];
 
 				$this->shop_files_m->add_file($data);
 	    	}	
 
-
 		}
-
 
 	}	
 

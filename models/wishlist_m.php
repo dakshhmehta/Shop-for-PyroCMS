@@ -46,7 +46,7 @@ class Wishlist_m extends MY_Model
 	{
 		$input['user_id'] = $user_id;
 		$input['product_id'] = $product->id;
-		$input['price_or'] = $product->price_at;
+		$input['price_or'] = $product->price;
 		$input['date_added'] = date("Y-m-d H:i:s");
 		$input['user_notified'] = 0;
 		
@@ -81,7 +81,7 @@ class Wishlist_m extends MY_Model
 	 */
 	public function get_all() 
 	{
-		$this->db->select('shop_products.*,shop_wishlist.price_or AS price_or');
+		$this->db->select('shop_products.*,shop_wishlist.price AS price_or');
 		$this->db->select('shop_categories.name as category_name, shop_categories.slug as category_slug');
 		$this->db->join('shop_products', 'shop_products.id = shop_wishlist.product_id', 'inner');
 		$this->db->join('shop_categories', 'shop_products.category_id = shop_categories.id', 'left');

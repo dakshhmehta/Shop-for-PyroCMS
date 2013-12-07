@@ -88,8 +88,6 @@ class Products_admin_m extends Products_m
 				'slug' => $new_slug,
 				'keywords' => '',
 				'price' => $input['price'] ,
-				'price_bt' =>  $input['price'], /*price_bt is deprecated*/ 
-				'price_at' => $input['price'] , /*price_at is deprecated*/ 
 				'price_base' => $input['price_base'], // $input['price_base'],
 				'rrp' => 0.00, 
 				'tax_id' => $input['tax_id'],
@@ -247,9 +245,7 @@ class Products_admin_m extends Products_m
 				'user_data' => $product->user_data,
 				'slug' => $new_slug,
 				'keywords' => $product->keywords,
-				'price' => $product->price,
-				'price_bt' => $product->price_bt,
-				'price_at' => $product->price_at, 			
+				'price' => $product->price,			
 				'price_base' => $product->price_base,
 				'tax_id' => $product->tax_id,
 				'rrp' => $product->rrp,
@@ -392,8 +388,6 @@ class Products_admin_m extends Products_m
 			case 'searchable':
 			case 'name':
 			case 'price':		
-			case 'price_bt':
-			case 'price_at':
 			case 'price_base':
 			case 'rrp':
 			case 'tax_id':
