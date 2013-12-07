@@ -68,17 +68,9 @@ class Twoducks_ShippingMethod extends Twoducks_base
 
 	}
 
-	
-	public function form($options) { return $options; }
-
-	public function run($options)  { return $options; }
-
-
 
 	public function calc($options, $items, $from_address = array(), $to_address = array() )
 	{
-
-		//var_dump($items);die;
 
 
 		$this->package_list = new twoducks_packages();
@@ -95,12 +87,9 @@ class Twoducks_ShippingMethod extends Twoducks_base
 
 			if( ($item['ignor_shipping']==1) OR ($item['ignor_shipping']=='1') )
 			{
-				continue;
+				continue; //do not calc this product
 			}
 
-
-			//default calculation method
-			$func = 'calc_cards';
 
 			switch ($item['user_data']) 
 			{
@@ -113,16 +102,13 @@ class Twoducks_ShippingMethod extends Twoducks_base
 					$this->package_list->add($item, 'invitations' , 'calc_invitations');
 					break;	
 
-
 				case 'invitation-pack':
 					$this->package_list->add($item, 'invitation-pack' , 'calc_invitation_pack');	
 					break;	
 
-
 				case 'tags':
 					$this->package_list->add($item, 'tags' , 'calc_tags');					
 					break;
-
 
 				case 'birth':
 					$this->package_list->add($item, 'birth' , 'calc_birth');		
@@ -131,21 +117,14 @@ class Twoducks_ShippingMethod extends Twoducks_base
 				case 'personalized-xmas-postcards':
 					$this->package_list->add($item, 'personalized-xmas-postcards' , 'calc_pxmascards');							
 					break;
-					
-				case 'name-charts':
-					$this->package_list->add($item, 'name-charts' , 'calc_name_charts');						
-					break;
-
 
 				case 'posters':
 					$this->package_list->add($item, 'posters' , 'calc_posters');
 					break;
 
-
 				case 'flash-cards':
 					$this->package_list->add($item, 'flash-cards' , 'calc_flash_cards');
 					break;
-
 
 				case 'calandar':
 					$this->package_list->add($item, 'calandar' , 'calc_calandar');
@@ -159,8 +138,8 @@ class Twoducks_ShippingMethod extends Twoducks_base
 					$this->package_list->add($item, 'gift-wrap' , 'calc_gift_wrap');						
 					break;
 
-				case 'framed-name-charts':
-					$this->package_list->add($item, 'framed-name-charts' , 'calc_framed_name_charts', 'post');						
+				case 'name-charts':
+					$this->package_list->add($item,'name-charts', 'calc_name_charts');						
 					break;
 
 				default:
@@ -180,11 +159,11 @@ class Twoducks_ShippingMethod extends Twoducks_base
 		$this->trim_shipping($cost, $options, $shippable_item_count);
 
 
-		// Now do some POST calc for items that MUST be calc after trimming
+		// Calc items that must be added after trim shipping
 		$cost += $this->calc_package($this->package_list->packages, 'post');
 		
 
-		//add handling
+		//add handling - if required
 		$this->add_handling_charge($cost,$options);
 
 
@@ -194,6 +173,13 @@ class Twoducks_ShippingMethod extends Twoducks_base
 	}
 
 
+	/**
+	 * Calc the packages
+	 * 
+	 * @param  [type] $packages List of packages
+	 * @param  string $mode     Filter, select the package group to calc
+	 * @return [type]           The cost of the shipping for the selected packages
+	 */
 	private function calc_package($packages, $mode = 'pre')
 	{
 		$cost = 0;
@@ -214,7 +200,6 @@ class Twoducks_ShippingMethod extends Twoducks_base
 		return $cost;
 
 	}
-
 
 
 	/**
@@ -252,6 +237,13 @@ class Twoducks_ShippingMethod extends Twoducks_base
 
 	}
 
+
+	/**
+	 * If the cost of shipping is above 25 then do NOT apply shipping
+	 * Otherwise add the handling dictated in the Shipping Options
+	 * @param [type] $cost    [description]
+	 * @param [type] $options [description]
+	 */
 	private function add_handling_charge(&$cost,$options)
 	{
 		$handling = $options['handling'];

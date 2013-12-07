@@ -183,12 +183,10 @@ class Cart extends Public_Controller
 		// 
 		// get the options that may have been passed up
 		// 
-		$options_tmp = $this->_get_option_fields($product->id);
+		$options = $this->_get_option_fields($product);
 
 
-		$product->ignor_shipping = $options_tmp[0]; //dont think this is needed anymore
-		$options = $options_tmp[1]; 
-	  
+  
 		
 
 		//$items['id'] = $product->id;
@@ -690,15 +688,13 @@ class Cart extends Public_Controller
 				'id' => $item->id,
 				'slug' => $item->slug,
 				'qty' => $qty,
-				'price' => $item->price_at,
+				'price' => $item->price,
 				'base' => $item->price_base,
 				'name' => $name,
-				'ignor_shipping' => $item->ignor_shipping,
+				'ignor_shipping' => ($item->req_shipping)? 0 : 1 ,
 				'options' => $options,
 				'pgroup_id' => $item->pgroup_id,			
-				'price_bt' => $item->price_bt, /*before tax value*/
 				'user_data' => $item->user_data,  
-
 		);
 		
 		return $data;
@@ -706,75 +702,56 @@ class Cart extends Public_Controller
 	}
 
 	
-
 	/**
 	 * Prepares the Key=>value data for the options
 	 *
 	 *
 	 */
-	private function _get_option_fields($product_id) 
+	private function _get_option_fields(&$product) 
 	{
 
-		//
 		// Load models
-		//
 		$this->load->model('options_m');
 		$this->load->model('options_product_m');
+		$this->load->model('options_values_m');
 
 
 
-		//
-		// By default we do not ignor shipping, if an option sets to ignor then we do override this.
-		//
-		$ignor_shipping = FALSE;	
-
-
-
-		//
 		// Setup the default options array
-		//
 		$OPTIONS_TO_Return = array();
 		
 		
 
-
-		$product_options_available = $this->options_product_m->get_prod_options($product_id);
+		//Get ALL the options available for this product, 
+		$prod_options = $this->options_product_m->get_prod_options($product->id);
 		
 
 
 
-		foreach ($product_options_available as $option_available) 
+		foreach ($prod_options as $option_available) 
 		{
 
-			//
 			// Get the field name that should have been used in the HTML
-			//
 			$_OP_INPUT_NAME = 'prod_options_' . $option_available->option_id;
 
 
-			//
 			// Get the option from the DB
-			//
 			$option = $this->options_m->get($option_available->option_id);
 
 
 
-
-			//
 			// Check to see if we have a File Upload
-			//
 			if($option->type == "file")
 			{
-				//var_dump($_FILES[  $_OP_INPUT_NAME  ]);die;
 
+				// SKIP if there is no match for the file input
 				if(!(isset( $_FILES[  $_OP_INPUT_NAME  ] ) ) ) continue;
 
 
-				$F_NAME_PART = date("YmdHi",time());
+				// Create a temp name for the file
+				$F_NAME_PART = date("YmdHi", time() );
 
-				// 
-				// Get the filename
-				// 
+				// Get the filename from the upload
 				$F_NAME = $_FILES[  $_OP_INPUT_NAME  ]['name'];
 
 				//check if a file exist in the upload data
@@ -784,18 +761,15 @@ class Cart extends Public_Controller
 				}
 
 
-				//
 				// Upload and get the ID
-				//
 				$data = $this->upload(  $_OP_INPUT_NAME,  $F_NAME_PART . '-' . $F_NAME );
 
-				if($data)
+
+				if(!$data)
 				{
-					//file uploaded succesfully
-				}
-				else
-				{
-					echo "no file to add";die;
+					//echo "no file to add";die;
+					//maybe need to add error message to some message stack
+					continue;
 				}
 				
 							
@@ -803,11 +777,11 @@ class Cart extends Public_Controller
 				//array( 'max_qty' => 0 ,'operator' => '+=' , 'operator_value' => '0');
 				// Get the label from the db/cache
 				$OPTIONS_TO_Return[$_OP_INPUT_NAME] = array('name' => $option->name, 
-										'value' => $data, /* $option->values->value */
-										'label' => $data, /* $option->values->value */
+										'value' => $data, 
+										'label' => $data, 
 										'user_data' => '',  /*used in cart view*/
 										'max_qty' => 0, 
-										'operator'=> 'n', //n = skip calc 
+										'operator'=> 'n', //n = skip calc in sfcart
 										'operator_value' => 0, 
 										'type' => $option->type);
 
@@ -816,10 +790,6 @@ class Cart extends Public_Controller
 			elseif($option->type == 'text') //we have to handle the text option as they do not have sub-options and do not alter the price
 			{
 
-				//echo "From DB:<br/>";
-				//var_dump($option);
-				//echo "<br/><hr><br>";
-				//echo "OPTION_NAME:". $option_name . "<hr>";
 
 				$POST_value = $this->input->post(  $_OP_INPUT_NAME  );
 
@@ -855,20 +825,13 @@ class Cart extends Public_Controller
 				$POST_value = $this->input->post(  $_OP_INPUT_NAME  );
 
 
-				//now we need to get the values on the server that match the POST_value 
-				//$option = $this->options_m->get_option_by_id(  $_OP_INPUT_NAME, $POST_value  );	
-				//
-				
-				$this->load->model('options_values_m');
+
 
 				//todo:we still need to verify that the $POST_value is linked to the parent option_id
 				//This is a security issue as someone may change the post req. We cant rely on this.
 				$option_value = $this->options_values_m->get( $POST_value  );	
 
 
-
-
-				//var_dump($option->values);die;
 			
 				//build the option array that will be sent to the cart
 				
@@ -883,15 +846,18 @@ class Cart extends Public_Controller
 										'type' => $option->type);
 
 
-				$ignor_shipping = $option->values->ignor_shipping;
 
-
+				//now we check to see if we override the product to ignor shipping
+				if( ($option_value->ignor_shipping == '1') OR ($option_value->ignor_shipping == 1) )
+				{
+					$product->req_shipping = FALSE;
+				}
+				
 			}
 		}
 
-
 	
-		return array( $ignor_shipping, $OPTIONS_TO_Return );
+		return $OPTIONS_TO_Return;
 		
 	}
 
@@ -926,14 +892,12 @@ class Cart extends Public_Controller
 
 
 
-
 		$valid_files = array('png', 'jpg', 'jpeg', 'bmp' ,'zip', 'txt', 'doc', 'docx');
 
 		if(!in_array($extension, $valid_files)) 
 		{
 			return FALSE;
 		}
-
 
 		/*
 		array
@@ -943,13 +907,10 @@ class Cart extends Public_Controller
 			'filename' => string 'php80BC' (length=7)
 		*/
 
-
 		$this->load->library('files/files');
 
 
-		//
 		// where do we upload files to
-		//
 		$folder_id =  Settings::get('shop_upload_file_orders');
 
 
@@ -957,13 +918,8 @@ class Cart extends Public_Controller
 	    $upload = Files::upload( $folder_id , $filename,  $_expected_form_input_name );
 
 
-	    //var_dump($upload);die;
-
-
-	    $filesize = $upload['data']['filesize'];
-	    $extension = $upload['data']['extension'];
-
-
+	    //$filesize = $upload['data']['filesize'];
+	    //$extension = $upload['data']['extension'];
 
 	    $file_id = $upload['data']['id'];
 	

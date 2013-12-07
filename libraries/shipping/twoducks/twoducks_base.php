@@ -214,7 +214,7 @@ class Twoducks_base extends Twoducks_debug
 	}
 
 
-	##########   need to verify below  ###########	
+
 
 	protected function calc_name_charts($package)
 	{
@@ -226,7 +226,7 @@ class Twoducks_base extends Twoducks_debug
 		$qty = $package['count'];
 
 
-		foreach($package->items as $item)
+		foreach($package['items'] as $item)
 		{
 
 			foreach( $item['options'] as $option_key => $selected_option_value)
@@ -271,7 +271,7 @@ class Twoducks_base extends Twoducks_debug
 
 		$qty = $package['count'];
 
-		foreach($package->items as $item)
+		foreach($package['items'] as $item)
 		{
 
 			foreach( $item['options'] as $option_key => $selected_option_value)
@@ -298,6 +298,7 @@ class Twoducks_base extends Twoducks_debug
 
 		return $cost;
 	}
+
 
 
 	/**
@@ -335,7 +336,7 @@ class Twoducks_base extends Twoducks_debug
 		$cost = 0;
 
 	
-		foreach($package->items as $item)
+		foreach($package['items'] as $item)
 		{
 
 			foreach( $item['options'] as $option_key => $selected_option_value)
@@ -372,6 +373,7 @@ class Twoducks_base extends Twoducks_debug
 	}
 
 
+	
 	/**
 	 * $2 for 1-5
 	 * 
@@ -404,6 +406,7 @@ class Twoducks_base extends Twoducks_debug
 
 		return $this->_price_step($qty, 10.00, 5);
 	}
+
 
 	protected function calc_name_charts_framed($qty)
 	{
