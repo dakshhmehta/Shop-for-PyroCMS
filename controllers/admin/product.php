@@ -41,6 +41,9 @@ class Product extends Products_admin_Controller
 		//
 		role_or_die('shop', 'admin_products');		
 
+		// Create the data object
+		$this->data = new stdClass();
+
 	}
 
 
@@ -99,22 +102,20 @@ class Product extends Products_admin_Controller
 		
 
 		//default settings so it will be quicker to create items 
-		//$data->tax_id = NULL;
-		//$data->tax_dir = 0;
-		$data->price = '00.00';
-		$data->price_base = '00.00';
-		$data->rrp = '00.00';
+		$this->data->price = '00.00';
+		$this->data->price_base = '00.00';
+		$this->data->rrp = '00.00';
 		
 		// Reset Values from user input if validation failed
 		foreach ($this->item_validation_rules AS $rule)
-			$data->{$rule['field']} = $this->input->post($rule['field']);
+			$this->data->{$rule['field']} = $this->input->post($rule['field']);
 
 		
 		// Build the Template
-		$this->template->title($this->module_details['name'], lang('create'))
-				->append_metadata($this->load->view('fragments/wysiwyg', $data, TRUE))
+		$this->template->title($this->module_details['name'], lang('shop:common:create'))
+				->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
 				->append_js('module::admin/product.js')
-				->build('admin/products/create', $data);
+				->build('admin/products/create', $this->data);
 	}
 
 
@@ -140,13 +141,6 @@ class Product extends Products_admin_Controller
 		//
 		$data = $this->products_admin_m->get($id, $method);
 
-
-
-
-		// 
-		// First get the product
-		//
-		//$data =  $this->products_admin_m->get($id);
 
 
 		if(!(isset($data)) )
@@ -209,7 +203,7 @@ class Product extends Products_admin_Controller
 
 
 		// Build Template
-		$this->template->title($this->module_details['name'], lang('edit'))
+		$this->template->title($this->module_details['name'], lang('shop:common:edit'))
 				->append_metadata($this->load->view('fragments/wysiwyg', $data, TRUE))
 				->append_js('jquery/jquery.tagsinput.js')
 				->append_js('module::admin/product.js')

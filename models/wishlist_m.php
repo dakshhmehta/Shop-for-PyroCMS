@@ -74,17 +74,13 @@ class Wishlist_m extends MY_Model
 	}
 	
 	/**
-	 *
-	 * @param
-	 * @param
-	 * @access public
+	 * Get all wishlist items
+	 * @return [type] [description]
 	 */
 	public function get_all() 
 	{
-		$this->db->select('shop_products.*,shop_wishlist.price AS price_or');
-		$this->db->select('shop_categories.name as category_name, shop_categories.slug as category_slug');
+		$this->db->select('shop_products.*,shop_wishlist.price');
 		$this->db->join('shop_products', 'shop_products.id = shop_wishlist.product_id', 'inner');
-		$this->db->join('shop_categories', 'shop_products.category_id = shop_categories.id', 'left');
 		return parent::get_all();
 	}
 	

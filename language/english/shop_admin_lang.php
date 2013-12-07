@@ -34,6 +34,7 @@ $lang['shop:common:cancel']  								= 'Cancel';
 $lang['shop:common:copy']  									= 'Copy';
 $lang['shop:common:edit']  									= 'Edit';
 $lang['shop:common:new']  									= 'New';
+$lang['shop:common:create']  								= 'Create';
 $lang['shop:common:view']  									= 'View';
 $lang['shop:common:id']  									= 'Id';
 $lang['shop:common:slug']  									= 'Slug';

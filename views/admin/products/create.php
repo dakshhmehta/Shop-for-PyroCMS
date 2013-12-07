@@ -1,6 +1,6 @@
 
 <section class="title">
-	<h4> <?php echo lang('shop:products:method_'. $this->method, 'method_'); ?>  </h4>
+	<h4> <?php echo lang('shop:common:'. $this->method); ?>  </h4>
 </section>
 
 <section class="item">
