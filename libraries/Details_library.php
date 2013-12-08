@@ -540,16 +540,16 @@ class Details_library
 			),
 			
 			'shop_images' => array(
-				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-				'file_id' => array('type' => 'CHAR', 'constraint' => 15),
-				'product_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE),
-				'restrain_size' => array('type' => "ENUM('no', 'yes_both','yes_height','yes_width')", 'default' => 'yes_width'),
-				'width' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
-				'height' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
-				'display' => array('type' => "ENUM('no', 'yes')", 'default' => 'yes'),
-				'order' => array('type' => 'INT', 'constraint' => '4', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 0), /* order todisplay - not needed for v1 */
-				'cover' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 0), /*is this the cover image */
-				'scope' => array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL), /* Products/Category/Brands*/
+				'id' => 		array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
+				'product_id' => array('type' => 'INT', 'constraint' => '11', 'null' => TRUE, 'unsigned' => TRUE),
+				'width' => 		array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
+				'height' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
+				'src' => 		array('type' => 'VARCHAR', 'constraint' => '500', 'null' => TRUE, 'default' => NULL ),
+				'alt' => 		array('type' => 'VARCHAR', 'constraint' => '500', 'null' => TRUE, 'default' => NULL ),
+				'order' => 		array('type' => 'INT', 'constraint' => '4', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 0), /* order todisplay - not needed for v1 */
+				'cover' => 		array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 0), /*is this the cover image */
+				'file_id' => 	array('type' => 'CHAR', 'constraint' => 15), 
+				'local' => 		array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 1), /* Is this a locally stored image */
 			),
 			'shop_transactions' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
@@ -708,7 +708,7 @@ class Details_library
 			'shop_wishlist' => array(
 				'user_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'key' => TRUE),
 				'product_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'key' => TRUE),				
-				'price_or' => array('type' => 'DECIMAL(10,2)', 'default' => 0), /*price at time of adding*/
+				'price' => array('type' => 'DECIMAL(10,2)', 'default' => 0), /*price at time of adding*/
 				'user_notified' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE), /*has the user been notified about the price decrease*/
 				'date_added' => array('type' => 'TIMESTAMP'),
 			),		  
@@ -1019,7 +1019,6 @@ class Details_library
 
 		return $settings;
 	}
-
 
 
 	public function get_email_templates()

@@ -159,6 +159,9 @@ class Product extends Products_admin_Controller
 
 
 
+			//upload url images
+			$this->upload_url_images($input,$data->id);
+
 			//upload files
 			$this->upload_files($data->id);
 
@@ -297,7 +300,8 @@ class Product extends Products_admin_Controller
 			
 		if($panel =='images')
 		{
-			$data->images 			= $this->products_admin_m->get_images($data->id);  
+			$this->load->model('images_m');
+			$data->images 			= $this->images_m->get_images($data->id);  
 			$data->folders = $this->get_folders();
 		}
 
@@ -475,7 +479,7 @@ class Product extends Products_admin_Controller
 
 
 	/**
-	 * Upload images from the images tab
+	 * Upload files from the FILES tab to link to a product
 	 * 
 	 * @return [INT] [ID of the image uploaded]
 	 */
@@ -514,6 +518,7 @@ class Product extends Products_admin_Controller
 	{
 
 		$this->load->library('files/files');
+
 
 
 		if($this->input->post('upload_folder_id'))
@@ -570,10 +575,11 @@ class Product extends Products_admin_Controller
 
 	private function _upload_assign($image_id, $product_id)
 	{
-
+		$this->load->model('images_m');
+				
 		if($image_id =="")
 			return FALSE;
-		
-		return $this->products_admin_m->add_image($image_id,$product_id);
+
+		return $this->images_m->add_local_image($image_id,$product_id);
 	}
 }

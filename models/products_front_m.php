@@ -54,26 +54,17 @@ class Products_front_m extends Products_m
 			return FALSE;
 
 
-		if(group_has_role('shop', 'admin_products'))
+		if(!(group_has_role('shop', 'admin_products')))
 		{
 
-		}
-		else
-		{
-
-			//
 			// Make sure product is NOT deleted and is visible to public
-			//
 			if (($product->date_archived != NULL) || ($product->public == ProductVisibility::Invisible ))
 			{
 				return FALSE;
 			}
 		}
 
-
-		//
 		// Add the view count
-		//
 		if($incr_view)
 		{
 			$this->viewed($product->id);
@@ -577,12 +568,10 @@ class Products_front_m extends Products_m
 
 		
 		//
-		//
 		// add to the existing filter the settings for all front end items
 		//  - Must be visible
 		//  - must be NOT deleted
 		//  - must be searchabe
-		//
 		//
 		$filter['public'] = ProductVisibility::Visible;
 		//$filter['deleted'] = ProductStatus::Active;
@@ -594,8 +583,6 @@ class Products_front_m extends Products_m
 		//
 		$count = 0;
 		$categories = array();
-
-
 
 
 
@@ -643,8 +630,6 @@ class Products_front_m extends Products_m
 			$count += $this->where('date_archived', NULL )->count_by($filter);
 
 		}		
-
-
 
 
 

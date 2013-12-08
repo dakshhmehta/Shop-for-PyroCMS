@@ -29,14 +29,17 @@ require_once(dirname(__FILE__) . '/' .'shop_model.php');
 class Products_m extends Shop_model
 {
 
-	//
-	// Table name
-	//
+	/**
+	 * The default table for this model 
+	 * @var string
+	 */
 	public $_table = 'shop_products';
 	
-	//
-	// All tags that are ok for description fields
-	//
+
+	/**
+	 * All tags that are ok for description fields
+	 * @var string
+	 */
 	protected $_description_tags = '<b><div><strong><em><i><u><ul><ol><li><p><span><a><br><br />';
 
 	
@@ -52,17 +55,12 @@ class Products_m extends Shop_model
 		$this->load->model('shop/categories_m');	
 		$this->load->model('shop/product_prices_m');	
 		$this->load->model('shop/product_attributes_m');	
-		// load options_m
 		$this->load->model('shop/options_m');
 		$this->load->model('shop/options_values_m');
 		$this->load->model('shop/brands_m');
 		$this->load->library('keywords/keywords');		
 
-
 	}
-
-
-
 
 
 
@@ -106,9 +104,6 @@ class Products_m extends Shop_model
 	public function get($parm, $method='id') 
 	{	
 
-		$this->load->library('files/files');
-
-
 		if($method=='slug')
 		{
 			$product = parent::get_by(array('slug' => $parm) );
@@ -126,63 +121,9 @@ class Products_m extends Shop_model
 	}
 
 
-
-
-
-	public function image_exist( $file_id, $product_id ) 
-	{
-		
-		$result = $this->db
-						->limit(1)
-						->where('file_id',$file_id)
-						->where('product_id',$product_id)
-						->get('shop_images')->row(); 
-		
-		if (count($result) > 0)
-				return TRUE;
-		
-		return FALSE;
-
-	}
-
-	
-	/**
-	 *
-	 * @param INT $id Product ID
-	 * @return unknown
-	 */
-	public function get_images($id) 
-	{
-		return $this->db->where('product_id',$id)->get('shop_images')->result(); 
-	}
-	
-
-
-
 	public function filter($filter = array() , $limit, $offset = 0) {}
 	
 	public function filter_count($filter = array()) {}
 
-
-
-
-
-	/**
-	 * Create a list of products by category id;
-	 * 
-	 * @param  [type] $cat_id [description]
-	 * @return [type]         [description]
-	 */
-	public function build_dropdown($cat_id)
-	{
-
-		$options =array();
-		$options['field_property_id'] = 'product_id';
-
-		$products = $this->db->where('category_id', $cat_id )->order_by('name')->select('id, name')->get($this->_table)->result();
-		return $this->_build_dropdown( $categories , $options );
-
-	}
 	
-
 }

@@ -28,7 +28,6 @@ require_once('products_m.php');
 class Products_admin_m extends Products_m
 {
 
-	
 
 	public function __construct() 
 	{
@@ -317,10 +316,13 @@ class Products_admin_m extends Products_m
 	
 		return $this->update($product_id, array('date_archived' => date("Y-m-d H:i:s") ) );
 	
-		
 	}
 
 
+	/**
+	 * This is used in the shop/admin/manage/ to reset the view counter. 
+	 * @return [type] [description]
+	 */
 	public function reset_views()
 	{
 		$data = array('views' => 0);
@@ -416,61 +418,7 @@ class Products_admin_m extends Products_m
 	}
 
 
-
-	/**
-	 * Admin function
-	 * @param  [type] $file_id    [description]
-	 * @param  [type] $product_id [description]
-	 * @return [type]             [description]
-	 */
-	public function remove_image($file_id,$product_id) 
-	{
-
-		$this->update($product_id, array('date_updated' => date("Y-m-d H:i:s") ) );
-		
-
-		return $this->db->where('file_id',$file_id)->where('product_id',$product_id)->delete('shop_images');
-	}
 	
-	
-	/**
-	 * Shared
-	 * @param INT $id Product ID
-	 * @return unknown
-	 */
-	public function get_images($id) 
-	{
-		return $this->db->where('product_id',$id)->get('shop_images')->result(); 
-	}
-	
-
-	
-	/**`
-	 * Add image to gallery`
-	 */
-	public function add_image($image_id, $product_id)
-	{
-		
-		$to_insert = array(
-				'file_id' => $image_id,
-				'product_id' => $product_id,
-				'restrain_size' => 2,
-				'width' => 0,
-				'height' => 0,
-				'display' => 1,
-				'order' => 10, //will implement the ordering in later version
-				'cover' => 0,
-
-		);
-	
-		$this->update($product_id, array('date_updated' => date("Y-m-d H:i:s") ) );
-
-		return $this->db->insert('shop_images',$to_insert); //returns id
-	
-	}
-
-
-
 	
 	protected function filter_category_list($filter = array())
 	{

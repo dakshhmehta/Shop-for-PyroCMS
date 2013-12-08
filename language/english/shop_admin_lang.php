@@ -59,6 +59,7 @@ $lang['shop:common:messages']  								= 'Messages';
 $lang['shop:common:category']  								= 'Category';
 $lang['shop:common:shipping']  								= 'Shipping';
 $lang['shop:common:label']									= 'Label';
+$lang['shop:common:url']									= 'URL';
 
 
 # Status : Order

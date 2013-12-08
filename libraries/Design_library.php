@@ -48,6 +48,8 @@ class Design_library
 	{
 		
 		$this->CI->load->model('theme_m');
+
+
 		$t = $this->CI->theme_m->get($def_theme);
 
 
@@ -123,7 +125,8 @@ class Design_library
 	{
 
 		$this->CI->load->model('theme_m');
-		$t = $this->CI->theme_m->get($def_theme);
+
+		$t = $this->CI->theme_m->get(  Settings::get('default_theme')  );
 
 		$root = FCPATH . $t->path; //'addons/shared_addons/themes/tldonline'
 

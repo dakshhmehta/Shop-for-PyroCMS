@@ -327,6 +327,9 @@ class Plugin_Shop extends Plugin
 		if ($product==NULL) 
 			return array();
 
+		if($product->related == '')
+			return array();
+
 		$related =  json_decode($product->related);	
 
 		$count = 0;
@@ -788,15 +791,19 @@ class Plugin_Shop extends Plugin
 
 		$id = $this->attribute('id', '0');
 		$limit = $this->attribute('max', '0');
-		$this->load->model('shop/products_front_m');
+
+		$include_cover = $this->attribute('include_cover', 'NO');
+		$include_gallery = $this->attribute('include_gallery', 'YES');
+
+		$this->load->model('shop/images_m');
 
 		if($limit != '0')
 		{
 			$limit = intval($limit);
-			return (array) $this->products_front_m->limit($limit)->get_images($id);
+			$this->images_m->limit($limit);
 		}
 
-		return (array) $this->products_front_m->get_images($id);	
+		return (array) $this->images_m->get_images($id);	
 
 	}
 
@@ -848,8 +855,7 @@ class Plugin_Shop extends Plugin
 		{
 			$product =  $this->products_front_m->get($slug, 'slug');
 		}
-
-
+		
 
 
 		if ($product==NULL) 
@@ -859,7 +865,6 @@ class Plugin_Shop extends Plugin
 		if (is_deleted($product) || ($product->public == 0)) 
 			return array();
 
-		//var_dump($product);die;
 		return (array) $product;	
 
 	}

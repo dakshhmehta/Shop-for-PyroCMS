@@ -199,34 +199,37 @@ class Products extends Public_Controller
 	 */
 	private function _get_view_file($product)
 	{
+
 		$view_name = 'products_single_' . $product->page_design_layout;
 		
 		$this->load->library('design_library');
 
-		$path = $this->design_library->get_custom_path();
-		$path = $path . '/' . $view_name;
+
+		$path = $this->design_library->get_custom_path()  . '/' . $view_name;
 
 
 		if(file_exists($path. '.php'))
 		{
 			return 'custom/'.$view_name;
 		}
+
 		elseif('products_single' == $product->page_design_layout)
 		{
 			return 'common/products_single';
 		}
+		//now just do default		
 		else
 		{
 			return 'common/products_single';
 		}
 
 		/*
+		//change layout
 		elseif($this->template->layout_exists($product->slug .'.html'))
 		{
 			$this->template->set_layout($product->slug .'.html');
 		}
-		*/		
-
+		*/
 	}
 
 
