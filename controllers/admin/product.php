@@ -157,17 +157,10 @@ class Product extends Products_admin_Controller
 			
 			$input = $this->input->post();
 
-			//add url img
-			if(isset($input['image_url']))
-			{
-				if( strlen($input['image_url'] > 11)) //11 digits is the shortest url can be to be valid ex: http://a.co
-				{
-					//todo: need to verify this is an image ??
-					$this->gallery_add_url($input['image_url'], $data->id);
-				}
-				
-			}
-		
+
+
+			//upload url images
+			$this->upload_url_images($input,$data->id);
 
 			//upload files
 			$this->upload_files($data->id);
@@ -486,7 +479,7 @@ class Product extends Products_admin_Controller
 
 
 	/**
-	 * Upload images from the images tab
+	 * Upload files from the FILES tab to link to a product
 	 * 
 	 * @return [INT] [ID of the image uploaded]
 	 */
@@ -525,6 +518,7 @@ class Product extends Products_admin_Controller
 	{
 
 		$this->load->library('files/files');
+
 
 
 		if($this->input->post('upload_folder_id'))
@@ -581,10 +575,11 @@ class Product extends Products_admin_Controller
 
 	private function _upload_assign($image_id, $product_id)
 	{
-
+		$this->load->model('images_m');
+				
 		if($image_id =="")
 			return FALSE;
-		
-		return $this->products_admin_m->add_image($image_id,$product_id);
+
+		return $this->images_m->add_local_image($image_id,$product_id);
 	}
 }

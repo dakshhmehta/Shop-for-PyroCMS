@@ -33,7 +33,7 @@ class Module_Shop extends Module
 	 * 
 	 * @var string
 	 */
-	public $version = '1.0.0.136';  
+	public $version = '1.0.0.140';  
 
 
 

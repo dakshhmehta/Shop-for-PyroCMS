@@ -788,15 +788,15 @@ class Plugin_Shop extends Plugin
 
 		$id = $this->attribute('id', '0');
 		$limit = $this->attribute('max', '0');
-		$this->load->model('shop/products_front_m');
+		$this->load->model('shop/images_m');
 
 		if($limit != '0')
 		{
 			$limit = intval($limit);
-			return (array) $this->products_front_m->limit($limit)->get_images($id);
+			$this->images_m->limit($limit);
 		}
 
-		return (array) $this->products_front_m->get_images($id);	
+		return (array) $this->images_m->get_images($id);	
 
 	}
 

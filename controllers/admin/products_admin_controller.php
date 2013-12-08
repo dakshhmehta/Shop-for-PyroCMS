@@ -374,16 +374,22 @@ class Products_admin_Controller extends Admin_Controller
 		
 	}
 	
-	public function gallery_add_url($url,$product_id)
+	public function upload_url_images($input, $product_id)
 	{
 
-		$this->load->model('images_m');
-	
-		// if not, then we add
-		if ($this->images_m->add_url_image($image,$product_id))
-		{
-			Events::trigger('evt_product_changed', $product_id);
+		if(filter_var($input['image_url'], FILTER_VALIDATE_URL))
+		{ 
+			$this->load->model('images_m');
+		
+			// if not, then we add
+			if ($this->images_m->add_url_image( $input['image_url'] ,$product_id))
+			{
+				Events::trigger('evt_product_changed', $product_id);
+				return TRUE;
+			}
 		}
+
+		return FALSE;
 		
 	}
 	
@@ -433,8 +439,7 @@ class Products_admin_Controller extends Admin_Controller
 		// bt and at are calculated from price so we only need to make sure the below is correct	
 		if(isset($input['price']))
 		{
-			$input['price'] = sf_string_to_decimal($input['price']);
-			$input['price_at'] = $input['price'];		
+			$input['price'] = sf_string_to_decimal($input['price']);	
 		}
 
 		if(isset($input['price_base']))
@@ -443,9 +448,6 @@ class Products_admin_Controller extends Admin_Controller
 		if(isset($input['rrp']))
 			$input['rrp'] = sf_string_to_decimal($input['rrp']);
 
-
-
-		
 		return $input;
 	}
 	
@@ -471,11 +473,8 @@ class Products_admin_Controller extends Admin_Controller
 
 			}
 
-		
 		return $input;
 	
 	}
-	
-	
 
 }
