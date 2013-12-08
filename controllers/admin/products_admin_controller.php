@@ -310,14 +310,17 @@ class Products_admin_Controller extends Admin_Controller
 	 * Can use the audit_db table for testing
 	 * Events::trigger('evt_audit', array('Admin_Products_Controller','assign_image()' , 'image:'.$image  ));
 	 */
-	public function gallery_add()
+	public function gallery_add_local()
 	{
-		
-		$success_add = array();
+		$this->load->model('images_m');
+		$response = array();
+		$response['added'] = array();
+		$response['url'] = site_url(); //site url
+		$response['status'] = JSONStatus::Error;
+
+			
 	
-		//
 		// Check if it was posted
-		//
 		if ( $this->input->post() )
 		{
 			$input = $this->input->post();
@@ -325,27 +328,33 @@ class Products_admin_Controller extends Admin_Controller
 			// Get the data from jQuery
 			$images_array = $input['images'];
 			$product_id = $input['product_id'];
+
+			$add_total = 0;
 						
 			foreach ($images_array as $image) 
 			{
 
+
 				// Check if already exist
-				if (!$this->products_admin_m->image_exist($image,$product_id))
+				if (!$this->images_m->image_exist($image,$product_id))
 				{	
 
 					// if not, then we add
-					if ($this->products_admin_m->add_image($image,$product_id))
+					if ($i_id = $this->images_m->add_local_image($image,$product_id))
 					{
+						$add_total++;
 					
-						//
 						// Add the image ID to the array
 						// to let jQuery know we have added it OK
-						$success_add[] = $image;
+						$response['added'][] = array( 'id' => $i_id , 'src' => site_url() . 'files/thumb/' . $image . '/100/100' );
 						
 					}
-				} 
+				}
 
 			}
+
+
+			$response['status'] = JSONStatus::Success;
 			
 			
 			// Fire event to let system know that product has been changed
@@ -353,9 +362,7 @@ class Products_admin_Controller extends Admin_Controller
 			Events::trigger('evt_product_changed', $product_id);
 			
 			// Complete the respnse array
-			$response['url'] = site_url();
-			$response['added']= $success_add;
-			$response['added_total']= count($success_add);
+			$response['added_total']= $add_total; //total images added count
 
 		}
 		
@@ -367,20 +374,38 @@ class Products_admin_Controller extends Admin_Controller
 		
 	}
 	
+	public function gallery_add_url($url,$product_id)
+	{
+
+		$this->load->model('images_m');
 	
+		// if not, then we add
+		if ($this->images_m->add_url_image($image,$product_id))
+		{
+			Events::trigger('evt_product_changed', $product_id);
+		}
+		
+	}
+	
+
+
 	public function gallery_remove()
 	{
 		$response['status'] = JSONStatus::Error;
+
+		$this->load->model('images_m');
 			
 		if ($input =  $this->input->post() )
 		{
 	
-			// Get the data from jQuery
+			// Id of the image to delete
 			$image = $input['image'];
+
+			//ID of the product to update
 			$product_id = $input['product_id'];
 						
 			
-			if ($this->products_admin_m->remove_image($image, $product_id))
+			if ($this->images_m->delete($image))
 			{
 				Events::trigger('evt_product_changed', $product_id);
 				$response['status'] =  JSONStatus::Success;

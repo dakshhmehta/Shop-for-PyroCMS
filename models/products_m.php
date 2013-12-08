@@ -128,22 +128,24 @@ class Products_m extends Shop_model
 
 
 
-
-	public function image_exist( $file_id, $product_id ) 
+	/*
+	 * @deprecated  - use images_m model
+	 * @param  [type]  $image_id   [description]
+	 * @param  integer $product_id The product_id is optional if you want to see if the image exist and is linked to a product
+	 * @return [type]              [description]
+	 *
+	public function image_exist( $image_id, $product_id = 0) 
 	{
 		
-		$result = $this->db
-						->limit(1)
-						->where('file_id',$file_id)
-						->where('product_id',$product_id)
-						->get('shop_images')->row(); 
-		
-		if (count($result) > 0)
-				return TRUE;
+		$result = $this->db->get('shop_images', $image_id); 
+
+		if ($result)
+			return TRUE;
 		
 		return FALSE;
 
 	}
+	*/
 
 	
 	/**

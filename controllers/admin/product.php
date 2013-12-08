@@ -157,7 +157,17 @@ class Product extends Products_admin_Controller
 			
 			$input = $this->input->post();
 
-
+			//add url img
+			if(isset($input['image_url']))
+			{
+				if( strlen($input['image_url'] > 11)) //11 digits is the shortest url can be to be valid ex: http://a.co
+				{
+					//todo: need to verify this is an image ??
+					$this->gallery_add_url($input['image_url'], $data->id);
+				}
+				
+			}
+		
 
 			//upload files
 			$this->upload_files($data->id);
@@ -297,7 +307,8 @@ class Product extends Products_admin_Controller
 			
 		if($panel =='images')
 		{
-			$data->images 			= $this->products_admin_m->get_images($data->id);  
+			$this->load->model('images_m');
+			$data->images 			= $this->images_m->get_images($data->id);  
 			$data->folders = $this->get_folders();
 		}
 
