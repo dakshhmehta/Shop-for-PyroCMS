@@ -28,7 +28,6 @@ require_once('products_m.php');
 class Products_admin_m extends Products_m
 {
 
-	
 
 	public function __construct() 
 	{
@@ -317,10 +316,13 @@ class Products_admin_m extends Products_m
 	
 		return $this->update($product_id, array('date_archived' => date("Y-m-d H:i:s") ) );
 	
-		
 	}
 
 
+	/**
+	 * This is used in the shop/admin/manage/ to reset the view counter. 
+	 * @return [type] [description]
+	 */
 	public function reset_views()
 	{
 		$data = array('views' => 0);
