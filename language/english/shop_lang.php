@@ -83,6 +83,7 @@ $lang['shop:label:new']									=	'New';
 
 
 // Messages
+$lang['shop:messages:product_is_deleted']				= "The product is deleted. Customers can not view this product.";
 $lang['shop:messages:product_is_hidden']				= 'This product is hidden from your customers view';
 $lang['shop:messages:closed_maintenance']				= "The store is closed for maintenance";
 $lang['shop:messages:no_items']							= "There are no items available to show.";

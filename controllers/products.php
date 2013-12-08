@@ -41,7 +41,6 @@ class Products extends Public_Controller
 		$this->load->model('products_front_m');
 		$this->limit = Settings::get('ss_qty_perpage_limit_front');
 
-	
 	}
 	
 
@@ -162,6 +161,12 @@ class Products extends Public_Controller
 			{
 				$notification_messages['error'][] = lang('shop:messages:product_is_hidden') ;
 			}
+
+			//is the product deleted
+			if($data->product->date_archived != NULL)
+			{
+				$notification_messages['error'][] = lang('shop:messages:product_is_deleted') ;
+			}			
 		}
 
 

@@ -55,6 +55,35 @@ class Plugin_Shop extends Plugin
 				'variables' => 'id|cover_id|slug|name|description',
 				'attributes' => array(),
 			),		
+			'images' => array(
+				'description' => array(
+					'en' => 'Display Gallery and cover images of products.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|src|alt|height|width|file_id|local',				
+				'attributes' => array(
+					'id' => array(
+						'type' => 'int',
+						'required' => true,
+					),
+					'max' => array(
+						'type' => 'Integer',
+						'default' => '0',
+						'required' => false,
+					),
+					'include_cover' => array(
+						'type' => 'Boolean',
+						'default' => 'NO',
+						'required' => false,
+					),		
+					'include_gallery' => array(
+						'type' => 'Boolean',
+						'default' => 'YES',
+						'required' => false,
+					),										
+				),
+			),				
 			'related' => array(
 				'description' => array(
 					'en' => 'Display a list of related products to another product.'
@@ -803,7 +832,37 @@ class Plugin_Shop extends Plugin
 			$this->images_m->limit($limit);
 		}
 
-		return (array) $this->images_m->get_images($id);	
+
+		$cover = array();
+		$gallery = array();
+
+
+		// Get the cover image - in future cover_id will be also stored on the images table. For now we need to source from the product row for consistancy of the plugin
+		if( strtoupper(trim($include_cover)) == 'YES' )
+		{
+			$c = $this->db->select('cover_id')->get('shop_products',$id)->row();
+
+			$cover = array(
+						'src' => $c->cover_id,
+						'alt' => '',
+						'height' => '',
+						'width' => '',
+						'file_id' => $c->cover_id ,
+						'local' => '1',
+						'order' => 0,
+						'cover' => 1,
+						'id' => 0 
+						);
+		}
+
+
+		// Get the galley images
+		if( strtoupper(trim($include_gallery)) == 'YES' )
+		{
+			$gallery = (array) $this->images_m->get_images( $id );
+		}
+
+		return array_merge( $gallery , $cover );
 
 	}
 
