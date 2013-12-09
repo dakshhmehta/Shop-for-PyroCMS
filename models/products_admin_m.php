@@ -251,8 +251,6 @@ class Products_admin_m extends Products_m
 				'tax_dir' => $product->tax_dir,
 				'pgroup_id' => $product->pgroup_id,
 
-
-				'cover_id' => $product->cover_id,
 				'status' => $product->status,
 				'category_id' => $product->category_id,
 				'brand_id' => $product->brand_id,
@@ -564,7 +562,7 @@ class Products_admin_m extends Products_m
 	{
 
 
-		$this->db->select('shop_products.id, shop_products.name, shop_products.cover_id,shop_products.category_id')
+		$this->db->select('shop_products.id, shop_products.name, shop_products.category_id')
 				->where('shop_products.date_archived', NULL)	
 				->where('shop_products.searchable',1);
 

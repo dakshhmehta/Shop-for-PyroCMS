@@ -427,20 +427,15 @@ class Details_library
 				'slug' => 			array('type' => 'VARCHAR', 'constraint' => '100', 'unique' => TRUE),
 				'name' => 			array('type' => 'VARCHAR', 'constraint' => '100'),
 				'code' => 			array('type' => 'VARCHAR', 'constraint' => '100', 'default' => ''), /* product code  */
-
 				'pgroup_id' => 		array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL), /*which associated product group*/
-				'category_id' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE),
-				'cover_id' => 		array('type' => 'CHAR', 'constraint' => 15, 'null' => TRUE, 'default' => NULL),
-				
+				'category_id' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE),				
 				'brand_id' => 		array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
-				
 				'description' => 	array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),
-				//'short_desc' => 	array('type' => 'VARCHAR', 'constraint' => '255', 'default' => NULL), /*new*/
+
 				'keywords' => 		array('type' => 'VARCHAR', 'constraint' => '32', 'null' => TRUE, 'default' => NULL),
 				'meta_desc' => 		array('type' => 'VARCHAR', 'constraint' => '255', 'null' => TRUE, 'default' => NULL), /*seo short description*/
 				'related' => 		array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),
 				'user_data' => 		array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),
-				
 				'page_design_layout' => 	array('type' => "VARCHAR", 'constraint' => '75', 'default' => 'products_single'), //limit to files that are smaller than 75 char long
 				'req_shipping' => 	array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 1),  /* 1 is shippable item */
 				'height' => array('type' => 'INT', 'constraint' => '5'	, 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL), /* KG - 100g = 0.001 */

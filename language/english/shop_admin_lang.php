@@ -22,8 +22,11 @@ $lang['shop:admin:analytics']								=	'Analytics';
 $lang['shop:admin:manage']									=	'Manage';
 $lang['shop:admin:view_shop']								=	'Goto Shop';
 
-# COMMON LABELS USED EVERYWHERE
-# Common labels - When changing the text for these take note that they are used in many sections
+# Common terms
+$lang['shop:common:start']  								= 'Start';
+$lang['shop:common:stop']  									= 'Stop';
+$lang['shop:common:activate']  								= 'Activate';
+$lang['shop:common:archive']  								= 'Archive';
 $lang['shop:common:actions']  								= 'Actions';
 $lang['shop:common:action']  								= 'Action';
 $lang['shop:common:available']  							= 'Available';
@@ -276,6 +279,8 @@ $lang['shop:pgroups:price_group']  = 'Price group';
 $lang['shop:pgroups:price_groups']  = 'Price groups';
 
 # Admin/Products
+$lang['shop:products:url_image']  					= 'Import image with URL';
+$lang['shop:products:url_image_description']  		= 'Shop allows you to add images by URLs. Beware that if the remote address changes your product may not display the image';
 $lang['shop:products:add']  = 'Add';
 $lang['shop:products:add_new_attribute']  = 'Add new attribute';
 $lang['shop:products:add_to_daily_deals']  = 'Add to daily deals';

@@ -52,7 +52,7 @@ class Images_m extends MY_Model {
 	/**`
 	 * Add image to gallery`
 	 */
-	public function add_local_image($image_id, $product_id)
+	public function add_local_image($image_id, $product_id, $cover_image = 0)
 	{
 		
 		$to_insert = array(
@@ -62,7 +62,7 @@ class Images_m extends MY_Model {
 				'width' => 0,
 				'height' => 0,
 				'order' => 10, //will implement the ordering in later version
-				'cover' => 0,
+				'cover' => $cover_image,
 				'local' => 1,
 				'file_id' => $image_id,
 

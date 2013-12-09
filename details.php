@@ -33,7 +33,7 @@ class Module_Shop extends Module
 	 * 
 	 * @var string
 	 */
-	public $version = '1.0.0.140';  
+	public $version = '1.0.0.141';  
 
 
 
@@ -208,6 +208,19 @@ class Module_Shop extends Module
 		 
 		switch ($old_version) 
 		{
+			case '1.0.0.140':	
+			case '1.0.0.139':					
+			case '1.0.0.138':					
+			case '1.0.0.137':					
+			case '1.0.0.136':
+				//image field - cover_id migration
+				$this->load->library('shop/images_library');
+				if($this->images_library->migrate2())
+				{
+					$this->_remove_table_col('shop_products','cover_id');
+					return TRUE;
+				}
+				return FALSE;
 			case '1.0.0.135':
 				$this->load->library('shop/images_library');
 
@@ -220,9 +233,8 @@ class Module_Shop extends Module
 
 
 				//only remove the col once the migration was successfull
-				if($this->images_library->migrate())
+				if($this->images_library->migrate1())
 				{
-					//$this->_remove_table_col('shop_images','file_id'); 
 					return TRUE;
 				}
 
@@ -232,7 +244,6 @@ class Module_Shop extends Module
 			case '1.0.0.133':	
 				//$this->_remove_table_col('shop_orders','tracking_code');
 				$this->_install_table_col('shop_orders','pin');
-
 				$this->_install_table('shop_product_files');
 				$this->_install_table('shop_downloads');
 				$this->_install_table_col('shop_products','req_shipping');

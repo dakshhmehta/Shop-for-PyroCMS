@@ -63,26 +63,31 @@ class Products_library
 		$response['status'] = JSONStatus::Error;
 
 
-		if($this->CI->input->post('id') ) 
+		if($this->CI->input->post('prod_id') ) 
 		{
 
-
-			$id = intval( $this->CI->input->post('id'));
+			$prod_id = intval( $this->CI->input->post('prod_id'));
 			
-
-			$file_id =  $this->CI->input->post('file_id') ;
+			$img_id =  $this->CI->input->post('img_id') ;
 			
+			// Step: remove all default/cover flags for this product (should only be 1)
+			$data = array('cover' => 0);
+			if ( $this->CI->db->where('product_id',$prod_id)->update('shop_images',$data)  ) 
+			{
+				// Step: set the flag to this one
+				$data = array('cover' => 1);
+				if ($this->CI->db->where('id',$img_id)->where('product_id',$prod_id)->update('shop_images',$data)  ) 
+				{	
+					$_img_ = $this->CI->db->where('id',$img_id)->get('shop_images')->row();
 
-			$resp = site_url().'files/thumb/'.$file_id.'/100/100';
+					$src = $_img_->src;
 
-
-			if ($this->CI->products_admin_m->update_property($id, 'cover_id', $file_id ) ) 
-			{	
-				$response['status'] = JSONStatus::Success;
-				$response['src'] = $resp;
-				
-				Events::trigger('evt_product_changed', $id);
-			} 
+					$response['status'] = JSONStatus::Success;
+					$response['src'] = $src;
+					
+					Events::trigger('evt_product_changed', $prod_id);
+				} 
+			}
 
 
 		}

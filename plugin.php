@@ -833,36 +833,22 @@ class Plugin_Shop extends Plugin
 		}
 
 
-		$cover = array();
-		$gallery = array();
-
 
 		// Get the cover image - in future cover_id will be also stored on the images table. For now we need to source from the product row for consistancy of the plugin
 		if( strtoupper(trim($include_cover)) == 'YES' )
 		{
-			$c = $this->db->select('cover_id')->get('shop_products',$id)->row();
-
-			$cover = array(
-						'src' => $c->cover_id,
-						'alt' => '',
-						'height' => '',
-						'width' => '',
-						'file_id' => $c->cover_id ,
-						'local' => '1',
-						'order' => 0,
-						'cover' => 1,
-						'id' => 0 
-						);
+			$this->db->where('cover',1);
 		}
 
 
 		// Get the galley images
 		if( strtoupper(trim($include_gallery)) == 'YES' )
 		{
-			$gallery = (array) $this->images_m->get_images( $id );
+			$this->db->or_where('cover',0);
 		}
 
-		return array_merge( $gallery , $cover );
+
+		return (array) $this->images_m->get_images( $id );
 
 	}
 

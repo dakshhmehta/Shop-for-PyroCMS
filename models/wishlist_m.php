@@ -46,7 +46,7 @@ class Wishlist_m extends MY_Model
 	{
 		$input['user_id'] = $user_id;
 		$input['product_id'] = $product->id;
-		$input['price_or'] = $product->price;
+		$input['price'] = $product->price;
 		$input['date_added'] = date("Y-m-d H:i:s");
 		$input['user_notified'] = 0;
 		

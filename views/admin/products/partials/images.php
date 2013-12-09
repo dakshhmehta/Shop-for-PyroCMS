@@ -1,7 +1,5 @@
 				
-
 				<fieldset>
-
 
 				<div class="tabs">		
 
@@ -74,13 +72,13 @@
 						<ul>
 							<li>
 								<label for="">
-									<?php echo lang('shop:products:upload_image'); ?>
+									<?php echo lang('shop:products:url_image'); ?>
 									<span></span>
 									<br />
-									<small><?php echo lang('shop:products:upload_image_description'); ?></small>
+									<small><?php echo lang('shop:products:url_image_description'); ?></small>
 								</label>
 								<div class="input">		
-									<input type='text' name='image_url' > <br />
+									<?php echo lang('shop:common:url'); ?> <input type='text' name='image_url' > <br />
 							
 								</div>
 							</li>
@@ -179,10 +177,9 @@
 
 								var x_img = obj.added[i];
 
-								
 								current_images += "<div class='container' image-id='"+obj.added[i].id+"' >";
-								current_images += "  <a  href='#' title='DELETE'>Del</a>"
-								current_images += "  <a  href='#' title='DELETE'>Set as cover</a>"				
+								current_images += "  <a  href='#' class='remove_image' title='DELETE'>Del</a>"
+								current_images += "  <a  href='#' class='set_as_cover' title='Cover'>Set as cover</a>"				
 								current_images += "  <img src='" + obj.added[i].src  + "' height='100' width='100'>";
 								current_images += "</div>";
 							}
@@ -281,7 +278,34 @@
 		            
 					return false;
 				
-				});		
+				});	
+
+
+				// 
+				// Remove image from gallery
+		        //
+				$(".set_as_cover").live('click', function(e)  {					
+					
+					var parent = $(this).parent();
+		            var img = parent.attr('image-id');
+		            var pid = $("#static_product_id").attr('data-pid');     /*get the product id*/
+
+		            $.post('shop/admin/products/cover_image', { prod_id:pid ,img_id:img } ).done(function(data) 
+		            {			
+		                var obj = jQuery.parseJSON(data);
+		                
+		                if (obj.status == 'success') 
+		                {
+		                    $("#prod_cover").attr("src", obj.src);
+		                    $("#prod_cover").attr("height", '100px');
+		                    $("#prod_cover").attr("width", '100px');
+		                }
+
+		            });
+		            
+					return false;
+				
+				});	
 
 
 				$(".popup_image").live('click', function(e)  {					
@@ -290,6 +314,5 @@
 					return false;
 				
 				});		
-
 
 			</script>
