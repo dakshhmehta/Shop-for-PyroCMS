@@ -33,6 +33,29 @@ class Orders_m extends MY_Model
 		parent::__construct();
 	}
 	
+	/**
+	 * Delete an order is not a normal thing to do,
+	 * we need to ask confirmation first.
+	 * @return [type] [description]
+	 */
+	public function delete($order_id)
+	{
+		//Step 1: Delete all order items
+		$this->db->where('order_id',$order_id)->from('shop_order_items')->delete();
+
+
+		//Step 2: Delete all Transactions
+		$this->db->where('order_id',$order_id)->from('shop_transactions')->delete();
+
+
+		//Step 3: Delete the order line
+		return $this->db->where('id',$order_id)->from('shop_orders')->delete();
+
+
+		
+	}
+
+
 
 	/**
 	 * This is where the order is recorded, The order info  is passed along side the cart and the session ID
@@ -56,7 +79,8 @@ class Orders_m extends MY_Model
 				'shipping_address_id' => $inputs['shipping_address_id'],
 				'session_id' => $inputs['session_id'], 
 				'ip_address' => $inputs['ip_address'],	
-				'trust_score' => $inputs['trust_score'],			
+				'trust_score' => $inputs['trust_score'],	
+				'pin' => $inputs['pin'],		
 				'order_date' => time(),
 		));
 	
@@ -67,7 +91,7 @@ class Orders_m extends MY_Model
 	
 		foreach ($cart as $item) 
 		{
-	
+			
 			$contents[] = array(
 					'order_id' => $order_id,
 					'product_id' => $item['id'],
@@ -86,6 +110,7 @@ class Orders_m extends MY_Model
 	
 		return $order_id;
 	}
+	
 
 
 	public function set_payment_parm($id, $data_array)
@@ -160,42 +185,18 @@ class Orders_m extends MY_Model
 		return $this->db->get('shop_order_messages')->result();
 
 	}
-	
-	/**
-	 *
-	 *@deprecated - use addresses_m set_address
-	 */
-	public function set_address($input) 
-	{
-		$data = array(
-				'user_id' => $input['user_id'],
-				'email' => $input['email'],
-				'first_name' => $input['first_name'],
-				'last_name' => $input['last_name'],
-				'company' => $input['company'],
-				'address1' => $input['address1'],
-				'address2' => $input['address2'],
-				'city' => $input['city'],
-				'state' => $input['state'],
-				'country' => $input['country'],
-				'zip' => $input['zip'],
-				'phone' => $input['phone'],
-		);
-	
-		if (isset($input['id'])) 
-		{
-			$this->db->where('id', $input['id']);
-			$this->db->update('shop_addresses', $data);
-			return $input['id'];
-		} 
-		else 
-		{
-			$this->db->insert('shop_addresses', $data);
-			return $this->db->insert_id();
-		}
-	}
-		
 
+	
+	/*
+	 * get the file contents for a download
+	 */
+	public function get_file($file_id)
+	{
+
+		return $this->db->where('id',$file_id)->get('shop_product_files')->result(); 	
+
+		
+	}	
 	
 	public function set_status($id,$status) 
 	{
@@ -302,15 +303,12 @@ class Orders_m extends MY_Model
 	public function sum($pid)
 	{
 		
-
 		$result =  $this->db
 			->select('sum(qty) as total_sales')
 			->where('product_id', $pid)->get('shop_order_items')->result();
 
 			var_dump($result);die;
 		
-
-
 	}
 	
 	
@@ -319,15 +317,21 @@ class Orders_m extends MY_Model
 	public function get_all_by_user($user_id) 
 	{
 	
+		$this->db->where('user_id',$user_id);
+		return parent::get_all();
+		//		return $result->get('shop_orders')->result_array();
+
+		/*
 		$this->db->select('shop_orders.*, addr.email as customer_email');
 		$this->db->where('shop_orders.user_id',$user_id);
-		$this->db->select('CONCAT(addr.first_name, " ", addr.last_name) as customer_name', FALSE); /* TODO:Lets not concat, pass the array values and just print manually*/
+		$this->db->select('CONCAT(addr.first_name, " ", addr.last_name) as customer_name', FALSE); 
 		$this->db->select('CONCAT(addr.address1, " ", addr.address2, " ", addr.city , " ", addr.country, " ", addr.zip) as billing_address', FALSE);
 		$this->db->select('addr.city AS city', FALSE);
 		$this->db->join('shop_addresses addr', 'shop_orders.billing_address_id = addr.id', 'left');
 		$this->db->group_by('shop_orders.id');
 	
 		return parent::get_all();
+		*/
 	}
 	
 	
@@ -374,13 +378,16 @@ class Orders_m extends MY_Model
 	/**
 	 * Get All items in Order
 	 * @param INT $id Order ID
+	 * @old Set to TRUE for admin, the admin collects all product data for display
 	 */
 	public function get_order_items($id) 
 	{
+
 		return $this->db
-			->select('shop_products.*, shop_order_items.*')
-			->join('shop_products', 'shop_order_items.product_id = shop_products.id')
+			->select('shop_products.*, shop_order_items.*, shop_products.id as `id`')
+			->join('shop_products', 'shop_order_items.product_id = shop_products.id','right')
 			->where('order_id', $id)->get('shop_order_items')->result();
+		
 	}
 	
 	/**
@@ -393,9 +400,45 @@ class Orders_m extends MY_Model
 		return (count($items) > 0)? TRUE : FALSE ;
 	}
 	
-	public function get_user_data($user_id) 
+	/**
+	 * Get the information from a users profile, if guest return an pre-defined array merged with the contact info.
+	 *
+	 * 
+	 * @param  [type] $user_id         [description]
+	 * @param  array  $billing_address This is only used for guest customers. Some of the data is used to populate info
+	 * @return [type]                  [description]
+	 */
+	public function get_user_data($user_id, $billing_address = array() ) 
 	{
-		return $this->db->where('user_id', $user_id)->get('profiles')->row();
+
+		if($user_id == 0)
+		{
+			$guest = new stdClass();
+
+			  $guest->id = 0;
+			  $guest->created = 0;
+			  $guest->updated = 0;
+			  $guest->created_by = 0;
+			  $guest->ordering_count = 0;
+			  $guest->user_id = 0;
+			  $guest->display_name = $billing_address->first_name;
+			  $guest->first_name  = $billing_address->first_name;
+			  $guest->last_name = $billing_address->last_name;
+			  $guest->bio = '';
+			  $guest->dob = '';
+			  $guest->gender = NULL;
+			  $guest->updated_on = NULL;
+			  $guest->is_guest = TRUE;
+
+			  return $guest;
+		}
+
+		// Else
+		$profile =  $this->db->where('user_id', $user_id)->get('profiles')->row();
+
+		$profile->is_guest = FALSE;
+
+		return $profile;
 		
 	}
 }

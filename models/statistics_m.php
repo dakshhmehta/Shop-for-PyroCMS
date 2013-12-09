@@ -44,7 +44,6 @@ class Statistics_m extends MY_Model
 
 		$this->load->model('shop/tax_m');
 		$this->load->model('shop/pgroups_m');
-		$this->load->library('shop/package_library');
 		$this->load->library('shop/options_library');
 		$this->load->model('shop/options_product_m');	
 		$this->load->model('shop/categories_m');	
@@ -375,6 +374,8 @@ class Statistics_m extends MY_Model
         $this->db->where('last_activity >', time()-$period);
 
         $this->db->group_by('date', FALSE);
+        $this->db->group_by('ip_address', FALSE);
+        
         $result = $this->db->get('ci_sessions')->result();
         
         $stats = array();

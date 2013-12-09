@@ -41,7 +41,7 @@ class Widget_Shop_search extends Widgets {
 		
 
 		
-		return array('enabled' => TRUE);
+		return array();
 	
 
 	}

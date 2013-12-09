@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo shop_lang('shop:pgroups:price_groups'); ?></h4>
+	<h4><?php echo lang('shop:pgroups:price_groups'); ?></h4>
 	<h4 style="float:right"><a href="admin/shop/pgroups/create" class='img_icon_title img_create'></a></h4>
 </section>
 <?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
@@ -7,16 +7,16 @@
 	<div class="content">
 	<?php if (empty($productgroups)): ?>
 		<div class="no_data">
-		<?php echo shop_lang('shop:pgroups:no_data'); ?></div>
+		<?php echo lang('shop:pgroups:no_data'); ?></div>
 	</div></section>
 <?php else: ?>
 	<table>			
 		<thead>
 			<tr>
 				<th><input type="checkbox" name="action_to_all" value="" class="check-all" /></th>
-				<th><?php echo shop_lang('shop:pgroups:name'); ?></th>
-				<th><?php echo shop_lang('shop:pgroups:price_group'); ?></th>
-				<th style=""><?php echo shop_lang('shop:pgroups:actions'); ?></th>
+				<th><?php echo lang('shop:common:name'); ?></th>
+				<th><?php echo lang('shop:pgroups:price_group'); ?></th>
+				<th style=""><?php echo lang('shop:common:actions'); ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,19 +35,19 @@
 
 								<span style="float:right;">
 									
-									<a class="tooltip-s shopbutton button-rounded" href="<?php echo site_url('admin/shop/pgroups/edit/' . $group->id); ?>"><?php echo shop_lang('shop:pgroups:edit');?></a>
+									<a class="tooltip-s shopbutton button-rounded" href="<?php echo site_url('admin/shop/pgroups/edit/' . $group->id); ?>"><?php echo lang('shop:common:edit');?></a>
 								
 									<span class="button-dropdown" data-buttons="dropdown">
 										<a href="#" class="shopbutton button-rounded button-flat-primary"> 
-											<?php echo shop_lang('shop:pgroups:actions');?> 
+											<?php echo lang('shop:common:actions');?> 
 											<i class="icon-caret-down"></i>
 										</a>
 										 
 										<!-- Dropdown Below Button -->
 										<ul class="button-dropdown">
 
-											<li class=''><a class="tooltip-s" href="<?php echo site_url('admin/shop/pgroups/edit/' . $group->id); ?>"><?php echo shop_lang('shop:pgroups:edit');?></a></li>
-											<li class='button-dropdown-divider delete'><a class="tooltip-s confirm" href="<?php echo site_url('admin/shop/pgroups/delete/' . $group->id); ?>"><?php echo shop_lang('shop:pgroups:delete');?></a></li>
+											<li class=''><a class="tooltip-s" href="<?php echo site_url('admin/shop/pgroups/edit/' . $group->id); ?>"><?php echo lang('shop:common:edit');?></a></li>
+											<li class='button-dropdown-divider delete'><a class="tooltip-s confirm" href="<?php echo site_url('admin/shop/pgroups/delete/' . $group->id); ?>"><?php echo lang('shop:common:delete');?></a></li>
 												 
 										</ul>
 

@@ -1,5 +1,6 @@
-<!--- FILE.START:VIEW.ADMIN.PRODUCTS.FILTER -->
+
 <div class='item' id="filters_group" style="">
+
 	<fieldset id="filters" style="display:block;">
 		<div class='item' id="hideable_filters" style="display:none;">
 		
@@ -10,30 +11,45 @@
 				
 					<li>
 						<label>
-							<?php echo shop_lang('shop:products:order_by'); ?>
+							<?php echo lang('shop:products:order_by'); ?>
 						</label>
 						<div class="input">
 
 							<?php echo form_dropdown('f_order_by',  
 
 									array(
-										0=> shop_lang('shop:products:id'),
-										1=> shop_lang('shop:products:name'),
-										2=> shop_lang('shop:products:category_id'),
-										3=> shop_lang('shop:products:id_descending'),
-										4=> shop_lang('shop:products:name_descending')
+										0=> lang('shop:common:id'),
+										1=> lang('shop:common:name'),
+										2=> lang('shop:products:category_id'),
+										3=> lang('shop:products:id_descending'),
+										4=> lang('shop:products:name_descending')
 										),$order_by ); ?>
 						</div>
 					</li>				
 					<li>
 						<label>
-							<?php echo shop_lang('shop:products:items_per_page'); ?>
+							<?php echo lang('shop:products:items_per_page'); ?>
 						</label>
 						<div class="input">
 							<?php echo form_dropdown('f_items_per_page', array(5=>"5", 10=>"10", 20=>"20", 50=>"50", 100=>"100", 200=>"200"), $limit); ?>
 						</div>
 					</li>
+					<li>
+						<label>
+							<?php echo lang('shop:products:custom_field'); ?>
+						</label>
+						<div class="input">
 
+							<?php echo form_dropdown('f_dynamic_field',  
+
+									array(
+										'page_design_layout'=> lang('shop:products:page_design_layout'),
+										'date_created'=> lang('shop:products:date_created'),
+										),$f_dynamic_field ); ?>
+
+
+						</div>
+					</li>
 					
 				</ul>
 			</div>
@@ -42,7 +58,7 @@
 				<ul>  
 					<li>
 						<label>
-							<?php echo shop_lang('shop:products:category'); ?>
+							<?php echo lang('shop:common:category'); ?>
 						</label>
 						<div class="input">
 
@@ -54,7 +70,7 @@
 					</li>
 					<li>
 						<label>
-							<?php echo shop_lang('shop:products:visibility'); ?>
+							<?php echo lang('shop:products:visibility'); ?>
 						</label>
 						<div class="input">
 							<?php echo form_dropdown('f_visibility',  array(0 => lang('global:select-all'),1=> 'Public',2=> 'Hidden'), $visibility ); ?>
@@ -75,7 +91,7 @@
 							<label>
 							</label>
 							<div class="input">
-								<b><?php echo shop_lang('shop:products:search'); ?></b> : <?php echo form_input('f_keyword_search',  $quick_search, 'style="width:215px;height: 20px; padding: 3px 10px;"'); ?>
+								<b><?php echo lang('shop:products:search'); ?></b> : <?php echo form_input('f_keyword_search',  $quick_search, 'style="width:215px;height: 20px; padding: 3px 10px;"'); ?>
 							</div>
 						</li>
 					</ul>
@@ -85,4 +101,3 @@
 	</fieldset>
 	
 </div>
-<!--- FILE.END:VIEW.ADMIN.PRODUCTS.FILTER -->

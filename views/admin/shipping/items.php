@@ -1,7 +1,7 @@
 <div id="sortable">
 	<div class="" id="">
 		<section class="draggable title">
-			<h4><?php echo shop_lang('shop:shipping:shipping'); ?></h4>
+			<h4><?php echo lang('shop:common:shipping'); ?></h4>
 			<a class="tooltip-s toggle" title="Toggle this element"></a>
 		</section>
 		<section class="item">
@@ -9,8 +9,8 @@
 
 				<div class="tabs">
 					  <ul class="tab-menu">
-						<li><a href="#installed"><?php echo shop_lang('shop:shipping:installed'); ?></a></li>
-						<li><a href="#available"><?php echo shop_lang('shop:shipping:available'); ?></a></li>
+						<li><a href="#installed"><?php echo lang('shop:common:installed'); ?></a></li>
+						<li><a href="#available"><?php echo lang('shop:common:available'); ?></a></li>
 						<li><a href="#countries">Country List</a></li>
 					  </ul>
 						<div id="installed" class="form_inputs">
@@ -19,9 +19,9 @@
 										<table>
 											<thead>
 												<tr>
-													<th><?php echo shop_lang('shop:shipping:name'); ?></th>
-													<th><?php echo shop_lang('shop:shipping:image'); ?></th>
-													<th><?php echo shop_lang('shop:shipping:description'); ?></th>
+													<th><?php echo lang('shop:common:name'); ?></th>
+													<th><?php echo lang('shop:common:image'); ?></th>
+													<th><?php echo lang('shop:common:description'); ?></th>
 													<th></th>
 												</tr>
 											</thead>
@@ -34,14 +34,14 @@
 														<td class="actions">
 															<span style='float:right'>
 															<?php if ($item->enabled) {
-																echo anchor('admin/shop/shipping/disable/' . $item->id, ' ',  array('title' => shop_lang('shop:shipping:disable') , 'class' => 'tooltip-s img_icon img_visible') );
+																echo anchor('admin/shop/shipping/disable/' . $item->id, ' ',  array('title' => lang('shop:shipping:disable') , 'class' => 'tooltip-s img_icon img_visible') );
 															} else {
-																echo anchor('admin/shop/shipping/enable/' . $item->id, ' ', array('title' => shop_lang('shop:shipping:enable')  , 'class' => 'tooltip-s img_icon img_invisible') );
+																echo anchor('admin/shop/shipping/enable/' . $item->id, ' ', array('title' => lang('shop:shipping:enable')  , 'class' => 'tooltip-s img_icon img_invisible') );
 															}; ?>
 															<?php
 															echo
-															anchor('admin/shop/shipping/edit/' . $item->id, ' ', array('title' => shop_lang('shop:shipping:edit')  , 'class' => 'tooltip-s img_icon img_edit')) . ' ' .
-															anchor('admin/shop/shipping/uninstall/' . $item->id, ' ', array('title'=>shop_lang('shop:shipping:uninstall') , 'class' => 'tooltip-s img_icon img_delete confirm'));
+															anchor('admin/shop/shipping/edit/' . $item->id, ' ', array('title' => lang('shop:common:edit')  , 'class' => 'tooltip-s img_icon img_edit')) . ' ' .
+															anchor('admin/shop/shipping/uninstall/' . $item->id, ' ', array('title'=>lang('shop:shipping:uninstall') , 'class' => 'tooltip-s img_icon img_delete confirm'));
 															?>
 															</span>
 														</td>
@@ -57,7 +57,7 @@
 											</tfoot>
 										</table>
 									<?php else: ?>
-										<div class="no_data"><?php echo shop_lang('shop:shipping:no_data') ; ?></div>
+										<div class="no_data"><?php echo lang('shop:shipping:no_data') ; ?></div>
 									<?php endif; ?>
 
 									<?php echo form_close(); ?>
@@ -70,16 +70,16 @@
 										<table>
 											<thead>
 												<tr>
-													<th><?php echo lang('shop:admin:name'); ?></th>
-													<th><?php echo lang('shop:admin:image'); ?></th>
-													<th><?php echo lang('shop:admin:description'); ?></th>
+													<th><?php echo lang('shop:common:name'); ?></th>
+													<th><?php echo lang('shop:common:image'); ?></th>
+													<th><?php echo lang('shop:common:description'); ?></th>
 													<th></th>
 												</tr>
 											</thead>
 											<tbody>
 												<?php foreach ($uninstalled as $item): ?>
 													<tr>
-														<td><?php echo $item->title; ?></td>
+														<td><?php echo $item->name; ?></td>
 														<td><?php echo $item->image ? img($item->image) : ''; ?></td>
 														<td><?php echo $item->desc; ?></td>
 														<td class="actions">
@@ -112,7 +112,7 @@
 											<thead>
 												<tr>
 													<th><?php echo lang('shop:admin:id'); ?></th>
-													<th><?php echo lang('shop:admin:name'); ?></th>
+													<th><?php echo lang('shop:common:name'); ?></th>
 													<th><?php echo lang('shop:admin:code'); ?></th>
 													<th><?php echo lang('shop:admin:enabled'); ?></th>
 												</tr>
@@ -125,9 +125,9 @@
 														<td><?php echo $item->code2; ?></td>
 														<td class="actions">
 															<?php if ($item->enabled) {
-																echo anchor('admin/shop/shipping/country/0/' . $item->id, ' ',  array('title' => lang('setinvisible') , 'class' => 'tooltip-s img_icon img_visible') );
+																echo anchor('admin/shop/shipping/country/0/' . $item->id, ' ',  array('title' => lang('shop:common:setinvisible') , 'class' => 'tooltip-s img_icon img_visible') );
 															} else {
-																echo anchor('admin/shop/shipping/country/1/' . $item->id, ' ', array('title' => lang('setvisible') , 'class' => 'tooltip-s img_icon img_invisible') );
+																echo anchor('admin/shop/shipping/country/1/' . $item->id, ' ', array('title' => lang('shop:common:setvisible') , 'class' => 'tooltip-s img_icon img_invisible') );
 															}; ?>
 														</td>
 													</tr>

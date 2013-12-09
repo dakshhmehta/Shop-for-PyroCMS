@@ -1,7 +1,7 @@
 <section class="title">
-	<h4><?php echo shop_lang('shop:categories:categories');?></h4>
+	<h4><?php echo lang('shop:categories:categories');?></h4>
 	<h4 style="float:right">
-		<a href="admin/shop/categories/create" title="<?php echo shop_lang('shop:admin:new');?>" class='tooltip-s img_icon_title img_create'></a>
+		<a href="admin/shop/categories/create" title="<?php echo lang('shop:common:new');?>" class='tooltip-s img_icon_title img_create'></a>
 	</h4>
 </section>
 <?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
@@ -9,7 +9,7 @@
 	<div class="content">
 	<?php if (empty($categories)): ?>
 		<div class="no_data">
-		<p><?php echo shop_lang('shop:categories:description');?></p>
+		<p><?php echo lang('shop:categories:description');?></p>
 		<?php echo lang('no_items'); ?></div>
 		</div>
 	</section>
@@ -18,17 +18,18 @@
 		<thead>
 			<tr>
 				<th><input type="checkbox" name="action_to_all" value="" class="check-all" /></th>
-				<th><?php echo shop_lang('shop:admin:image');?></th>
-				<th><?php echo shop_lang('shop:categories:category');?></th>
+				<th><?php echo lang('shop:common:id');?></th>
+				<th><?php echo lang('shop:common:image');?></th>
+				<th><?php echo lang('shop:common:category');?></th>
 				<th style="width: 120px"></th>
 			</tr>
 		</thead>
 		<tbody>
 
 
-
-
-			<?php foreach ($categories AS $category): ?>
+			<?php 
+				$data = new StdClass();
+				foreach ($categories AS $category): ?>
 
 				<?php 
 

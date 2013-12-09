@@ -25,6 +25,253 @@
  */
 class Plugin_Shop extends Plugin 
 {
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Shop',
+	);
+	public $description = array(
+		'en' => 'Access user and cart information for almost any part of SHOP.',
+	);
+
+
+	/**
+	 * Returns a PluginDoc array that PyroCMS uses 
+	 * to build the reference in the admin panel
+	 *
+	 * All options are listed here but refer 
+	 * to the Asset plugin for a larger example
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array(
+			'daily_deal' => array(
+				'description' => array(
+					'en' => 'Display the current daily deal active in SHOP.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|cover_id|slug|name|description',
+				'attributes' => array(),
+			),		
+			'images' => array(
+				'description' => array(
+					'en' => 'Display Gallery and cover images of products.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|src|alt|height|width|file_id|local',				
+				'attributes' => array(
+					'id' => array(
+						'type' => 'int',
+						'required' => true,
+					),
+					'max' => array(
+						'type' => 'Integer',
+						'default' => '0',
+						'required' => false,
+					),
+					'include_cover' => array(
+						'type' => 'Boolean',
+						'default' => 'NO',
+						'required' => false,
+					),		
+					'include_gallery' => array(
+						'type' => 'Boolean',
+						'default' => 'YES',
+						'required' => false,
+					),										
+				),
+			),				
+			'related' => array(
+				'description' => array(
+					'en' => 'Display a list of related products to another product.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|cover_id|slug|name|description',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'int',
+						'required' => true,
+					),
+					'max' => array(
+						'type' => 'Integer',
+						'default' => '0',
+						'required' => false,
+					),
+				),
+			),	
+			'options' => array(
+				'description' => array(
+					'en' => 'Display all hte options assigned to a Product.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'display|label|type',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'Integer',
+						'required' => true,
+					),
+					'txtBoxClass' => array(
+						'type' => 'String',
+						'default' => '',
+						'required' => false,
+					),
+				),
+			),
+			'categories' => array(
+				'description' => array(
+					'en' => 'Display a list of Categories.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'link|categories',
+				'attributes' => array(),
+			),				
+			'category' => array(
+				'description' => array(
+					'en' => 'Get all fields of a particular category by Category-ID, OR just get the value of a particular field.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|slug|name|user_data',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'Integer',
+						'required' => true,
+					),
+					'field' => array(
+						'type' => 'String',
+						'default' => '',
+						'required' => false,
+					),
+				),
+			),	
+			'cart' => array(
+				'description' => array(
+					'en' => 'Display the cart contents.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|rowid|name|qty|price|subtotal',
+				'attributes' => array(),
+			),			
+			'currency' => array(
+				'description' => array(
+					'en' => 'Display the Shop default currency symbol OR format a float value to the Shop currency format.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => 'id|rowid|name|qty|price|subtotal',
+				'attributes' => array(
+					'format' => array(
+						'type' => 'float',
+						'required' => false,
+					),
+				),
+			),	
+			'products' => array(
+				'description' => array(
+					'en' => 'Display a list of ALL products'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|slug|name|cover_id|price|category_id',
+				'attributes' => array(
+					'limit' => array(
+						'type' => 'Integer',
+						'required' => false,
+						'default' => '0',
+					),
+					'order-by' => array(
+						'type' => 'String',
+						'required' => false,
+						'default' => 'date_created',
+					),		
+					'order-dir' => array(
+						'type' => 'String',
+						'required' => false,
+						'default' => 'asc',
+					),	
+					'category_id' => array(
+						'type' => 'Integer',
+						'required' => false,
+						'default' => '0',
+					),														
+				),
+			),							
+			'product' => array(
+				'description' => array(
+					'en' => 'Display basic information about a product, Only 1 attribute is required.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|slug|name|cover_id|price|category_id',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'Integer',
+						'required' => false,
+					),
+					'slug' => array(
+						'type' => 'Integer',
+						'required' => false,
+					),					
+				),
+			),	
+			'digital_files' => array(
+				'description' => array(
+					'en' => 'Display a list of files associated with an order or product.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|filename|ext',
+				'attributes' => array(
+					'order_id' => array(
+						'type' => 'Integer',
+						'required' => false,
+					),
+					'product_id' => array(
+						'type' => 'Integer',
+						'required' => false,
+					),					
+				),
+			),	
+			'in_wishlist' => array(
+				'description' => array(
+					'en' => 'Displays contents ONLY if the Product is IN the users wishlist.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => '',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'Integer',
+						'required' => TRUE,
+					),				
+				),
+			),	
+			'notin_wishlist' => array(
+				'description' => array(
+					'en' => 'Displays contents ONLY if the Product is NOT-IN the users wishlist.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => '',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'Integer',
+						'required' => TRUE,
+					),				
+				),
+			),							
+			
+		);
+	
+		return $info;
+	}
 
 	function dailydeal() 
 	{
@@ -107,6 +354,9 @@ class Plugin_Shop extends Plugin
 		$product = $this->products_front_m->get($id, 'id', TRUE);
 
 		if ($product==NULL) 
+			return array();
+
+		if($product->related == '')
 			return array();
 
 		$related =  json_decode($product->related);	
@@ -302,7 +552,6 @@ class Plugin_Shop extends Plugin
 
 		$id = $this->attribute('id', '');
 		$field = $this->attribute('field', '');
-		$is = $this->attribute('is', '');
 
 		$category = $this->categories_m->get( $id );
 	
@@ -324,8 +573,134 @@ class Plugin_Shop extends Plugin
 	}
 
 
-	 
+	public function order_is_paid()
+	{
+		$order_id = $this->attribute('id', NULL);
 
+		if ($this->current_user)
+		{
+			$this->load->model('shop/orders_m');
+
+			$order = $this->orders_m->get( $order_id );
+
+			if($order->pmt_status =='paid')
+			{
+				return $this->content();
+			}
+
+		}
+
+		return '';
+
+	}
+
+	public function order_is_unpaid()
+	{
+		$order_id = $this->attribute('id', NULL);
+
+
+		if ($this->current_user)
+		{
+			$this->load->model('shop/orders_m');
+
+			$order = $this->orders_m->get( $order_id );
+
+			if($order->pmt_status =='unpaid')
+			{
+				return $this->content();
+			}
+
+		}
+
+		return '';
+
+	}
+
+	public function in_wishlist()
+	{
+		$product_id = $this->attribute('id', NULL);
+
+		if ($this->current_user)
+		{
+			$this->load->model('shop/wishlist_m');
+
+			$user_id = $this->current_user->id;
+
+			if($this->wishlist_m->item_exist($user_id, $product_id ))
+			{
+				return $this->content();
+			}
+
+		}
+
+		return '';
+	}
+
+
+	public function notin_wishlist()
+	{
+		$product_id = $this->attribute('id', NULL);
+
+		if ($this->current_user)
+		{
+			$this->load->model('shop/wishlist_m');
+
+			$user_id = $this->current_user->id;			
+
+			if($this->wishlist_m->item_exist($user_id, $product_id ))
+			{
+				return '';
+			}
+
+		}
+
+		return $this->content();
+	}
+
+
+
+	public function is_instock()
+	{
+		$product_id = $this->attribute('id', NULL);
+
+
+		$this->load->model('shop/products_m');
+
+
+		$product = $this->products_m->get($product_id, 'id');
+
+		if(!$product)
+			return '';
+
+		if($product->status =='in_stock')
+		{
+			return $this->content();
+		}
+
+
+		return '';
+	}
+
+	public function not_instock()
+	{
+		$product_id = $this->attribute('id', NULL);
+
+
+		$this->load->model('shop/products_m');
+
+
+		$product = $this->products_m->get($product_id, 'id');
+
+		if(!$product)
+			return '';
+
+		if($product->status =='in_stock')
+		{
+			return '';
+		}
+
+		return $this->content();
+	}
 	/**
 	 * For now we only retrieve the symbol, but we should add options for 2 letter code, etc..
 	 * @return [type] [description]
@@ -439,14 +814,107 @@ class Plugin_Shop extends Plugin
 		
 	}
 
+
+	function images()
+	{
+
+		$id = $this->attribute('id', '0');
+		$limit = $this->attribute('max', '0');
+
+		$include_cover = $this->attribute('include_cover', 'NO');
+		$include_gallery = $this->attribute('include_gallery', 'YES');
+
+		$this->load->model('shop/images_m');
+
+		if($limit != '0')
+		{
+			$limit = intval($limit);
+			$this->images_m->limit($limit);
+		}
+
+
+		$cover = array();
+		$gallery = array();
+
+
+		// Get the cover image - in future cover_id will be also stored on the images table. For now we need to source from the product row for consistancy of the plugin
+		if( strtoupper(trim($include_cover)) == 'YES' )
+		{
+			$c = $this->db->select('cover_id')->get('shop_products',$id)->row();
+
+			$cover = array(
+						'src' => $c->cover_id,
+						'alt' => '',
+						'height' => '',
+						'width' => '',
+						'file_id' => $c->cover_id ,
+						'local' => '1',
+						'order' => 0,
+						'cover' => 1,
+						'id' => 0 
+						);
+		}
+
+
+		// Get the galley images
+		if( strtoupper(trim($include_gallery)) == 'YES' )
+		{
+			$gallery = (array) $this->images_m->get_images( $id );
+		}
+
+		return array_merge( $gallery , $cover );
+
+	}
+
+
+	/**
+	 * {{shop:digital files order_id="5" }}
+	 * 		{{id}} {{filename}}
+	 * {{/shop:digital_files}}
+	 * 
+	 * @return [type] [description]
+	 */
+	function digital_files() 
+	{
+
+		$this->load->model('shop_files_m');
+		$order_id = $this->attribute('order_id', '');
+		$product_id = $this->attribute('product_id', 'notset');
+		
+		if($product_id !== 'notset')
+		{
+			$files =  $this->shop_files_m->get_files($product_id);
+		}
+		else
+		{
+			$files =  $this->shop_files_m->get_files_by_order($order_id);
+		}
+		
+		//var_dump($product);die;
+		return (array) $files;	
+
+	}
+
+
 	function product() 
 	{
 
+		$id = $this->attribute('id', '');
 		$slug = $this->attribute('slug', '');
 		$this->load->model('shop/products_front_m');
 	  	
-		//we shouldnt fetch the product twice. - the get_plugin should work by slug too
-		$product =  $this->products_front_m->get($slug, 'slug');
+	  	$product = NULL;
+
+
+		if($id !== '')
+		{
+			$product =  $this->products_front_m->get($id, 'id');
+		}
+		else
+		{
+			$product =  $this->products_front_m->get($slug, 'slug');
+		}
+		
 
 
 		if ($product==NULL) 
@@ -456,7 +924,6 @@ class Plugin_Shop extends Plugin
 		if (is_deleted($product) || ($product->public == 0)) 
 			return array();
 
-		//var_dump($product);die;
 		return (array) $product;	
 
 	}
@@ -473,23 +940,25 @@ class Plugin_Shop extends Plugin
 	function products() 
 	{
 	
-		$limit = intval($this->attribute('limit', 0));
+		$limit = $this->attribute('limit', 0);
 		$order_by = $this->attribute('order-by', 'date_created');
 		$order_dir = $this->attribute('order-dir', 'asc');
-		$category = intval($this->attribute('category-id', $this->attribute('category_id', 0)));
+		$category = $this->attribute('category_id', '0');
+		$category = intval($category);
 		
 		class_exists('products_front_m') OR $this->load->model('shop/products_front_m');
 		
-		if (is_numeric($category) && $category > 0) 
+		if ($category > 0) 
 		{
 			$this->products_front_m->where('category_id', $category);
 		}
-		if (is_numeric($limit) && $limit > 0) 
+
+		if ($limit > 0) 
 		{
 			$this->products_front_m->limit($limit);
 		}
 
-		return $this->products_front_m
+		return  $this->products_front_m
 					->order_by($order_by, $order_dir)
 					->get_all();
 	}
@@ -552,59 +1021,20 @@ class Plugin_Shop extends Plugin
 		
 	}
 
-	/**
-	 * {{cart_contents}}
+
+
+
+
+
+
+	/*
 	 *
-	 * {{/cart_contents}}
+	 *
+	 * DEPRECATED PLUGINS
+	 *
+	 *
 	 * 
-	 * @return Array All items in cart
 	 */
-	function cart_contents() 
-	{
-		
-		$CI =& get_instance();
-		$CI->load->library('shop/SFCart');
-		$i = 1;
-		$items = array();
-		$arr = $CI->sfcart->contents();
-
-		if($arr ===null)
-			return $arr;
-
-		foreach($arr as $item)
-		{
-
-				$item['counter'] = $i;
-				$items[] = $item;
-				$i++;
-
-	
-		}
-
-		return $items;
-
-
-
-	}
-
-	function coverimage()
-	{
-		$id = $this->attribute('id', 0);
-
-		$height = $this->attribute('height', '100');
-		$width = $this->attribute('width', '100');
-
-		$CI =& get_instance();
-		$CI->load->model('shop/products_front_m');
-
-		$product =  $CI->products_front_m->get($id);
-
-
-		return img(site_url('files/thumb/'.$product->cover_id.'/'.$height.'/'.$height));
-
-
-	}
-
 
 	/**
 	 * Customer Dashboard links
@@ -617,19 +1047,18 @@ class Plugin_Shop extends Plugin
 	 */
 	function mylinks()
 	{
-
+		//active make the link active, as the active display section
 		$active = $this->attribute('active', '');
 		$remove = $this->attribute('remove', '');
 		$remove = explode(' ', $remove);
 
 		$links = array();
 
-		$links['dashboard']['link'] = anchor('shop/my/', lang('dashboard'));
-		$links['orders']['link'] = anchor('shop/my/orders', lang('orders'));
-		$links['wishlist']['link'] = anchor('shop/my/wishlist', lang('wishlist'));
-		$links['messages']['link'] = anchor('shop/my/messages', lang('messages'));
-		$links['addresses']['link'] = anchor('shop/my/addresses', lang('addresses'));
-		$links['shop']['link'] = anchor('shop/', lang('back_to_shop'));
+		$links['dashboard']['link'] = anchor('shop/my/dashboard', lang('shop:my:dashboard'));
+		$links['orders']['link'] = anchor('shop/my/orders', lang('shop:my:orders'));
+		$links['wishlist']['link'] = anchor('shop/my/wishlist', lang('shop:my:wishlist'));
+		$links['messages']['link'] = anchor('shop/my/messages', lang('shop:my:messages'));
+		$links['addresses']['link'] = anchor('shop/my/addresses', lang('shop:my:addresses'));
 
 		foreach($remove as $link)
 		{
@@ -639,7 +1068,7 @@ class Plugin_Shop extends Plugin
 		if(isset($links[$active]))
 		{
 			//set the active class
-			$links[$active]['link'] = anchor('shop/my/'.$active, lang($active), 'style="font-weight:bold"');
+			$links[$active]['link'] = anchor('shop/my/'.$active, lang('shop:my:' .$active), 'style="font-weight:bold"');
 		}
 
 		return $links;
@@ -674,6 +1103,9 @@ class Plugin_Shop extends Plugin
 
 
 	/**
+	 *
+	 * @experimental and should not be documented until we know what we want to do with this.
+	 * 
 	 * This is really only used like base_url() but we need an option that allows us to get the https:// prefix.
 	 * 
 	 * {{ shop:domain }} 					- return http://mysite.com
@@ -709,11 +1141,7 @@ class Plugin_Shop extends Plugin
 		return url_domain($use_https);
 		
 	}	
+
 }
-
-
-
-
-
 
 /* End of file plugin.php */

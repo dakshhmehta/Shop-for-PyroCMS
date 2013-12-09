@@ -1,100 +1,110 @@
-<!--- FILE.START:VIEW.MY.ADDRESS -->
-<h2 id="nc-view-title"><?php echo lang('address'); ?></h2>
+<h2>Create New address</h2>
 
-		<ul>
-		{{ shop:mylinks remove='shop' active='addresses' }}
+	<ul id="menu">
+		{{ shop:mylinks remove='shop messages' active='addresses' }}
 			{{link}}
-		{{ /shop:mylinks }}
-		</ul>
+		{{ /shop:mylinks }}	
+	</ul>
 
-<?php
-if (validation_errors()) 
-{
-	echo validation_errors('<div class="error">', '</div>');
-}
-?>
+<form name="form2" action="{{url:site}}shop/my/addresses/address/" method="POST">
 
-<div class="address_info wpanel">
-	<?php echo form_open(); ?>
-	<?php echo form_hidden('user_id', $this->current_user->id); ?>
-	<fieldset>
-		<ul class="two_column">
-			<li class="<?php echo alternator('odd', 'even'); ?>">
-				<label><?php echo lang('first_name'); ?><span>*</span></label>
-				<div class="input">
-					<?php echo form_input('first_name', set_value('first_name', $first_name)); ?>
-				</div>
-			</li>
-			<li class="<?php echo alternator('odd', 'even'); ?>">
-				<label><?php echo lang('last_name'); ?><span>*</span></label>
-				<div class="input">
-					<?php echo form_input('last_name', set_value('last_name', $last_name)); ?>
-				</div>
-			</li>
-			<li class="<?php echo alternator('odd', 'even'); ?>">
-				<label><?php echo lang('company'); ?></label>
-				<div class="input">
-					<?php echo form_input('company', set_value('company', $company)); ?>
-				</div>
-			</li>
-			<li class="<?php echo alternator('odd', 'even'); ?>">
-				<label><?php echo lang('email'); ?><span>*</span></label>
-				<div class="input">
-					<?php echo form_input('email', set_value('email', $email)); ?>
-				</div>
-			</li>
-			<li class="<?php echo alternator('odd', 'even'); ?>">
-				<label><?php echo lang('phone'); ?><span>*</span></label>
-				<div class="input">
-					<?php echo form_input('phone', set_value('phone', $phone)); ?>
-				</div>
-			</li>
-			<li class="<?php echo alternator('odd', 'even'); ?>">
-				<label><?php echo lang('address1'); ?><span>*</span></label>
-				<div class="input">
-					<?php echo form_input('address1', set_value('address1', $address1)); ?>
-				</div>
-			</li>
-			<li class="<?php echo alternator('odd', 'even'); ?>">
-				<label><?php echo lang('address2'); ?></label>
-				<div class="input">
-					<?php echo form_input('address2', set_value('address2', $address2)); ?>
-				</div>
-			</li>
-			<li class="<?php echo alternator('odd', 'even'); ?>">
-				<label><?php echo lang('city'); ?><span>*</span></label>
-				<div class="input">
-					<?php echo form_input('city', set_value('city', $city)); ?>
-				</div>
-			</li>
-			<li class="<?php echo alternator('odd', 'even'); ?>">
-				<label><?php echo lang('state'); ?></label>
-				<div class="input">
-					<?php echo form_input('state', set_value('state', $state)); ?>
-				</div>
-			</li>
-			<li class="<?php echo alternator('odd', 'even'); ?>">
-				<label><?php echo lang('country'); ?></label>
-				<div class="input">
-					<?php echo form_input('country', set_value('country', $country)); ?>
-				</div>
-			</li>
-			<li class="<?php echo alternator('odd', 'even'); ?>">
-				<label><?php echo lang('zip'); ?><span>*</span></label>
-				<div class="input">
-					<?php echo form_input('zip', set_value('zip', $zip)); ?>
-				</div>
-			</li>
-			<li> 
-				<label><?php echo form_checkbox('agreement', 1, FALSE); ?><?php echo lang('agreement_field'); ?></label>
-				<span style="float: right;">
-					<?php echo anchor('shop/my/', lang('dashboard')); ?> | 
-					<?php echo form_reset('reset', lang('clear'), 'class="button"'); ?>
-					<?php echo form_submit('submit', lang('save')); ?>
-				</span>
-			</li>
-		</ul>
-	</fieldset>
-</div>
-<?php echo form_close(); ?>
-<!--- FILE.END:VIEW.MY.ADDRESS -->
+    <fieldset>
+        <h2>New Address</h2>
+
+        <ul class="two_column">
+            <li>
+                <label>First name<span>*</span></label>
+                <div class="input">
+                    <input type="text" name="first_name" value="{{first_name}}">
+                </div>
+            </li>
+            <li>
+                <label>surname<span>*</span></label>
+                <div class="input">
+                    <input type="text" name="last_name" value="{{last_name}}">
+                </div>
+            </li>
+            <li>
+                <label>Email<span>*</span></label>
+                <div class="input">
+                     <input type="text" name="email" value="{{email}}">
+                </div>
+            </li>
+            <li>
+                <label>Company<span>*</span></label>
+                <div class="input">
+                     <input type="text" name="company" value="{{company}}">
+                </div>
+            </li>            
+            <li>
+                <label>Phone<span>*</span></label>
+                <div class="input">
+                    <input type="text" name="phone" value="{{phone}}">
+                </div>
+            </li>
+            <li>
+                <label>address1<span>*</span></label>
+                <div class="input">
+                    <input type="text" name="address1" value="{{address1}}">
+                </div>
+            </li>
+            <li>
+                <label>address2</label>
+                <div class="input">
+                     <input type="text" name="address2" value="{{address2}}">
+                </div>
+            </li>
+            <li>
+                <label>City<span>*</span></label>
+                <div class="input">
+                    <input type="text" name="city" value="{{city}}">
+                </div>
+            </li>
+            <li>
+                <label>State</label>
+                <div class="input">
+                    <input type="text" name="state" value="{{state}}">
+                </div>
+            </li>
+            <li>
+                <label>Country</label>
+                <div class="input">
+
+                    <select name='country'>
+                        {{countries}}
+                            <option value='{{code}}'>{{name}}</option>
+                        {{/countries}}
+                    </select>
+
+                </div>
+            </li>
+            <li>
+                <label>ZIP/Postcode<span>*</span></label>
+                <div class="input">
+                    <input type="text" name="zip" value="{{zip}}">
+                </div>
+            </li>
+            <li>
+                <label></label>
+                <div class="input">
+                    <input type="checkbox" name="useragreement" value="1">Agree to Terms as Conditions
+                </div>
+            </li>                         
+        </ul>
+   
+
+
+    </fieldset>
+
+
+    <fieldset>
+
+        <div> 
+            <span style="float: right;">
+                <input type='submit' name='submit' value='Save'>
+            </span>
+        </div>
+
+    </fieldset>
+
+</form>

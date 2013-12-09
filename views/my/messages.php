@@ -1,43 +1,40 @@
+<div>
+<h2>Messages</h2>
 
-<h2 id="nc-view-title"><?php echo lang('messages'); ?></h2>
-
-		<ul>
-		{{ shop:mylinks remove='shop' active='messages' }}
+	<ul id="menu">
+		{{ shop:mylinks remove='shop messages' active='messages' }}
 			{{link}}
-		{{ /shop:mylinks }}
-		</ul>
+		{{ /shop:mylinks }}	
+	</ul>
 
 
-<div id="SF_CustomerPage">
-	<div class="my-dashboard">
-		<table>
-			<thead>
-				<tr>
-					<th><?php echo lang('id'); ?></th>
-					<th><?php echo lang('user_id'); ?></th>
-					<th><?php echo lang('order_id'); ?></th>
-					<th><?php echo lang('reply_to'); ?></th>
-					<th><?php echo lang('subject'); ?></th>
-					<th><?php echo lang('message'); ?></th>
-					<th><?php echo lang('action'); ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach ($messages as $item) : ?>
-				<tr>
-					<td><?php echo $item->id; ?></td>
-					<td><?php echo $item->order_id; ?></td>
-					<td><?php echo $item->replyto_id; ?></td>
-					<td><?php echo $item->subject; ?></td>
-					<td><?php echo $item->message; ?></td>
-					<td><?php echo $item->user_id; ?></td>
-					<td><a href="{{ url:site }}shop/my/order/<?php echo $item->order_id; ?>" class="button"><?php echo lang('open'); ?></a></td>
-				</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>
-		<p>
-			<a href="{{ url:site }}shop/my"><?php echo lang('dashboard'); ?></a>
-		</p>
+
+		<div>
+			<table>
+				<thead>
+					<tr>
+						<td><?php echo lang('shop:label:id'); ?></td>
+						<td><?php echo lang('shop:label:user_id'); ?></td>
+						<td><?php echo lang('shop:label:order_id'); ?></td>
+						<td><?php echo lang('shop:label:message'); ?></td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					{{messages}}
+					<tr>
+						<td>{{id}}</td>
+						<td>{{order_id}}</td>
+						<td>{{message}}</td>
+						<td>{{user_id}}</td>
+						<td><a href="{{ url:site }}shop/my/orders/order/{{order_id}}" class="button">View order</a></td>
+					</tr>
+					{{/messages}}
+				</tbody>
+			</table>
+			<p>
+				<a href="{{ url:site }}shop/my"><?php echo lang('dashboard'); ?></a>
+			</p>
 	</div>
+	
 </div>

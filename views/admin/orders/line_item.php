@@ -18,7 +18,7 @@
 					</td>
 
 					<td> 
-						<?php echo anchor('admin/shop/orders/order/' . $order->id, $order->customer_name, array('class'=>'nc_links',  'title' => shop_lang('shop:orders:view') ) ); ?>
+						<?php echo anchor('admin/shop/orders/order/' . $order->id, $order->customer_name, array('class'=>'nc_links',  'title' => lang('shop:common:view') ) ); ?>
 					</td>
 
 					<td class="collapse">
@@ -40,7 +40,7 @@
 					<td>
 						<span style="float:right;">
 					
-								<a href="<?php echo 'admin/shop/orders/order/' . $order->id;?>" class="shopbutton button-rounded button-flat-primary"><?php echo shop_lang('shop:orders:view');?></a>
+								<a href="<?php echo 'admin/shop/orders/order/' . $order->id;?>" class="shopbutton button-rounded button-flat-primary"><?php echo lang('shop:common:view');?></a>
 
 						</span>
 					</td>

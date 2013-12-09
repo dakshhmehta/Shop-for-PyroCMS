@@ -70,7 +70,6 @@ class Events_Shop
 		Events::register('evt_send_admin_email', array($this, 'evt_send_admin_email')); 	
 
 
-
 		Events::register('post_user_login', array($this, 'evt_user_login'));
 		Events::register('post_admin_login', array($this, 'evt_admin_login')); 	
 
@@ -78,6 +77,24 @@ class Events_Shop
 
 		
 	}
+
+
+
+        
+
+
+
+
+    public function load_cart($data = array()) 
+    {
+
+        class_exists('SFCart') OR $this->load->library('shop/SFCart');
+    }
+
+
+
+
+
 	public function evt_user_login($data=NULL)
 	{
 		//echo "user";
@@ -149,30 +166,26 @@ class Events_Shop
 	public function resume_checkout($id) 
 	{
  
-		//
-		// first decide if it is a standard user or stockist group
-		/*
-		if(isset($this->ci->post('group_id')))
-		{
-			$group = $this->ci->post('group_id');
-
-			if($group == 'stockist')
-			{
-
-				redirect('shop/checkout');
-			}
-
-		}
-		*/
+        if ($this->ci->session->userdata('checkout_post_register')) 
+        {
+        	
+            $this->ci->session->set_userdata('user_id', $id);
+            $this->ci->session->set_flashdata('success', 'account created');
 
 
-		
+            if($this->ci->session->set_userdata('checkout_post_register_redirect' ))
+            {
+            	$redir = $this->ci->session->set_userdata('checkout_post_register_redirect' );
+            	redirect($redir);
+            }
 
-        $this->ci->session->set_userdata('user_id', $id);
+
+        }
+
         redirect('shop/checkout');
     	
-
     }
+
 
 
 
@@ -187,13 +200,11 @@ class Events_Shop
 		// Load the Common libraries
 		$this->ci->load->helper('shop/shop');
 		$this->ci->load->helper('shop/shop_public');
-		$this->ci->load->helper('shop/shop_debug'); //only for debugging ??
 
 		$this->ci->load->library('shop/SFCart');
 		
 		//Lang
-		$this->ci->lang->load('shop/shop_front');  
-
+		$this->ci->lang->load('shop/shop');  
 
 
 	}
@@ -205,14 +216,10 @@ class Events_Shop
 		$this->ci->load->helper('shop/shop');
 		$this->ci->load->helper('shop/shop_admin');
 		$this->ci->load->helper('shop/shop_public');
-		$this->ci->load->helper('shop/shop_debug'); //only for debugging ??
 
 		// Lang
 		$this->ci->lang->load('shop/shop_admin');
-
-
-
-
+		$this->ci->lang->load('shop/shop');
 
 	}
 
@@ -247,15 +254,6 @@ class Events_Shop
             $this->ci->session->set_flashdata('error', $this->ci->settings->get('shop_is_disabled'));
             redirect($this->ci->input->server('HTTP_REFERER'));
         }
-			
-		if (($data['success'])  )
-		{
-			$this->ci->session->set_flashdata('success', lang('success'). ': '. $data['name'] . ' has been added to the cart');
-		} 
-		else 
-		{
-			$this->ci->session->set_flashdata('error', lang('error').': '. 'Failed to add ' . $data['name'] );
-		}
 
 	}
 	

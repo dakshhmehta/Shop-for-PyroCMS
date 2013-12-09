@@ -25,7 +25,7 @@
  */
 
 
-include_once( dirname(__FILE__) . '/' . 'Products_admin_Controller.php');
+include_once( dirname(__FILE__) . '/' . 'products_admin_controller.php');
 
 class Products extends Products_admin_Controller 
 {
@@ -58,6 +58,7 @@ class Products extends Products_admin_Controller
 		$data->visibility = $this->_get_filter_setting( 'f_visibility', 'display_visibility_filter', 0); //0 is ALL
 		$data->order_by = $this->_get_filter_setting( 'f_order_by', 'display_order_filter' , 0);
 		$data->limit = $this->_get_filter_setting( 'f_items_per_page', 'display_qty_filter' , 5);
+		$data->f_dynamic_field = $this->_get_filter_setting( 'f_dynamic_field', 'dynamic_field' , 'page_design_layout'); 
 
 
 		if( ! ($this->input->is_ajax_request() ))
@@ -66,6 +67,14 @@ class Products extends Products_admin_Controller
 			$data->price_ranges = array(0 => lang('global:select-all'),1=>lang('range_0_50'), 2=>lang('range_25_75'), 3=>lang('range_100_0') );
 			$data->categories = $this->categories_m->build_dropdown( array('current_id' => $data->category, 'field_property_id' => 'f_category') );
 
+			//
+			// Load a list of views that can be set in the multi edit area
+			//
+			$this->load->library('design_library');
+			$_path = Settings::get('default_theme');
+			$data->design_select 	= $this->design_library->build_list_select( $_path, array('current_id' => 0)  );	
+			$data->f_dynamic_field = 'page_design_layout';
+			//var_dump($data->design_select);die;
 		}
 
 
@@ -115,8 +124,11 @@ class Products extends Products_admin_Controller
 
 
 
+
+
 		// Build the view with shop/views/admin/products.php
 		$this->template->title($this->module_details['name'])
+				->set('design_select',$data->design_select)
 				->append_js('admin/filter.js')
 				->append_js('module::admin/products.js')
 				->build('admin/products/products', $data);
@@ -180,6 +192,7 @@ class Products extends Products_admin_Controller
 		$data->visibility = $this->_get_filter_setting( 'f_visibility', 'display_visibility_filter' , 0,TRUE); //0 is ALL
 		$data->order_by = $this->_get_filter_setting( 'f_order_by', 'display_order_filter' , 0,TRUE); // 0 is ID
 		$data->limit = $this->_get_filter_setting( 'f_items_per_page', 'display_qty_filter' , 5,TRUE);
+		$data->f_dynamic_field = $this->_get_filter_setting( 'f_dynamic_field', 'dynamic_field' , 'page_design_layout',TRUE); 
 
 		
 
@@ -233,6 +246,8 @@ class Products extends Products_admin_Controller
 		// set the layout to FALSE and load the view
 		$this->template
 				->set_layout(FALSE)
+				->set('jsexec', "$('.tooltip-s').tipsy()") //re-init tooltip (tipsy) plugin
+				->set('pagination', $data->pagination)
 				->build('admin/products/line_item',$data);	
 
 	}
@@ -245,7 +260,7 @@ class Products extends Products_admin_Controller
 
 		// Check for multi delete
 		//
-		if(  $this->input->post('btnAction') && $this->input->post('action_to') && $this->input->post('multi_edit_option') )
+		if(  $this->input->post('btnAction') && $this->input->post('action_to') )
 		{ 
 			$continue = TRUE;
 		}
@@ -256,7 +271,22 @@ class Products extends Products_admin_Controller
 		}
 
 
+
+
 		$products = $this->input->post('action_to');
+
+
+
+		switch($this->input->post('page_design_layout'))
+		{
+			case 'nochange':
+				break;
+			default:
+				$this->change_page_design($products,  $this->input->post('page_design_layout') ) ;
+				break;
+		}
+
+
 		
 		switch($this->input->post('multi_edit_option'))
 		{
@@ -313,5 +343,23 @@ class Products extends Products_admin_Controller
 	
 		}
 
+	}
+
+
+	private function change_page_design($products, $value)
+	{
+
+		$update_record['page_design_layout'] = $value;
+
+		foreach($products as $key => $id)
+		{
+			$result =  $this->products_admin_m->update($id, $update_record); 
+			if($result)
+			{
+				Events::trigger('evt_product_changed', $id);	
+			}
+			
+		}
+		
 	}
 }

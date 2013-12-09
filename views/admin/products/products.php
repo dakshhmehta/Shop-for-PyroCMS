@@ -2,14 +2,14 @@
 
 <section class="title">
 
-	<h4><?php echo shop_lang('shop:products:products');?></h4>
+	<h4><?php echo lang('shop:products:products');?></h4>
 	
 	<span style="float:right;">
 	
 		<?php //if ($products) : ?>
-		<a id="flink" href="javascript:toggle_filter()" class='tooltip-s img_icon_title img_filter' title='<?php echo shop_lang('shop:products:filter');?>'></a>
+		<a id="flink" href="javascript:toggle_filter()" class='tooltip-s img_icon_title img_filter' title='<?php echo lang('shop:products:filter');?>'></a>
 		<?php //endif; ?>
-		<a href="admin/shop/product/create" class='tooltip-s img_icon_title img_create' title='<?php echo shop_lang('shop:products:new');?>'></a>
+		<a href="admin/shop/product/create" class='tooltip-s img_icon_title img_create' title='<?php echo lang('shop:common:new');?>'></a>
 		
 	</span>
 	
@@ -26,12 +26,35 @@
 			<div style="clear:both"></div>
 
 			<?php echo form_open('admin/shop/products/action'); ?>
-			
-				<div id="filter-stage" class="">
 
-						<?php $this->load->view('admin/products/line_item'); ?>
+							
+								<table>
 
-				</div>
+									<thead>		
+										<tr>
+											<th class="collapse"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
+											<th class="collapse"><?php echo lang('shop:common:id');?></th>
+											<th class="collapse"><?php echo lang('shop:common:image');?></th>
+											<th class="collapse"><?php echo lang('shop:common:name');?></th>
+											<th class="collapse"><?php echo lang('shop:products:on_hand');?></th>
+											<th class="collapse"><?php echo lang('shop:products:visibility');?></th>
+											<th class="collapse"><?php echo lang('shop:common:category'); ?></th>
+											<th class="collapse"><?php echo lang('shop:products:custom_field'); ?></th>
+											<th class="collapse"><?php echo lang('shop:common:price'); ?></th>
+
+											<th></th>
+										</tr>
+									</thead>
+									<tbody id="filter-stage">
+										
+									
+									</tbody>
+									<?php $this->load->view('admin/products/products_multi_update'); ?>
+
+
+							</table>
+					
+							
 				
 			<?php echo form_close(); ?>
 
@@ -39,7 +62,7 @@
 		
 			<div class="no_data">
 				<p></p>
-				<?php echo shop_lang('shop:products:no_data');?>
+				<?php echo lang('shop:products:no_data');?>
 			</div>
 			
 		<?php endif; ?>

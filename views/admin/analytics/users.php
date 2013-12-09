@@ -7,17 +7,17 @@
 
 
 	    <section class="title">
-	    <h4><?php echo shop_lang('shop:analytics:new_user_registration');?> </h4>
+	    <h4><?php echo lang('shop:analytics:new_user_registration');?> </h4>
 	    </section>
 
 	    <section class="item">
 	        
 		    <section class="chart-tabs">
 		        <ul class="tab-menu">
-		            <li class=""><a href="admin/shop/analytics/stats/users/1" class="chart-data"><span><?php echo shop_lang('shop:analytics:day');?></span></a></li>
-		            <li class=""><a href="admin/shop/analytics/stats/users/7" class="chart-data"><span><?php echo shop_lang('shop:analytics:week');?></span></a></li>
-		            <li class="ui-state-active"><a href="admin/shop/analytics/stats/users/30" class="chart-data"><span><?php echo shop_lang('shop:analytics:30_day');?></span></a></li>
-		            <li class=""><a href="admin/shop/analytics/stats/users/180" class="chart-data"><span><?php echo shop_lang('shop:analytics:180_day');?></span></a></li>
+		            <li class=""><a href="admin/shop/analytics/stats/users/1" class="chart-data"><span><?php echo lang('shop:analytics:day');?></span></a></li>
+		            <li class=""><a href="admin/shop/analytics/stats/users/7" class="chart-data"><span><?php echo lang('shop:analytics:week');?></span></a></li>
+		            <li class="ui-state-active"><a href="admin/shop/analytics/stats/users/30" class="chart-data"><span><?php echo lang('shop:analytics:30_day');?></span></a></li>
+		            <li class=""><a href="admin/shop/analytics/stats/users/180" class="chart-data"><span><?php echo lang('shop:analytics:180_day');?></span></a></li>
 		        </ul>
 		    </section>
 

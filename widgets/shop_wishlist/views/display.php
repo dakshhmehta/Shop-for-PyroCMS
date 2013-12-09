@@ -11,7 +11,7 @@
 
 		<li>
 
-			<a href="{{url:site}}shop/product/{{slug}}">
+			<a href="{{url:site}}shop/products/product/{{slug}}">
 
 				<img src="{{url:site}}files/thumb/{{cover_id}}/140" />
 		
@@ -36,4 +36,4 @@
 </ul>
 
 
-<a href="{{ url:site }}shop/my/wishlist"><?php echo shop_lang('shop:front:view_all_items');?></a>
+<a href="{{ url:site }}shop/my/wishlist"><?php echo lang('shop:front:view_all_items');?></a>

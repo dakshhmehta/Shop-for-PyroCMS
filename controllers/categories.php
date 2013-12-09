@@ -32,7 +32,6 @@ class Categories extends Public_Controller
 		
 		// Retrieve some core settings
 		$this->shop_title = Settings::get('ss_name');		//Get the shop name
-		//$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 		$this->limit = Settings::get('ss_qty_perpage_limit_front');
 		
 		
@@ -114,7 +113,7 @@ class Categories extends Public_Controller
 
 		
 		$this->template
-			->title($this->module_details['name'].' |' .lang('products'))
+			->title($this->module_details['name'].' |' .lang('shop:label:products'))
 			->set_breadcrumb($this->shop_title)
 			->build('common/products_list', $data);
 

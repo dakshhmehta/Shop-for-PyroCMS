@@ -9,30 +9,30 @@
 		<ul>  
 			<li>
 				
-				<?php echo shop_lang('shop:orders:status');?>
+				<?php echo lang('shop:status:status');?>
 
 				<br />
 				<span style="vertical-align:top">
 				<?php echo form_dropdown('f_order_status',  array(
 						
 						
-					'all'=> shop_lang('shop:orders:status_all' , 'status_'),
-					'all_closed'=>  shop_lang('shop:orders:status_all_closed', 'status_'),
-					'all_open'=>  shop_lang('shop:orders:status_all_open', 'status_'),
-					'placed'=>  shop_lang('shop:orders:status_placed', 'status_'),
-					'pending'=>  shop_lang('shop:orders:status_pending', 'status_'),
-					'paid'=>  shop_lang('shop:orders:status_paid', 'status_'),
-					'complete'=>  shop_lang('shop:orders:status_complete', 'status_'),
-					'processing'=>  shop_lang('shop:orders:status_processing', 'status_'),
-					'shipped'=>   shop_lang('shop:orders:status_shipped', 'status_'),
-					'returned'=>  shop_lang('shop:orders:status_returned', 'status_'),
-					'cancelled'=>   shop_lang('shop:orders:status_cancelled', 'status_'),
-					'closed'=>   shop_lang('shop:orders:status_closed', 'status_'),
+					'all'=> lang('shop:status:status_all'),
+					'all_closed'=>  lang('shop:status:status_all_closed'),
+					'all_open'=>  lang('shop:status:status_all_open'),
+					'placed'=>  lang('shop:status:placed'),
+					'pending'=>  lang('shop:status:pending'),
+					'paid'=>  lang('shop:status:paid'),
+					'complete'=>  lang('shop:status:complete'),
+					'processing'=>  lang('shop:status:processing'),
+					'shipped'=>   lang('shop:status:shipped'),
+					'returned'=>  lang('shop:status:returned'),
+					'cancelled'=>   lang('shop:status:cancelled'),
+					'closed'=>   lang('shop:status:closed'),
 					
 					 ),$curr_status_filter," style='vertical-align:bottom'"); 
 
 				?>
-				<button style='vertical-align:top' type="submit" value="" class="btn green"> <?php echo shop_lang('shop:orders:filter');?></button>
+				<button style='vertical-align:top' type="submit" value="" class="btn green"> <?php echo lang('shop:orders:filter');?></button>
 				</span>
 			</li>						
 		</ul>

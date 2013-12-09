@@ -3,6 +3,8 @@
 
 $lang['shop:role_admin_products'] 			= 'Products (edit and create)';
 $lang['shop:role_admin_product_seo'] 		= 'Edit product SEO <hr />';
+$lang['shop:role_admin_dailydeals'] 		= 'Manage Daily Deals';
+
 
 $lang['shop:role_admin_options'] 			= 'Manage options';
 $lang['shop:role_admin_brands'] 			= 'Manage brands';

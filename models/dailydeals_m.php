@@ -71,7 +71,6 @@ class Dailydeals_m extends MY_model
 		$this->load->model('products_front_m');
 		foreach($deals as $deal)
 		{
-			//get($parm, $method = 'id', $simple = FALSE)
 			return $this->products_front_m->get($deal->prod_id,'id',TRUE);
 		}
 

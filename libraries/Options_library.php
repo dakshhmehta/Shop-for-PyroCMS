@@ -84,15 +84,14 @@ class Options_library
 								//var_dump($option_value);die;
 								// old
 								$str = ($option_value->default)? 'checked' :'';
-								$string_builder .=  form_radio('prod_options['.$option->id.']',$option_value->id, $str ).' '.$option_value->label. '<br />'; 
+								$string_builder .=  form_radio('prod_options_'.$option->id.'',$option_value->id, $str ).' '.$option_value->label. '<br />'; 
 								
 								//better
-								$option_value->display = form_radio('prod_options['.$option->id.']',$option_value->id, $str ); 
+								$option_value->display = form_radio('prod_options_'.$option->id.'',$option_value->id, $str ); 
 
 							}
 							
 							
-
 						}
 						
 						$option->display = $string_builder;
@@ -107,29 +106,27 @@ class Options_library
 							$items[$option_value->id] = $option_value->label;
 
 						}													
-						$option->display =  form_dropdown('prod_options['.$option->id.']',$items); 
+						$option->display =  form_dropdown('prod_options_'.$option->id.'',$items); 
 						
 						break;	
 
 					case 'file':
 						$file_count++;
-						//$option->display = "<input type='file' name='prod_options[".$option->slug."]' >";
-						$option->display = "<input type='file' name='fileupload' ><input type='hidden' value='donotremove' name='prod_options[".$option->id."]' >";						
-						//$option->display = "<input type='file' name='file' data >";
+						$option->display = "<input type='file' name='prod_options_".$option->id."'>";								
 						break;	
 
 
 					case 'text':
 						$text_count++;													
 						$class = ' class="'.$_settings['txtClass'].'" ';					
-						$option->display = "<input type='".$option->type."' name='prod_options[".$option->id."]'  ".$class."  />";
+						$option->display = "<input type='".$option->type."' name='prod_options_".$option->id."'  ".$class."  />";
 						break;
 
 			
 					case 'checkbox':													
 					case 'default':
 						$class = ' class="" ';
-						$option->display = "<input type='".$option->type."' name='prod_options[".$option->id."]'  ".$class."  />";
+						$option->display = "<input type='".$option->type."' name='prod_options_".$option->id."'  ".$class."  />";
 						break;
 				}
 				

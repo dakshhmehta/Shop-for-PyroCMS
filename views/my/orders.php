@@ -1,44 +1,58 @@
+<div id="">
 
-<h2 id="nc-view-title"><?php echo lang('orders'); ?></h2>
+	<h2>
+		past orders
+	</h2>
 
-		<ul>
-		{{ shop:mylinks remove='shop' active='orders' }}
+
+	<ul id="menu">
+		{{ shop:mylinks remove='shop messages' active='orders' }}
 			{{link}}
-		{{ /shop:mylinks }}
-		</ul>
+		{{ /shop:mylinks }}	
+	</ul>
 
-<div id="SF_CustomerPage">
-	<div class="my-dashboard">
-		<table>
-			<thead>
-				<tr>
-					<th><?php echo lang('id'); ?></th>
-					<th><?php echo lang('date'); ?></th>
-					<th><?php echo lang('items'); ?></th>
-					<th><?php echo lang('shipping'); ?></th>
-					<th><?php echo lang('total'); ?></th>
-					<th><?php echo lang('billing_address'); ?></th>
-					<th><?php echo lang('status'); ?></th>
-					<th><?php echo lang('action'); ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach ($items as $item) : ?>
-				<tr>
-					<td><?php echo $item->id; ?></td>
-					<td><?php echo date("d/m/Y",$item->order_date); ?></td>
-					<td><?php echo nc_format_price( $item->cost_items ); ?> </td>
-					<td><?php echo nc_format_price( $item->cost_shipping); ?></td>
-					<td><?php echo nc_format_price( $item->cost_total); ?></td>
-					<td><?php echo $item->billing_address; ?></td>
-					<td><?php echo $item->status; ?></td>
-					<td><a href="{{ url:site }}shop/my/order/<?php echo $item->id; ?>" class="button"><?php echo lang('view'); ?></a></td>
-				</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>
-		<p>
-			<a href="{{ url:site }}shop/my"><?php echo lang('dashboard'); ?></a>
-		</p>
+
+	<div>
+
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Date</th>
+
+						<th>Total</th>
+						<th>Status</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+
+	
+					{{items}}
+					<tr>
+						<td># {{id}}</td>
+						<td>{{order_date}}</td>
+
+						<td>{{cost_total}}</td>
+						<td>{{status}}</td>
+						<td>
+								<a href="{{ url:site }}shop/my/orders/order/{{id}}" class="">view</a>
+
+								{{shop:order_is_unpaid id="{{id}}" }}
+									<a href="{{ url:site }}shop/payment/order/{{id}}" class="">pay now</a>
+								{{/shop:order_is_unpaid}}
+
+								{{shop:order_is_paid id="{{id}}" }}
+									Thank you for your payment
+								{{/shop:order_is_paid}}
+						 </td>
+
+					</tr>
+					{{/items}}
+
+				</tbody>
+				
+			</table>
+
 	</div>
 </div>

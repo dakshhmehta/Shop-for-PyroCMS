@@ -203,8 +203,6 @@ class Categories_m extends Shop_model
 						break;
 				}
 
-				
-
 				$category->name = "&raquo; " .  $category->name;
 				$new_list[] = $category;
 
@@ -217,7 +215,6 @@ class Categories_m extends Shop_model
 
 			}
 		}
-
 
 		return $this->_build_dropdown($new_list , $options );
 

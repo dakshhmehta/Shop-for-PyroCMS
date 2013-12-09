@@ -33,14 +33,184 @@ class Payment extends Public_Controller
 	{
 		parent::__construct();
 		
-	
 	}
 	
 
 	
 
+    /**
+     * The new gateway function
+     */
+    public function order($order_id = 0) 
+    {
 
 
+        $this->load->model('orders_m');
+        $this->load->library('gateway_library');
+        $this->load->library('merchant');
+
+        /*
+         * Check if postback
+         *
+         * If POSTBACK === TRUE - then we are handling a payment, otherwise display the payment/gateway page
+         * 
+         */
+        if($this->input->post())
+        {
+            $this->handle_gateway_postback();
+        }
+
+
+
+        //
+        // Get the order from the DB
+        //
+        $data->order = $this->orders_m->get($order_id);
+
+
+
+        //
+        // Simple Order validation
+        //
+        if (!$data->order)
+        {
+            $this->session->set_flashdata('error', lang('shop:payments:no_order_found') );
+            redirect('shop');
+        }
+        
+
+
+        if ($data->order->pmt_status == 'paid')
+        {
+            $this->session->set_flashdata('error', lang('shop:payments:order_already_paid'));
+            redirect('shop/my/orders');
+        }
+        
+
+
+
+        //
+        // Collect info for Use on payment screen
+        //  
+        $data->items = $this->orders_m->get_order_items($order_id);
+        $data->billing = $this->orders_m->get_address($data->order->billing_address_id);
+
+
+
+
+        //
+        // Get the gateway from the order
+        //
+        $data->gateway = $this->gateway_library->get($data->order->gateway_id);
+
+
+        //
+        // Load the ci -merchant
+        //
+        $this->merchant->load($data->gateway->slug);
+        
+
+
+         
+        //
+        // Prep/Get the gateway options
+        //
+        $data->options = $data->gateway->options;
+
+
+        //Build path to merchant view
+        $view_file = 'gateways/'.$data->gateway->slug.'/display';
+
+
+
+        //
+        // Display the gatwway page with their own option (if they have any)
+        //
+        $this->template
+            ->title($this->module_details['name'], lang('shop:label:customer'))
+            ->build($view_file, $data);
+
+
+    }
+
+
+
+    /**
+     * After Gateway screen is presented to user it post back to here
+     * @return [type]
+     */
+    private function handle_gateway_postback()
+    {
+        
+        //should only enter here through postback as directed from :::: public function gateway($_oder___id = NULL) 
+        
+        $order_id       = $this->session->userdata('order_id');
+        $order          = $this->orders_m->get($order_id);
+        $gateway        = $this->gateway_library->get($order->gateway_id);
+        $settings       = $gateway->options;
+
+        $this->load->model('addresses_m');
+
+        $billing_addr   = $this->addresses_m->get($order->billing_address_id);
+
+        //var_dump($settings );die;
+
+
+        // Initialize CI-Merchant
+        $this->lang->load('merchant');
+        $this->load->library('merchant');
+        $this->merchant->load($gateway->slug);
+        $this->merchant->initialize($settings); //options are the settings
+
+
+        $params = $gateway->get_params( $order );
+
+
+        $params = array_merge(
+            array(
+            	'email' => $billing_addr->email,
+                'amount' =>  (float) $order->cost_total,
+                'currency' =>  Settings::get('ss_currency_code'),
+              ), $this->input->post() , $params 
+
+        );
+
+
+        
+        //
+        //  Store the params as JSON in the order field
+        //
+        $this->orders_m->set_payment_parm( $order->id, $params );
+
+
+        $response  = $this->merchant->purchase($params);
+
+
+        //todo:handle payment methods other than paypal
+        if ($response->success())
+        {
+            // mark order as complete
+            $gateway_reference = $response->reference();
+            echo 'TXN Completed:'.$gateway_reference;die;
+        }
+        else
+        {
+            echo "<pre>";
+            $message = $response->message();
+            echo('Error processing payment: ' . $message);
+
+            var_dump($response);
+
+            exit;
+        }
+
+
+        //
+        // Now record in our system
+        //
+
+    }
+    
 
 
 	public function callback($order_id)
@@ -189,7 +359,7 @@ class Payment extends Public_Controller
 	
 		// display success message
 		$this->template
-				->title($this->module_details['name'], lang('customer_title'))
+				->title($this->module_details['name'], lang('shop:label:customer') )
 				->build('checkout/success');
 	}
 	
@@ -205,7 +375,7 @@ class Payment extends Public_Controller
 		}
 		else
 		{
-			$this->session->set_flashdata('notice', lang('payment_canceled'));
+			$this->session->set_flashdata('notice', lang('shop:payments:payment_cancelled'));
 			redirect('shop');
 		}
 	}
@@ -225,7 +395,7 @@ class Payment extends Public_Controller
 		}
 		else
 		{
-			$this->session->set_flashdata('notice', lang('payment_canceled'));
+			$this->session->set_flashdata('notice', lang('shop:payments:payment_cancelled'));
 			redirect('shop');
 		}
 	}
@@ -240,7 +410,7 @@ class Payment extends Public_Controller
 		//Does order exist
 		if( ! $order )
 		{
-			$this->session->set_flashdata('Order does not exist');
+			$this->session->set_flashdata(lang('shop:payments:order_does_not_exist'));
 			return FALSE;
 		}
 
@@ -248,7 +418,7 @@ class Payment extends Public_Controller
 		//
 		if( $order->status === OrderStatus::Paid )
 		{
-			$this->session->set_flashdata('Order has been paid');
+			$this->session->set_flashdata(lang('shop:payments:order_has_been_paid'));
 			return FALSE;
 		}	
 

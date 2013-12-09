@@ -2,9 +2,9 @@
 
 <section class="title">
 	<?php if (isset($id) AND $id > 0): ?>
-		<h4><?php echo sprintf(shop_lang('shop:admin:edit'), $name); ?></h4>
+		<h4><?php echo sprintf(lang('shop:common:edit'), $name); ?></h4>
 	<?php else: ?>
-		<h4><?php echo shop_lang('shop:admin:new'); ?></h4>
+		<h4><?php echo lang('shop:admin:new'); ?></h4>
 	<?php endif; ?>
 </section>
 
@@ -19,26 +19,26 @@
 		<fieldset>
 			<ul>
 				<li class="<?php echo alternator('even', ''); ?>">
-					<label for="name"><?php echo shop_lang('shop:admin:name');?><span>*</span></label>
+					<label for="name"><?php echo lang('shop:common:name');?><span>*</span></label>
 					<div class="input">
 						<?php echo form_input('name', set_value('name', $name), 'id="name" '); ?>
 					</div>
 				</li>
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="slug"><?php echo shop_lang('shop:admin:slug');?><span>*</span></label>
+					<label for="slug"><?php echo lang('shop:common:slug');?><span>*</span></label>
 					<div class="input"><?php echo form_input('slug', set_value('slug', $slug)); ?></div>
 				</li>		
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="slug"><?php echo shop_lang('shop:admin:order');?><span>*</span></label>
+					<label for="slug"><?php echo lang('shop:common:order');?><span>*</span></label>
 					<div class="input"><?php echo form_input('order', set_value('order', $order)); ?></div>
 				</li>				
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="slug"><?php echo shop_lang('shop:categories:parent_category');?><span>*</span></label>
+					<label for="slug"><?php echo lang('shop:categories:parent_category');?><span>*</span></label>
 					<div class="input"><?php echo $parent_category_select; ?></div>
 				</li>		
 					  
 				<li>
-					<label><?php echo shop_lang('shop:categories:image');?></label>
+					<label><?php echo lang('shop:common:image');?></label>
 					<input type='hidden' value='' id='image_id' name='image_id' />
 					<div id='cover_img' name='cover_img'>
 					 <?php 	 if ($image_id > 0) 
@@ -54,7 +54,7 @@
 					</div>   
 				</li>	
 				<li>
-					<label><?php echo shop_lang('shop:categories:change_image');?></label><br />
+					<label><?php echo lang('shop:categories:change_image');?></label><br />
 					 <?php echo form_dropdown('folder_id', $folders, $folder_id, 'id="folder_id"'); ?>	   
 				</li>																	
 				<li>
@@ -66,18 +66,18 @@
 						</div>		
 				</li>									
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="user_data"><?php echo shop_lang('shop:admin:user_data');?><span></span></label>
+					<label for="user_data"><?php echo lang('shop:admin:user_data');?><span></span></label>
 					<div class="input">
 						<?php echo form_input('user_data', set_value('user_data', $user_data)); ?><br />
-						<a href="admin/shop/categories/ajax_update_child_data" class="cat_update_userdata_children btn orange"><?php echo shop_lang('shop:admin:replicate_to_child_categories');?></a>
+						<a href="admin/shop/categories/ajax_update_child_data" class="cat_update_userdata_children btn orange"><?php echo lang('shop:categories:replicate_to_children');?></a>
 					</div>
 				</li>								   
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="user_data"><?php echo shop_lang('shop:admin:description');?><span></span></label>		
+					<label for="user_data"><?php echo lang('shop:common:description');?><span></span></label>		
 					<div class="input">
 							<?php echo form_textarea('description', set_value('description', isset($description)?$description:""), 'class="wysiwyg-simple"'); ?>
 							<br />
-							<a href="admin/shop/categories/ajax_update_child_data" class="cat_update_description_children btn orange"><?php echo shop_lang('shop:admin:replicate_to_child_categories');?></a>
+							<a href="admin/shop/categories/ajax_update_child_data" class="cat_update_description_children btn orange"><?php echo lang('shop:categories:replicate_to_children');?></a>
 					</div>
 				</li>   
 			</ul>
@@ -87,7 +87,7 @@
 
 		<div class="buttons">
 				<button class="btn blue" value="save_exit" name="btnAction" type="submit">
-					<span><?php echo shop_lang('shop:products:save_and_exit');?></span>
+					<span><?php echo lang('shop:products:save_and_exit');?></span>
 				</button>	
 
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save'))); ?>
@@ -101,7 +101,7 @@
 
 </div>
 
-<?php if( isset($id) AND $parent_id == NULL || $parent_id == 0): ?>
+<?php if( isset($id)): ?>
 
 
 

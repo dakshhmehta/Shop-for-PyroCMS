@@ -38,14 +38,14 @@
 
 							<span class="button-dropdown" data-buttons="dropdown">
 								<a href="#" class="shopbutton button-rounded button-flat-primary"> 
-									<?php echo shop_lang('shop:blacklist:actions');?> 
+									<?php echo lang('shop:common:actions');?> 
 									<i class="icon-caret-down"></i>
 								</a>
 								 
 								<!-- Dropdown Below Button -->
 								<ul class="button-dropdown">
-									<li><a class="" href="<?php echo site_url('admin/shop/blacklist/edit/' . $item->id); ?>"><?php echo shop_lang('shop:blacklist:edit');?> </a></li>
-									<li class='delete'><a class="confirm" href="<?php echo site_url('admin/shop/blacklist/delete/' . $item->id); ?>"><?php echo shop_lang('shop:blacklist:delete');?> </a></li>
+									<li><a class="" href="<?php echo site_url('admin/shop/blacklist/edit/' . $item->id); ?>"><?php echo lang('shop:common:edit');?> </a></li>
+									<li class='delete'><a class="confirm" href="<?php echo site_url('admin/shop/blacklist/delete/' . $item->id); ?>"><?php echo lang('shop:common:delete');?> </a></li>
 								</ul>
 
 							</span>

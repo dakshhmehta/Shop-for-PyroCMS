@@ -3,7 +3,7 @@
 	<div class="one_half" id="">
 	
 		<section class="title">
-				<h4><?php echo shop_lang('shop:options:option'); ?></h4>
+				<h4><?php echo lang('shop:options:option'); ?></h4>
 		</section>
 		
 			<?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
@@ -16,10 +16,10 @@
 						<ul>
 							<li class="<?php echo alternator('even', ''); ?>">
 								<label for="name">
-									<?php echo shop_lang('shop:options:name'); ?>
+									<?php echo lang('shop:common:name'); ?>
 									<span>*</span>
 									<small>
-										<?php echo shop_lang('shop:options:name_description'); ?>
+										<?php echo lang('shop:options:name_description'); ?>
 									</small>
 								</label>
 								<div class="input">
@@ -28,10 +28,10 @@
 							</li>							
 							<li class="<?php echo alternator('even', ''); ?>">
 								<label for="title">
-									<?php echo shop_lang('shop:options:title'); ?>
+									<?php echo lang('shop:options:title'); ?>
 									<span>*</span>
 									<small>
-										<?php echo shop_lang('shop:options:title_description'); ?>
+										<?php echo lang('shop:options:title_description'); ?>
 									</small>
 								</label>
 								<div class="input">
@@ -39,24 +39,24 @@
 								</div>
 							</li>	
 							<li class="<?php echo alternator('even', ''); ?>">
-								<label for="description"><?php echo shop_lang('shop:options:description'); ?><span></span></label>
+								<label for="description"><?php echo lang('shop:common:description'); ?><span></span></label>
 								<div class="input">
 									<?php echo form_input('description', set_value('description', $description), 'id="description" '); ?>
 								</div>
 							</li>				
 							<li class="<?php echo alternator('even', ''); ?>">
-								<label for="type"><?php echo shop_lang('shop:options:type'); ?> 
+								<label for="type"><?php echo lang('shop:options:type'); ?> 
 									<span></span>
-									<small><?php echo shop_lang('shop:options:type_can_not_be_modified'); ?></small>
+									<small><?php echo lang('shop:options:type_can_not_be_modified'); ?></small>
 								</label>
 								<div class="input">
 									<?php echo $option_types; ?>
 								</div>
 							</li>
 							<li class="<?php echo alternator('even', ''); ?>">
-								<label for="show_title"><?php echo shop_lang('shop:options:show_title'); ?> 
+								<label for="show_title"><?php echo lang('shop:options:show_title'); ?> 
 									<span></span>
-									<small><?php echo shop_lang('shop:options:show_title_description'); ?></small>
+									<small><?php echo lang('shop:options:show_title_description'); ?></small>
 								</label>
 								<div class="input">
 									<?php echo form_checkbox('show_title', $show_title ,$show_title ); ?>
@@ -73,7 +73,7 @@
 					
 						<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save'))); ?>
 
-						<a class="btn gray cancel" href="admin/shop/options"><?php echo shop_lang('shop:options:cancel'); ?></a>
+						<a class="btn gray cancel" href="admin/shop/options"><?php echo lang('shop:common:cancel'); ?></a>
 
 					</div>
 

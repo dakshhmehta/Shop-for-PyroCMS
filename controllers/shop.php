@@ -25,23 +25,33 @@
  */
 class Shop extends Public_Controller 
 {
-
+	private $data;
 	public function __construct() 
 	{
 		parent::__construct();
-
+		$this->data = new stdClass();
 	}
 
-	/*just for play/testing in future builds*/
+	/**
+	 * To add a custom home page for the domain.com/shop name space add a layout to your theme.
+	 * Call it shop_home.html
+	 *
+	 * Then create a page in your pages module called shop.
+	 *
+	 * In the content/description area you can add widgets or plugins to display whatever content you like.
+	 * 
+	 * @param  string $param [description]
+	 * @return [type]        [description]
+	 */
 	public function index($param = '') 	
 	{
-		//
-		// Display the product
-		//
-		//$this->template->set_layout('shop/products.html');
-		
 
-		if($this->template->layout_exists($param .'.html'))
+
+		if($this->template->layout_exists('shop/special/shop_home.html'))
+		{
+			$this->template->set_layout('shop/special/shop_home.html');
+		}
+		elseif($this->template->layout_exists($param .'.html'))
 		{
 			$this->template->set_layout($param .'.html');
 		}
@@ -54,13 +64,18 @@ class Shop extends Public_Controller
 			$this->template->set_layout('default.html');
 		}
 
-		//$this->template->set_theme('shop_theme');
-		$this->template->build('special/shop_home');
-
-
-			 
+		
+		$this->template->build('special/shop_home', $this->data);
 	}
 
+	/**
+	 * Home shop module
+	 */
+	public function home($page = 1)
+	{
+		$this->index($page);
+	}
+	
 	/**
 	 * Display special data pages, can create your own in your own theme
 	 *

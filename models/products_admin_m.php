@@ -28,7 +28,6 @@ require_once('products_m.php');
 class Products_admin_m extends Products_m
 {
 
-	
 
 	public function __construct() 
 	{
@@ -88,8 +87,6 @@ class Products_admin_m extends Products_m
 				'slug' => $new_slug,
 				'keywords' => '',
 				'price' => $input['price'] ,
-				'price_bt' =>  $input['price'], /*price_bt is deprecated*/ 
-				'price_at' => $input['price'] , /*price_at is deprecated*/ 
 				'price_base' => $input['price_base'], // $input['price_base'],
 				'rrp' => 0.00, 
 				'tax_id' => $input['tax_id'],
@@ -97,8 +94,7 @@ class Products_admin_m extends Products_m
 				'pgroup_id' => NULL,
 				'status' => 0,
 				'category_id' => 0,
-				'brand_id' => NULL,
-				'package_id' => NULL,			
+				'brand_id' => NULL,			
 				'created_by' => $this->current_user->id,
 				'inventory_low_qty' => 5,
 				'inventory_on_hand' => 0,
@@ -248,9 +244,7 @@ class Products_admin_m extends Products_m
 				'user_data' => $product->user_data,
 				'slug' => $new_slug,
 				'keywords' => $product->keywords,
-				'price' => $product->price,
-				'price_bt' => $product->price_bt,
-				'price_at' => $product->price_at, 			
+				'price' => $product->price,			
 				'price_base' => $product->price_base,
 				'tax_id' => $product->tax_id,
 				'rrp' => $product->rrp,
@@ -264,17 +258,20 @@ class Products_admin_m extends Products_m
 				'brand_id' => $product->brand_id,
 
 				//shipping
-				'package_id' => $product->package_id,
 				'height' => $product->height,
 				'width' => $product->width,
 				'depth' => $product->depth,
 				'weight' => $product->weight,
+				'req_shipping' => $product->req_shipping,
+				'page_design_layout' => $product->page_design_layout,
+				'user_data' => $product->user_data,
 
 
 				'inventory_low_qty' => $product->inventory_low_qty,
 				'inventory_on_hand' => $product->inventory_on_hand,
 				'inventory_type' => $product->inventory_type,
 				'public' =>  0, 
+				'views' =>  0, 
 				'featured' => $product->featured,
 				'searchable' => $product->searchable,
 				'date_created' => date("Y-m-d H:i:s"),
@@ -319,10 +316,13 @@ class Products_admin_m extends Products_m
 	
 		return $this->update($product_id, array('date_archived' => date("Y-m-d H:i:s") ) );
 	
-		
 	}
 
 
+	/**
+	 * This is used in the shop/admin/manage/ to reset the view counter. 
+	 * @return [type] [description]
+	 */
 	public function reset_views()
 	{
 		$data = array('views' => 0);
@@ -378,6 +378,9 @@ class Products_admin_m extends Products_m
 				$pass = TRUE;
 				break;
 
+
+			case 'page_design_layout':
+			case 'req_shipping':
 			case 'inventory_on_hand':
 			case 'inventory_low_qty':
 			case 'inventory_type':	
@@ -387,8 +390,6 @@ class Products_admin_m extends Products_m
 			case 'searchable':
 			case 'name':
 			case 'price':		
-			case 'price_bt':
-			case 'price_at':
 			case 'price_base':
 			case 'rrp':
 			case 'tax_id':
@@ -400,7 +401,6 @@ class Products_admin_m extends Products_m
 				break;
 
 			case 'brand_id':
-			case 'package_id':
 			case 'pgroup_id':
 				$out = ($value=='')?NULL:$value;
 				$pass = TRUE;	
@@ -418,62 +418,35 @@ class Products_admin_m extends Products_m
 	}
 
 
-
-	/**
-	 * Admin function
-	 * @param  [type] $file_id    [description]
-	 * @param  [type] $product_id [description]
-	 * @return [type]             [description]
-	 */
-	public function remove_image($file_id,$product_id) 
+	
+	
+	protected function filter_category_list($filter = array())
 	{
+		$this->reset_query();
+		$categories = array();	
 
-		$this->update($product_id, array('date_updated' => date("Y-m-d H:i:s") ) );
-		
+		//
+		// Get all products in sub categories
+		//
+		if(isset($filter['category_id']))
+		{
 
-		return $this->db->where('file_id',$file_id)->where('product_id',$product_id)->delete('shop_images');
+			$this->load->model('categories_m');
+
+			$cat_id = $filter['category_id'];
+
+			$categories = $this->categories_m->get_children($cat_id);
+
+			//dont forget the parent
+			$categories[] =  $this->categories_m->get($cat_id);
+
+		}
+
+		$this->reset_query();	
+
+		return $categories;
+
 	}
-	
-	
-	/**
-	 * Shared
-	 * @param INT $id Product ID
-	 * @return unknown
-	 */
-	public function get_images($id) 
-	{
-		return $this->db->where('product_id',$id)->get('shop_images')->result(); 
-	}
-	
-
-	
-	/**`
-	 * Add image to gallery`
-	 */
-	public function add_image($image_id, $product_id)
-	{
-		
-		$to_insert = array(
-				'file_id' => $image_id,
-				'product_id' => $product_id,
-				'restrain_size' => 2,
-				'width' => 0,
-				'height' => 0,
-				'display' => 1,
-				'order' => 10, //will implement the ordering in later version
-				'cover' => 0,
-
-		);
-	
-		$this->update($product_id, array('date_updated' => date("Y-m-d H:i:s") ) );
-
-		return $this->db->insert('shop_images',$to_insert); //returns id
-	
-	}
-	
-
-	
-
 	
 
 	protected function _prepare_filter($filter = array()) 
@@ -489,11 +462,11 @@ class Products_admin_m extends Products_m
 		}
 
 
-		if (array_key_exists('category_id', $filter)) 
-		{
-			$this->where('category_id', $filter['category_id']);
-			$new_filter['category_id'] = $filter['category_id'] ;
-		}
+		//if (array_key_exists('category_id', $filter)) 
+		//{
+		//	$this->where('category_id', $filter['category_id']);
+		//	$new_filter['category_id'] = $filter['category_id'] ;
+		//}
 
 
 
@@ -511,21 +484,37 @@ class Products_admin_m extends Products_m
 	{
 
 		$this->reset_query();	
-
-		//Prepare countBy filter
+		$categories = $this->filter_category_list($filter);
 		$new_filter = $this->_prepare_filter($filter);
+		$this->reset_query();
+
+
+
+		foreach ($categories as $category) 
+		{
+			$this->or_where('category_id',$category->id);
+		}
+
 
 		// Get the count
-		$this->like('name', trim($filter['search']));
-
+		
 		foreach ($new_filter as $key => $value) 
 		{
 			$this->where($key,$value);
 		}
 
+		if(trim($filter['search']) != "")
+		{
+			$this->like('name', trim($filter['search'])); 
+		}
+
 		$this->where('date_archived', NULL);
 
-		return $this->count_by($new_filter);
+		$this->from($this->_table);
+
+
+		return $this->count_all_results();
+		//return $this->count_by($new_filter);
 	}
 
 	
@@ -533,24 +522,33 @@ class Products_admin_m extends Products_m
 	{
 
 		$this->reset_query();	
-
-		//Prepare countBy filter
+		$categories = $this->filter_category_list($filter);
 		$new_filter = $this->_prepare_filter($filter);
+		$this->reset_query();		
 
 		
-		// Get the paged results
-		$this->reset_query();		
-		$this->like('name', trim($filter['search']));
+
+		foreach ($categories as $category) 
+		{
+			$this->or_where('category_id',$category->id);
+		}
+
+
 		
 		foreach ($new_filter as $key => $value) 
 		{
 			$this->where($key,$value);
-		}		
-		
-		$this->where('date_archived', NULL);
+		}	
 
-		$this->db->order_by($filter['order_by']);
-		$this->db->limit( $limit , $offset );
+		if(trim($filter['search']) != "")
+		{
+			$this->like('name', trim($filter['search'])); 
+		}
+
+
+		$this->where('date_archived',NULL);					
+		$this->order_by($filter['order_by']);
+		$this->limit( $limit , $offset );
 
 		return $this->get_all();
 	}

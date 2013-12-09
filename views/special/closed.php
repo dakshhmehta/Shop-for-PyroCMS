@@ -1,5 +1,5 @@
 <div id="">
 	<div class="">
-		<span><?php echo shop_lang('shop:special:we_are_closed_for_maintenance'); ?></span>
+		<span><?php echo lang('shop:messages:closed_maintenance'); ?></span>
 	</div>	
 </div>	

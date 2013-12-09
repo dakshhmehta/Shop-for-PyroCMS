@@ -26,6 +26,12 @@
 class Cart extends Public_Controller 
 {
 
+	//
+	// List of messages (error|success) for return
+	//
+	private $_MESSAGES = array();
+
+
 	public function __construct() 
 	{
 		parent::__construct();
@@ -33,11 +39,12 @@ class Cart extends Public_Controller
 		$this->load->helper('shop/shop_prices');
 
 		// Retrieve some core settings
-		//$this->use_css =  Settings::get('nc_css');
 		$this->shop_title = Settings::get('ss_name');		//Get the shop name
-		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 		$this->login_required = Settings::get('ss_require_login');
 		$this->has_logged_in_user =  ($this->current_user)? TRUE : FALSE ;
+
+
+		$this->_init_messages();
 		
 				
 		// Load required classes
@@ -45,20 +52,49 @@ class Cart extends Public_Controller
 		$this->load->model('product_prices_m');
 
 
-		
-		// Apply default CSS if required
-		//if ($this->use_css) _setCSS($this->template);
-
-
-
 		//change the next few lines
 		if ( $this->login_required && !$this->has_logged_in_user) 
 		{
-			$this->session->set_flashdata('error', 'You must login before you can add items..');
-			redirect('users/login');
+			$message = $this->_MESSAGES[210];
+			if($this->input->is_ajax_request())
+			{
+				$sys_message['status'] = JSONStatus::Error;
+				$sys_message['message'] = $message;
+			}
+			else
+			{
+				$this->session->set_flashdata('error', $message);
+				redirect('users/login');
+			}			
+
 		}
 		
 	}
+
+
+	private function _init_messages()
+	{
+
+		// Success add message
+		$this->_MESSAGES[101] = lang('shop:cart:item_added'); 
+
+		// Failed to add messagea
+		$this->_MESSAGES[200] = lang('shop:cart:item_not_added'); 
+		$this->_MESSAGES[201] = lang('shop:cart:id_qty_not_set');
+		$this->_MESSAGES[202] = lang('shop:cart:product_not_found');
+		$this->_MESSAGES[203] = lang('shop:cart:product_not_available');
+		$this->_MESSAGES[204] = lang('shop:cart:product_out_of_stock');
+		$this->_MESSAGES[210] = lang('shop:cart:you_must_login_before_shopping');
+
+
+		// Item removed messages
+		$this->_MESSAGES[300] = lang('shop:cart:item_removed1'); 
+		$this->_MESSAGES[301] = lang('shop:cart:item_removed2');		
+		$this->_MESSAGES[302] = lang('shop:cart:not_in_cart');	
+
+	}
+
+
 
 	/**
 	 * Display Cart
@@ -67,7 +103,6 @@ class Cart extends Public_Controller
 	{
 
 		$this->template->title($this->module_details['name'])
-				->append_css('module::shop.css')
 				->build('common/cart');
 
 	}
@@ -82,15 +117,20 @@ class Cart extends Public_Controller
 	 */
 	public function add($id = 0, $qty = 1) 
 	{
+		//
+		// Message handling for ajax
+		//
+		$sys_message = array();
+		$sys_message['status'] = JSONStatus::Error;
+		$sys_message['message'] = 'Unknown';
+		$sys_message['cost'] = 0.00;
+		$sys_message['qty'] = 0;
 	
 	
 		$url_redir = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'shop/cart';
 		
 
-
-		// 
 		// Check the post header to see if the item come from a post or a direct link
-		//
 		if( $this->input->post('id') ) 
 		{
 		
@@ -100,58 +140,53 @@ class Cart extends Public_Controller
 			// The POST must contain the QTY
 			$qty = intval( $this->input->post('quantity') );
 
-			if($qty)
+			if(!$qty)
 			{
-
-			}
-			else
-			{	
-				//
 				// Accept either qty or quantity
-				//
 				$qty = intval( $this->input->post('qty') );
 
 				//final check, if not set then set as 1 as the qty
 				$qty = ($qty)?$qty:1;
 				
 			}
-
 			
 		}
 		
 		
-
 		
 		//
 		// pre-Add checks
 		//
-		if( ! $product = $this->_add($id, $qty) )
+		$product = $this->_add($id, $qty);
+
+		if( is_object($product) == FALSE )
 		{
 
+			$message =  $this->_MESSAGES[$product];
 
 			if($this->input->is_ajax_request())
 			{
-				$message = shop_lang("shop:cart:unable_to_add_item_to_cart");
-				echo json_encode($message);die;
+				$sys_message['message'] = $message;
+				echo json_encode($sys_message);die;
 			}
 			else
 			{
 				// if the product/ request faled to validate just redirect now
+				$this->session->set_flashdata( JSONStatus::Error , $message );
 				redirect($url_redir);
 			}
 		}
 
-		
-		
+
+
+
 		// 
 		// get the options that may have been passed up
 		// 
-		$options_tmp = $this->_get_option_fields($product->id);
+		$options = $this->_get_option_fields($product);
 
 
-		$product->ignor_shipping = $options_tmp[0]; //dont think this is needed anymore
-		$options = $options_tmp[1]; 
-	  
+  
 		
 
 		//$items['id'] = $product->id;
@@ -174,7 +209,6 @@ class Cart extends Public_Controller
 
 
 	
-
 	
 		//
 		// Requested new qty 
@@ -187,9 +221,6 @@ class Cart extends Public_Controller
 		// Get discounted price if it exist
 		// Override the item price - if the new quantaty (nq) changes and a lower price is available
 		//
-		
-
-
 		
 
 		// 1. Get the current QTY of items assigned to PGROUP
@@ -216,6 +247,7 @@ class Cart extends Public_Controller
 		$success = $this->sfcart->insert($data);
 		
 
+
 		//
 		// Trigger Event to Notify User of status (success/Failer)
 		//
@@ -223,28 +255,58 @@ class Cart extends Public_Controller
 
 
 
+		//
+		// Update the cart totals/prices
+		//
 		$this->run_mid_on_cart();
 
+
 		
-
-
-		if($this->input->is_ajax_request())
+		//
+		// Format return message
+		//
+		if($success)
 		{
-			$message ='item was added to cart OK';
-			echo json_encode($message);die;
+			$_ERROR_MESSAGE = 101;
+			$_MESSAGE_STATUS  = JSONStatus::Success;
 		}
 		else
 		{
+			$_ERROR_MESSAGE = 200;
+			$_MESSAGE_STATUS  = JSONStatus::Error;
+		}
+
+
+		$message = sprintf( $this->_MESSAGES[$_ERROR_MESSAGE] , $product->name ); 
+
+
+		//
+		// Return data/messages
+		//
+		if($this->input->is_ajax_request())
+		{
+			
+			//prepare ajax return statement
+			$total_items = $this->sfcart->total_items();
+			if($total_items==NULL) $total_items = 0;
+
+			$sys_message['status'] = $_MESSAGE_STATUS;
+			$sys_message['qty'] = $total_items; //total items in cart
+			$sys_message['cost'] =  number_format( (float) $this->sfcart->total_cost_contents() , 2); //cost of cart
+			$sys_message['message'] = $message;
+
+			echo json_encode($sys_message);return;
+		}
+		else
+		{
+
+			$this->session->set_flashdata( $_MESSAGE_STATUS , $message );
+			
 			//
 			// redirect them back to page
 			//
 			redirect($url_redir);
 		}
-
-
-
-		
-		
 	}
 	
 	
@@ -267,38 +329,43 @@ class Cart extends Public_Controller
 		//
 		if( (!$id ) OR (!$qty) ) 
 		{
-			// Set User message 
-			$this->session->set_flashdata('error', shop_lang('shop:cart:qty_was_not_set'));
-			
-			// Usert has requested invalid data
-			return FALSE;
-			
+			//Product ID or QTY was not set
+			return 201;
 		}
 
-		
+
+		//
+		// Check that ID/QTY is a valid int, do not allow anything else other than an INT
+		//
+		$id = intval($id);
+		$qty = intval($qty);
+
+
 
 		// Get product from DB
 		$item = $this->products_front_m->get($id,'id');  
 
 		
 		
-		
-		// Check if the product existed
+		//
+		// Check if product exist or still available
+		//
 		if(!$item)
 		{
-			$this->session->set_flashdata('error', shop_lang('shop:cart:unable_to_find_product'));
-			return FALSE;
+			return 202;
 		}
 
 		
 	
 		//
-		//check product validady (visible or deleted)
+		// Check product validady (visible or deleted) 
+		// 
+		// This is important to check because in products_front_m if the user is admin it does not check this.
+		// So it is a must at this stage.
 		//
 		if( is_deleted($item) || ($item->public === ProductVisibility::Invisible ) )
 		{
-			$this->session->set_flashdata('error', shop_lang('shop:cart:product_is_no_longer_available') );
-			return FALSE;
+			return 203;
 		}
 		
 			
@@ -307,10 +374,19 @@ class Cart extends Public_Controller
 		//
 		if(!($this->_check_inventory($item, $qty)) ) 
 		{
-			$this->session->set_flashdata('error', shop_lang('shop:cart:product_is_out_of_stock'));
-			return FALSE;
+			return 204;
 		}
 	
+
+
+		//
+		// Check if User req to login
+		//
+		if ( $this->login_required && !$this->has_logged_in_user) 
+		{
+			return 210;
+		}
+
 
 		// 
 		// If we have reached this point then we can validate successfully
@@ -356,7 +432,7 @@ class Cart extends Public_Controller
 
 				hlp_get_price($item, $d_item['qty'], $mid_qty);
 
-				$update_item['price'] = $item->price_at;
+				$update_item['price'] = $item->price;
 
 				$update_item['base'] = $item->price_base;
 
@@ -377,21 +453,7 @@ class Cart extends Public_Controller
 	}
 
 
-	/*
-	private function __update()
-	{
 
-		//apply possible qty changes and dletes
-		$result = $this->sfcart->update($update_data);
-
-
-		$this->run_mid_on_cart();
-		 
-		
-		redirect('shop/cart');
-		
-	}
-	*/
 
 
 	private function _update() 
@@ -474,7 +536,7 @@ class Cart extends Public_Controller
 
 				//if options we have to run the recalc here
 				$update_item['rowid'] = $item['rowid'];
-				$update_item['price'] = $product->price_at;
+				$update_item['price'] = $product->price;
 				$update_item['base'] = $product->price_base;
 
 
@@ -502,13 +564,64 @@ class Cart extends Public_Controller
 	 */
 	public function delete($rowid) 
 	{
-		$this->sfcart->remove($rowid);
+
+		$url_redir = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'shop/cart';
 
 
+		$items = $this->sfcart->contents();
+
+		if($items[$rowid])
+		{
+			//found :)
+			//get the name
+			$prod_name = $items[$rowid]['name'];
+			$this->sfcart->remove($rowid);
+			$_MESSAGE_CODE = 301;
+			$_STATUS = JSONStatus::Success;
+
+		}
+		else
+		{
+			// item does not exist in cart
+			$prod_name = lang('shop:cart:unknown');
+			$_MESSAGE_CODE = 302;
+			$_STATUS = JSONStatus::Error;
+		}
+
+
+
+
+		//
+		// This is important, we need to update the cart item values to keep MID values in sync.
+		//
 		$this->run_mid_on_cart();
 
 
-		redirect('shop/cart');
+
+		$message = sprintf( $this->_MESSAGES[$_MESSAGE_CODE] , $prod_name );
+
+
+
+
+		if($this->input->is_ajax_request())
+		{
+			$total_items = $this->sfcart->total_items();
+			if($total_items==NULL) $total_items = 0;
+
+
+			$sys_message['qty'] = $total_items; //total items in cart
+			$sys_message['cost'] =  number_format( (float) $this->sfcart->total_cost_contents() , 2); //cost of cart
+			$sys_message['message'] = $message;
+			$sys_message['status'] = $_STATUS;
+			echo json_encode($sys_message);die;
+		}
+		else
+		{
+			// if the product/ request faled to validate just redirect now
+			$this->session->set_flashdata( $_STATUS , $message );
+			redirect($url_redir);
+		}
+		
 	}
 
 	
@@ -539,7 +652,7 @@ class Cart extends Public_Controller
 		// Check 1: only allow the in-stock status
 		if( $item->status !== InventoryStatus::InStock )
 		{
-			$this->session->set_flashdata('feedback', lang('user_nostock_warning') );
+			//no stock
 			return FALSE;
 		}
 		
@@ -552,9 +665,6 @@ class Cart extends Public_Controller
 
 				
 		// Anything below here we just dont have the stock!!
-		$this->session->set_flashdata('feedback', "Sorry we only have :". $item->inventory_on_hand. ' available.');
-
-
 		return FALSE;
 
 	}
@@ -578,16 +688,13 @@ class Cart extends Public_Controller
 				'id' => $item->id,
 				'slug' => $item->slug,
 				'qty' => $qty,
-				'price' => $item->price_at,
+				'price' => $item->price,
 				'base' => $item->price_base,
 				'name' => $name,
-				'ignor_shipping' => $item->ignor_shipping,
+				'ignor_shipping' => ($item->req_shipping)? 0 : 1 ,
 				'options' => $options,
-				'pgroup_id' => $item->pgroup_id,
-				
-				'price_bt' => $item->price_bt, /*before tax value*/
-				'package_id' => $item->package_id,
-
+				'pgroup_id' => $item->pgroup_id,			
+				'user_data' => $item->user_data,  
 		);
 		
 		return $data;
@@ -595,202 +702,224 @@ class Cart extends Public_Controller
 	}
 
 	
-
 	/**
 	 * Prepares the Key=>value data for the options
 	 *
 	 *
 	 */
-	private function _get_option_fields($product_id) 
+	private function _get_option_fields(&$product) 
 	{
 
-		
-		$data = $this->upload();
-		$has_file = false;
-
-		if($data == "")
-		{
-			//no file uploaded
-		}
-		else
-		{	
-			//we have a file
-			//and this is the file id.
-
-		}
-
-
+		// Load models
 		$this->load->model('options_m');
-
-		//
-		// By default we do not ignor shipping, if an option sets to ignor then we do override this.
-		//
-		$ignor_shipping = FALSE;	
+		$this->load->model('options_product_m');
+		$this->load->model('options_values_m');
 
 
-		//
+
 		// Setup the default options array
-		//
-		$options = array();
+		$OPTIONS_TO_Return = array();
 		
 		
-		//
-		// Options will only come from a post - 
-		// if no post, then we have have no options
-		//
-		if ( !( $this->input->post('prod_options') ) ) return array( $ignor_shipping, $options );
 
-
-		//
-		// Get the request
-		//
-		$prod_options = $this->input->post('prod_options');
-		
-		//var_dump($prod_options);die;
+		//Get ALL the options available for this product, 
+		$prod_options = $this->options_product_m->get_prod_options($product->id);
 		
 
-		//if (isset($prod_options)) 
-		//{
-			 
+
+
+		foreach ($prod_options as $option_available) 
+		{
+
+			// Get the field name that should have been used in the HTML
+			$_OP_INPUT_NAME = 'prod_options_' . $option_available->option_id;
+
+
+			// Get the option from the DB
+			$option = $this->options_m->get($option_available->option_id);
 
 
 
-			
-			//key=delivery value = digital/postal
-			foreach ($prod_options as $key => $value) 
+			// Check to see if we have a File Upload
+			if($option->type == "file")
 			{
-		
 
-				//
-				// if the user Doesnt add data - dont add it to the request
-				// This is only going to appear for text box fields as checkboxes, and radios are
-				// not posted if not set
-				//
-				if ($value == "")
+				// SKIP if there is no match for the file input
+				if(!(isset( $_FILES[  $_OP_INPUT_NAME  ] ) ) ) continue;
+
+
+				// Create a temp name for the file
+				$F_NAME_PART = date("YmdHi", time() );
+
+				// Get the filename from the upload
+				$F_NAME = $_FILES[  $_OP_INPUT_NAME  ]['name'];
+
+				//check if a file exist in the upload data
+				if($_FILES[  $_OP_INPUT_NAME  ]['name'] == "")
 				{
-					unset($prod_options[$key]);
-					continue; //skip to next
+					continue;
 				}
+
+
+				// Upload and get the ID
+				$data = $this->upload(  $_OP_INPUT_NAME,  $F_NAME_PART . '-' . $F_NAME );
+
+
+				if(!$data)
+				{
+					//echo "no file to add";die;
+					//maybe need to add error message to some message stack
+					continue;
+				}
+				
+							
+				//build the option array that will be sent to the cart
+				//array( 'max_qty' => 0 ,'operator' => '+=' , 'operator_value' => '0');
+				// Get the label from the db/cache
+				$OPTIONS_TO_Return[$_OP_INPUT_NAME] = array('name' => $option->name, 
+										'value' => $data, 
+										'label' => $data, 
+										'user_data' => '',  /*used in cart view*/
+										'max_qty' => 0, 
+										'operator'=> 'n', //n = skip calc in sfcart
+										'operator_value' => 0, 
+										'type' => $option->type);
+
+
+			}	
+			elseif($option->type == 'text') //we have to handle the text option as they do not have sub-options and do not alter the price
+			{
+
+
+				$POST_value = $this->input->post(  $_OP_INPUT_NAME  );
+
+
+				if( $POST_value === null ) continue;
+
+				if( $POST_value === "" ) continue;
+
+
+				//build the option array that will be sent to the cart
+				//array( 'max_qty' => 0 ,'operator' => '+=' , 'operator_value' => '0');
+				// Get the label from the db/cache
+				$OPTIONS_TO_Return[$_OP_INPUT_NAME] = array('name' => $option->name, 
+										'value' => $POST_value, /* $option->values->value */
+										'label' => $POST_value, /* $option->values->value */
+										'user_data' => 'text',  /*used in cart view*/
+										'max_qty' => 0, 
+										'operator'=> 'n', //n = skip calc 
+										'operator_value' => 0, 
+										'type' => $option->type);
+
+			
+			}	
+			else
+			{
+
+
+				//if the option wasnt selected move on next
+				if(!$this->input->post(  $_OP_INPUT_NAME) ) continue;
+
+				
+
+				$POST_value = $this->input->post(  $_OP_INPUT_NAME  );
+
+
+
+
+				//todo:we still need to verify that the $POST_value is linked to the parent option_id
+				//This is a security issue as someone may change the post req. We cant rely on this.
+				$option_value = $this->options_values_m->get( $POST_value  );	
 
 
 			
-
-
+				//build the option array that will be sent to the cart
 				
-		
-				//
-				// Text options can not alter price
-				//
-				//$option = $this->options_m->get_option_value_by_slug($key,$value);	
-				$option = $this->options_m->get_option_by_id($key,$value);	
-
-	
-				
-				//var_dump($option);;
-			
+				// Get the label from the db/cache
+				$OPTIONS_TO_Return[$_OP_INPUT_NAME] = array('name' => $option->name, 
+										'value' => $POST_value, /* $option->values->value */
+										'label' => $option_value->label,  /*used in cart view*/
+										'user_data' => $option_value->user_data,  /*used in cart view*/
+										'max_qty' => $option_value->max_qty, 
+										'operator'=>$option_value->operator, 
+										'operator_value' => $option_value->operator_value, 
+										'type' => $option->type);
 
 
-				$options[$key] = array(); //initialize the option key
 
-
-				//we have to handle the text option as they do not have sub-options and do not alter the price
-				if($option->type == 'file')
-				{	
-
-					if($value == 'donotremove')
-					{
-					
-					}
-					
-					//
-					// Trigger Event to Notify User of status (success/Failer)
-					//
-					//Events::trigger('evt_send_admin_email', array('attachment' => $value, 'product_id' => 'product_id') );
-
-								
-
-					//build the option array that will be sent to the cart
-					//array( 'max_qty' => 0 ,'operator' => '+=' , 'operator_value' => '0');
-					// Get the label from the db/cache
-					$options[$key] = array('name' => $option->name, 
-											'value' => $data, /* $option->values->value */
-											'label' => $data, /* $option->values->value */
-											'user_data' => '',  /*used in cart view*/
-											'max_qty' => 0, 
-											'operator'=> 'n', //n = skip calc 
-											'operator_value' => 0, 
-											'type' => $option->type);
-
-				}
-				elseif($option->type =='text') //we have to handle the text option as they do not have sub-options and do not alter the price
+				//now we check to see if we override the product to ignor shipping
+				if( ($option_value->ignor_shipping == '1') OR ($option_value->ignor_shipping == 1) )
 				{
-					
-					
-					//build the option array that will be sent to the cart
-					//array( 'max_qty' => 0 ,'operator' => '+=' , 'operator_value' => '0');
-					// Get the label from the db/cache
-					$options[$key] = array('name' => $option->name, 
-											'value' => $value, /* $option->values->value */
-											'label' => $value, /* $option->values->value */
-											'user_data' => 'text',  /*used in cart view*/
-											'max_qty' => 0, 
-											'operator'=> 'n', //n = skip calc 
-											'operator_value' => 0, 
-											'type' => $option->type);
-
+					$product->req_shipping = FALSE;
 				}
-				else
-				{
-					
-					
 				
-					//build the option array that will be sent to the cart
-					
-					// Get the label from the db/cache
-					$options[$key] = array('name' => $option->name, 
-											'value' => $value, /* $option->values->value */
-											'label' => $option->values->label,  /*used in cart view*/
-											'user_data' => $option->values->user_data,  /*used in cart view*/
-											'max_qty' => $option->values->max_qty, 
-											'operator'=>$option->values->operator, 
-											'operator_value' => $option->values->operator_value, 
-											'type' => $option->type);
-
-
-					$ignor_shipping = $option->values->ignor_shipping;
-
-
-				}
-
-			
-
-				//var_dump($options);die;				
-				
-
-
 			}
+		}
 
-		//}
 	
-		return array( $ignor_shipping, $options );
+		return $OPTIONS_TO_Return;
 		
 	}
 
-	public function upload($file_option_slug=null)
+
+	/**
+	 * We will only allow ZIP and image (jpg|png|bit) at this stage to prevent uploading bad scripts
+	 * 
+	 * @param  string $_expected_form_input_name [description]
+	 * @param  string $filename                  [description]
+	 * @return [type]                            [description]
+	 */
+	public function upload(  $_expected_form_input_name = 'fileupload', $filename ='file_for_order')
 	{
+
+		//lets do some pre-check before we let it into pyro system.
+		//Right now the file is in the tmp dir, before we let it loose we do some checks, otherwise delete from tmp
+		$upload_file_data = $_FILES[  $_expected_form_input_name  ];
+
+		$tmp_name = ($upload_file_data['tmp_name']);
+
+		//$size = $upload_file_data['size'];
+		//$name = $upload_file_data['name'];
+		$file_name_only = $upload_file_data['name'];		
+
+
+		$file_info = pathinfo($file_name_only);
+
+
+		$filename = $file_info['filename'];
+		$extension = $file_info['extension'];
+		$basename = $file_info['basename'];
+
+
+
+		$valid_files = array('png', 'jpg', 'jpeg', 'bmp' ,'zip', 'txt', 'doc', 'docx');
+
+		if(!in_array($extension, $valid_files)) 
+		{
+			return FALSE;
+		}
+
+		/*
+		array
+			'dirname' => string 'C:\wamp\tmp' (length=11)
+			'basename' => string 'php80BC.tmp' (length=11)
+			'extension' => string 'tmp' (length=3)
+			'filename' => string 'php80BC' (length=7)
+		*/
 
 		$this->load->library('files/files');
 
 
-		//
 		// where do we upload files to
-		//
 		$folder_id =  Settings::get('shop_upload_file_orders');
 
 
-	    $upload = Files::upload($folder_id, 'file_for_order','fileupload');
+	    //$upload = Files::upload($folder_id, 'file_for_order','fileupload');
+	    $upload = Files::upload( $folder_id , $filename,  $_expected_form_input_name );
 
-	    //var_dump($upload['data']['id']);die;
+
+	    //$filesize = $upload['data']['filesize'];
+	    //$extension = $upload['data']['extension'];
 
 	    $file_id = $upload['data']['id'];
 	

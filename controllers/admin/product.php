@@ -24,7 +24,7 @@
  *
  */
 
-include_once( dirname(__FILE__) . '/' . 'Products_admin_Controller.php');
+include_once( dirname(__FILE__) . '/' . 'products_admin_controller.php');
 
 class Product extends Products_admin_Controller 
 {
@@ -40,6 +40,9 @@ class Product extends Products_admin_Controller
 		// Do not allow users to edit products
 		//
 		role_or_die('shop', 'admin_products');		
+
+		// Create the data object
+		$this->data = new stdClass();
 
 	}
 
@@ -99,22 +102,20 @@ class Product extends Products_admin_Controller
 		
 
 		//default settings so it will be quicker to create items 
-		//$data->tax_id = NULL;
-		//$data->tax_dir = 0;
-		$data->price = '00.00';
-		$data->price_base = '00.00';
-		$data->rrp = '00.00';
+		$this->data->price = '00.00';
+		$this->data->price_base = '00.00';
+		$this->data->rrp = '00.00';
 		
 		// Reset Values from user input if validation failed
 		foreach ($this->item_validation_rules AS $rule)
-			$data->{$rule['field']} = $this->input->post($rule['field']);
+			$this->data->{$rule['field']} = $this->input->post($rule['field']);
 
 		
 		// Build the Template
-		$this->template->title($this->module_details['name'], lang('create'))
-				->append_metadata($this->load->view('fragments/wysiwyg', $data, TRUE))
+		$this->template->title($this->module_details['name'], lang('shop:common:create'))
+				->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
 				->append_js('module::admin/product.js')
-				->build('admin/products/create', $data);
+				->build('admin/products/create', $this->data);
 	}
 
 
@@ -128,11 +129,18 @@ class Product extends Products_admin_Controller
 	{
 
 
-
-		// 
-		// First get the product
 		//
-		$data =  $this->products_admin_m->get($id);
+		// Determine whether to get by id or slug
+		//
+		$method = (is_numeric($id))  ? 'id' : 'slug' ;
+
+		
+
+		//
+		// Get the product and all its goodness
+		//
+		$data = $this->products_admin_m->get($id, $method);
+
 
 
 		if(!(isset($data)) )
@@ -150,8 +158,15 @@ class Product extends Products_admin_Controller
 			$input = $this->input->post();
 
 
+
+			//upload url images
+			$this->upload_url_images($input,$data->id);
+
 			//upload files
-			$this->upload($id);
+			$this->upload_files($data->id);
+
+			//upload images
+			$this->upload($data->id);
 
 
 
@@ -162,13 +177,11 @@ class Product extends Products_admin_Controller
 			$this->sanitize_fields($input, $data, 'edit');
 			
 		
-			//
 			// save
-			//
-			if ($this->products_admin_m->edit($id, $input)) 
+			if ($this->products_admin_m->edit($data->id, $input)) 
 			{	
 
-				Events::trigger('evt_product_changed', $id);
+				Events::trigger('evt_product_changed', $data->id);
 				
 				$this->session->set_flashdata('success', lang('success'));
 				
@@ -185,16 +198,15 @@ class Product extends Products_admin_Controller
 			}
 			
 			
-			redirect('admin/shop/product/edit/' . $id);
+			redirect('admin/shop/product/edit/' . $data->id);
 
 			
 		}
 		
 
-		
 
 		// Build Template
-		$this->template->title($this->module_details['name'], lang('edit'))
+		$this->template->title($this->module_details['name'], lang('shop:common:edit'))
 				->append_metadata($this->load->view('fragments/wysiwyg', $data, TRUE))
 				->append_js('jquery/jquery.tagsinput.js')
 				->append_js('module::admin/product.js')
@@ -207,9 +219,6 @@ class Product extends Products_admin_Controller
 	
 	
 
-	
-	
-	
 
 	/**
 	 * Delete the Item -set delete flag to 0 
@@ -231,7 +240,6 @@ class Product extends Products_admin_Controller
 	
 
 	
-
 	
 	
 	/**
@@ -276,55 +284,8 @@ class Product extends Products_admin_Controller
 	
 	
 
-	/**
-	 * View as customer:same as the public handler, just gets data even if hidden
-	 */	 
-	public function view($id = 0) 
-	{
-		
-		//Always get by id here
-		$data->product = $this->pyrocache->model('products_admin_m', 'get', $id);  
-
-		// redirect if not found
-		if (count($data->product)==0) { echo "Unable to find"; die;};
-		
-
-		$data->display_views = $this->show_views;
-		
-		
-		// Collect info about the product
-		$data->product->category = $this->pyrocache->model('categories_m', 'get', $data->product->category_id);  
-		$data->images = $this->pyrocache->model('products_admin_m', 'get_images', $data->product->id);  
-		$data->product->keywords = Keywords::get_array($data->product->keywords);
-
-		$data->product->properties = $this->products_admin_m->get_product_attributes($data->product->id); 
-		$data->product->options = $this->options_m->get_options($data->product->id); 
-
-
-		
-		// set brand name (string)
-		$branddata = $this->pyrocache->model('brands_m', 'get', $data->product->brand_id);  
-		$data->product->brand_name = ($branddata)?$branddata->name : NULL;
-
-		
-
-		// Display the product
-		$this->template	
-				->enable_parser(TRUE)
-				->enable_minify(TRUE)
-				->set_layout(FALSE)
-				//->set_layout('default')
-				//->set_theme($this->settings->default_theme)	
-				->build('products/single', $data);
-
-	}
-	
-
-
-
 	public function load( $id, $panel = '' ) 
 	{
-
 
 		//get the data for the product
 		$data =  $this->products_admin_m->get($id);
@@ -339,7 +300,8 @@ class Product extends Products_admin_Controller
 			
 		if($panel =='images')
 		{
-			$data->images 			= $this->products_admin_m->get_images($data->id);  
+			$this->load->model('images_m');
+			$data->images 			= $this->images_m->get_images($data->id);  
 			$data->folders = $this->get_folders();
 		}
 
@@ -374,13 +336,25 @@ class Product extends Products_admin_Controller
 		}
 
 		if($panel =='shipping')
-		{
-			$data->package_select 	= $this->package_library->build_list_select(array('current_id' => $data->package_id));			
+		{		
+			$this->load->library('products_library');
+			$data->req_shipping_select = $this->products_library->build_requires_shipping_select(array('current_id' => $data->req_shipping));
 		}	
-		
 
+		if($panel =='files')
+		{
+			$this->load->model('shop_files_m');
+			$data->digital_files = $this->shop_files_m->get_files($data->id);
+		}	
 
+		if($panel =='design')
+		{
+			$this->load->library('design_library');
 
+			$_path = Settings::get('default_theme');
+
+			$data->design_select 	= $this->design_library->build_list_select( $_path , array('current_id' => $data->page_design_layout) );			
+		}	
 
 
 		$this->load->view('admin/products/partials/'.$panel, $data); 
@@ -389,50 +363,53 @@ class Product extends Products_admin_Controller
 
 	}
 
+	public function delete_file($file_id)
+	{
+		$this->load->model('shop_files_m');
+
+		$status = $this->shop_files_m->delete_file($file_id);
+
+
+		if($status)
+		{
+			echo json_encode(array('status' => 'success'));die;
+		}
+		else
+		{
+			echo json_encode(array('status' => 'error'));die;
+		}
+
+	}
+
 	protected function _validate_product()
 	{
 
-		//
 		// Prepare Postback & Validation
-		//
 		if( ! $this->input->post() )
 		{
 			return FALSE; //do not allow to enter the saveing of data section
 		}
 
 
-		//
 		// Lets get the data from the post headers
-		// 
 		$input = $this->input->post();
-
-		//var_dump($input);die;
 
 		foreach($this->_validation_rules as $key => $field_to_check)
 		{
 
-
 			$_field = $field_to_check['field'];
 		
-			
-			//
 			// only process is exist
-			//
-			if(isset($input[$_field]))
-			{
-
-			}
-			else
+			if(!(isset($input[$_field])) )
 			{
 				//remove for now as we do not require them
 				unset($this->_validation_rules[$key]);
 			}
+
 		}
 
 
-		//
 		// Now set the rules
-		//
 		$this->form_validation->set_rules($this->_validation_rules);
 
 
@@ -441,13 +418,10 @@ class Product extends Products_admin_Controller
 			return TRUE;
 
 
-		//
 		// Test and return
-		//
 		return $this->form_validation->run();
 
 	
-
 	}
 
 
@@ -502,6 +476,39 @@ class Product extends Products_admin_Controller
 
 	}
 
+
+
+	/**
+	 * Upload files from the FILES tab to link to a product
+	 * 
+	 * @return [INT] [ID of the image uploaded]
+	 */
+	public function upload_files($product_id)
+	{
+
+		$this->load->model('shop_files_m');
+
+		foreach($_FILES as $key => $_file)
+		{
+
+			if( in_array($key, array("digital_downloads_1") )) 
+			{
+				$data = array();
+				$data['product_id'] = $product_id;
+				$data['filename'] = $_file['name'];
+				$data['data'] = file_get_contents ( $_file['tmp_name'] );
+				$data['filesize'] = $_file['size'];
+
+				$this->shop_files_m->add_file($data);
+	    	}	
+
+		}
+
+	}	
+
+
+
+
 	/**
 	 * Upload images from the images tab
 	 * 
@@ -511,6 +518,7 @@ class Product extends Products_admin_Controller
 	{
 
 		$this->load->library('files/files');
+
 
 
 		if($this->input->post('upload_folder_id'))
@@ -528,6 +536,12 @@ class Product extends Products_admin_Controller
 
 		foreach($_FILES as $key => $_file)
 		{
+			//only process image upload fields here
+			if( ! in_array($key, array("fileupload_1","fileupload_2","fileupload_3","fileupload_4") )) 
+			{
+				continue;
+			}
+
 
 			//check to see if tried to upload file
 			if($folder_id==NULL) 
@@ -553,7 +567,7 @@ class Product extends Products_admin_Controller
 
 		if($_files_to_upload > 0)
 		{
-			return $this->session->set_flashdata('error', shop_lang('shop:products:no_upload_folder_set'));
+			return $this->session->set_flashdata('error', lang('shop:products:no_upload_folder_set'));
 		}
 
 
@@ -561,10 +575,11 @@ class Product extends Products_admin_Controller
 
 	private function _upload_assign($image_id, $product_id)
 	{
-
+		$this->load->model('images_m');
+				
 		if($image_id =="")
 			return FALSE;
-		
-		return $this->products_admin_m->add_image($image_id,$product_id);
+
+		return $this->images_m->add_local_image($image_id,$product_id);
 	}
 }

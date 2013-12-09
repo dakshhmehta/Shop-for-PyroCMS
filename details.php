@@ -27,22 +27,23 @@
 class Module_Shop extends Module 
 {
 
-	public $version = '1.0.0.113';  
+	/**
+	 * New dev version uses YMD as the final decimal format.
+	 * Only for dev builds
+	 * 
+	 * @var string
+	 */
+	public $version = '1.0.0.140';  
 
 
 
 	public function __construct()
 	{
-
 		$this->load->library('shop/details_library');
 		$this->load->library('shop/enums');
 		$this->ci = get_instance();
-
-		
-	 
-
-
 	}
+
 	
 	/**
 	 * info() 
@@ -57,7 +58,7 @@ class Module_Shop extends Module
 		$this->load->model('settings_m');
 
 		$get_menu_addon = $this->ci->uri->segment(3);	
-
+		
 		return  $this->details_library->info($get_menu_addon);
 
 	}
@@ -82,9 +83,13 @@ class Module_Shop extends Module
 
 	public function install() 
 	{
- 		
+
+ 		//$tables = $this->details_library->get_tables();
+		//$this->_uninstall_tables($tables);
+		//return true;
 		# Install Product Tables
 		$tables = $this->install_tables( $this->details_library->get_tables() );
+
 
 
 		if( $tables  )
@@ -146,21 +151,6 @@ class Module_Shop extends Module
 		$this->db->insert_batch('shop_countries', $data);	
 
 
-		$data = array();
-
-		foreach($this->details_library->get_array('trust_score') as $key => $value)
-		{
-			$data[] = array(
-					'score' => $value['score'],
-					'category' => $value['category'],
-					'word' => $value['word'],
-					'count' => 0,
-					'enabled' => 1,
-					);
-		}
-
-		$this->db->insert_batch('shop_trust_data', $data);		
-
 
 		return TRUE;	
 
@@ -216,26 +206,36 @@ class Module_Shop extends Module
 	public function upgrade($old_version) 
 	{
 		 
-	
 		switch ($old_version) 
 		{
+			case '1.0.0.135':
+				$this->load->library('shop/images_library');
 
-			case '1.0.0.112':		
-				$this->_install_table('shop_dailydeals');
-				break;
-			case '1.0.0.105':
-			case '1.0.0.104':
-				//$this->_install_table_row('shop_orders','pmt_status');
-				//$this->_install_table_row('shop_categories','user_data');
-				break;
+				$this->_remove_table_col('shop_images','restrain_size');
+				$this->_remove_table_col('shop_images','scope');
+				$this->_remove_table_col('shop_images','display');
+				$this->_install_table_col('shop_images','src');
+				$this->_install_table_col('shop_images','alt');
+				$this->_install_table_col('shop_images','local');
 
-			case '1.0.0.103':
-			 	//$this->_upgrade_orders();
-				break;
 
-			case '1.0.0.102': 
-				//$this->_install_settings('shop_upload_file_product');
-				//$this->_install_settings('shop_upload_file_orders');
+				//only remove the col once the migration was successfull
+				if($this->images_library->migrate())
+				{
+					//$this->_remove_table_col('shop_images','file_id'); 
+					return TRUE;
+				}
+
+				return FALSE;
+			
+				break;				
+			case '1.0.0.133':	
+				//$this->_remove_table_col('shop_orders','tracking_code');
+				$this->_install_table_col('shop_orders','pin');
+
+				$this->_install_table('shop_product_files');
+				$this->_install_table('shop_downloads');
+				$this->_install_table_col('shop_products','req_shipping');
 				break;
 
 			default:
@@ -247,14 +247,19 @@ class Module_Shop extends Module
 	}
 
 
+				
 	private function _install_table($table)
 	{
- 		$_fields = $this->details_library->get_tables($table);
 
-		$table_to_install = array( $table => $_fields  );
-		
+		$this->dbforge->drop_table($table);
+
+ 		$table_to_install = $this->details_library->get_tables($table);
+
+
+ 		$table_to_install = array( $table => $table_to_install[$table] );
+
+
 		return $this->install_tables( $table_to_install );
-
 	}
 
 
@@ -265,15 +270,26 @@ class Module_Shop extends Module
 	 * @param  [type] $row   [description]
 	 * @return [type]        [description]
 	 */
-	private function _install_table_row($table,$row)
+	private function _install_table_col($table_name,$col_name)
 	{
- 		$_table = $this->details_library->get_tables($table);
-
-		$fields = array( $row => $_table[$row]     );
 		
-		return $this->dbforge->add_column($table, $fields);
+		//first drop the col if exist
+		//$this->dbforge->drop_column($table_name, $col_name);
+
+ 		$_table = $this->details_library->get_tables($table_name);
+
+ 		$fields = $_table[$table_name][$col_name];
+		$fields = array( $col_name => $fields );
+		
+		return $this->dbforge->add_column($table_name, $fields);
+		
 	}
 
+	private function _remove_table_col($table_name,$col_name)
+	{	
+		$this->dbforge->drop_column($table_name, $col_name);
+		return TRUE;
+	}
 
 	/**
 	 * Upgrades 103 -> 104
@@ -323,7 +339,7 @@ class Module_Shop extends Module
 	 * Install a single setting when upgrading
 	 * 
 	 * @param  [type] $sett_name [The key / slug of the settings in the main list]
-	 * @return [type]            [description]
+	 * @return BOOL            [description]
 	 */
 	private function _install_settings($sett_name)
 	{
@@ -332,12 +348,8 @@ class Module_Shop extends Module
 		//set the settings name
 		$settings['slug'] = $sett_name;
 
-		if (!$this->db->insert('settings', $settings)) 
-		{
-			return FALSE;
-		}
+		return $this->db->insert('settings', $settings);
 
-		return TRUE;
 	}
 
 
@@ -354,7 +366,6 @@ class Module_Shop extends Module
 
 			if (!$this->db->insert('settings', $setting)) 
 			{
-
 				return FALSE;
 			}
 		}

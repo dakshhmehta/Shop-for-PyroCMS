@@ -92,14 +92,14 @@ class Tax_m extends MY_Model {
 
 			case TaxMode::Inclusive:
 				$val 					=  $price / (1 + ($tax_rate/100));
-				$input['price_at'] 		=  round($price ,2);
-				$input['price_bt'] 		=  round($val ,2);
+				//$input['price_at'] 		=  round($price ,2);
+				//$input['price_bt'] 		=  round($val ,2);
 				break;
 			case TaxMode::Exclusive:
 			default:
 				$val 					=  ( $tax_rate * $price / 100) +  $price;
-				$input['price_bt'] 		=  round($price ,2);
-				$input['price_at'] 		=  round($val ,2);
+				//$input['price_bt'] 		=  round($price ,2);
+				//$input['price_at'] 		=  round($val ,2);
 				break;
 
 		}

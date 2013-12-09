@@ -27,10 +27,13 @@ class Blacklist extends Admin_Controller
 {
 
 	protected $section = 'blacklist';
+	private $data;
 
 	public function __construct() 
 	{
 		parent::__construct();
+
+		$this->data = new StdClass();
 
 		//check if has access
 		role_or_die('shop', 'admin_blacklist');
@@ -55,11 +58,11 @@ class Blacklist extends Admin_Controller
 	{
 
 		// Build the view with shop/views/admin/clearances.php
-		$data->blacklist = $this->blacklist_m->order_by('method','DESC')->order_by('enabled','DESC')->get_all();
+		$this->data->blacklist = $this->blacklist_m->order_by('method','DESC')->order_by('enabled','DESC')->get_all();
 
 		$this->template
 				->title($this->module_details['name'])
-				->build('admin/blacklist/list', $data);
+				->build('admin/blacklist/list', $this->data);
 	}
 
 
@@ -71,7 +74,7 @@ class Blacklist extends Admin_Controller
 	public function create() 
 	{
 	
-		// Check for post data
+		// Check for post this->data
 		$this->form_validation->set_rules($this->_validation_rules);
 		
 		
@@ -88,17 +91,17 @@ class Blacklist extends Admin_Controller
 		{
 			foreach ($this->_validation_rules as $key => $value) 
 			{
-				$data->{$value['field']} = '';
+				$this->data->{$value['field']} = '';
 			}
 		}
 
-		$data->method_select = $this->blacklist_m->build_dropdown();
+		$this->data->method_select = $this->blacklist_m->build_dropdown();
 
 		// Build page
 		$this->template
 			->title($this->module_details['name'])	
-			->append_metadata($this->load->view('fragments/wysiwyg', $data, TRUE))
-			->build('admin/blacklist/form', $data);
+			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->build('admin/blacklist/form', $this->data);
 	}
 
 	/**
@@ -121,7 +124,7 @@ class Blacklist extends Admin_Controller
 		}
 		
 
-		$data = (object) $row;
+		$this->data = (object) $row;
 		$this->form_validation->set_rules($this->_validation_rules);
 
 		// if postback-validate
@@ -133,15 +136,15 @@ class Blacklist extends Admin_Controller
 			redirect('admin/shop/blacklist');
 		} 
 
-		$data->method_select = $this->blacklist_m->build_dropdown($data->method);
+		$this->data->method_select = $this->blacklist_m->build_dropdown($this->data->method);
 
 
 		// Build page
 		$this->template
 			->title($this->module_details['name'])
 			->append_js('module::admin/admin.js')
-			->append_metadata($this->load->view('fragments/wysiwyg', $data, TRUE))
-			->build('admin/blacklist/form', $data);
+			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->build('admin/blacklist/form', $this->data);
 	}
 
 	/**

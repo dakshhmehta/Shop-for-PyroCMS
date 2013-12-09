@@ -27,7 +27,9 @@
 				  <tr>
 					<input type="hidden" name="{{rowid}}[rowid]" value="{{rowid}}">
 					<input type="hidden" name="{{rowid}}[id]" value="{{id}}">				  
-					<th class="image">{{ shop:coverimage id="{{id}}" }}</th>
+					<th class="image">
+						{{ shop:product id="{id}" }} <img src='{{url:site}}files/thumb/{{cover_id}}/100' /> {{/shop:product}}
+					</th>
 					<th class="description">{{name}}</th>
 					<th class="price">{{price}}</th>
 					<th class="qty">

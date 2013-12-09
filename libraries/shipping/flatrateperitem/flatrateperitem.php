@@ -26,17 +26,11 @@
 class FlatratePerItem_ShippingMethod {
 
 	public $name = 'Flat Rate Per Item'; 
-	public $title = 'Flat Rate Per Item'; 
 	public $desc = 'Flat Rate Per Item';
 	public $author = 'inspiredgroup.com.au';
 	public $website = 'http://inspiredgroup.com.au';
 	public $version = '1.0';
 	public $image = '';
-
-	public $_shipping = 0;
-	public $_handling = 0;
-	public $_discount = 0;
-
 
 	public $fields = array(
 		array(
@@ -58,31 +52,35 @@ class FlatratePerItem_ShippingMethod {
 
 	public function run($options)  { return $options; }
 
-	public function calc($options, $packages, $from_address = array(), $to_address = array() )
+	public function calc($options, $items, $from_address = array(), $to_address = array() )
 	{
 		
-		//
-		//	In the options we store the multiplier
-		//
+		/**
+		 * In the options we store the multiplier
+		 * @var [type]
+		 */
 		$pi  = floatval($options['amount']); 
-		$cost = 0;
-		$handling =  floatval($options['handling']);
-		$discount = 0;
+
+		/**
+		 * Set the cost to the default handling
+		 * @var [type]
+		 */
+		$cost = floatval($options['handling']);
+
 		
-		
-		//
-		// Each package contains a set of items
-		// We count the items multiply by the amount per item
-		//
-		foreach ($packages as $package)
+		/**
+		 * We count the items multiply by the amount per item
+		 */
+		foreach ($items as $item)
 		{
-			$cost += ($package->item_count * $pi);
+			$cost += $pi;
 		}
-		
-		//
-		// Then simply return the total cost
-		//
-		return array($this->id,'Flat Rate Shipping Per Item','', $cost ,$handling,$discount); // == $0 total
+
+
+		/**
+		 * Then simply return the total cost
+		 */
+		return $cost;
 
 	}
 	

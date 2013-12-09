@@ -4,8 +4,7 @@
 
 
 <section class="title">
-	<h4> <?php echo shop_lang('shop:products:method_'. $this->method, 'method_') . " <strong> <span id='title_product_name'> " .$name ."</span></strong> ( ". $id  . ")"; ?>  </h4>
-	
+	<h4> <?php echo lang('shop:common:'. $this->method) . " <strong> <span id='title_product_name'> " .$name ."</span></strong> ( ". $id  . ")"; ?>  </h4>
 </section>
 
 <section class="item">
@@ -115,7 +114,15 @@
 				<?php //$this->load->view('admin/products/partials/shipping'); ?>		
 			</div>
 
+			<div class="form_inputs" id="files-tab">
+				<div class='not-loaded'></div>
+				<?php //$this->load->view('admin/products/partials/shipping'); ?>		
+			</div>			
 
+			<div class="form_inputs" id="design-tab">
+				<div class='not-loaded'></div>
+				<?php //$this->load->view('admin/products/partials/shipping'); ?>		
+			</div>
 
 			<div class="form_inputs" id="console-tab">
 				<?php $this->load->view('admin/products/partials/console'); ?>		

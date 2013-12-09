@@ -45,10 +45,10 @@ class Widget_Shop_related_products extends Widgets
 
 	public function run($options) 
 	{
-		$options['identifier'];
-		$options['getby'];
+		//$options['identifier'];
+		//$options['getby'];
 
-		$this->load->model('shop/products_front_m');
+		//$this->load->model('shop/products_front_m');
 		
 
 	}
