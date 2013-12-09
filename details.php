@@ -208,10 +208,11 @@ class Module_Shop extends Module
 		 
 		switch ($old_version) 
 		{
+
 			case '1.0.0.141':				
 			case '1.0.0.140':	
 			case '1.0.0.139':					
-			case '1.0.0.138':					
+			//case '1.0.0.138':		//this was never a dev-release number			
 			case '1.0.0.137':					
 			case '1.0.0.136':
 				//image field - cover_id migration
