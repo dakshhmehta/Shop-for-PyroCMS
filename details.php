@@ -33,7 +33,7 @@ class Module_Shop extends Module
 	 * 
 	 * @var string
 	 */
-	public $version = '1.0.0.141';  
+	public $version = '1.0.0.142';  
 
 
 
@@ -208,6 +208,7 @@ class Module_Shop extends Module
 		 
 		switch ($old_version) 
 		{
+			case '1.0.0.141':				
 			case '1.0.0.140':	
 			case '1.0.0.139':					
 			case '1.0.0.138':					
