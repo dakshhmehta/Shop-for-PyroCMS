@@ -1,6 +1,6 @@
 
 <section class="title">
-	<h4><?php echo lang('shop:shipping:shipping') ; ?></h4>
+	<h4><?php echo lang('shop:common:shipping') ; ?></h4>
 	<h4 style="float:right"><a href="admin/shop/shipping/" class='button'><?php echo lang('shop:shipping:view_all') ; ?></a></h4>		
 </section>
 
@@ -15,7 +15,7 @@
 
 				<ul class="tab-menu">
 					<li><a href="#info-tab"><span><?php echo lang('shop:shipping:details') ; ?></span></a></li>	
-					<li><a href="#delivery-tab"><span><?php echo lang('shop:shipping:description') ; ?></span></a></li>
+					<li><a href="#delivery-tab"><span><?php echo lang('shop:common:description') ; ?></span></a></li>
 					<li><a href="#cost-tab"><span><?php echo lang('shop:shipping:cost') ; ?></span></a></li>						
 				</ul>
 
@@ -23,11 +23,11 @@
 					<fieldset>
 						<ul>
 							<li class="<?php echo alternator('', 'even'); ?>">
-								<label for="name"><?php echo lang('shop:shipping:name') ; ?><span></span></label>
+								<label for="name"><?php echo lang('shop:common:name') ; ?><span></span></label>
 								<div class="input"><?php echo $shipping_method->name; ?></div>
 							</li>						
 							<li class="<?php echo alternator('', 'even'); ?>">
-								<label for="name"><?php echo lang('shop:shipping:label') ; ?> <span>*</span></label>
+								<label for="name"><?php echo lang('shop:common:label') ; ?> <span>*</span></label>
 								<div class="input"><?php echo form_input('title', set_value('name', $shipping_method->title), 'class="width-15"'); ?></div>
 							</li>
 						</ul>
@@ -37,7 +37,7 @@
 					<fieldset>
 						<ul>
 							<li class="<?php echo alternator('', 'even'); ?>">
-								<label for="desc"><?php echo lang('shop:shipping:description') ; ?><span>*</span></label>
+								<label for="desc"><?php echo lang('shop:common:description') ; ?><span>*</span></label>
 								<div class="input"><?php echo form_textarea('desc', set_value('desc', $shipping_method->desc), 'class="width-15"'); ?></div>
 							</li>
 						</ul>

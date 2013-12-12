@@ -47,7 +47,7 @@
     </table>
 
 
-<form method='post' action='{{url:site}}shop/checkout2/review'>
+<form method='post' action='{{url:site}}shop/checkout/review'>
     <fieldset>
             <div> 
                 <span style="float: right;">

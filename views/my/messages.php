@@ -13,10 +13,10 @@
 			<table>
 				<thead>
 					<tr>
-						<td><?php echo lang('id'); ?></td>
-						<td><?php echo lang('user_id'); ?></td>
-						<td><?php echo lang('order_id'); ?></td>
-						<td><?php echo lang('message'); ?></td>
+						<td><?php echo lang('shop:label:id'); ?></td>
+						<td><?php echo lang('shop:label:user_id'); ?></td>
+						<td><?php echo lang('shop:label:order_id'); ?></td>
+						<td><?php echo lang('shop:label:message'); ?></td>
 						<td></td>
 					</tr>
 				</thead>
@@ -27,7 +27,7 @@
 						<td>{{order_id}}</td>
 						<td>{{message}}</td>
 						<td>{{user_id}}</td>
-						<td><a href="{{ url:site }}shop/my/order/{{order_id}}" class="button">View order</a></td>
+						<td><a href="{{ url:site }}shop/my/orders/order/{{order_id}}" class="button">View order</a></td>
 					</tr>
 					{{/messages}}
 				</tbody>

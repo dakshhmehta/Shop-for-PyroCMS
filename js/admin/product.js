@@ -1,45 +1,4 @@
 /*
- * Mode 'set' to set an image, 'clear' to clear the cover
- * @param INT       i     product id
- * @param char(15)  iid   image id 
- */
-function set_cover(iid, mode)
-{
-
-	if(mode === undefined)
-		mode = 'set';
-
-	if(mode === null)
-		mode = 'set';
-
-
-    pid = $('#btn_add_images').attr('pid');
-     
-	$.post('shop/admin/products/cover_image', { id:pid ,file_id:iid } )
-	
-    .done(function(data) 
-    {			
-        var obj = jQuery.parseJSON(data);
-        if (obj.status == 'success') 
-        {
-        
-            if(mode=='set')
-                $("#prod_cover").attr("src", obj.src);
-            else
-                $("#prod_cover").attr("src", '');
- 
-        }
-        else
-        {
-     
-        }
-       
-    });
-
-}
-
-
-/*
  * This changes the visibility
  *
  */
@@ -192,16 +151,12 @@ jQuery(function($){
 		    }
 
 
-
-            
 			return false;
 		
 		});	
 
 
-		
 
-	   
 
 	});
 

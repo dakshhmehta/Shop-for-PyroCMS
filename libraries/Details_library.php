@@ -194,22 +194,6 @@ class Details_library
 		}
 
 
-		if($and_get_menu == 'packages')
-		{
-
-			if(group_has_role('shop', 'admin_checkout'))
-			{
-				$info['sections']['packages'] = array(
-				
-					'name' => 'shop:admin:packages', 
-					'uri' => 'admin/shop/packages',
-					'shortcuts' => array()
-				 	
-				);
-
-			}
-		}
-
 
 		if($and_get_menu == 'pgroups')
 		{
@@ -366,12 +350,7 @@ class Details_library
 
 
 
-		if (function_exists('group_has_role'))
-		{
-
-
-		}
-		else
+		if (!function_exists('group_has_role'))
 		{
 			return;
 		}
@@ -414,10 +393,6 @@ class Details_library
 			}
 			if(group_has_role('shop', 'admin_checkout'))
 			{
-				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:packages'] = 'admin/shop/packages';
-			}
-			if(group_has_role('shop', 'admin_checkout'))
-			{
 				$menu['lang:shop:admin:shop_admin']['lang:shop:admin:shipping'] = 'admin/shop/shipping';
 			}
 			if(group_has_role('shop', 'admin_checkout'))
@@ -452,24 +427,17 @@ class Details_library
 				'slug' => 			array('type' => 'VARCHAR', 'constraint' => '100', 'unique' => TRUE),
 				'name' => 			array('type' => 'VARCHAR', 'constraint' => '100'),
 				'code' => 			array('type' => 'VARCHAR', 'constraint' => '100', 'default' => ''), /* product code  */
-
 				'pgroup_id' => 		array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL), /*which associated product group*/
-				'category_id' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE),
-				'cover_id' => 		array('type' => 'CHAR', 'constraint' => 15, 'null' => TRUE, 'default' => NULL),
-				
+				'category_id' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE),				
 				'brand_id' => 		array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
-				'package_id' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
-				
 				'description' => 	array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),
-				//'short_desc' => 	array('type' => 'VARCHAR', 'constraint' => '255', 'default' => NULL), /*new*/
+
 				'keywords' => 		array('type' => 'VARCHAR', 'constraint' => '32', 'null' => TRUE, 'default' => NULL),
 				'meta_desc' => 		array('type' => 'VARCHAR', 'constraint' => '255', 'null' => TRUE, 'default' => NULL), /*seo short description*/
 				'related' => 		array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),
 				'user_data' => 		array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),
-				
 				'page_design_layout' => 	array('type' => "VARCHAR", 'constraint' => '75', 'default' => 'products_single'), //limit to files that are smaller than 75 char long
 				'req_shipping' => 	array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 1),  /* 1 is shippable item */
-				# default package ing data - not required but if enetered it is used.
 				'height' => array('type' => 'INT', 'constraint' => '5'	, 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL), /* KG - 100g = 0.001 */
 				'width' => array('type' => 'INT', 'constraint' => '5'	, 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL), /* KG - 100g = 0.001 */
 				'depth' => array('type' => 'INT', 'constraint' => '5'	, 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL), /* KG - 100g = 0.001 */
@@ -477,8 +445,6 @@ class Details_library
 
 				# Prices
 				'price' => 			array('type' => 'DECIMAL(10,2)', 'default' => 0), /* indexed at price for quick display */
-				'price_bt' => 		array('type' => 'DECIMAL(10,2)', 'default' => 0),
-				'price_at' => 		array('type' => 'DECIMAL(10,2)', 'default' => 0),
 				'price_base' => 	array('type' => 'DECIMAL(10,2)', 'null' => TRUE,  'default' => 0), /*for every aditional item added to cart*/
 				'rrp' => 			array('type' => 'DECIMAL(10,2)', 'null' => TRUE,  'default' => 0), /*always with tax, no need without - only for front end display, if price_at < rrp then show to custoemr */
 				'tax_id' => 		array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),	/*gst,nogst ect..*/
@@ -538,7 +504,6 @@ class Details_library
 				'name' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => TRUE, 'default' => NULL ),
 				'value' => array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),	  
 			),
-			
 			'shop_options' => array( 
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'name' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => TRUE, 'default' => NULL ),
@@ -548,7 +513,6 @@ class Details_library
 				'type' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => TRUE, 'default' => NULL ), /*null|select|checkbox|text|radio*/
 				'show_title' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'default' => 1 ),
 			),
-			
 			'shop_option_values' => array( 
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'shop_options_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE),
@@ -571,16 +535,16 @@ class Details_library
 			),
 			
 			'shop_images' => array(
-				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-				'file_id' => array('type' => 'CHAR', 'constraint' => 15),
-				'product_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE),
-				'restrain_size' => array('type' => "ENUM('no', 'yes_both','yes_height','yes_width')", 'default' => 'yes_width'),
-				'width' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
-				'height' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
-				'display' => array('type' => "ENUM('no', 'yes')", 'default' => 'yes'),
-				'order' => array('type' => 'INT', 'constraint' => '4', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 0), /* order todisplay - not needed for v1 */
-				'cover' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 0), /*is this the cover image */
-				'scope' => array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL), /* Products/Category/Brands*/
+				'id' => 		array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
+				'product_id' => array('type' => 'INT', 'constraint' => '11', 'null' => TRUE, 'unsigned' => TRUE),
+				'width' => 		array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
+				'height' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
+				'src' => 		array('type' => 'VARCHAR', 'constraint' => '500', 'null' => TRUE, 'default' => NULL ),
+				'alt' => 		array('type' => 'VARCHAR', 'constraint' => '500', 'null' => TRUE, 'default' => NULL ),
+				'order' => 		array('type' => 'INT', 'constraint' => '4', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 0), /* order todisplay - not needed for v1 */
+				'cover' => 		array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 0), /*is this the cover image */
+				'file_id' => 	array('type' => 'CHAR', 'constraint' => 15), 
+				'local' => 		array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE, 'null' => TRUE, 'default' => 1), /* Is this a locally stored image */
 			),
 			'shop_transactions' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
@@ -609,7 +573,7 @@ class Details_library
 				'shipping_address_id' => array('type' => "INT", 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0),
 				'session_id' => array('type' => 'VARCHAR', 'constraint' => '40', 'default' => '',),
 				'ip_address' => array('type' => 'VARCHAR', 'constraint' => '40', 'default' => '',),
-				'tracking_code' => array('type' => 'VARCHAR', 'constraint' => '110', 'default' => '',),
+				'pin' => array('type' => 'VARCHAR', 'constraint' => '20', 'default' => '',),
 				'data' => array('type' => 'VARCHAR', 'constraint' => '500', 'default' => '',),
 				'trust_core' => array('type' => 'INT', 'constraint' => '11'),
 				'order_date' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE,),
@@ -624,15 +588,16 @@ class Details_library
 				'cost_item' => array('type' => 'DECIMAL(10,2)', 'unsigned' => TRUE),
 				'cost_sub' => array('type' => 'DECIMAL(10,2)', 'unsigned' => TRUE),
 				'cost_base' => array('type' => 'DECIMAL(10,2)', 'unsigned' => TRUE),
-				
 			),
 			'shop_product_files' => array(
-				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-				'product_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE,),
-				'filename' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => TRUE, 'default' => NULL ), 
-				'type' => array('type' => 'VARCHAR', 'constraint' => '5', 'null' => TRUE, 'default' => NULL ), 	
-				'ext' => array('type' => 'VARCHAR', 'constraint' => '5', 'null' => TRUE, 'default' => NULL ), 								
-				'data' => array('type' => 'BLOB', 'null' => TRUE, 'default' => NULL), /*the file BINARY*/				
+				'id' => 			array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
+				'product_id' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE,),
+				'filename' => 		array('type' => 'VARCHAR', 'constraint' => '100', 'null' => TRUE, 'default' => NULL ), 
+				'type' => 			array('type' => 'VARCHAR', 'constraint' => '5', 'null' => TRUE, 'default' => NULL ), 	
+				'ext' => 			array('type' => 'VARCHAR', 'constraint' => '5', 'null' => TRUE, 'default' => NULL ), 					
+				'filesize' => 		array('type' => 'VARCHAR', 'constraint' => '5', 'null' => TRUE, 'default' => NULL ), 								
+				'data' => 			array('type' => 'LONGBLOB', 'null' => TRUE, 'default' => NULL), /*the file BINARY*/			
+				'date_added' => 	array('type' => 'DATETIME', 'null' => TRUE, 'default' => NULL), 		
 			),				
 			'shop_downloads' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
@@ -696,7 +661,6 @@ class Details_library
 				'base_cost' => array('type' => 'DECIMAL(10,2)', 'null' => TRUE,  'default' => 0),				
 				'date_changed' => array('type' => 'TIMESTAMP'),	 
 			),	
-			/*shipping,packages,gateways*/
 			'shop_gateways' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'title' => array('type' => 'VARCHAR', 'constraint' => '100'),
@@ -705,17 +669,7 @@ class Details_library
 				'enabled' => array('type' => 'INT', 'constraint' => '1', 'default' => 0),
 				'options' => array('type' => 'TEXT'),
 			),	
-			/*shipping,packages,gateways*/
 			'shop_shipping' => array(
-				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-				'title' => array('type' => 'VARCHAR', 'constraint' => '100'),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => '100'), 
-				'desc' => array('type' => 'TEXT'),
-				'enabled' => array('type' => 'INT', 'constraint' => '1', 'default' => 0),
-				'options' => array('type' => 'TEXT'),
-			),	
-			/*shipping,packages,gateways*/
-			'shop_packages' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'title' => array('type' => 'VARCHAR', 'constraint' => '100'),
 				'slug' => array('type' => 'VARCHAR', 'constraint' => '100'), 
@@ -739,7 +693,6 @@ class Details_library
 				'phone' => array('type' => 'VARCHAR', 'constraint' => '15'),
 				'deleted' => array('type' => 'INT', 'constraint' => '1', 'default' => 0),
 			),	
-			/*shipping,packages,gateways*/
 			'shop_countries' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'name' => array('type' => 'VARCHAR', 'constraint' => '150'),
@@ -750,7 +703,7 @@ class Details_library
 			'shop_wishlist' => array(
 				'user_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'key' => TRUE),
 				'product_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'key' => TRUE),				
-				'price_or' => array('type' => 'DECIMAL(10,2)', 'default' => 0), /*price at time of adding*/
+				'price' => array('type' => 'DECIMAL(10,2)', 'default' => 0), /*price at time of adding*/
 				'user_notified' => array('type' => 'INT', 'constraint' => '1', 'unsigned' => TRUE), /*has the user been notified about the price decrease*/
 				'date_added' => array('type' => 'TIMESTAMP'),
 			),		  
@@ -834,19 +787,7 @@ class Details_library
 				'is_gui' => TRUE, 
 				'module' => 'shop', 
 				'order' => 950
-			),	  
-			'ss_slogan' => array(
-				'title' => 'Shop Slogan', 
-				'description' => 'The slogan will be used in the Shops title pages. You may also use the plugin { Shop:slogan }',
-				'type' => 'text', 
-				'default' => '', 
-				'value' => '', 
-				'options' => '', 
-				'is_required' => FALSE,
-				'is_gui' => TRUE, 
-				'module' => 'shop', 
-				'order' => 940
-			),				  
+			),	  				  
 			'ss_currency_code' => array(
 				'title' => 'Shop Currency', 
 				'description' => 'Currency Code you will accept (ISO-4217 format, ex. AUD)',
@@ -921,8 +862,8 @@ class Details_library
 			),			 
 				
 			'ss_qty_perpage_limit' => array(
-				'title' => 'Products per page',
-				'description' => 'How many products show in category view (0 - general pagination settings will be used)',
+				'title' => 'Products per page (admin area)',
+				'description' => 'How many products show in list view ',
 				'type' => 'text', 
 				'default' => 20, 
 				'value' => '', 
@@ -933,8 +874,8 @@ class Details_library
 				'order' => 820
 			),
 			'ss_qty_perpage_limit_front' => array(
-				'title' => 'Products per page',
-				'description' => 'How many products show in list view (front end only)',
+				'title' => 'Products per page (public site)',
+				'description' => 'How many products show in list view ',
 				'type' => 'text', 
 				'default' => 10, 
 				'value' => '', 
@@ -979,31 +920,7 @@ class Details_library
 				'is_gui' => TRUE, 
 				'module' => 'shop', 
 				'order' => 760
-			),	 
-			'nc_menu_style' => array(
-				'title' => 'Admin Menu', 
-				'description' => 'Chose a view (Lite or Advanced)',
-				'type' => 'radio', 
-				'default' => 0, 
-				'value' => '', 
-				'options' => '1=Lite|0=Advanced', 
-				'is_required' => FALSE,
-				'is_gui' => TRUE, 
-				'module' => 'shop', 
-				'order' => 750
-			),   		
-			'nc_jq' => array(
-				'title' => 'Include jQuery for Checkout page',
-				'description' => 'The default checkout page requires jQuery - If you have it in your sites template you do not need to re-ad this library. Otherwise please leave it on.',
-				'type' => 'radio',
-				'default' => 1,
-				'value' => '',
-				'options' => '1=On|0=Off',
-				'is_required' => FALSE,
-				'is_gui' => TRUE,
-				'module' => 'shop',
-				'order' => 740
-				),		
+			),	 			
 			'shop_maps_api_key' => array(
 				'title' => 'Maps API Key', 
 				'description' => 'Your Bing Maps API key',
@@ -1099,7 +1016,6 @@ class Details_library
 	}
 
 
-
 	public function get_email_templates()
 	{
 
@@ -1137,6 +1053,24 @@ class Details_library
 				'is_default' => 1,
 				'module' => 'shop'
 			),
+			array(
+				'slug' => 'sf_guest_order_notification',
+				'name' => 'shop: Guest Lodged Order',
+				'description' => 'Email sent to user when order is submitted',
+				'subject' => '{{ settings:ss_name }} - Order has been submitted',
+				'body' => '<h1>You have successfully created an order with {{ settings:ss_name }}</h1>
+
+					<b>Email:</b> {{ email }}<br />
+					<b>Order ID:</b> {{ order_id }}<br />	
+					<b>PIN:</b> {{ pin }}<br />				
+					<b>Order Date:</b> {{ order_date }}<br />
+					<b>Order Total:</b> {{ cost_total }}<br />
+					<p><a href="{{ url:site }}shop/guest/">Login to your PIN, email and Order #</a> to </p>
+				',
+				'lang' => 'en',
+				'is_default' => 1,
+				'module' => 'shop'
+			),			
 			array(
 				'slug' => 'sf_admin_order_notification',
 				'name' => 'Shop: New order has been submitted',

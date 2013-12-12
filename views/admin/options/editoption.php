@@ -11,14 +11,16 @@
 
 							<!--- -->
 							<li>
-								<label><?php echo lang('shop:options:option_value'); ?></label>        
+								<label><?php echo lang('shop:common:value'); ?>
+								<small><?php echo lang('shop:options:value_description'); ?></small>
+								</label>        
 								<div class="input">         
 									<?php echo form_input('value',$value); ?>
 								</div>
 							</li>							
 							<li>
-								<label><?php echo lang('shop:options:option_label'); ?>
-								<small>The display text for each option</small>
+								<label><?php echo lang('shop:common:label'); ?>
+								<small><?php echo lang('shop:options:label_description'); ?></small>
 								</label>        
 								<div class="input">         
 									<?php echo form_input('label',$label); ?>
@@ -63,7 +65,7 @@
 							</li>							
 							<li>
 								<label for="default"><?php echo lang('shop:options:default'); ?> 
-									<span></span>
+									<span><?php echo lang('shop:options:default_description'); ?></span>
 								</label>
 								<div class="input">
 									<?php echo form_checkbox('default', $default ,$default ); ?>
@@ -84,7 +86,7 @@
 							</li>
 
 							<li>
-								<label for="user_data"><?php echo lang('shop:options:user_data'); ?>
+								<label for="user_data"><?php echo lang('shop:admin:user_data'); ?>
 									<span></span>
 									<small>
 										<?php echo lang('shop:options:user_data_description'); ?>
@@ -96,10 +98,10 @@
 							</li>								
 							<li>
 								<a href="admin/shop/options/ajax_edit_value/" data-id="<?php echo $id;?>" class="btn blue" id="btn_save_edit" >
-									<?php echo lang('shop:options:save'); ?>
+									<?php echo lang('shop:common:save'); ?>
 								</a>
 								<a href="#" data-id="<?php echo $id;?>" class="btn gray" id="btn_cancel_edit" >
-									<?php echo lang('shop:options:cancel'); ?>
+									<?php echo lang('shop:common:cancel'); ?>
 								</a>								
 							</li>							
 					</ul>	

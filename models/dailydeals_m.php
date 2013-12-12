@@ -42,7 +42,6 @@ class Dailydeals_m extends MY_model
 	{
 
 		$this->db->select('shop_dailydeals.*');
-		$this->db->select('prod.cover_id as cover_id');	
 		$this->db->select('prod.name as name');	
 		$this->db->select('prod.slug as slug');	
 		$this->db->select('prod.price as price');	

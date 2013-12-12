@@ -127,7 +127,7 @@ class Payment extends Public_Controller
         // Display the gatwway page with their own option (if they have any)
         //
         $this->template
-            ->title($this->module_details['name'], lang('shop:payments:customer'))
+            ->title($this->module_details['name'], lang('shop:label:customer'))
             ->build($view_file, $data);
 
 
@@ -359,7 +359,7 @@ class Payment extends Public_Controller
 	
 		// display success message
 		$this->template
-				->title($this->module_details['name'], lang('shop:payments:customer') )
+				->title($this->module_details['name'], lang('shop:label:customer') )
 				->build('checkout/success');
 	}
 	

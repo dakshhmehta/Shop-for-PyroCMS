@@ -2,12 +2,12 @@
 				<table>
 					<thead>
 						<tr>
-							<th><?php echo lang('shop:orders:image'); ?></th>
-							<th><?php echo lang('shop:orders:item'); ?></th>
+							<th><?php echo lang('shop:common:image'); ?></th>
+							<th><?php echo lang('shop:common:item'); ?></th>
 							<th><?php echo lang('shop:orders:item_code' ,'item_'); ?></th>
 							<th><?php echo lang('shop:orders:price_base', 'price_'); ?></th>
 							<th><?php echo lang('shop:orders:qty'); ?></th>
-							<th><?php echo lang('shop:orders:price'); ?></th>
+							<th><?php echo lang('shop:common:price'); ?></th>
 							<th><?php echo lang('shop:orders:subtotal'); ?></th>
 						</tr>
 					</thead>
@@ -15,7 +15,7 @@
 						<?php foreach ($contents as $item): ?>
 							<tr>
 								<td><?php echo img(site_url('files/thumb/' . $item->cover_id)); ?></td>
-								<td><?php echo anchor('shop/product/' . $item->slug, $item->name, array('class'=>'nc_links')); ?>
+								<td><?php echo anchor('shop/products/product/' . $item->slug, $item->name, array('class'=>'nc_links')); ?>
 								<br /><br />
 									<?php 
 										

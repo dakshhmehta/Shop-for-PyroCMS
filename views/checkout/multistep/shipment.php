@@ -1,6 +1,6 @@
 <h2 id="page_title">Select Shipping options</h2>
 
-<form action="{{url:site}}shop/checkout2/shipment" method="POST" name="">
+<form action="{{url:site}}shop/checkout/shipment" method="POST" name="">
 
     <fieldset>
         <table>

@@ -28,7 +28,6 @@ require_once('products_m.php');
 class Products_admin_m extends Products_m
 {
 
-	
 
 	public function __construct() 
 	{
@@ -88,8 +87,6 @@ class Products_admin_m extends Products_m
 				'slug' => $new_slug,
 				'keywords' => '',
 				'price' => $input['price'] ,
-				'price_bt' =>  $input['price'], /*price_bt is deprecated*/ 
-				'price_at' => $input['price'] , /*price_at is deprecated*/ 
 				'price_base' => $input['price_base'], // $input['price_base'],
 				'rrp' => 0.00, 
 				'tax_id' => $input['tax_id'],
@@ -97,8 +94,7 @@ class Products_admin_m extends Products_m
 				'pgroup_id' => NULL,
 				'status' => 0,
 				'category_id' => 0,
-				'brand_id' => NULL,
-				'package_id' => NULL,			
+				'brand_id' => NULL,			
 				'created_by' => $this->current_user->id,
 				'inventory_low_qty' => 5,
 				'inventory_on_hand' => 0,
@@ -248,23 +244,18 @@ class Products_admin_m extends Products_m
 				'user_data' => $product->user_data,
 				'slug' => $new_slug,
 				'keywords' => $product->keywords,
-				'price' => $product->price,
-				'price_bt' => $product->price_bt,
-				'price_at' => $product->price_at, 			
+				'price' => $product->price,			
 				'price_base' => $product->price_base,
 				'tax_id' => $product->tax_id,
 				'rrp' => $product->rrp,
 				'tax_dir' => $product->tax_dir,
 				'pgroup_id' => $product->pgroup_id,
 
-
-				'cover_id' => $product->cover_id,
 				'status' => $product->status,
 				'category_id' => $product->category_id,
 				'brand_id' => $product->brand_id,
 
 				//shipping
-				'package_id' => $product->package_id,
 				'height' => $product->height,
 				'width' => $product->width,
 				'depth' => $product->depth,
@@ -323,10 +314,13 @@ class Products_admin_m extends Products_m
 	
 		return $this->update($product_id, array('date_archived' => date("Y-m-d H:i:s") ) );
 	
-		
 	}
 
 
+	/**
+	 * This is used in the shop/admin/manage/ to reset the view counter. 
+	 * @return [type] [description]
+	 */
 	public function reset_views()
 	{
 		$data = array('views' => 0);
@@ -394,8 +388,6 @@ class Products_admin_m extends Products_m
 			case 'searchable':
 			case 'name':
 			case 'price':		
-			case 'price_bt':
-			case 'price_at':
 			case 'price_base':
 			case 'rrp':
 			case 'tax_id':
@@ -407,7 +399,6 @@ class Products_admin_m extends Products_m
 				break;
 
 			case 'brand_id':
-			case 'package_id':
 			case 'pgroup_id':
 				$out = ($value=='')?NULL:$value;
 				$pass = TRUE;	
@@ -425,61 +416,7 @@ class Products_admin_m extends Products_m
 	}
 
 
-
-	/**
-	 * Admin function
-	 * @param  [type] $file_id    [description]
-	 * @param  [type] $product_id [description]
-	 * @return [type]             [description]
-	 */
-	public function remove_image($file_id,$product_id) 
-	{
-
-		$this->update($product_id, array('date_updated' => date("Y-m-d H:i:s") ) );
-		
-
-		return $this->db->where('file_id',$file_id)->where('product_id',$product_id)->delete('shop_images');
-	}
 	
-	
-	/**
-	 * Shared
-	 * @param INT $id Product ID
-	 * @return unknown
-	 */
-	public function get_images($id) 
-	{
-		return $this->db->where('product_id',$id)->get('shop_images')->result(); 
-	}
-	
-
-	
-	/**`
-	 * Add image to gallery`
-	 */
-	public function add_image($image_id, $product_id)
-	{
-		
-		$to_insert = array(
-				'file_id' => $image_id,
-				'product_id' => $product_id,
-				'restrain_size' => 2,
-				'width' => 0,
-				'height' => 0,
-				'display' => 1,
-				'order' => 10, //will implement the ordering in later version
-				'cover' => 0,
-
-		);
-	
-		$this->update($product_id, array('date_updated' => date("Y-m-d H:i:s") ) );
-
-		return $this->db->insert('shop_images',$to_insert); //returns id
-	
-	}
-
-
-
 	
 	protected function filter_category_list($filter = array())
 	{
@@ -625,7 +562,7 @@ class Products_admin_m extends Products_m
 	{
 
 
-		$this->db->select('shop_products.id, shop_products.name, shop_products.cover_id,shop_products.category_id')
+		$this->db->select('shop_products.id, shop_products.name, shop_products.category_id')
 				->where('shop_products.date_archived', NULL)	
 				->where('shop_products.searchable',1);
 

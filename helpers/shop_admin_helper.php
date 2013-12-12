@@ -38,6 +38,26 @@ if (!function_exists('fraud_method'))
 
 }
 
+if (!function_exists('hlp_product_cover')) 
+{
+	function hlp_product_cover($product_id = -1) 
+	{
+
+		$ci =& get_instance();
+		
+		$ci->load->model('shop/images_m');
+
+		$img = $ci->images_m->where('cover',1)->where('product_id',$product_id)->limit(1)->get_all();
+		
+		if(count($img))
+			return $img[0];	
+
+		return NULL;
+	}
+
+}
+
+
 if (!function_exists('orderby_helper')) 
 {
   	//move to helpers

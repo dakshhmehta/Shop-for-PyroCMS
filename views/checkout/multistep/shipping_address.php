@@ -1,7 +1,7 @@
 <h2>Shipping address</h2>
 
         {{if addresses}}
-            <form name="form1" action="{{url:site}}shop/checkout2/shipping/" method="POST">
+            <form name="form1" action="{{url:site}}shop/checkout/shipping/" method="POST">
                 <input type='hidden' value='existing' name='selection'>
                 <fieldset>
                     <h2>Select an existing address</h2>
@@ -36,7 +36,7 @@
         {{endif}}
 
 <hr />
-<form name="form2" action="{{url:site}}shop/checkout2/shipping/" method="POST">
+<form name="form2" action="{{url:site}}shop/checkout/shipping/" method="POST">
     <input type='hidden' value='new' name='selection'>
     <fieldset>
         <h2>New Address</h2>

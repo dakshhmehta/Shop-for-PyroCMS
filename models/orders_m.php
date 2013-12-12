@@ -79,7 +79,8 @@ class Orders_m extends MY_Model
 				'shipping_address_id' => $inputs['shipping_address_id'],
 				'session_id' => $inputs['session_id'], 
 				'ip_address' => $inputs['ip_address'],	
-				'trust_score' => $inputs['trust_score'],			
+				'trust_score' => $inputs['trust_score'],	
+				'pin' => $inputs['pin'],		
 				'order_date' => time(),
 		));
 	
@@ -399,9 +400,45 @@ class Orders_m extends MY_Model
 		return (count($items) > 0)? TRUE : FALSE ;
 	}
 	
-	public function get_user_data($user_id) 
+	/**
+	 * Get the information from a users profile, if guest return an pre-defined array merged with the contact info.
+	 *
+	 * 
+	 * @param  [type] $user_id         [description]
+	 * @param  array  $billing_address This is only used for guest customers. Some of the data is used to populate info
+	 * @return [type]                  [description]
+	 */
+	public function get_user_data($user_id, $billing_address = array() ) 
 	{
-		return $this->db->where('user_id', $user_id)->get('profiles')->row();
+
+		if($user_id == 0)
+		{
+			$guest = new stdClass();
+
+			  $guest->id = 0;
+			  $guest->created = 0;
+			  $guest->updated = 0;
+			  $guest->created_by = 0;
+			  $guest->ordering_count = 0;
+			  $guest->user_id = 0;
+			  $guest->display_name = $billing_address->first_name;
+			  $guest->first_name  = $billing_address->first_name;
+			  $guest->last_name = $billing_address->last_name;
+			  $guest->bio = '';
+			  $guest->dob = '';
+			  $guest->gender = NULL;
+			  $guest->updated_on = NULL;
+			  $guest->is_guest = TRUE;
+
+			  return $guest;
+		}
+
+		// Else
+		$profile =  $this->db->where('user_id', $user_id)->get('profiles')->row();
+
+		$profile->is_guest = FALSE;
+
+		return $profile;
 		
 	}
 }

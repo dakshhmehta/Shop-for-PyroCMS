@@ -63,26 +63,31 @@ class Products_library
 		$response['status'] = JSONStatus::Error;
 
 
-		if($this->CI->input->post('id') ) 
+		if($this->CI->input->post('prod_id') ) 
 		{
 
-
-			$id = intval( $this->CI->input->post('id'));
+			$prod_id = intval( $this->CI->input->post('prod_id'));
 			
-
-			$file_id =  $this->CI->input->post('file_id') ;
+			$img_id =  $this->CI->input->post('img_id') ;
 			
+			// Step: remove all default/cover flags for this product (should only be 1)
+			$data = array('cover' => 0);
+			if ( $this->CI->db->where('product_id',$prod_id)->update('shop_images',$data)  ) 
+			{
+				// Step: set the flag to this one
+				$data = array('cover' => 1);
+				if ($this->CI->db->where('id',$img_id)->where('product_id',$prod_id)->update('shop_images',$data)  ) 
+				{	
+					$_img_ = $this->CI->db->where('id',$img_id)->get('shop_images')->row();
 
-			$resp = site_url().'files/thumb/'.$file_id.'/100/100';
+					$src = $_img_->src;
 
-
-			if ($this->CI->products_admin_m->update_property($id, 'cover_id', $file_id ) ) 
-			{	
-				$response['status'] = JSONStatus::Success;
-				$response['src'] = $resp;
-				
-				Events::trigger('evt_product_changed', $id);
-			} 
+					$response['status'] = JSONStatus::Success;
+					$response['src'] = $src;
+					
+					Events::trigger('evt_product_changed', $prod_id);
+				} 
+			}
 
 
 		}
@@ -193,7 +198,6 @@ class Products_library
 		
 		$results['country_id'] = $this->CI->settings->get('ss_distribution_loc');
 		$results['shop_name'] = $this->CI->settings->get('ss_name');
-		$results['shop_slogan'] = $this->CI->settings->get('ss_slogan');
 		$results['currency_code'] = $this->CI->settings->get('ss_currency_code');
 		
 		$shopset = $this->CI->settings_m->get_by(array('slug' => 'ss_currency_symbol'));
@@ -274,5 +278,31 @@ class Products_library
 		return $results;
 
 	}
+	
+	public function build_requires_shipping_select($params) 
+	{
+		 
+		$params = array_merge(array('current_id' => 0), $params);
+		
+		extract($params);
+		
+
+		$rs = array(	
+							0 	=> 'No'  , 
+							1 	=> 'Yes'
+						);
+		
+		$html = '';
+
+		foreach ($rs as $key=>$value) 
+		{
+			$html .= '<option value="' . $key . '"';
+			$html .= $current_id == $key ? ' selected="selected">' : '>';
+			$html .= $value . '</option>';
+		}
+		
+	
+		return $html;
+	}	
 }
 // END Cart Class

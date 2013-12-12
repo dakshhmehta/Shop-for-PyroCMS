@@ -25,7 +25,7 @@
 							</td>		
 
 							<td>
-								<?php echo anchor('shop/product/'.$product->slug,$product->name, 'target="_blank" class="category"'); ?>
+								<?php echo anchor('shop/products/product/'.$product->slug,$product->name, 'target="_blank" class="category"'); ?>
 							</td>
 
 

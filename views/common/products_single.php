@@ -34,6 +34,23 @@
 				<meta itemprop="priceCurrency" content="{{shop:currency}}" />
 			</div>
 
+			<div class=''>
+				<ul>
+					{{ shop:images id="{{product:id}}" }}
+						<li>
+							{{if local}}
+									<a href="#">
+										<img src="{{ url:site }}files/thumb/{{file_id}}/100/100/" alt="" />
+									</a>	
+							{{else}}
+									<a href="#">
+										<img src="{{ src }}" alt="" height="100" width="100" />
+									</a>	
+							{{endif}}
+						</li>
+					{{/shop:images}}
+				</ul>
+			</div>
 
 
 			{{ shop:options id="{{product.id}}"  txtBoxClass="txtForms" }}	

@@ -40,7 +40,7 @@ class Guest extends Public_Controller
 		}
 
 
-		$this->template->set_breadcrumb(lang('shop'), 'shop');
+		$this->template->set_breadcrumb(lang('shop:label:shop'), 'shop');
 		
 	}
 	
@@ -57,15 +57,15 @@ class Guest extends Public_Controller
 		if($this->input->post())
 		{
 			$input = $this->input->post();
-			$this->order($input['guest_order_id'], $input['guest_email']);
+			$this->order( $input['guest_order_id'], $input['guest_email'],  $input['guest_pin']);
 		}
 		else
 		{
 
 
 			$this->template
-					->set_breadcrumb(lang('my'))
-					->title($this->module_details['name'].' | '.lang('dashboard'))
+					->set_breadcrumb(lang('shop:guest:guest'))
+					->title($this->module_details['name'].' | '.lang('shop:guest:dashboard'))
 					->build('guest/dashboard');
 		}
 	}
@@ -78,7 +78,7 @@ class Guest extends Public_Controller
 	 * TODO:This will need some changing to make it unique
 	 * @param unknown_type $id
 	 */
-	public function order($order_id,$email) 
+	public function order($order_id,$email,$pin) 
 	{
 		 
 		// after viewing the order mark all messages to READ
@@ -87,9 +87,17 @@ class Guest extends Public_Controller
 	
 	
 		$data->order = $this->orders_m->where('user_id', 0)->get($order_id);
+
+
+		if (!$data->order ) 
+		{
+			$this->session->set_flashdata('error', 'There are no orders for this Email');
+			redirect('shop/guest');
+		}
+
+
 		$billing_address = $this->orders_m->get_address($data->order->billing_address_id);
-
-
+	
 
 		if($billing_address->email != $email)
 		{
@@ -97,12 +105,14 @@ class Guest extends Public_Controller
 		}
 
 
-		if (!$data->order ) 
+
+		if ($data->order->pin != $pin ) 
 		{
-			$this->session->set_flashdata('error', 'There are no orders for this Email');
-			redirect('shop/guest/orders');
+			$this->session->set_flashdata('error', 'You have entered the wrong OrderID and PIN combination');
+			redirect('shop/guest');
 		}
-	
+
+
 
 		// Send Message Mail to admin
 		if ($this->input->post('message')) 

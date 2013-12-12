@@ -33,7 +33,7 @@ class Module_Shop extends Module
 	 * 
 	 * @var string
 	 */
-	public $version = '1.0.0.135';  
+	public $version = '1.0.0.142';  
 
 
 
@@ -208,8 +208,44 @@ class Module_Shop extends Module
 		 
 		switch ($old_version) 
 		{
+
+			case '1.0.0.141':				
+			case '1.0.0.140':	
+			case '1.0.0.139':					
+			//case '1.0.0.138':		//this was never a dev-release number			
+			case '1.0.0.137':					
+			case '1.0.0.136':
+				//image field - cover_id migration
+				$this->load->library('shop/images_library');
+				if($this->images_library->migrate2())
+				{
+					$this->_remove_table_col('shop_products','cover_id');
+					return TRUE;
+				}
+				return FALSE;
+			case '1.0.0.135':
+				$this->load->library('shop/images_library');
+
+				$this->_remove_table_col('shop_images','restrain_size');
+				$this->_remove_table_col('shop_images','scope');
+				$this->_remove_table_col('shop_images','display');
+				$this->_install_table_col('shop_images','src');
+				$this->_install_table_col('shop_images','alt');
+				$this->_install_table_col('shop_images','local');
+
+
+				//only remove the col once the migration was successfull
+				if($this->images_library->migrate1())
+				{
+					return TRUE;
+				}
+
+				return FALSE;
 			
-			case '1.0.0.132':			
+				break;				
+			case '1.0.0.133':	
+				//$this->_remove_table_col('shop_orders','tracking_code');
+				$this->_install_table_col('shop_orders','pin');
 				$this->_install_table('shop_product_files');
 				$this->_install_table('shop_downloads');
 				$this->_install_table_col('shop_products','req_shipping');
@@ -251,7 +287,7 @@ class Module_Shop extends Module
 	{
 		
 		//first drop the col if exist
-		$this->dbforge->drop_column($table_name, $col_name);
+		//$this->dbforge->drop_column($table_name, $col_name);
 
  		$_table = $this->details_library->get_tables($table_name);
 
@@ -262,6 +298,11 @@ class Module_Shop extends Module
 		
 	}
 
+	private function _remove_table_col($table_name,$col_name)
+	{	
+		$this->dbforge->drop_column($table_name, $col_name);
+		return TRUE;
+	}
 
 	/**
 	 * Upgrades 103 -> 104

@@ -19,7 +19,7 @@
 <fieldset>	
 	<ul>
 		<li class="<?php echo alternator('', 'even'); ?>">
-			<label for=""><?php echo lang('shop:products:description'); ?><span></span>
+			<label for=""><?php echo lang('shop:common:description'); ?><span></span>
 				<small>
 				 <?php echo lang('shop:products:description_description'); ?>
 				</small>

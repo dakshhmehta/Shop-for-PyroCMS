@@ -1,6 +1,6 @@
 <h2 id="page_title">Select payment method</h2>
 
-<form action="{{url:site}}shop/checkout2/gateway" method="POST" name="form_gateways">
+<form action="{{url:site}}shop/checkout/gateway" method="POST" name="form_gateways">
 
     <fieldset>
         <ul>

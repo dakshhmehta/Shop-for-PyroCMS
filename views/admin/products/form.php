@@ -4,8 +4,7 @@
 
 
 <section class="title">
-	<h4> <?php echo lang('shop:products:method_'. $this->method, 'method_') . " <strong> <span id='title_product_name'> " .$name ."</span></strong> ( ". $id  . ")"; ?>  </h4>
-	
+	<h4> <?php echo lang('shop:common:'. $this->method) . " <strong> <span id='title_product_name'> " .$name ."</span></strong> ( ". $id  . ")"; ?>  </h4>
 </section>
 
 <section class="item">
@@ -18,17 +17,13 @@
 
 			<div id="cover_container" class="input">
 				<?php 
-				if ( $cover_id == NULL )
-				{
-					$src = ''; /*put no image here*/
-				}
-				else
-				{
-					$src = site_url()."files/thumb/" . $cover_id . "/100";
-				}
-				
-				echo "<div class='container'><img id='prod_cover' src='".$src."'>"; 
-				echo "<a href='javascript:set_cover(0, 0)'  class='img_icon img_delete gall_cover2'></a></div>";
+
+				$c_image = hlp_product_cover($id);
+
+				$src = ( $c_image == NULL )? '' : $c_image->src ;
+
+				echo "<div class='container'><img id='prod_cover' src='".$src."' height='100' width='100'>"; 
+				echo "</div>";
 				?>
 			</div> 
 

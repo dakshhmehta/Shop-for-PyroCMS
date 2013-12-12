@@ -25,21 +25,17 @@
  */
 
 include_once( dirname(__FILE__) . '/'. 'twoducks_base.php');
+include_once( dirname(__FILE__) . '/'. 'twoducks_packages.php');
 
 class Twoducks_ShippingMethod extends Twoducks_base
 {
 
-	public $name = 'Two Ducks Custom Shipping'; 
-	public $title =  'Two Ducks Custom Shipping'; 
+	public $name =  'Two Ducks Custom Shipping'; 
 	public $desc = 'Australia wide - Shipping';
 	public $author = 'inspiredgroup.com.au';
 	public $website = 'http://inspiredgroup.com.au';
 	public $version = '1.0';
 	public $image = '';
-
-	public $_shipping = 0;
-	public $_handling = 0;
-	public $_discount = 0;
 
 
 	public $fields = array(	
@@ -69,241 +65,141 @@ class Twoducks_ShippingMethod extends Twoducks_base
 	public function __construct() 
 	{
 		parent::__construct();
+
 	}
 
-	
-	public function form($options) { return $options; }
 
-	public function run($options)  { return $options; }
-
-
-
-	public function calc($options, $packages, $from_address = array(), $to_address = array() )
+	public function calc($options, $items, $from_address = array(), $to_address = array() )
 	{
 
 
-		$this->add('Start calc for:' . $this->title);
+		$this->package_list = new twoducks_packages();
 
 		$cost = 0;
-		$handling = 0;
-		$discount = 0;
 
 		$shippable_item_count = 0; //if no shiipable items - return free shpping
 
-		foreach ($packages as $package)
+		foreach ($items as $item)
 		{	
 
-
-			//
-			// Remove any unnessesary items from package,
-			// items that do not require shipping
-			//
-			$this->prepare_package($package);
+			$shippable_item_count++;
 
 
-			//
-			// If no items left in package - do not send it (do not calc)
-			//
-			if(!$package->item_count)
+			if( ($item['ignor_shipping']==1) OR ($item['ignor_shipping']=='1') )
 			{
-				continue;
+				continue; //do not calc this product
 			}
 
-			
-			$shippable_item_count += $package->item_count;
 
-
-
-
-			//var_dump($package);
-			//default calculation method
-			$func = 'calc_cards';
-
-			switch ($package->title) 
+			switch ($item['user_data']) 
 			{
 
-
 				case 'cards':
-					$func = 'calc_cards';
+					$this->package_list->add($item, 'cards' , 'calc_cards');
 					break;
-
 
 				case 'invitations':
-					$func = 'calc_invitations';
+					$this->package_list->add($item, 'invitations' , 'calc_invitations');
 					break;	
-
 
 				case 'invitation-pack':
-					$func = 'calc_invitation_pack';
+					$this->package_list->add($item, 'invitation-pack' , 'calc_invitation_pack');	
 					break;	
 
-
 				case 'tags':
-					$func = 'calc_tags';
+					$this->package_list->add($item, 'tags' , 'calc_tags');					
 					break;
 
-
-
 				case 'birth':
-					$func = 'calc_birth';
+					$this->package_list->add($item, 'birth' , 'calc_birth');		
 					break;
 
 				case 'personalized-xmas-postcards':
-					$func = 'calc_pxmascards';
+					$this->package_list->add($item, 'personalized-xmas-postcards' , 'calc_pxmascards');							
 					break;
-					
-				case 'name-charts':
-					$func = 'calc_name_charts';
-					break;
-
 
 				case 'posters':
-					$func = 'calc_posters';
+					$this->package_list->add($item, 'posters' , 'calc_posters');
 					break;
-
 
 				case 'flash-cards':
-					$func = 'calc_flash_cards';
+					$this->package_list->add($item, 'flash-cards' , 'calc_flash_cards');
 					break;
 
-					
 				case 'calandar':
-					$func = 'calc_calandar';
+					$this->package_list->add($item, 'calandar' , 'calc_calandar');
 					break;
-
 
 				case 'prints':
-					$func = 'calc_prints';
+					$this->package_list->add($item, 'prints' , 'calc_prints');					
 					break;
 
 				case 'gift-wrap':
-					$func = 'calc_gift_wrap';
+					$this->package_list->add($item, 'gift-wrap' , 'calc_gift_wrap');						
 					break;
-					
 
-				case 'free-shipping':
+				case 'name-charts':
+					$this->package_list->add($item,'name-charts', 'calc_name_charts');						
+					break;
+
 				default:
-					$func = 'calc_default';
 					break;
 
 			}
 
 			
-
-			//now we have the calc method, go there and calc
-			$cost += $this->$func($package);
-
 		}
 
 
-	
-		//
-		// trim shipping does 1 of 2 things.
-		// It will round up if shipping is too low,
-		// or round down if shipping is too high
-		//
+		//Do some Pre calc on the packages + items
+		$cost += $this->calc_package($this->package_list->packages, 'pre');
+
+
+		// trim shipping does 1 of 2 things. It will round up if shipping is too low,or round down if shipping is too high
 		$this->trim_shipping($cost, $options, $shippable_item_count);
 
 
-		//now we add on the framed charts as they do not reuire trimming
-		foreach ($packages as $package)
-		{	
-			if($package->title == 'name-charts')
-			{
+		// Calc items that must be added after trim shipping
+		$cost += $this->calc_package($this->package_list->packages, 'post');
+		
 
-				$cost += $this->calc_framed_name_charts($package);
-			}
-
-		}
-
+		//add handling - if required
 		$this->add_handling_charge($cost,$options);
 
 
-		$this->add('shippable count: ' .$shippable_item_count);
-		//echo $this->show();
-		//die;
-
-
-	 
-
-		return array($this->id,$this->title,$this->desc, $cost, 0, 0); // == $0 total
+	 	//return the cost
+		return $cost; 
 
 	}
-
 
 
 	/**
+	 * Calc the packages
 	 * 
-	 * Remove items that do not require shipping
-	 *
-	 *
-	 * 
-	 * @param  [type] $package [description]
-	 * @return [type]          [description]
+	 * @param  [type] $packages List of packages
+	 * @param  string $mode     Filter, select the package group to calc
+	 * @return [type]           The cost of the shipping for the selected packages
 	 */
-	private function prepare_package(&$package)
+	private function calc_package($packages, $mode = 'pre')
 	{
+		$cost = 0;
 
-
-		//$count = 0;
-		foreach($package->items as $key => $val)
+		foreach($packages as $package)
 		{
-			//$count++;
-
-			
-			//var_dump($val);
-
-			
-			//if($count >= 2)
-			
-
-	
-			if( ($val['ignor_shipping']==1) OR ($val['ignor_shipping']=='1') )
+			if($package['calc-mode'] == $mode)
 			{
+				//get the function name
+				$func = $package['function'];
 
-
-				$package->item_count = ($package->item_count - 1);
-				unset($package->items[$key]);
-				continue;
+				//now we have the calc method, go there and calc
+				$cost += $this->$func($package);	
 				
-			}
-		
+			}		
+		}	
 
-			/*
-			if(isset($package->items[$key]['options']['delivery-type-inv']))
-			{
+		return $cost;
 
-				if($package->items[$key]['options']['delivery-type-inv']['value'] == 'digital')
-				{
-					// Remove from package
-					unset($package->items[$key]);
-					continue;
-					
-				}
-			}
-
-			if(isset($package->items[$key]['options']['delivery-type-birth']))
-			{
-				
-
-				if($package->items[$key]['options']['delivery-type-birth']['value'] == 'digital')
-				{
-					// Remove from package
-					unset($package->items[$key]);
-					continue;
-					
-				}
-			}
-			*/
-
-
-		}
-	
 	}
-
-
-
-
 
 
 	/**
@@ -327,13 +223,6 @@ class Twoducks_ShippingMethod extends Twoducks_base
 			$max_shipping = $options['shipping_max'];
 
 
-			$this->add( "Before Trim:" . $cost   );
-
-			//
-			// Add handling
-			//
-			//$cost += $handling;
-
 			//check min
 			$cost = ($cost < $min_shipping)?  $min_shipping : $cost ;
 
@@ -343,21 +232,21 @@ class Twoducks_ShippingMethod extends Twoducks_base
 				$cost =  ($cost > $max_shipping)?  $max_shipping : $cost ; 
 			}
 
-			$this->add( "After Trim:" . $cost   );
 
 		}
 
 	}
 
+
+	/**
+	 * If the cost of shipping is above 25 then do NOT apply shipping
+	 * Otherwise add the handling dictated in the Shipping Options
+	 * @param [type] $cost    [description]
+	 * @param [type] $options [description]
+	 */
 	private function add_handling_charge(&$cost,$options)
 	{
 		$handling = $options['handling'];
-
-
-		if($cost == 0)
-		{
-			$cost = 0;
-		}
 
 		if($cost > 25.00)
 		{

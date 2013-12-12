@@ -204,7 +204,6 @@ class Events_Shop
 		$this->ci->load->library('shop/SFCart');
 		
 		//Lang
-		$this->ci->lang->load('shop/shop_front');  
 		$this->ci->lang->load('shop/shop');  
 
 
@@ -220,10 +219,7 @@ class Events_Shop
 
 		// Lang
 		$this->ci->lang->load('shop/shop_admin');
-
-
-
-
+		$this->ci->lang->load('shop/shop');
 
 	}
 
