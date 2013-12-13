@@ -47,7 +47,7 @@
 					<?php echo $row->price; ?>
 				</span>
 				<?php if(!empty($row->options)): ?>
-				<span class="options"><?php echo lang('other_type'); ?></span>
+				<span class="options"><?php echo lang('shop:label:options_type'); ?></span>
 				<?php endif; ?>
 				<button class="_addcart" product-value="<?php echo $row->id; ?>"><?php echo lang('shop:label:add'); ?></button>
 			</span>

@@ -85,6 +85,7 @@ $lang['shop:label:featured']							=	'Featured Products';
 $lang['shop:label:recent']							    =	'Recent Products';
 $lang['shop:label:bestsellers']							=	'Best Sellers';
 $lang['shop:label:inprogress']							=	'In progress ...';
+$lang['shop:label:options_type']						=	'Other type';
 
 
 // Messages
