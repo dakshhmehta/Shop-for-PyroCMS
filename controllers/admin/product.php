@@ -305,6 +305,13 @@ class Product extends Products_admin_Controller
 			$data->folders = $this->get_folders();
 		}
 
+	
+		if($panel =='attributes')
+		{
+			$this->load->model('product_attributes_m');
+			$data->properties_array = $this->product_attributes_m->get_by_product($data->id);  
+		}
+
 		if($panel =='options')
 		{
 			$this->load->model('options_product_m');

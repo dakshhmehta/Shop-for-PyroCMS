@@ -950,7 +950,22 @@ class Plugin_Shop extends Plugin
 	}
 	
 	
+	function attributes() 
+	{
 	
+		// Get the prod-id
+		$product_id = $this->attribute( 'id', NULL ); // product ID - 
+		
+		$ci =& get_instance();
+		$ci->load->model('product_attributes_m');
+		
+		$attr = $ci->product_attributes_m->get_by_product( $product_id ); 
+		
+		return $attr;
+
+	}	
+
+
 	/**
 	 *
 	 */

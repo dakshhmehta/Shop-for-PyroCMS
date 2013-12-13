@@ -114,26 +114,11 @@ class Product_attributes_m extends MY_Model
 	/**
 	 * This Gets all attributes to the assigned product(id) that is passing in.
 	 *
-	 *This is replacing get_product_attributes(id)
 	 */
 	public function get_by_product($id) 
 	{
 
 		return $this->where('prod_id',$id)->get_all(); 
-		
-	}
-	
-
-	/**
-	 *
-	 *
-	 * @deprecated
-	 * @see get_by_product(id)
-	 */
-	public function get_product_attributes($id) 
-	{
-
-		return $this->db->where('prod_id',$id)->get('shop_attributes')->result(); 
 		
 	}
 	
