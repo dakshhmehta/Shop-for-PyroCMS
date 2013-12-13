@@ -80,6 +80,11 @@ $lang['shop:label:email']								=	'Email';
 $lang['shop:label:delete']								=	'Delete';
 $lang['shop:label:save']								=	'Save';
 $lang['shop:label:new']									=	'New';
+$lang['shop:label:add']									=	'Add';
+$lang['shop:label:featured']							=	'Featured Products';
+$lang['shop:label:recent']							    =	'Recent Products';
+$lang['shop:label:bestsellers']							=	'Best Sellers';
+$lang['shop:label:inprogress']							=	'In progress ...';
 
 
 // Messages

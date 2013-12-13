@@ -1,6 +1,6 @@
 <div class="product_box">
 	<span class="sticker"></span>
-	<h4><?php echo lang('label_featured_products'); ?></h4>
+	<h4><?php echo lang('shop:label:featured'); ?></h4>
 	<div class="product_outer">
 		<?php
 		if(!empty($featured) and !empty($featured['total'])):
@@ -17,19 +17,19 @@
 				<span class="price">
 					<?php echo $row->price; ?>
 				</span>
-				<button class="_addcart" product-value="<?php echo $row->id; ?>"><?php echo lang('add_label'); ?></button>
+				<button class="_addcart" product-value="<?php echo $row->id; ?>"><?php echo lang('shop:label:add'); ?></button>
 			</span>
 		</p>
 		<?php
 			endforeach;
 		else: ?>
-		<div class="fullinfo"><?php echo lang('info_no_featured_products'); ?></div>
+		<div class="fullinfo"><?php echo lang('shop:messages:no_items'); ?></div>
 		<?php endif; ?>
 	</div>
 </div>
 <div class="product_box">
 	<span class="sticker"></span>
-	<h4><?php echo lang('label_recent_products'); ?></h4>
+	<h4><?php echo lang('shop:label:recent'); ?></h4>
 	<div class="product_outer">
 		<?php
 		if(!empty($recent) and !empty($recent['total'])):
@@ -49,19 +49,19 @@
 				<?php if(!empty($row->options)): ?>
 				<span class="options"><?php echo lang('other_type'); ?></span>
 				<?php endif; ?>
-				<button class="_addcart" product-value="<?php echo $row->id; ?>"><?php echo lang('add_label'); ?></button>
+				<button class="_addcart" product-value="<?php echo $row->id; ?>"><?php echo lang('shop:label:add'); ?></button>
 			</span>
 		</p>
 		<?php
 			endforeach;
 		else: ?>
-		<div class="fullinfo"><?php echo lang('info_no_products'); ?></div>
+		<div class="fullinfo"><?php echo lang('shop:messages:no_items'); ?></div>
 		<?php endif; ?>
 	</div>
 </div>
 <div class="product_box">
 	<span class="sticker"></span>
-	<h4><?php echo lang('label_best_sellers_products'); ?></h4>
+	<h4><?php echo lang('shop:label:bestsellers'); ?></h4>
 	<div class="product_outer">
 		<?php
 		if(!empty($bestsellers) and !empty($bestsellers['total'])):
@@ -78,17 +78,17 @@
 				<span class="price">
 					<?php echo $row->price; ?>
 				</span>
-				<button class="_addcart" product-value="<?php echo $row->id; ?>"><?php echo lang('add_label'); ?></button>
+				<button class="_addcart" product-value="<?php echo $row->id; ?>"><?php echo lang('shop:label:add'); ?></button>
 			</span>
 		</p>
 		<?php
 			endforeach;
 		else: ?>
-		<div class="fullinfo"><?php echo lang('info_no_data'); ?></div>
+		<div class="fullinfo"><?php echo lang('shop:messages:no_items'); ?></div>
 		<?php endif; ?>
 	</div>
 </div>
 <input type="hidden" id="cartShopURL" value="<?php echo site_url();?>" />
 <div id="progressCart" style="display: none;">
-	<img src="<?php echo $module_path.'img/progress_green.gif';?>"/><br/><?php echo lang('shop_cart_progress'); ?>
+	<img src="<?php echo $module_path.'img/progress_green.gif';?>"/><br/><?php echo lang('shop:label:inprogress'); ?>
 </div>
