@@ -18,7 +18,15 @@
 							</div>
 
 							<a itemprop="url" href="{{ url:site }}shop/products/product/{{ slug }}">
-								<img itemprop="image" src="{{ url:site }}files/thumb/{{ cover_id }}/200/200" />
+								{{shop:images id="{{id}}" include_cover='YES' include_gallery='NO' }}
+
+										{{if local}}
+											<img itemprop="image" src="{{ url:site }}files/thumb/{{file_id}}/200/200/" width="200" height="200" alt="{{alt}}" />
+										{{else}}
+											<img itemprop="image" src="{{src}}" width="200" height="200" alt="{{alt}}" />
+										{{endif}}
+
+								{{/shop:images}}								
 							</a>
 							
 							<br />

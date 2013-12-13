@@ -826,6 +826,7 @@ class Plugin_Shop extends Plugin
 
 		$this->load->model('shop/images_m');
 
+
 		if($limit != '0')
 		{
 			$limit = intval($limit);
@@ -833,18 +834,17 @@ class Plugin_Shop extends Plugin
 		}
 
 
-
 		// Get the cover image - in future cover_id will be also stored on the images table. For now we need to source from the product row for consistancy of the plugin
 		if( strtoupper(trim($include_cover)) == 'YES' )
 		{
-			$this->db->where('cover',1);
+			$this->db->where('product_id',$id)->where('cover',1);
 		}
 
 
 		// Get the galley images
 		if( strtoupper(trim($include_gallery)) == 'YES' )
 		{
-			$this->db->or_where('cover',0);
+			$this->db->where('product_id',$id)->or_where('cover',0);
 		}
 
 

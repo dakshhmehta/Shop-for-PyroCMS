@@ -13,61 +13,61 @@
 
         <ul class="two_column">
             <li>
-                <label>First name<span>*</span></label>
+                <label><?php echo lang('shop:address:field:first_name');?><span>*</span></label>
                 <div class="input">
                     <input type="text" name="first_name" value="{{first_name}}">
                 </div>
             </li>
             <li>
-                <label>surname<span>*</span></label>
+                <label><?php echo lang('shop:address:field:last_name');?><span>*</span></label>
                 <div class="input">
                     <input type="text" name="last_name" value="{{last_name}}">
                 </div>
             </li>
             <li>
-                <label>Email<span>*</span></label>
+                <label><?php echo lang('shop:address:field:email');?><span>*</span></label>
                 <div class="input">
                      <input type="text" name="email" value="{{email}}">
                 </div>
             </li>
             <li>
-                <label>Company<span>*</span></label>
+                <label><?php echo lang('shop:address:field:company');?><span>*</span></label>
                 <div class="input">
                      <input type="text" name="company" value="{{company}}">
                 </div>
             </li>            
             <li>
-                <label>Phone<span>*</span></label>
+                <label><?php echo lang('shop:address:field:phone');?><span>*</span></label>
                 <div class="input">
                     <input type="text" name="phone" value="{{phone}}">
                 </div>
             </li>
             <li>
-                <label>address1<span>*</span></label>
+                <label><?php echo lang('shop:address:field:address1');?><span>*</span></label>
                 <div class="input">
                     <input type="text" name="address1" value="{{address1}}">
                 </div>
             </li>
             <li>
-                <label>address2</label>
+                <label><?php echo lang('shop:address:field:address2');?></label>
                 <div class="input">
                      <input type="text" name="address2" value="{{address2}}">
                 </div>
             </li>
             <li>
-                <label>City<span>*</span></label>
+                <label><?php echo lang('shop:address:field:city');?><span>*</span></label>
                 <div class="input">
                     <input type="text" name="city" value="{{city}}">
                 </div>
             </li>
             <li>
-                <label>State</label>
+                <label><?php echo lang('shop:address:field:state');?></label>
                 <div class="input">
                     <input type="text" name="state" value="{{state}}">
                 </div>
             </li>
             <li>
-                <label>Country</label>
+                <label><?php echo lang('shop:address:field:country');?></label>
                 <div class="input">
 
                     <select name='country'>
@@ -79,7 +79,7 @@
                 </div>
             </li>
             <li>
-                <label><?php echo lang('shop:label:zip');?><span>*</span></label>
+                <label><?php echo lang('shop:address:field:zip');?><span>*</span></label>
                 <div class="input">
                     <input type="text" name="zip" value="{{zip}}">
                 </div>

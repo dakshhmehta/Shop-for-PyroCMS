@@ -21,7 +21,19 @@
 			</thead>
 			{{items}}
 				<tr>
-					<td><img src="{{url:site}}files/thumb/{{cover_id}}/100/100"></td>
+					<td>
+					
+							{{shop:images id="{{id}}" include_cover='YES' include_gallery='NO' }}
+							
+									{{if local}}
+										<img itemprop="image" src="{{ url:site }}files/thumb/{{file_id}}/100/100/" width="100" height="100" alt="{{alt}}" />
+									{{else}}
+										<img itemprop="image" src="{{src}}" width="100" height="100" alt="{{alt}}" />
+									{{endif}}
+							
+							{{/shop:images}}
+
+					</td>
 					<td><a href="{{ url:site }}shop/products/product/{{slug}}">{{name}}</a></td>
 					<td>{{price_or}}</td>
 					<td><a class="DeleteButton" href="{{ url:site }}shop/my/wishlist/delete/{{id}}"><?php echo lang('shop:label:remove'); ?></a></td>
