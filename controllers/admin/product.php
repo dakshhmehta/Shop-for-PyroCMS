@@ -312,7 +312,7 @@ class Product extends Products_admin_Controller
 			$data->properties_array = $this->product_attributes_m->get_by_product($data->id);  
 		}
 
-		if($panel =='options')
+		if($panel == 'options')
 		{
 			$this->load->model('options_product_m');
 			$data->prod_options		= $this->options_product_m->get_prod_options($data->id);
@@ -320,14 +320,14 @@ class Product extends Products_admin_Controller
 			$data->all_options = $this->options_m->build_dropdown();
 		}
 
-		if($panel =='price')
+		if($panel == 'price')
 		{
 			//$data->folders = $this->get_folders();
 			$data->tax_groups 		= $this->tax_m->get_all();
 			$data->group_select 	= $this->pgroups_m->build_dropdown( $data->pgroup_id );	
 		}
 
-		if($panel =='related')
+		if($panel == 'related')
 		{
 			//get related
 			$data->related = json_decode($data->related);
@@ -342,19 +342,19 @@ class Product extends Products_admin_Controller
 			}			
 		}
 
-		if($panel =='shipping')
+		if($panel == 'shipping')
 		{		
 			$this->load->library('products_library');
 			$data->req_shipping_select = $this->products_library->build_requires_shipping_select(array('current_id' => $data->req_shipping));
 		}	
 
-		if($panel =='files')
+		if($panel == 'files')
 		{
 			$this->load->model('shop_files_m');
 			$data->digital_files = $this->shop_files_m->get_files($data->id);
 		}	
 
-		if($panel =='design')
+		if($panel == 'design')
 		{
 			$this->load->library('design_library');
 
@@ -365,7 +365,6 @@ class Product extends Products_admin_Controller
 
 
 		$this->load->view('admin/products/partials/'.$panel, $data); 
-
 
 
 	}

@@ -63,27 +63,34 @@ if (!function_exists('orderby_helper'))
   	//move to helpers
 	function orderby_helper($option) 
 	{
+		$order = 'asc'; 
+
 		switch($option) 
 		{
 			case 0:
-				return 'id';
+				$field = 'id';
 				break;	
 			case 1:
-				return 'name';
+				$field = 'name';
 				break;
 			case 2:
-				return 'category_id';
+				$field = 'category_id';
 				break;
 			case 3:
-				return 'id desc';
+				$field = 'id';
+				$order = 'DESC'; 
 				break;			
 			case 4:
-				return 'name desc';
+				$field =  'name';
+				$order = 'DESC'; 
 				break;					
 			default:
-				return 'id';
+				$field =  'id';
 				break;
 		}
+
+
+		return array('field' => $field, 'order'=>$order);
 	}
 }
 	

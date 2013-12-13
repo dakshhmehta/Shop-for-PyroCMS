@@ -545,7 +545,7 @@ class Products_admin_m extends Products_m
 
 
 		$this->where('date_archived',NULL);					
-		$this->order_by($filter['order_by']);
+		$this->order_by($filter['order_by'],$filter['order_by_order']);
 		$this->limit( $limit , $offset );
 
 		return $this->get_all();
