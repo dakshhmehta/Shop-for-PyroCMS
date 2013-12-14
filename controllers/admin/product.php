@@ -314,9 +314,18 @@ class Product extends Products_admin_Controller
 
 		if($panel == 'options')
 		{
-			$this->load->model('options_product_m');
+			$this->load->model('shop/options_m');
+			$this->load->model('shop/options_product_m');
 			$data->prod_options		= $this->options_product_m->get_prod_options($data->id);
-			//$data->folders = $this->get_folders();
+
+			//var_dump($data->prod_options);
+			foreach($data->prod_options as $key=>$value)
+			{
+				$op = $this->options_m->get($data->prod_options[$key]->option_id);
+				$data->prod_options[$key]->name = $op->name;
+			}
+
+
 			$data->all_options = $this->options_m->build_dropdown();
 		}
 

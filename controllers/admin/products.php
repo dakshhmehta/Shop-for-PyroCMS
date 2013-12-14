@@ -96,8 +96,10 @@ class Products extends Products_admin_Controller
 		// Always add these to the filter
 		//
 		$filter['search'] = trim($data->quick_search);
-		$filter['order_by'] = orderby_helper($data->order_by); 
-		
+
+		$orderby_data = orderby_helper($data->order_by); 
+		$filter['order_by'] = $orderby_data['field'];
+		$filter['order_by_order'] = $orderby_data['order'];
 
 		
 		// 

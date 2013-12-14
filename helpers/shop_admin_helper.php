@@ -64,6 +64,7 @@ if (!function_exists('orderby_helper'))
 	function orderby_helper($option) 
 	{
 		$order = 'asc'; 
+		$field = 'id';
 
 		switch($option) 
 		{
@@ -84,9 +85,6 @@ if (!function_exists('orderby_helper'))
 				$field =  'name';
 				$order = 'DESC'; 
 				break;					
-			default:
-				$field =  'id';
-				break;
 		}
 
 
@@ -94,30 +92,6 @@ if (!function_exists('orderby_helper'))
 	}
 }
 	
-
-if (!function_exists('get_prod_option_name')) 
-{
-	/**
-	 * Pass the prod_option id - to get the product option name
-	 *
-	 */
-	function get_option_name($id) 
-	{
-
-
-		$ci =& get_instance();
-		
-		$ci->load->model('shop/options_m');
-
-		
-		$option = $ci->options_m->get($id);
-		
-		return $option->name;
-	}
-	
-	
-}
-
 
 
 /*
