@@ -143,9 +143,11 @@ class Product extends Products_admin_Controller
 
 
 
-		if(!(isset($data)) )
+		if(!$data )
 		{
-			redirect('admin/products/');
+			//$this->session->set_flashdata('error',lang('shop:messages:no_product_found') );
+			$this->session->set_flashdata('notice',lang('shop:messages:no_product_found') );
+			redirect('admin/shop/products/');
 		}
 
 

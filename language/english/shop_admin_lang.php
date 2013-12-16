@@ -22,6 +22,9 @@ $lang['shop:admin:analytics']								=	'Analytics';
 $lang['shop:admin:manage']									=	'Manage';
 $lang['shop:admin:view_shop']								=	'Goto Shop';
 
+# Common Messages
+$lang['shop:messages:no_product_found']						=	'Unable to locate the product you requested..';
+
 # Common terms
 $lang['shop:common:start']  								= 'Start';
 $lang['shop:common:stop']  									= 'Stop';
@@ -174,13 +177,13 @@ $lang['shop:gateways:main_description']  = 'Main description';
 
 
 # Admin/Manage
-$lang['shop:manage:all_cache']  = 'All cache';
-$lang['shop:manage:apearance']  = 'Apearance';
-$lang['shop:manage:categories_cache']  = 'Categories cache';
-$lang['shop:manage:compile']  = 'Compile';
-$lang['shop:manage:data_set']  = 'Data set';
-$lang['shop:manage:detail']  = 'Detail';
-$lang['shop:manage:export_data']  = 'Export data';
+$lang['shop:manage:all_cache']  					= 'All cache';
+$lang['shop:manage:apearance']  					= 'Apearance';
+$lang['shop:manage:categories_cache']  				= 'Categories cache';
+$lang['shop:manage:compile']  						= 'Compile';
+$lang['shop:manage:data_set']  						= 'Data set';
+$lang['shop:manage:detail']  						= 'Detail';
+$lang['shop:manage:export_data']  					= 'Export data';
 $lang['shop:manage:files']  = 'Files';
 $lang['shop:manage:language_generator']  = 'Language generator';
 $lang['shop:manage:login_location']  = 'Login location';
