@@ -431,8 +431,10 @@ class Product extends Products_admin_Controller
 
 
 		//We have to check if there are any rules to check, as if there isnt it will return false when run
-		if($this->form_validation->_validation_rules == NULL)
+		if(count($this->_validation_rules) == 0) 
+		{
 			return TRUE;
+		}
 
 
 		// Test and return
