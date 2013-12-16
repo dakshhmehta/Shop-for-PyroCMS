@@ -265,21 +265,20 @@ class Categories extends Admin_Controller
 	public function delete($id = null) 
 	{
 		
-		$this->categories_m->delete($id);
-		
-		Events::trigger('evt_category_deleted', $id );
-
-		
-		if($this->input->is_ajax_request())
+		if($this->categories_m->delete($id))
 		{
-			die(json_encode(array('status'=>'success')));
+			Events::trigger('evt_category_deleted', $id );
+
+			if($this->input->is_ajax_request())
+			{
+				die(json_encode(array('status'=>'success')));
+			}
+
 		}
 
 		// Else
 		redirect('admin/shop/categories');
 
-
-		
 	}
 
 	

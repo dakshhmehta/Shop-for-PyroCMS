@@ -428,7 +428,7 @@ class Details_library
 				'name' => 			array('type' => 'VARCHAR', 'constraint' => '100'),
 				'code' => 			array('type' => 'VARCHAR', 'constraint' => '100', 'default' => ''), /* product code  */
 				'pgroup_id' => 		array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL), /*which associated product group*/
-				'category_id' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE),				
+				'category_id' => 	array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),				
 				'brand_id' => 		array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
 				'description' => 	array('type' => 'TEXT', 'null' => TRUE, 'default' => NULL),
 
