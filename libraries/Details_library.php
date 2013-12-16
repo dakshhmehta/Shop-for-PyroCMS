@@ -920,7 +920,19 @@ class Details_library
 				'is_gui' => TRUE, 
 				'module' => 'shop', 
 				'order' => 760
-			),	 			
+			),	 
+			'ss_closed_reason' => array(
+				'title' => 'Reason for closing the shop', 
+				'description' => 'This is the public message you want to display to your customers as to why the SHOP is closed.',
+				'type' => 'textarea', 
+				'default' => 'We are closed for maintenance',  
+				'value' => '', 
+				'options' => '', 
+				'is_required' => FALSE,
+				'is_gui' => TRUE, 
+				'module' => 'shop', 
+				'order' => 720
+			),	
 			'shop_maps_api_key' => array(
 				'title' => 'Maps API Key', 
 				'description' => 'Your Bing Maps API key',

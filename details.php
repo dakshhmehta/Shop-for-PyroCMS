@@ -211,6 +211,8 @@ class Module_Shop extends Module
 
 			case '1.0.0.141':				
 			case '1.0.0.140':	
+ 				$this->_create_settings('ss_closed_reason');
+ 				return TRUE;
 			case '1.0.0.139':					
 			//case '1.0.0.138':		//this was never a dev-release number			
 			case '1.0.0.137':					
@@ -354,7 +356,7 @@ class Module_Shop extends Module
 	 * @param  [type] $sett_name [The key / slug of the settings in the main list]
 	 * @return BOOL            [description]
 	 */
-	private function _install_settings($sett_name)
+	private function _create_settings($sett_name)
 	{
 		$settings = $this->details_library->get_settings($sett_name);
 

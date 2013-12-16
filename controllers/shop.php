@@ -96,7 +96,10 @@ class Shop extends Public_Controller
 		{
 			redirect('shop');
 		}
-		$this->template->build('special/closed');
+
+		$message = Settings::get('ss_closed_reason');
+
+		$this->template->build('special/closed',array('message'=>$message));
 	}
 
 	/*
