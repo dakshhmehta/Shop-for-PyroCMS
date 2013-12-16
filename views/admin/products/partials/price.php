@@ -16,7 +16,8 @@
 
 					<ul class="tab-menu">
 						<li><a class=""  data-load="" href="#price-basic-tab"><span><?php echo lang('shop:products:standard'); ?></span></a></li>		
-						<li><a class=""  data-load="" href="#price-mid-tab"><span><?php echo lang('shop:products:qty_discount'); ?></span></a></li>																	
+						<li><a class=""  data-load="" href="#price-qty-tab"><span><?php echo lang('shop:products:qty_discount'); ?></span></a></li>	
+						<li><a class=""  data-load="" href="#price-affiliate-tab"><span>Affiliates</span></a></li>																	
 					</ul>	
 
 
@@ -49,19 +50,19 @@
 										</div>
 									</li>					
 								</ul>
-						</fieldset>.
+						</fieldset>
 					</div>
 
 
 
-					<div class="form_inputs" id="price-mid-tab">
+					<div class="form_inputs" id="price-qty-tab">
 						<fieldset>
 							<ul>
 								<li class="<?php echo alternator('', 'even'); ?>">
 									<label for="pgroup_id">
-											<?php echo lang('shop:products:qty_discount'); ?>
+											<?php echo lang('shop:products:pgroup'); ?>
 										<small>
-										<?php echo lang('shop:products:qty_discount_description'); ?>
+										<?php echo lang('shop:products:pgroup_description'); ?>
 										</small>						
 									</label>
 									<div class="input">
@@ -71,8 +72,19 @@
 									</div>
 								</li>		
 							</ul>
-						</fieldset>.
+						</fieldset>
 					</div>
+
+					<div class="form_inputs" id="price-affiliate-tab">
+						<fieldset>
+							<ul>
+								<li class="<?php echo alternator('', 'even'); ?>">
+									Coming soon..
+								</li>		
+							</ul>
+						</fieldset>
+					</div>
+
 				</div>
 
 

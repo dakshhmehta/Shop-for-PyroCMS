@@ -161,8 +161,7 @@ class Products extends Public_Controller
 					
 			}
 
-			// Just give a 404 as we havnt handled this circumstance.
-			redirect('404');	
+			//ok to display
 		}
 
 

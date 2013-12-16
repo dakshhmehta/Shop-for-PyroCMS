@@ -771,6 +771,8 @@ class Plugin_Shop extends Plugin
 		$_prod = $this->products_front_m->get($id,'id');
 
 
+		$prices = array();
+		
 		// 
 		// Qty_Discount
 		// 

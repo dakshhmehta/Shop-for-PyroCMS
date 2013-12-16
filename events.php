@@ -248,7 +248,7 @@ class Events_Shop
         if ( $this->ci->settings->get('nc_open_status') == '0' ) 
         {
             $this->ci->sfcart->destroy();
-            $this->ci->session->set_flashdata('error', $this->ci->settings->get('shop_is_disabled'));
+            $this->ci->session->set_flashdata('error', $this->ci->settings->get('ss_closed_reason'));
             redirect($this->ci->input->server('HTTP_REFERER'));
         }
 
@@ -282,8 +282,7 @@ class Events_Shop
 	{
 	
 
- 
-		
+
 		
 	}
 
