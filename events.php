@@ -195,16 +195,34 @@ class Events_Shop
 			
 		// Is the Shop Open ?
 		$this->open_shop 	= Settings::get('nc_open_status');  /* shop open closed */
-		$this->open_shop OR redirect('shop/special/closed'); /* if not open redirect */
-		
-		// Load the Common libraries
-		$this->ci->load->helper('shop/shop');
-		$this->ci->load->helper('shop/shop_public');
 
-		$this->ci->load->library('shop/SFCart');
+		if(!$this->open_shop)
+		{
+
+			if($this->ci->uri->segment(3) == 'closed')
+			{
+				//we are closed.
+			}
+			else
+			{
+				//redirect
+				$this->open_shop OR redirect('shop/special/closed'); /* if not open redirect */
+			}
+
+		}
+		else
+		{
+			// Load the Common libraries
+			$this->ci->load->helper('shop/shop');
+			$this->ci->load->helper('shop/shop_public');
+
+			$this->ci->load->library('shop/SFCart');
+			
+			//Lang
+			$this->ci->lang->load('shop/shop');  
+		}
 		
-		//Lang
-		$this->ci->lang->load('shop/shop');  
+
 
 
 	}
