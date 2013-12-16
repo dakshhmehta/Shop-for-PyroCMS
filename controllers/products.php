@@ -86,6 +86,7 @@ class Products extends Public_Controller
 		$this->template
 			->title(lang('shop:label:shop').' |' .lang('shop:label:products'))
 			->set_breadcrumb($this->shop_title)
+			->set('product_count',$total_items)			
 			->build('common/products_list', $data);
 			
 	}
