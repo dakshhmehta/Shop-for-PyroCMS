@@ -77,7 +77,7 @@ class Categories_m extends Shop_model
 	public function delete($id)
 	{
 		//first update all products to remove from this category
-		$this->db->update('shop_products',array('category_id'=>NULL));
+		$this->db->where('category_id',$id)->update('shop_products',array('category_id'=>NULL));
 
 		return parent::delete($id);
 	}
