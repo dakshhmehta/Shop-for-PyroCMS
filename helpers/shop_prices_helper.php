@@ -41,8 +41,7 @@ if (!function_exists('hlp_get_price'))
 	 * is important to know how the heirachy works.
 	 *
 	 * 1: Product Price
-	 * 2: Qty Discount Price (tier levels)
-	 * 3: MultipleItems Discount (MID) (tier levels)
+	 * 2: (QTY) MultipleItems Discount (MID) (tier levels)
 	 * 
 	 */
 	function hlp_get_price(&$product, $product_qty, $new_qty) 
@@ -50,25 +49,16 @@ if (!function_exists('hlp_get_price'))
 
 		$ci =& get_instance();
 		
-		$ci->load->model('shop/product_prices_m');
+
 		$ci->load->model('shop/pgroups_m');
 		$ci->load->model('shop/pgroups_prices_m');
 
 
-
-		//
-		// We arerequesting the MID price by passing the new_qty and the price it already has
-		//
-		$price_level_1 = $ci->product_prices_m->get_discounted_price($product->id, $product_qty, $product->price);    
-
-
 		if($product->pgroup_id > 0)
 		{
-			$price_level_1 = $ci->pgroups_prices_m->get_discounted_price($product->pgroup_id, $new_qty, $price_level_1);    
+			$product->price = $ci->pgroups_prices_m->get_discounted_price($product->pgroup_id, $new_qty, $product->price);    
 		}
 
-		$product->price = $price_level_1;
- 
 
 	}
 

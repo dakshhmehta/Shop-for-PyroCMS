@@ -480,15 +480,7 @@ class Details_library
 				'time_online'=> array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
 				'date_start' => array('type' => 'DATE', 'null' => TRUE, 'default' => NULL), 
 				'date_end' => 	array('type' => 'DATE', 'null' => TRUE, 'default' => NULL), 
-			),		
-			'shop_discounts' => array(
-				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
-				'prod_id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE, 'default' => NULL),
-				'min_qty' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'default' => 0),
-				'price' => array('type' => 'DECIMAL(10,2)', 'null' => TRUE, 'default' => 0), /*only the at value*/
-				'date_start' => array('type' => 'DATE', 'null' => TRUE, 'default' => NULL), /* this is deleted products*/  
-				'date_end' => array('type' => 'DATE', 'null' => TRUE, 'default' => NULL), /* this is deleted products*/  
-			),			
+			),				
 			'shop_group_prices' => array(
 				'id' => array('type' => 'INT', 'constraint' => '11', 'unsigned' => TRUE, 'auto_increment' => TRUE, 'primary' => TRUE),
 				'pgroup_id' => array('type' => 'VARCHAR', 'constraint' => '150'), /*product group */
@@ -734,7 +726,7 @@ class Details_library
 		{
 			return array($table=>$tables[$table]);
 		}
-		
+
 	}
 
 

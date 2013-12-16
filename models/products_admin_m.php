@@ -179,9 +179,7 @@ class Products_admin_m extends Products_m
 		
 		if ($result) 
 		{
-			// Create Discount qty items
-			$this->product_prices_m->set_discounts_by_product($id,$input['discounts']);
-						
+					
 		}
 		
 		
@@ -291,7 +289,6 @@ class Products_admin_m extends Products_m
 
 		$this->options_product_m->duplicate_product_options( $id, $new_id );
 
-		$this->product_prices_m->duplicate_discounts( $id, $new_id);
 
 		$this->product_attributes_m->duplicate_attributes($id, $new_id);
 

@@ -765,50 +765,27 @@ class Plugin_Shop extends Plugin
 		}
 
 
-		//lookup product price
+		// Get the product
 		$this->load->model('products_front_m');
 
 		$_prod = $this->products_front_m->get($id,'id');
 
 
 		// 
-		// MID_Discount
+		// Qty_Discount
 		// 
 		if($_prod->pgroup_id > 0)
 		{
-
-			//group
-			$model = 'pgroups_prices_m';
-			$method = 'get_by_pgroup';
-
-		  	$this->load->model('shop/'. $model);
-			$prices =  $this->$model->$method($_prod->pgroup_id);
-
-			if(sizeof($prices) > 0)
-			{
-				return $prices;		
-			}
-
+		  	$this->load->model('shop/pgroups_prices_m');
+			$prices =  $this->pgroups_prices_m->get_by_pgroup($id);
 		}
 
 
-		// 
-		// Qty_Discount
-		// 
-		$model = 'product_prices_m';
-		$method = 'get_discounts_by_product';
-	  	$this->load->model('shop/'. $model);
-		$prices =  $this->$model->$method($id);
-
-
-		//
-		// Product Price
-		//
+		// If no prices then return a single price in the array
 		if(sizeof($prices) == 0)
 		{
 			return( array(array( 'price' => $_prod->price, 'min_qty' => 1 ))  ); 
 		}
-
 
 		return $prices;
 		

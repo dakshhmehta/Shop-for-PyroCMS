@@ -33,7 +33,7 @@ class Module_Shop extends Module
 	 * 
 	 * @var string
 	 */
-	public $version = '1.0.0.142';  
+	public $version = '1.0.0.143';  
 
 
 
@@ -209,7 +209,9 @@ class Module_Shop extends Module
 		switch ($old_version) 
 		{
 
-			case '1.0.0.141':				
+			case '1.0.0.142':				
+				$this->dbforge->drop_table('shop_discounts');
+				return TRUE;
 			case '1.0.0.140':	
  				$this->_create_settings('ss_closed_reason');
  				return TRUE;
