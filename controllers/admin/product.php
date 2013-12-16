@@ -171,7 +171,6 @@ class Product extends Products_admin_Controller
 			$this->upload($data->id);
 
 
-
 			// 
 			// sanitize prepares the fields for saving
 			// It also processes the keywords 
@@ -205,7 +204,6 @@ class Product extends Products_admin_Controller
 			
 		}
 		
-
 
 		// Build Template
 		$this->template->title($this->module_details['name'], lang('shop:common:edit'))
@@ -386,15 +384,14 @@ class Product extends Products_admin_Controller
 
 		$status = $this->shop_files_m->delete_file($file_id);
 
+		$st = JSONStatus::Error;
 
 		if($status)
 		{
-			echo json_encode(array('status' => 'success'));die;
+			$st = JSONStatus::Success;
 		}
-		else
-		{
-			echo json_encode(array('status' => 'error'));die;
-		}
+
+		echo json_encode(array('status' => $st));die;
 
 	}
 
