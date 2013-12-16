@@ -34,26 +34,14 @@ class Events_Shop
 	{
 		// Get CI
 		$this->ci =& get_instance();
-
 	
-		
-
-		
-		$this->ci->load->library('shop/enums');
-
 		//trigger the global event - before all other events
 		$this->evt_global();		
 
-
-		// Register the events
+		// Register SHOP events
 		Events::register('evt_audit', array($this, 'evt_audit')); /*debuging event */
 		Events::register('evt_clear_cache', array($this, 'evt_clear_cache'));
 		Events::register('evt_order_lodged', array($this, 'evt_order_lodged')); 
-
-
-		Events::register('evt_admin_load_assests', array($this, 'evt_admin_load_assests'));	
-		Events::register('admin_controller', array($this, 'evt_admin_controller'));		
-		Events::register('public_controller', array($this, 'evt_public_controller'));
 		Events::register('evt_cart_item_added', array($this, 'evt_cart_item_added'));
 		Events::register('evt_product_created', array($this, 'evt_product_created'));		
 		Events::register('evt_product_deleted', array($this, 'evt_product_deleted'));	
@@ -66,24 +54,22 @@ class Events_Shop
 		Events::register('evt_gateway_callback', array($this, 'evt_payment_callback'));
 		Events::register('evt_blacklist_attempt', array($this, 'evt_blacklist_attempt'));
 		Events::register('evt_product_stock_low', array($this, 'evt_product_stock_low')); 
-		Events::register('post_user_register', array($this, 'resume_checkout'));
 		Events::register('evt_send_admin_email', array($this, 'evt_send_admin_email')); 	
+		Events::register('evt_admin_load_assests', array($this, 'evt_admin_load_assests'));	
 
 
+		// Extend built in events
+		Events::register('admin_controller', array($this, 'evt_admin_controller'));		
+		Events::register('public_controller', array($this, 'evt_public_controller'));
+
+		Events::register('post_user_register', array($this, 'resume_checkout'));
 		Events::register('post_user_login', array($this, 'evt_user_login'));
-		Events::register('post_admin_login', array($this, 'evt_admin_login')); 	
-
-
-
-		
+		Events::register('post_admin_login', array($this, 'evt_admin_login')); 			
 	}
 
 
 
-        
-
-
-
+       
 
     public function load_cart($data = array()) 
     {
@@ -138,11 +124,6 @@ class Events_Shop
 	}
 
 
-	public function evt_global()
-	{
-		
-	}
-	
 	
 	/**
 	 *
@@ -187,43 +168,47 @@ class Events_Shop
     }
 
 
-
+    /**
+     * This is where we load helpers/libraries that are needed in both admin and public site.
+     * @return [type] [description]
+     */
+	public function evt_global()
+	{
+		$this->ci->load->library('shop/enums');
+		$this->ci->lang->load('shop/shop');
+		$this->ci->load->helper('shop/shop');
+		$this->ci->load->helper('shop/shop_public');
+	}
+	
 
 	// This gets fired upon oading a public controller
 	public function evt_public_controller($data = array()) 
 	{
-			
+
+		// Load the Common libraries regardless if shop is open or not
+		$this->ci->load->library('shop/SFCart');  
+		
+
 		// Is the Shop Open ?
 		$this->open_shop 	= Settings::get('nc_open_status');  /* shop open closed */
 
 		if(!$this->open_shop)
 		{
 
-			if($this->ci->uri->segment(3) == 'closed')
+			if($this->ci->session->userdata('Cl053_7H3_5h0P') == 'yes')
 			{
-				//we are closed.
+				$this->ci->session->unset_userdata('Cl053_7H3_5h0P');
 			}
 			else
 			{
+				//set the flag
+				$this->ci->session->set_userdata('Cl053_7H3_5h0P', 'yes');
+
 				//redirect
-				$this->open_shop OR redirect('shop/special/closed'); /* if not open redirect */
+				redirect('shop/closed'); /* if not open redirect */
 			}
 
 		}
-		else
-		{
-			// Load the Common libraries
-			$this->ci->load->helper('shop/shop');
-			$this->ci->load->helper('shop/shop_public');
-
-			$this->ci->load->library('shop/SFCart');
-			
-			//Lang
-			$this->ci->lang->load('shop/shop');  
-		}
-		
-
-
 
 	}
 
@@ -231,14 +216,8 @@ class Events_Shop
 	public function evt_admin_controller($data = array()) 
 	{
 
-		$this->ci->load->helper('shop/shop');
 		$this->ci->load->helper('shop/shop_admin');
-		$this->ci->load->helper('shop/shop_public');
-
-		// Lang
 		$this->ci->lang->load('shop/shop_admin');
-		$this->ci->lang->load('shop/shop');
-
 	}
 
 	/**
