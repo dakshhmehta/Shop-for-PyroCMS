@@ -92,11 +92,15 @@ class Products extends Public_Controller
 
 
 	/**
-	 * 
+	 * @param   [admin_as_customer]  Bool set to 'customer' if you are an admin and want to view the product as a customer
 	 * @description If the system doesnt find the product it will redirect away
-	 * 
-	 * OPTION 1 : domain.com/product/slug   	
-	 * OPTION 2 : domain.com/product/7  		 
+	 * EX : domain.com/products/product/7/customer  
+	 *
+	 *
+	 * OPTION 1 : domain.com/products/product/slug   
+	 * OPTION 2 : domain.com/product/slug  
+	 * OPTION 3 : domain.com/products/product/7   	
+	 * OPTION 4 : domain.com/product/7  		 
 	 */
 	public function product($param = '', $admin_as_customer = FALSE) 
 	{
@@ -120,14 +124,9 @@ class Products extends Public_Controller
 
 		
 		//
-		// Increment View count
-		//
-		$increment = TRUE; 
-
-		//
-		// Get the product and all its goodness
-		//
-		$data->product = $this->products_front_m->get($param, $method, $increment );
+		// $data->product = $this->products_front_m->get($param, id|slug , increment(BOOL) );
+		// 
+		$data->product = $this->products_front_m->get($param, $method, TRUE );
 		
 
 		//
@@ -135,10 +134,34 @@ class Products extends Public_Controller
 		//
 		if( (!$data->product) OR ($admin_as_customer == 'customer' && group_has_role('shop', 'admin_products') ) )
 		{
-			if (($data->product->date_archived != NULL) || ($data->product->public == ProductVisibility::Invisible ))
+
+			if ( $data->product->date_archived != NULL ) 
 			{
-				redirect('404');
+					// Display message that product is not currently available
+					$this->template
+						->title($this->module_details['name'])						
+
+						//we do not want to send all the data object, only the name as the product is hidden from customer view		
+						->build('special/product_deleted', array('product_name' => $data->product->name) ); 
+
+					return;
+			}	
+
+			if ($data->product->public == ProductVisibility::Invisible )
+			{
+					// Display message that product is not currently available
+					$this->template
+						->title($this->module_details['name'])						
+
+						//we do not want to send all the data object, only the name as the product is hidden from customer view		
+						->build('special/product_invisible', array('product_name' => $data->product->name) ); 
+
+					return;
+					
 			}
+
+			// Just give a 404 as we havnt handled this circumstance.
+			redirect('404');	
 		}
 
 
