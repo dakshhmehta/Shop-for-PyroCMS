@@ -155,7 +155,9 @@ class Shop_files_m extends MY_Model
 				'filename' => $input['filename'], 
 				'type' => $input['type'], 
 				'ext' => $input['ext'],
+				'filesize' => $input['filesize'],
 				'data' => $input['data'],
+				'date_added' => date("Y-m-d H:i:s"),
 		);
 
 		$this->db->insert('shop_product_files', $to_insert );

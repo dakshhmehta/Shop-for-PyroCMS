@@ -10,7 +10,7 @@
 						</li>			
 						<?php endif; ?>
 						<li class="<?php echo alternator('', 'even'); ?>">
-							<label for="name"><?php echo lang('shop:products:name'); ?> <span>*</span>
+							<label for="name"><?php echo lang('shop:common:name'); ?> <span>*</span>
 								<small>
 									<?php echo lang('shop:products:name_description'); ?>
 								</small>
@@ -18,7 +18,7 @@
 							<div class="input" ><?php echo form_input('name', set_value('name', $name)); ?></div>
 						</li>
 						<li class="<?php echo alternator('', 'even'); ?>">
-							<label for="slug"><?php echo lang('shop:products:slug'); ?> <span>*</span>
+							<label for="slug"><?php echo lang('shop:common:slug'); ?> <span>*</span>
 								<small>
 									<?php echo lang('shop:products:slug_description'); ?>
 								</small>
@@ -34,7 +34,7 @@
 							<div class="input"><?php echo form_input('code', set_value('code', $code)); ?></div>
 						</li>					
 						<li class="<?php echo alternator('', 'even'); ?>">
-							<label for="category_id"><?php echo lang('shop:products:category'); ?> <span>*</span></label>
+							<label for="category_id"><?php echo lang('shop:common:category'); ?> <span>*</span></label>
 							<div class="input">
 									<?php echo $category_select; ?> 
 							</div>
@@ -61,8 +61,8 @@
 							<div class="input">
 							<?php
 									echo form_dropdown('featured', array(
-										1 => lang('shop:products:yes'), 
-										0 => lang('shop:products:no'), 
+										1 => lang('shop:common:yes'), 
+										0 => lang('shop:common:no'), 
 										), set_value('featured', $featured));
 									?>
 							</div>
@@ -76,8 +76,8 @@
 							<div class="input">
 							<?php
 									echo form_dropdown('searchable', array(
-										1 => lang('shop:products:yes'), 
-										0 => lang('shop:products:no'), 
+										1 => lang('shop:common:yes'), 
+										0 => lang('shop:common:no'), 
 										), set_value('searchable', $searchable));
 									?>								
 							</div>

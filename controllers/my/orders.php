@@ -34,7 +34,7 @@ class Orders extends Public_Controller
 		// If User Not logged in
 		if (!$this->current_user) 
 		{
-			$this->session->set_flashdata('notice', lang('shop:my:user_not_authenticated'));
+			$this->session->set_flashdata('error', lang('shop:messages:my:user_not_authenticated'));
 			
 			// Send User to login then Redirect back after login
 			$this->session->set_userdata('redirect_to', 'shop/my');
@@ -42,7 +42,7 @@ class Orders extends Public_Controller
 		}
 	
 		// Define the top level breadcrumb
-		$this->template->set_breadcrumb(lang('shop'), 'shop');
+		$this->template->set_breadcrumb(lang('shop:label:shop'), 'shop');
 		
 	}
 	
@@ -68,8 +68,8 @@ class Orders extends Public_Controller
 
 		// Display the page
 		$this->template
-			->set_breadcrumb(lang('my'), 'shop/my')
-			->set_breadcrumb(lang('orders'))   	
+			->set_breadcrumb(lang('shop:my:my'), 'shop/my')
+			->set_breadcrumb(lang('shop:label:orders'))   	
 			->title($this->module_details['name'])
 			->build('my/orders', $data);
 	}
@@ -94,7 +94,7 @@ class Orders extends Public_Controller
 		$data->order = $this->orders_m->where('user_id', $this->current_user->id)->get($id);
 		if (!$data->order ) 
 		{
-			$this->session->set_flashdata('error', lang('error'));
+			$this->session->set_flashdata('error', lang('shop:status:error'));
 			redirect('shop/my/orders');
 		}
 	
@@ -125,9 +125,9 @@ class Orders extends Public_Controller
 		$this->messages_m->markAsRead($data->order->id);
 	
 		$this->template
-				->set_breadcrumb(lang('my'), 'shop/my')
-				->set_breadcrumb(lang('orders'),'shop/my/orders')
-				->set_breadcrumb(lang('order'))
+				->set_breadcrumb(lang('shop:my:my'), 'shop/my')
+				->set_breadcrumb(lang('shop:label:orders'),'shop/my/orders')
+				->set_breadcrumb(lang('shop:public:order'))
 				->title($this->module_details['name'])
 				->build('my/order', $data);
 	}

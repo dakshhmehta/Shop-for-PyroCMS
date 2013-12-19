@@ -1,9 +1,9 @@
 <section class="title">
 
 	<?php if (isset($id) AND $id > 0): ?>
-		<h4><?php echo sprintf(lang('shop:blacklist:edit'), $name); ?></h4>
+		<h4><?php echo sprintf(lang('shop:common:edit'), $name); ?></h4>
 	<?php else: ?>
-		<h4><?php echo lang('shop:blacklist:new'); ?></h4>
+		<h4><?php echo lang('shop:common:new'); ?></h4>
 	<?php endif; ?>
 	
 </section>
@@ -17,7 +17,7 @@
 		<fieldset>
 			<ul>
 				<li class="<?php echo alternator('even', ''); ?>">
-					<label for="name"><?php echo lang('shop:blacklist:name'); ?> <span>*</span></label>
+					<label for="name"><?php echo lang('shop:common:name'); ?> <span>*</span></label>
 					<div class="input">
 						<?php echo form_input('name', set_value('name', $name), 'id="name" '); ?>
 					</div>
@@ -29,7 +29,7 @@
 					</div>
 				</li>  				
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="value"><?php echo lang('shop:blacklist:value'); ?>  <span>*</span> - 
+					<label for="value"><?php echo lang('shop:common:value'); ?>  <span>*</span> - 
 					<?php echo lang('shop:blacklist:value_description'); ?> 
 					</label>
 					<div class="input">
@@ -37,7 +37,7 @@
 					</div>
 				</li>				  
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<label for="brand_id"><?php echo lang('shop:blacklist:enabled'); ?> <span></span>
+					<label for="brand_id"><?php echo lang('shop:common:enabled'); ?> <span></span>
 						<small>
 						</small>
 					</label>

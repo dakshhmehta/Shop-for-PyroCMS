@@ -39,9 +39,7 @@ class Cart extends Public_Controller
 		$this->load->helper('shop/shop_prices');
 
 		// Retrieve some core settings
-		//$this->use_css =  Settings::get('nc_css');
 		$this->shop_title = Settings::get('ss_name');		//Get the shop name
-		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 		$this->login_required = Settings::get('ss_require_login');
 		$this->has_logged_in_user =  ($this->current_user)? TRUE : FALSE ;
 
@@ -78,7 +76,6 @@ class Cart extends Public_Controller
 	{
 
 		// Success add message
-		//$this->_MESSAGES[100] = lang('shop:cart:item_was_added_to_cart');
 		$this->_MESSAGES[101] = lang('shop:cart:item_added'); 
 
 		// Failed to add messagea
@@ -133,10 +130,7 @@ class Cart extends Public_Controller
 		$url_redir = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'shop/cart';
 		
 
-
-		// 
 		// Check the post header to see if the item come from a post or a direct link
-		//
 		if( $this->input->post('id') ) 
 		{
 		
@@ -146,29 +140,19 @@ class Cart extends Public_Controller
 			// The POST must contain the QTY
 			$qty = intval( $this->input->post('quantity') );
 
-			if($qty)
+			if(!$qty)
 			{
-
-			}
-			else
-			{	
-				//
 				// Accept either qty or quantity
-				//
 				$qty = intval( $this->input->post('qty') );
 
 				//final check, if not set then set as 1 as the qty
 				$qty = ($qty)?$qty:1;
 				
 			}
-
 			
 		}
 		
 		
-
-
-
 		
 		//
 		// pre-Add checks
@@ -196,18 +180,13 @@ class Cart extends Public_Controller
 
 
 
-
-		
-		
 		// 
 		// get the options that may have been passed up
 		// 
-		$options_tmp = $this->_get_option_fields($product->id);
+		$options = $this->_get_option_fields($product);
 
 
-		$product->ignor_shipping = $options_tmp[0]; //dont think this is needed anymore
-		$options = $options_tmp[1]; 
-	  
+  
 		
 
 		//$items['id'] = $product->id;
@@ -230,7 +209,6 @@ class Cart extends Public_Controller
 
 
 	
-
 	
 		//
 		// Requested new qty 
@@ -243,9 +221,6 @@ class Cart extends Public_Controller
 		// Get discounted price if it exist
 		// Override the item price - if the new quantaty (nq) changes and a lower price is available
 		//
-		
-
-
 		
 
 		// 1. Get the current QTY of items assigned to PGROUP
@@ -457,7 +432,7 @@ class Cart extends Public_Controller
 
 				hlp_get_price($item, $d_item['qty'], $mid_qty);
 
-				$update_item['price'] = $item->price_at;
+				$update_item['price'] = $item->price;
 
 				$update_item['base'] = $item->price_base;
 
@@ -561,7 +536,7 @@ class Cart extends Public_Controller
 
 				//if options we have to run the recalc here
 				$update_item['rowid'] = $item['rowid'];
-				$update_item['price'] = $product->price_at;
+				$update_item['price'] = $product->price;
 				$update_item['base'] = $product->price_base;
 
 
@@ -713,16 +688,13 @@ class Cart extends Public_Controller
 				'id' => $item->id,
 				'slug' => $item->slug,
 				'qty' => $qty,
-				'price' => $item->price_at,
+				'price' => $item->price,
 				'base' => $item->price_base,
 				'name' => $name,
-				'ignor_shipping' => $item->ignor_shipping,
+				'ignor_shipping' => ($item->req_shipping)? 0 : 1 ,
 				'options' => $options,
-				'pgroup_id' => $item->pgroup_id,
-				
-				'price_bt' => $item->price_bt, /*before tax value*/
-				'package_id' => $item->package_id,
-
+				'pgroup_id' => $item->pgroup_id,			
+				'user_data' => $item->user_data,  
 		);
 		
 		return $data;
@@ -730,74 +702,56 @@ class Cart extends Public_Controller
 	}
 
 	
-
 	/**
 	 * Prepares the Key=>value data for the options
 	 *
 	 *
 	 */
-	private function _get_option_fields($product_id) 
+	private function _get_option_fields(&$product) 
 	{
 
-		//
 		// Load models
-		//
 		$this->load->model('options_m');
 		$this->load->model('options_product_m');
+		$this->load->model('options_values_m');
 
 
 
-		//
-		// By default we do not ignor shipping, if an option sets to ignor then we do override this.
-		//
-		$ignor_shipping = FALSE;	
-
-
-
-		//
 		// Setup the default options array
-		//
 		$OPTIONS_TO_Return = array();
 		
 		
 
-
-		$product_options_available = $this->options_product_m->get_prod_options($product_id);
+		//Get ALL the options available for this product, 
+		$prod_options = $this->options_product_m->get_prod_options($product->id);
 		
 
 
 
-		foreach ($product_options_available as $option_available) 
+		foreach ($prod_options as $option_available) 
 		{
 
-			//
 			// Get the field name that should have been used in the HTML
-			//
 			$_OP_INPUT_NAME = 'prod_options_' . $option_available->option_id;
 
 
-			//
 			// Get the option from the DB
-			//
 			$option = $this->options_m->get($option_available->option_id);
 
 
 
-			//
 			// Check to see if we have a File Upload
-			//
 			if($option->type == "file")
 			{
-				//var_dump($_FILES[  $_OP_INPUT_NAME  ]);die;
 
+				// SKIP if there is no match for the file input
 				if(!(isset( $_FILES[  $_OP_INPUT_NAME  ] ) ) ) continue;
 
 
-				$F_NAME_PART = date("YmdHi",time());
+				// Create a temp name for the file
+				$F_NAME_PART = date("YmdHi", time() );
 
-				// 
-				// Get the filename
-				// 
+				// Get the filename from the upload
 				$F_NAME = $_FILES[  $_OP_INPUT_NAME  ]['name'];
 
 				//check if a file exist in the upload data
@@ -807,18 +761,15 @@ class Cart extends Public_Controller
 				}
 
 
-				//
 				// Upload and get the ID
-				//
 				$data = $this->upload(  $_OP_INPUT_NAME,  $F_NAME_PART . '-' . $F_NAME );
 
-				if($data)
+
+				if(!$data)
 				{
-					//file uploaded succesfully
-				}
-				else
-				{
-					echo "no file to add";die;
+					//echo "no file to add";die;
+					//maybe need to add error message to some message stack
+					continue;
 				}
 				
 							
@@ -826,11 +777,11 @@ class Cart extends Public_Controller
 				//array( 'max_qty' => 0 ,'operator' => '+=' , 'operator_value' => '0');
 				// Get the label from the db/cache
 				$OPTIONS_TO_Return[$_OP_INPUT_NAME] = array('name' => $option->name, 
-										'value' => $data, /* $option->values->value */
-										'label' => $data, /* $option->values->value */
+										'value' => $data, 
+										'label' => $data, 
 										'user_data' => '',  /*used in cart view*/
 										'max_qty' => 0, 
-										'operator'=> 'n', //n = skip calc 
+										'operator'=> 'n', //n = skip calc in sfcart
 										'operator_value' => 0, 
 										'type' => $option->type);
 
@@ -839,10 +790,6 @@ class Cart extends Public_Controller
 			elseif($option->type == 'text') //we have to handle the text option as they do not have sub-options and do not alter the price
 			{
 
-				//echo "From DB:<br/>";
-				//var_dump($option);
-				//echo "<br/><hr><br>";
-				//echo "OPTION_NAME:". $option_name . "<hr>";
 
 				$POST_value = $this->input->post(  $_OP_INPUT_NAME  );
 
@@ -868,15 +815,21 @@ class Cart extends Public_Controller
 			}	
 			else
 			{
-				
+
+
+				//if the option wasnt selected move on next
 				if(!$this->input->post(  $_OP_INPUT_NAME) ) continue;
+
 				
 
 				$POST_value = $this->input->post(  $_OP_INPUT_NAME  );
 
 
 
-				$option = $this->options_m->get_option_by_id(  $_OP_INPUT_NAME, $POST_value  );	
+
+				//todo:we still need to verify that the $POST_value is linked to the parent option_id
+				//This is a security issue as someone may change the post req. We cant rely on this.
+				$option_value = $this->options_values_m->get( $POST_value  );	
 
 
 			
@@ -885,23 +838,26 @@ class Cart extends Public_Controller
 				// Get the label from the db/cache
 				$OPTIONS_TO_Return[$_OP_INPUT_NAME] = array('name' => $option->name, 
 										'value' => $POST_value, /* $option->values->value */
-										'label' => $option->values->label,  /*used in cart view*/
-										'user_data' => $option->values->user_data,  /*used in cart view*/
-										'max_qty' => $option->values->max_qty, 
-										'operator'=>$option->values->operator, 
-										'operator_value' => $option->values->operator_value, 
+										'label' => $option_value->label,  /*used in cart view*/
+										'user_data' => $option_value->user_data,  /*used in cart view*/
+										'max_qty' => $option_value->max_qty, 
+										'operator'=>$option_value->operator, 
+										'operator_value' => $option_value->operator_value, 
 										'type' => $option->type);
 
 
-				$ignor_shipping = $option->values->ignor_shipping;
 
-
+				//now we check to see if we override the product to ignor shipping
+				if( ($option_value->ignor_shipping == '1') OR ($option_value->ignor_shipping == 1) )
+				{
+					$product->req_shipping = FALSE;
+				}
+				
 			}
 		}
 
-
 	
-		return array( $ignor_shipping, $OPTIONS_TO_Return );
+		return $OPTIONS_TO_Return;
 		
 	}
 
@@ -936,18 +892,12 @@ class Cart extends Public_Controller
 
 
 
-
 		$valid_files = array('png', 'jpg', 'jpeg', 'bmp' ,'zip', 'txt', 'doc', 'docx');
 
-		if(in_array($extension, $valid_files))
-		{
-			//File ok to upload
-		}
-		else
+		if(!in_array($extension, $valid_files)) 
 		{
 			return FALSE;
 		}
-
 
 		/*
 		array
@@ -957,13 +907,10 @@ class Cart extends Public_Controller
 			'filename' => string 'php80BC' (length=7)
 		*/
 
-
 		$this->load->library('files/files');
 
 
-		//
 		// where do we upload files to
-		//
 		$folder_id =  Settings::get('shop_upload_file_orders');
 
 
@@ -971,13 +918,8 @@ class Cart extends Public_Controller
 	    $upload = Files::upload( $folder_id , $filename,  $_expected_form_input_name );
 
 
-	    //var_dump($upload);die;
-
-
-	    $filesize = $upload['data']['filesize'];
-	    $extension = $upload['data']['extension'];
-
-
+	    //$filesize = $upload['data']['filesize'];
+	    //$extension = $upload['data']['extension'];
 
 	    $file_id = $upload['data']['id'];
 	

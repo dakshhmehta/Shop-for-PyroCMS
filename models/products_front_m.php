@@ -54,26 +54,17 @@ class Products_front_m extends Products_m
 			return FALSE;
 
 
-		if(group_has_role('shop', 'admin_products'))
+		if(!(group_has_role('shop', 'admin_products')))
 		{
 
-		}
-		else
-		{
-
-			//
 			// Make sure product is NOT deleted and is visible to public
-			//
 			if (($product->date_archived != NULL) || ($product->public == ProductVisibility::Invisible ))
 			{
 				return FALSE;
 			}
 		}
 
-
-		//
 		// Add the view count
-		//
 		if($incr_view)
 		{
 			$this->viewed($product->id);
@@ -317,9 +308,9 @@ class Products_front_m extends Products_m
 		
 		$tblp = $this->_table;
 		if(!empty($params['details'])){
-			$select_products = $tblp.".`id`, ".$tblp.".`slug`, ".$tblp.".`name`, ".$tblp.".`code`, ".$tblp.".`pgroup_id`, ".$tblp.".`category_id`, ".$tblp.".`cover_id`, ".$tblp.".`brand_id`, ".$tblp.".`package_id`, ".$tblp.".`description`, ".$tblp.".`keywords`, ".$tblp.".`meta_desc`, ".$tblp.".`user_data`, ".$tblp.".`height`, ".$tblp.".`width`, ".$tblp.".`depth`, ".$tblp.".`weight`, ".$tblp.".`price`, ".$tblp.".`price_base`, ".$tblp.".`rrp`, ".$tblp.".`tax_id`, ".$tblp.".`tax_dir`, ".$tblp.".`featured`, ".$tblp.".`public`, ".$tblp.".`min_qty`, ".$tblp.".`max_qty`, ".$tblp.".`views`, ".$tblp.".`status`, ".$tblp.".`date_updated`, ".$tblp.".`page_design_layout`";
+			$select_products = $tblp.".`id`, ".$tblp.".`slug`, ".$tblp.".`name`, ".$tblp.".`code`, ".$tblp.".`pgroup_id`, ".$tblp.".`category_id`, ".$tblp.".`cover_id`, ".$tblp.".`brand_id`,  ".$tblp.".`description`, ".$tblp.".`keywords`, ".$tblp.".`meta_desc`, ".$tblp.".`user_data`, ".$tblp.".`height`, ".$tblp.".`width`, ".$tblp.".`depth`, ".$tblp.".`weight`, ".$tblp.".`price`, ".$tblp.".`price_base`, ".$tblp.".`rrp`, ".$tblp.".`tax_id`, ".$tblp.".`tax_dir`, ".$tblp.".`featured`, ".$tblp.".`public`, ".$tblp.".`min_qty`, ".$tblp.".`max_qty`, ".$tblp.".`views`, ".$tblp.".`status`, ".$tblp.".`date_updated`, ".$tblp.".`page_design_layout`";
 	    }else{
-			$select_products = $tblp.".`id`, ".$tblp.".`slug`, ".$tblp.".`name`, ".$tblp.".`code`, ".$tblp.".`pgroup_id`, ".$tblp.".`category_id`, ".$tblp.".`cover_id`, ".$tblp.".`brand_id`, ".$tblp.".`package_id`, ".$tblp.".`description`, ".$tblp.".`keywords`, ".$tblp.".`meta_desc`, ".$tblp.".`related`, ".$tblp.".`user_data`, ".$tblp.".`height`, ".$tblp.".`width`, ".$tblp.".`depth`, ".$tblp.".`weight`, ".$tblp.".`price`, ".$tblp.".`price_bt`, ".$tblp.".`price_at`, ".$tblp.".`price_base`, ".$tblp.".`rrp`, ".$tblp.".`tax_id`, ".$tblp.".`tax_dir`, ".$tblp.".`digital`, ".$tblp.".`featured`, ".$tblp.".`searchable`, ".$tblp.".`public`, ".$tblp.".`min_qty`, ".$tblp.".`max_qty`, ".$tblp.".`views`, ".$tblp.".`inventory_on_hand`, ".$tblp.".`inventory_low_qty`, ".$tblp.".`inventory_type`, ".$tblp.".`status`, ".$tblp.".`created_by`, ".$tblp.".`date_created`, ".$tblp.".`date_updated`, ".$tblp.".`date_archived`, ".$tblp.".`page_design_layout`";
+			$select_products = $tblp.".`id`, ".$tblp.".`slug`, ".$tblp.".`name`, ".$tblp.".`code`, ".$tblp.".`pgroup_id`, ".$tblp.".`category_id`, ".$tblp.".`cover_id`, ".$tblp.".`brand_id`,  ".$tblp.".`description`, ".$tblp.".`keywords`, ".$tblp.".`meta_desc`, ".$tblp.".`related`, ".$tblp.".`user_data`, ".$tblp.".`height`, ".$tblp.".`width`, ".$tblp.".`depth`, ".$tblp.".`weight`, ".$tblp.".`price`, ".$tblp.".`price_base`, ".$tblp.".`rrp`, ".$tblp.".`tax_id`, ".$tblp.".`tax_dir`, ".$tblp.".`digital`, ".$tblp.".`featured`, ".$tblp.".`searchable`, ".$tblp.".`public`, ".$tblp.".`min_qty`, ".$tblp.".`max_qty`, ".$tblp.".`views`, ".$tblp.".`inventory_on_hand`, ".$tblp.".`inventory_low_qty`, ".$tblp.".`inventory_type`, ".$tblp.".`status`, ".$tblp.".`created_by`, ".$tblp.".`date_created`, ".$tblp.".`date_updated`, ".$tblp.".`date_archived`, ".$tblp.".`page_design_layout`";
 	    }
 	
 	    $this->db->select($select_products.', shop_categories.name AS category_name, shop_categories.slug AS category_slug')
@@ -577,12 +568,10 @@ class Products_front_m extends Products_m
 
 		
 		//
-		//
 		// add to the existing filter the settings for all front end items
 		//  - Must be visible
 		//  - must be NOT deleted
 		//  - must be searchabe
-		//
 		//
 		$filter['public'] = ProductVisibility::Visible;
 		//$filter['deleted'] = ProductStatus::Active;
@@ -594,8 +583,6 @@ class Products_front_m extends Products_m
 		//
 		$count = 0;
 		$categories = array();
-
-
 
 
 
@@ -643,8 +630,6 @@ class Products_front_m extends Products_m
 			$count += $this->where('date_archived', NULL )->count_by($filter);
 
 		}		
-
-
 
 
 

@@ -38,7 +38,6 @@ class Checkout extends Public_Controller {
         $this->load->model('addresses_m');
         $this->load->model('orders_m');
         $this->load->model('products_front_m');
-        $this->load->library('Package_library');
         $this->load->library('Shipping_library');
         $this->load->library('Gateway_library');
         $this->load->library('formvalidation'); 
@@ -295,7 +294,7 @@ class Checkout extends Public_Controller {
 
 
         //set rules
-        $this->form_validation->set_rules('shipment_id', lang('store:shipment_field'), 'required|numeric|trim');
+        $this->form_validation->set_rules('shipment_id', lang('shop:checkout:shipment'), 'required|numeric|trim');
 
 
         //validate if postback
@@ -570,7 +569,7 @@ class Checkout extends Public_Controller {
         $from_address = array(); //dispatch address
 
 
-        $parcels = sf_sort_into_packages( $this->sfcart );
+        $cart_items = $this->sfcart->contents();
     
 
         /**
@@ -580,7 +579,7 @@ class Checkout extends Public_Controller {
 
     
 
-        $shipping_cost = $dispatcher->calc($dispatcher->options, $parcels, $to_address, $to_address);
+        $shipping_cost = $dispatcher->calc($dispatcher->options, $cart_items , $to_address, $to_address);
 
 
         return $shipping_cost;

@@ -35,7 +35,7 @@ class Addresses extends Public_Controller
 		// If User Not logged in
 		if (!$this->current_user) 
 		{
-			$this->session->set_flashdata('notice', lang('shop:my:user_not_authenticated'));
+			$this->session->set_flashdata('error', lang('shop:my:user_not_authenticated'));
 			
 			// Send User to login then Redirect back after login
 			$this->session->set_userdata('redirect_to', 'shop/my');
@@ -46,64 +46,64 @@ class Addresses extends Public_Controller
 		$this->address_validation = array(
 				array(
 						'field' => 'first_name',
-						'label' => lang('first_name'),
+						'label' => lang('shop:address:field:first_name'),
 						'rules' => 'required|trim'
 				),
 				array(
 						'field' => 'last_name',
-						'label' => lang('last_name'),
+						'label' => lang('shop:address:field:last_name'),
 						'rules' => 'required|trim'
 				),
 				array(
 						'field' => 'company',
-						'label' => lang('company'),
+						'label' => lang('shop:address:field:company'),
 						'rules' => 'trim'
 				),
 				array(
 						'field' => 'phone',
-						'label' => lang('phone'),
+						'label' => lang('shop:address:field:phone'),
 						'rules' => 'required|trim'
 				),
 				array(
 						'field' => 'email',
-						'label' => lang('email'),
+						'label' => lang('shop:address:field:email'),
 						'rules' => 'required|trim|valid_email'
 				),
 				array(
 						'field' => 'address1',
-						'label' => lang('address1'),
+						'label' => lang('shop:address:field:address1'),
 						'rules' => 'required|trim'
 				),
 				array(
 						'field' => 'address2',
-						'label' => lang('address2'),
+						'label' => lang('shop:address:field:address2'),
 						'rules' => 'trim'
 				),
 				array(
 						'field' => 'city',
-						'label' => lang('city'),
+						'label' => lang('shop:address:field:city'),
 						'rules' => 'required|trim'
 				),
 				array(
 						'field' => 'state',
-						'label' => lang('state'),
+						'label' => lang('shop:address:field:state'),
 						'rules' => 'trim'
 				),
 				array(
 						'field' => 'country',
-						'label' => lang('country'),
+						'label' => lang('shop:address:field:country'),
 						'rules' => 'trim'
 				),
 				array(
 						'field' => 'zip',
-						'label' => lang('zip'),
+						'label' => lang('shop:address:field:zip'),
 						'rules' => 'required|trim'
 				),
 		);
 		
 		
 		// Define the top level breadcrumb
-		$this->template->set_breadcrumb(lang('shop'), 'shop');
+		$this->template->set_breadcrumb(lang('shop:label:shop'), 'shop');
 		
 
 	}
@@ -126,8 +126,8 @@ class Addresses extends Public_Controller
 
 
 		$this->template
-			->set_breadcrumb(lang('my'), 'shop/my')
-			->set_breadcrumb(lang('address'))
+			->set_breadcrumb(lang('shop:my:my'), 'shop/my')
+			->set_breadcrumb(lang('shop:label:address'))
 	  		->title($this->module_details['name'])
 			->build('my/addresses', $data);
 	}
@@ -159,7 +159,7 @@ class Addresses extends Public_Controller
 
 			if ( $this->form_validation->run() )
 			{
-				$this->session->set_flashdata('success', lang('success'));
+				$this->session->set_flashdata('success', lang('shop:messages:address:address_created_success'));
 				$success = $this->addresses_m->create($input);
 				redirect('shop/my/addresses');
 			}
@@ -182,80 +182,12 @@ class Addresses extends Public_Controller
 		}
 
 
-		$this->template->set_breadcrumb(lang('my'), 'shop/my')
-						->set_breadcrumb(lang('address'), 'shop/my/addresses')
+		$this->template->set_breadcrumb(lang('shop:my:my'), 'shop/my')
+						->set_breadcrumb(lang('shop:label:address'), 'shop/my/addresses')
 						->title($this->module_details['name'])
 						->build('my/create_address', $this->data);
 
 
-	}
-
-	/**
-	 * @deprecated - use my/addresses/create. 
-	 * @param  integer $id [description]
-	 * @return [type]      [description]
-	 */
-	public function address($id = 0)
-	{
-
-		$this->load->model('addresses_m');
-
-		$data = $id ? $this->addresses_m->where('user_id', $this->current_user->id)->get($id) : (object) array();
-
-		$data OR redirect('shop/my/addresses');
-
-		$data->user_id = $this->current_user->id;
-
-
-		// Add new address
-		if ($this->input->post())
-		{
-
-			$input = $this->input->post();
-
-			unset($input['submit']);
-
-			$input['user_id'] = $this->current_user->id;
-
-
-			$this->form_validation->set_rules($this->address_validation);
-			$this->form_validation->set_rules('useragreement', 'User Agreement field', 'required|numeric|trim');
-
-
-			if ( $this->form_validation->run() )
-			{
-				$success = $this->addresses_m->create($input);
-			}
-			else
-			{
-				$this->session->set_flashdata('success', lang('success'));
-				redirect('shop/my/addresses');
-			}
-
-		}
-
-		if (!$id)
-		{
-			foreach ($this->address_validation as $item)
-			{
-				$data->{$item['field']} = '';
-			}
-		}
-
-
-		$countryList = get_country_from_iso2alpha( '','normal', TRUE );
-		$data->countries = array(); 	
-		foreach($countryList as $code => $name)
-		{
-			$data->countries[] = array('code'=>$code,'name'=>$name);
-		}
-
-
-
-		$this->template->set_breadcrumb(lang('my'), 'shop/my')
-						->set_breadcrumb(lang('address'), 'shop/my/addresses')
-						->title($this->module_details['name'])
-						->build('my/address', $data);
 	}
 
 
@@ -268,7 +200,7 @@ class Addresses extends Public_Controller
 		
 		if ($result) 
 		{
-			$this->session->set_flashdata('success', lang('success'));
+			$this->session->set_flashdata('success', lang('shop:messages:address:address_deleted_success'));
 		}
 		
 		redirect('shop/my/addresses');

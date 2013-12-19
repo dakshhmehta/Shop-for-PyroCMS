@@ -21,8 +21,8 @@
 							
 							<?php
 									echo form_dropdown('inventory_type', array(
-										'1' => lang('shop:products:yes'), 
-										'0' => lang('shop:products:no'), 
+										'1' => lang('shop:common:yes'), 
+										'0' => lang('shop:common:no'), 
 										), set_value('inventory_type', $inventory_type), 'class="width-15"');
 									?>
 							</div>

@@ -36,13 +36,10 @@ class Products extends Public_Controller
 		
 		// Retrieve some core settings
 		$this->shop_title = Settings::get('ss_name');		//Get the shop name
-		//$this->shop_subtitle = Settings::get('ss_slogan');		//Get the shop subtitle
 		
 		// Load required classes
 		$this->load->model('products_front_m');
 		$this->limit = Settings::get('ss_qty_perpage_limit_front');
-
-		
 
 	}
 	
@@ -87,7 +84,7 @@ class Products extends Public_Controller
 		// finally
 		//
 		$this->template
-			->title($this->module_details['name'].' |' .lang('products'))
+			->title(lang('shop:label:shop').' |' .lang('shop:label:products'))
 			->set_breadcrumb($this->shop_title)
 			->build('common/products_list', $data);
 			
@@ -162,8 +159,14 @@ class Products extends Public_Controller
 
 			if($data->product->public == 0)
 			{
-				$notification_messages['error'][] = 'This product is hidden from your customers view';
+				$notification_messages['error'][] = lang('shop:messages:product_is_hidden') ;
 			}
+
+			//is the product deleted
+			if($data->product->date_archived != NULL)
+			{
+				$notification_messages['error'][] = lang('shop:messages:product_is_deleted') ;
+			}			
 		}
 
 
@@ -201,34 +204,37 @@ class Products extends Public_Controller
 	 */
 	private function _get_view_file($product)
 	{
+
 		$view_name = 'products_single_' . $product->page_design_layout;
 		
 		$this->load->library('design_library');
 
-		$path = $this->design_library->get_custom_path();
-		$path = $path . '/' . $view_name;
+
+		$path = $this->design_library->get_custom_path()  . '/' . $view_name;
 
 
 		if(file_exists($path. '.php'))
 		{
 			return 'custom/'.$view_name;
 		}
+
 		elseif('products_single' == $product->page_design_layout)
 		{
 			return 'common/products_single';
 		}
+		//now just do default		
 		else
 		{
 			return 'common/products_single';
 		}
 
 		/*
+		//change layout
 		elseif($this->template->layout_exists($product->slug .'.html'))
 		{
 			$this->template->set_layout($product->slug .'.html');
 		}
-		*/		
-
+		*/
 	}
 
 

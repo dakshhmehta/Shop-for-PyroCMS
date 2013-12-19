@@ -59,7 +59,7 @@ if (!function_exists('hlp_get_price'))
 		//
 		// We arerequesting the MID price by passing the new_qty and the price it already has
 		//
-		$price_level_1 = $ci->product_prices_m->get_discounted_price($product->id, $product_qty, $product->price_at);    
+		$price_level_1 = $ci->product_prices_m->get_discounted_price($product->id, $product_qty, $product->price);    
 
 
 		if($product->pgroup_id > 0)
@@ -67,7 +67,7 @@ if (!function_exists('hlp_get_price'))
 			$price_level_1 = $ci->pgroups_prices_m->get_discounted_price($product->pgroup_id, $new_qty, $price_level_1);    
 		}
 
-		$product->price_at = $price_level_1;
+		$product->price = $price_level_1;
  
 
 	}

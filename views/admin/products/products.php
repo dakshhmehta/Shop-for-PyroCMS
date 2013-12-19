@@ -9,7 +9,7 @@
 		<?php //if ($products) : ?>
 		<a id="flink" href="javascript:toggle_filter()" class='tooltip-s img_icon_title img_filter' title='<?php echo lang('shop:products:filter');?>'></a>
 		<?php //endif; ?>
-		<a href="admin/shop/product/create" class='tooltip-s img_icon_title img_create' title='<?php echo lang('shop:products:new');?>'></a>
+		<a href="admin/shop/product/create" class='tooltip-s img_icon_title img_create' title='<?php echo lang('shop:common:new');?>'></a>
 		
 	</span>
 	
@@ -33,14 +33,14 @@
 									<thead>		
 										<tr>
 											<th class="collapse"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
-											<th class="collapse"><?php echo lang('shop:products:id');?></th>
-											<th class="collapse"><?php echo lang('shop:products:image');?></th>
-											<th class="collapse"><?php echo lang('shop:products:name');?></th>
+											<th class="collapse"><?php echo lang('shop:common:id');?></th>
+											<th class="collapse"><?php echo lang('shop:common:image');?></th>
+											<th class="collapse"><?php echo lang('shop:common:name');?></th>
 											<th class="collapse"><?php echo lang('shop:products:on_hand');?></th>
 											<th class="collapse"><?php echo lang('shop:products:visibility');?></th>
-											<th class="collapse"><?php echo lang('shop:products:category'); ?></th>
+											<th class="collapse"><?php echo lang('shop:common:category'); ?></th>
 											<th class="collapse"><?php echo lang('shop:products:custom_field'); ?></th>
-											<th class="collapse"><?php echo lang('shop:products:price'); ?></th>
+											<th class="collapse"><?php echo lang('shop:common:price'); ?></th>
 
 											<th></th>
 										</tr>

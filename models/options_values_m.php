@@ -229,30 +229,6 @@ class Options_values_m extends MY_Model
 
 
 	
-	
-
-	/**
-	 *
-	 *
-	 *
-	 */
-	public function match( $option_id, $value )
-	{
-	
-		return $this->get($value);
-		
-	}
-	
-	public function match2( $option_id, $value )
-	{
-	
-		return $this->where('value',$value)->where('shop_options_id',$option_id)->get();
-	
-	}
-		
-
-	
-	
 	 
 	/**
 	 *

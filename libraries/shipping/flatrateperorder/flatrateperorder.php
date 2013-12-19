@@ -47,40 +47,21 @@ class FlatratePerOrder_ShippingMethod {
 
 	public function run($options)  { return $options; }
 
-	public function calc($options, $packages, $from_address = array(), $to_address = array() )
+	public function calc($options, $items, $from_address = array(), $to_address = array() )
 	{
 		
 		$cost = 0;
 
 		$shippable_item_count = 0; //if no shiipable items - return free shpping
 		
-		foreach ($packages as $package)
+		foreach ($items as $package)
 		{	
 
-			//
-			// Remove any unnessesary items from package,
-			// items that do not require shipping
-			//
-			$this->prepare_package($package);
-
-
-			//
-			// If no items left in package - do not send it (do not calc)
-			//
-			if(!$package->item_count)
-			{
-				continue;
-			}
-
-			
-			$shippable_item_count += $package->item_count;
-
-
+			$shippable_item_count++;
 		}			
 
 
 		$this->trim_shipping($cost, $options, $shippable_item_count);
-
 
 
 		return $cost;
@@ -88,25 +69,6 @@ class FlatratePerOrder_ShippingMethod {
 	}
 	
 
-
-	private function prepare_package(&$package)
-	{
-
-		foreach($package->items as $key => $val)
-		{
-
-			if( ($val['ignor_shipping']==1) OR ($val['ignor_shipping']=='1') )
-			{
-
-				$package->item_count = ($package->item_count - 1);
-				unset($package->items[$key]);
-				continue;
-				
-			}
-		
-		}
-	
-	}
 
 
 

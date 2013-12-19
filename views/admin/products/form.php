@@ -4,8 +4,7 @@
 
 
 <section class="title">
-	<h4> <?php echo lang('shop:products:method_'. $this->method, 'method_') . " <strong> <span id='title_product_name'> " .$name ."</span></strong> ( ". $id  . ")"; ?>  </h4>
-	
+	<h4> <?php echo lang('shop:common:'. $this->method) . " <strong> <span id='title_product_name'> " .$name ."</span></strong> ( ". $id  . ")"; ?>  </h4>
 </section>
 
 <section class="item">

@@ -34,7 +34,7 @@ class Wishlist extends Public_Controller
 		// If User Not logged in
 		if (!$this->current_user) 
 		{
-			$this->session->set_flashdata('notice', lang('shop:my:user_not_authenticated'));
+			$this->session->set_flashdata('error', lang('shop:messages:my:user_not_authenticated'));
 			
 			// Send User to login then Redirect back after login
 			$this->session->set_userdata('redirect_to', 'shop/my');
@@ -43,7 +43,7 @@ class Wishlist extends Public_Controller
 
 	
 		// Define the top level breadcrumb
-		$this->template->set_breadcrumb(lang('shop'), 'shop');
+		$this->template->set_breadcrumb(lang('shop:label:shop'), 'shop');
 		
 	}
 	
@@ -64,8 +64,8 @@ class Wishlist extends Public_Controller
 		$data->items = $this->wishlist_m->get_many_by('shop_wishlist.user_id', $this->current_user->id );
 
 		$this->template
-			->set_breadcrumb(lang('my'), 'shop/my')
-			->set_breadcrumb(lang('wishlist'))
+			->set_breadcrumb(lang('shop:my:my'), 'shop/my')
+			->set_breadcrumb(lang('shop:my:wishlist'))
 			->title($this->module_details['name'])
 			->build('my/wishlist', $data);
 
@@ -110,7 +110,7 @@ class Wishlist extends Public_Controller
 			// if all good add it to the db
 			$this->wishlist_m->add($this->current_user->id, $prod); // pass the price of product at time of adding (historical data)
 
-			$this->session->set_flashdata('success',  lang('shop:wishlist:successfully_added_item_to_wishlist')  ); 
+			$this->session->set_flashdata('success',  lang('shop:messages:wishlist:wishlist_success_add')  ); 
 		}
 		else
 		{
@@ -152,7 +152,7 @@ class Wishlist extends Public_Controller
 		if ( (is_numeric($product_id)) && ($product_id <= 0) )
 		{
 			// If not numeric stop and return
-			$this->session->set_flashdata('error', lang('wishlist_add_error')); 
+			$this->session->set_flashdata('error', lang('shop:messages:wishlist:invalid_product_data')); 
 			return FALSE;
 		}		
 		
@@ -163,7 +163,7 @@ class Wishlist extends Public_Controller
 		}
 		else
 		{
-			$this->session->set_flashdata('error',  lang('shop:wishlist:you_must_first_login_to_use_this_feature') ); 
+			$this->session->set_flashdata('error',  lang('shop:messages:wishlist:login_first') ); 
 			return FALSE;
 		}
 
@@ -174,7 +174,7 @@ class Wishlist extends Public_Controller
 		//
 		if ($this->wishlist_m->item_exist( $this->current_user->id, $product_id)) 
 		{
-			$this->session->set_flashdata('error',  lang('shop:wishlist:item_already_in_wishlist') ); 
+			$this->session->set_flashdata('error',  lang('shop:messages:wishlist:already_in_wishlist') ); 
 			return FALSE;
 		} 
 		
@@ -193,7 +193,7 @@ class Wishlist extends Public_Controller
 		//
 		if(!$product)
 		{
-			$this->session->set_flashdata('error',  lang('shop:wishlist:product_not_found') ); 
+			$this->session->set_flashdata('error',  lang('shop:messages:wishlist:product_not_found') ); 
 			return FALSE;
 		}
 		
@@ -203,7 +203,7 @@ class Wishlist extends Public_Controller
 		//
 		if ( is_deleted($product) || ($product->public == 0))
 		{
-			$this->session->set_flashdata('error',  lang('shop:wishlist:product_unavailable') ); 
+			$this->session->set_flashdata('error',  lang('shop:messages:wishlist:product_unavailable') ); 
 			return FALSE;
 		}
 		
@@ -225,7 +225,6 @@ class Wishlist extends Public_Controller
 	private function _wishlist_delete($product_id = 0) 
 	{
 
-		$status = JSONStatus::Error;
 		$this->load->model('wishlist_m');
 
 		//
@@ -238,11 +237,16 @@ class Wishlist extends Public_Controller
 		{
 			if( $this->wishlist_m->delete($this->current_user->id, $product_id) ) 
 			{
-				$status = JSONStatus::Success;
+
+				$this->session->set_flashdata( JSONStatus::Success,  lang('shop:messages:wishlist:delete_success')  );  
 			}
 		}
+		else
+		{
+				$this->session->set_flashdata( JSONStatus::Error,  lang('shop:messages:wishlist:delete_error')  );  
+		}
 
-		$this->session->set_flashdata($status,  lang('shop:wishlist:delete_'.$status)  );  
+
 
 		redirect('shop/my/wishlist');
 

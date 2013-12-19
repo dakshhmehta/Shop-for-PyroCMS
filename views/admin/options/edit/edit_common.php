@@ -16,7 +16,7 @@
 						<ul>
 							<li class="<?php echo alternator('even', ''); ?>">
 								<label for="name">
-									<?php echo lang('shop:options:name'); ?>
+									<?php echo lang('shop:common:name'); ?>
 									<span>*</span>
 									<small>
 										<?php echo lang('shop:options:name_description'); ?>
@@ -39,7 +39,7 @@
 								</div>
 							</li>	
 							<li class="<?php echo alternator('even', ''); ?>">
-								<label for="description"><?php echo lang('shop:options:description'); ?><span></span></label>
+								<label for="description"><?php echo lang('shop:common:description'); ?><span></span></label>
 								<div class="input">
 									<?php echo form_input('description', set_value('description', $description), 'id="description" '); ?>
 								</div>
@@ -73,7 +73,7 @@
 					
 						<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save'))); ?>
 
-						<a class="btn gray cancel" href="admin/shop/options"><?php echo lang('shop:options:cancel'); ?></a>
+						<a class="btn gray cancel" href="admin/shop/options"><?php echo lang('shop:common:cancel'); ?></a>
 
 					</div>
 
