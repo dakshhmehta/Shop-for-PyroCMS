@@ -179,9 +179,7 @@ class Products_admin_m extends Products_m
 		
 		if ($result) 
 		{
-			// Create Discount qty items
-			$this->product_prices_m->set_discounts_by_product($id,$input['discounts']);
-						
+					
 		}
 		
 		
@@ -251,8 +249,6 @@ class Products_admin_m extends Products_m
 				'tax_dir' => $product->tax_dir,
 				'pgroup_id' => $product->pgroup_id,
 
-
-				'cover_id' => $product->cover_id,
 				'status' => $product->status,
 				'category_id' => $product->category_id,
 				'brand_id' => $product->brand_id,
@@ -293,7 +289,6 @@ class Products_admin_m extends Products_m
 
 		$this->options_product_m->duplicate_product_options( $id, $new_id );
 
-		$this->product_prices_m->duplicate_discounts( $id, $new_id);
 
 		$this->product_attributes_m->duplicate_attributes($id, $new_id);
 
@@ -547,7 +542,7 @@ class Products_admin_m extends Products_m
 
 
 		$this->where('date_archived',NULL);					
-		$this->order_by($filter['order_by']);
+		$this->order_by($filter['order_by'],$filter['order_by_order']);
 		$this->limit( $limit , $offset );
 
 		return $this->get_all();
@@ -564,7 +559,7 @@ class Products_admin_m extends Products_m
 	{
 
 
-		$this->db->select('shop_products.id, shop_products.name, shop_products.cover_id,shop_products.category_id')
+		$this->db->select('shop_products.id, shop_products.name, shop_products.category_id')
 				->where('shop_products.date_archived', NULL)	
 				->where('shop_products.searchable',1);
 

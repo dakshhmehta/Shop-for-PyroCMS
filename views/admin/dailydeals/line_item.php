@@ -88,43 +88,5 @@
 						</tr>
 					<?php endforeach; ?>
 				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="9">
-
-
-
-							<div class="inner" style="float:none;">
-								
-								
-									<span style="padding-bottom:0px;bottom:0;vertical-align:top;">
-
-										<?php echo form_dropdown('multi_edit_option', array(
-
-																						'noaction' => lang('shop:dailydeals:take_no_action'), 
-																						'archive' => lang('shop:dailydeals:archive'), 
-																					 )
-
-																	,"style='vertical-align:top;'");
-																?>
-
-										<button class="shopbutton button-rounded green" value="multi_edit_option" name="btnAction" type="submit" style="vertical-align:top;">go</button>
-										<a class="shopbutton button-rounded button-flat-primary"  style="vertical-align:top;" href="#">View deal</a>
-
-									</span>
-							
-							</div>			
-
-							<div class="inner" style="float:none;">
-									<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
-							</div>			
-						
-						</td>
-					</tr>
-				</tfoot>				
 			</table>
 
-
-<style>
-
-</style>

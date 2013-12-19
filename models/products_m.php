@@ -53,7 +53,6 @@ class Products_m extends Shop_model
 		$this->load->library('shop/options_library');
 		$this->load->model('shop/options_product_m');	
 		$this->load->model('shop/categories_m');	
-		$this->load->model('shop/product_prices_m');	
 		$this->load->model('shop/product_attributes_m');	
 		$this->load->model('shop/options_m');
 		$this->load->model('shop/options_values_m');

@@ -36,14 +36,15 @@ $lang['shop:status:error']								=	'Error';
 // Address field labels
 $lang['shop:address:field:first_name']					= 	"First Name";
 $lang['shop:address:field:last_name']					= 	"Surname";
-$lang['shop:address:field:company']						= 	"company";
-$lang['shop:address:field:phone']						= 	"phone";
-$lang['shop:address:field:address1']					= 	"address1";
-$lang['shop:address:field:address2']					= 	"address2";
-$lang['shop:address:field:city']						= 	"city";
-$lang['shop:address:field:state']						= 	"state";
-$lang['shop:address:field:country']						= 	"country";
-$lang['shop:address:field:zip']							= 	"zip";
+$lang['shop:address:field:company']						= 	"Company";
+$lang['shop:address:field:email']						= 	"Email";
+$lang['shop:address:field:phone']						= 	"Phone";
+$lang['shop:address:field:address1']					= 	"Address1";
+$lang['shop:address:field:address2']					= 	"Address2";
+$lang['shop:address:field:city']						= 	"City";
+$lang['shop:address:field:state']						= 	"State";
+$lang['shop:address:field:country']						= 	"Country";
+$lang['shop:address:field:zip']							= 	"Zip";
 
 
 // These variables are used all over the front end (non specif to a section)
@@ -80,6 +81,12 @@ $lang['shop:label:email']								=	'Email';
 $lang['shop:label:delete']								=	'Delete';
 $lang['shop:label:save']								=	'Save';
 $lang['shop:label:new']									=	'New';
+$lang['shop:label:add']									=	'Add';
+$lang['shop:label:featured']							=	'Featured Products';
+$lang['shop:label:recent']							    =	'Recent Products';
+$lang['shop:label:bestsellers']							=	'Best Sellers';
+$lang['shop:label:inprogress']							=	'In progress ...';
+$lang['shop:label:options_type']						=	'Other type';
 
 
 // Messages

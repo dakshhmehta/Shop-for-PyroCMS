@@ -38,59 +38,60 @@ if (!function_exists('fraud_method'))
 
 }
 
+if (!function_exists('hlp_product_cover')) 
+{
+	function hlp_product_cover($product_id = -1) 
+	{
+
+		$ci =& get_instance();
+		
+		$ci->load->model('shop/images_m');
+
+		$img = $ci->images_m->where('cover',1)->where('product_id',$product_id)->limit(1)->get_all();
+		
+		if(count($img))
+			return $img[0];	
+
+		return NULL;
+	}
+
+}
+
+
 if (!function_exists('orderby_helper')) 
 {
   	//move to helpers
 	function orderby_helper($option) 
 	{
+		$order = 'asc'; 
+		$field = 'id';
+
 		switch($option) 
 		{
 			case 0:
-				return 'id';
+				$field = 'id';
 				break;	
 			case 1:
-				return 'name';
+				$field = 'name';
 				break;
 			case 2:
-				return 'category_id';
+				$field = 'category_id';
 				break;
 			case 3:
-				return 'id desc';
+				$field = 'id';
+				$order = 'DESC'; 
 				break;			
 			case 4:
-				return 'name desc';
+				$field =  'name';
+				$order = 'DESC'; 
 				break;					
-			default:
-				return 'id';
-				break;
 		}
+
+
+		return array('field' => $field, 'order'=>$order);
 	}
 }
 	
-
-if (!function_exists('get_prod_option_name')) 
-{
-	/**
-	 * Pass the prod_option id - to get the product option name
-	 *
-	 */
-	function get_option_name($id) 
-	{
-
-
-		$ci =& get_instance();
-		
-		$ci->load->model('shop/options_m');
-
-		
-		$option = $ci->options_m->get($id);
-		
-		return $option->name;
-	}
-	
-	
-}
-
 
 
 /*

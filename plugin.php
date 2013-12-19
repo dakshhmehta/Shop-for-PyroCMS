@@ -765,50 +765,29 @@ class Plugin_Shop extends Plugin
 		}
 
 
-		//lookup product price
+		// Get the product
 		$this->load->model('products_front_m');
 
 		$_prod = $this->products_front_m->get($id,'id');
 
 
-		// 
-		// MID_Discount
-		// 
-		if($_prod->pgroup_id > 0)
-		{
-
-			//group
-			$model = 'pgroups_prices_m';
-			$method = 'get_by_pgroup';
-
-		  	$this->load->model('shop/'. $model);
-			$prices =  $this->$model->$method($_prod->pgroup_id);
-
-			if(sizeof($prices) > 0)
-			{
-				return $prices;		
-			}
-
-		}
-
-
+		$prices = array();
+		
 		// 
 		// Qty_Discount
 		// 
-		$model = 'product_prices_m';
-		$method = 'get_discounts_by_product';
-	  	$this->load->model('shop/'. $model);
-		$prices =  $this->$model->$method($id);
+		if($_prod->pgroup_id > 0)
+		{
+		  	$this->load->model('shop/pgroups_prices_m');
+			$prices =  $this->pgroups_prices_m->get_by_pgroup($id);
+		}
 
 
-		//
-		// Product Price
-		//
+		// If no prices then return a single price in the array
 		if(sizeof($prices) == 0)
 		{
 			return( array(array( 'price' => $_prod->price, 'min_qty' => 1 ))  ); 
 		}
-
 
 		return $prices;
 		
@@ -826,6 +805,7 @@ class Plugin_Shop extends Plugin
 
 		$this->load->model('shop/images_m');
 
+
 		if($limit != '0')
 		{
 			$limit = intval($limit);
@@ -833,36 +813,21 @@ class Plugin_Shop extends Plugin
 		}
 
 
-		$cover = array();
-		$gallery = array();
-
-
 		// Get the cover image - in future cover_id will be also stored on the images table. For now we need to source from the product row for consistancy of the plugin
 		if( strtoupper(trim($include_cover)) == 'YES' )
 		{
-			$c = $this->db->select('cover_id')->get('shop_products',$id)->row();
-
-			$cover = array(
-						'src' => $c->cover_id,
-						'alt' => '',
-						'height' => '',
-						'width' => '',
-						'file_id' => $c->cover_id ,
-						'local' => '1',
-						'order' => 0,
-						'cover' => 1,
-						'id' => 0 
-						);
+			$this->db->where('product_id',$id)->where('cover',1);
 		}
 
 
 		// Get the galley images
 		if( strtoupper(trim($include_gallery)) == 'YES' )
 		{
-			$gallery = (array) $this->images_m->get_images( $id );
+			$this->db->where('product_id',$id)->or_where('cover',0);
 		}
 
-		return array_merge( $gallery , $cover );
+
+		return (array) $this->images_m->get_images( $id );
 
 	}
 
@@ -964,7 +929,22 @@ class Plugin_Shop extends Plugin
 	}
 	
 	
+	function attributes() 
+	{
 	
+		// Get the prod-id
+		$product_id = $this->attribute( 'id', NULL ); // product ID - 
+		
+		$ci =& get_instance();
+		$ci->load->model('product_attributes_m');
+		
+		$attr = $ci->product_attributes_m->get_by_product( $product_id ); 
+		
+		return $attr;
+
+	}	
+
+
 	/**
 	 *
 	 */

@@ -28,7 +28,15 @@
 					<input type="hidden" name="{{rowid}}[rowid]" value="{{rowid}}">
 					<input type="hidden" name="{{rowid}}[id]" value="{{id}}">				  
 					<th class="image">
-						{{ shop:product id="{id}" }} <img src='{{url:site}}files/thumb/{{cover_id}}/100' /> {{/shop:product}}
+							{{shop:images id="{{ id }}" include_cover='YES' include_gallery='NO' }}
+
+									{{if local}}
+										<img itemprop="image" src="{{ url:site }}files/thumb/{{file_id}}/100/100/" width="100" height="100" alt="{{alt}}" />
+									{{else}}
+										<img itemprop="image" src="{{src}}" width="100" height="100" alt="{{alt}}" />
+									{{endif}}
+				
+							{{/shop:images}}
 					</th>
 					<th class="description">{{name}}</th>
 					<th class="price">{{price}}</th>

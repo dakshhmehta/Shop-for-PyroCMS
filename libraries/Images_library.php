@@ -42,7 +42,7 @@ class Images_library
 	}
 
 
-	public function migrate() 
+	public function migrate1() 
 	{
 		
 		$this->CI->load->model('shop/images_m');
@@ -68,6 +68,30 @@ class Images_library
 
 	}	
 
+	/**
+	 * Migrate the cover images over to the shop_images table
+	 * @return [type] [description]
+	 */
+	public function migrate2() 
+	{
+		
+		$this->CI->load->model('shop/images_m');
+		$this->CI->load->model('shop/products_admin_m');
+
+		$prodcts = $this->CI->products_admin_m->get_all();
+
+		foreach($prodcts as $product)
+		{
+			if(!$product->cover_id == "")
+			{
+				$this->CI->images_m->add_local_image($product->cover_id, $product->id, 1);
+			}
+			
+		}
+
+		return TRUE;
+
+	}	
 
 }
 // END Cart Class

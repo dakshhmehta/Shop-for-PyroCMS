@@ -122,8 +122,9 @@
 					foreach ($children as $child) 
 					{
 						$editlink = " <a href='admin/shop/categories/edit/"  .$child->id ."'>edit</a>";
-						$dellink = " <a class='modal' href='admin/shop/categories/delete/"  .$child->id . "/1'>delete</a>";
-						echo "<li class='li_sub_cat'><span class='li_sub_cat'>".$child->name."</span><span style='float:right'>".$editlink.$dellink."</span></li>";
+						$dellink = " <a catid='".$child->id."' class='category_delete' href='admin/shop/categories/delete/"  .$child->id . "'>delete</a>";
+
+						echo "<li class='li_sub_cat' cat-data='"  .$child->id ."''><span class='li_sub_cat'>".$child->name."</span><span style='float:right'>".$editlink.$dellink."</span></li>";
 					}
 
 				?>
@@ -160,7 +161,41 @@ span.li_sub_cat {
 <script>
 
 
+	$(".category_delete").on('click', function(e)  
+	{		
+		postto =  $(this).attr('href');
+		catid =  $(this).attr('catid');
 
+
+		if(confirm('Are you sure ?'))
+		{
+
+		}
+		else
+		{
+			return false;
+		}
+
+
+	    $.post( postto ).done(function(data) 
+	    {			
+	        var obj = jQuery.parseJSON(data);
+	        
+	        if (obj.status == 'success') 
+	        {
+	           $('li[cat-data="'+catid+'"]').remove();
+	        }
+	        else
+	        {
+	     
+	        }
+
+	    });
+
+
+		return false;
+	
+	});	
 
 
 
