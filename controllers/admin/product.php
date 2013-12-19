@@ -143,9 +143,11 @@ class Product extends Products_admin_Controller
 
 
 
-		if(!(isset($data)) )
+		if(!$data )
 		{
-			redirect('admin/products/');
+			//$this->session->set_flashdata('error',lang('shop:messages:no_product_found') );
+			$this->session->set_flashdata('notice',lang('shop:messages:no_product_found') );
+			redirect('admin/shop/products/');
 		}
 
 
@@ -167,7 +169,6 @@ class Product extends Products_admin_Controller
 
 			//upload images
 			$this->upload($data->id);
-
 
 
 			// 
@@ -203,7 +204,6 @@ class Product extends Products_admin_Controller
 			
 		}
 		
-
 
 		// Build Template
 		$this->template->title($this->module_details['name'], lang('shop:common:edit'))
@@ -305,22 +305,38 @@ class Product extends Products_admin_Controller
 			$data->folders = $this->get_folders();
 		}
 
-		if($panel =='options')
+	
+		if($panel =='attributes')
 		{
-			$this->load->model('options_product_m');
+			$this->load->model('product_attributes_m');
+			$data->properties_array = $this->product_attributes_m->get_by_product($data->id);  
+		}
+
+		if($panel == 'options')
+		{
+			$this->load->model('shop/options_m');
+			$this->load->model('shop/options_product_m');
 			$data->prod_options		= $this->options_product_m->get_prod_options($data->id);
-			//$data->folders = $this->get_folders();
+
+			//var_dump($data->prod_options);
+			foreach($data->prod_options as $key=>$value)
+			{
+				$op = $this->options_m->get($data->prod_options[$key]->option_id);
+				$data->prod_options[$key]->name = $op->name;
+			}
+
+
 			$data->all_options = $this->options_m->build_dropdown();
 		}
 
-		if($panel =='price')
+		if($panel == 'price')
 		{
 			//$data->folders = $this->get_folders();
 			$data->tax_groups 		= $this->tax_m->get_all();
 			$data->group_select 	= $this->pgroups_m->build_dropdown( $data->pgroup_id );	
 		}
 
-		if($panel =='related')
+		if($panel == 'related')
 		{
 			//get related
 			$data->related = json_decode($data->related);
@@ -335,19 +351,19 @@ class Product extends Products_admin_Controller
 			}			
 		}
 
-		if($panel =='shipping')
+		if($panel == 'shipping')
 		{		
 			$this->load->library('products_library');
 			$data->req_shipping_select = $this->products_library->build_requires_shipping_select(array('current_id' => $data->req_shipping));
 		}	
 
-		if($panel =='files')
+		if($panel == 'files')
 		{
 			$this->load->model('shop_files_m');
 			$data->digital_files = $this->shop_files_m->get_files($data->id);
 		}	
 
-		if($panel =='design')
+		if($panel == 'design')
 		{
 			$this->load->library('design_library');
 
@@ -360,7 +376,6 @@ class Product extends Products_admin_Controller
 		$this->load->view('admin/products/partials/'.$panel, $data); 
 
 
-
 	}
 
 	public function delete_file($file_id)
@@ -369,15 +384,14 @@ class Product extends Products_admin_Controller
 
 		$status = $this->shop_files_m->delete_file($file_id);
 
+		$st = JSONStatus::Error;
 
 		if($status)
 		{
-			echo json_encode(array('status' => 'success'));die;
+			$st = JSONStatus::Success;
 		}
-		else
-		{
-			echo json_encode(array('status' => 'error'));die;
-		}
+
+		echo json_encode(array('status' => $st));die;
 
 	}
 
@@ -414,8 +428,10 @@ class Product extends Products_admin_Controller
 
 
 		//We have to check if there are any rules to check, as if there isnt it will return false when run
-		if($this->form_validation->_validation_rules == NULL)
+		if(count($this->_validation_rules) == 0) 
+		{
 			return TRUE;
+		}
 
 
 		// Test and return

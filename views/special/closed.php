@@ -1,5 +1,5 @@
 <div id="">
 	<div class="">
-		<span><?php echo lang('shop:messages:closed_maintenance'); ?></span>
+		<span>{{message}}</span>
 	</div>	
 </div>	

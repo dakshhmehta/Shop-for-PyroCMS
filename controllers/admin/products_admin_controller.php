@@ -88,7 +88,7 @@ class Products_admin_Controller extends Admin_Controller
 			array(
 				'field' => 'meta_desc',
 				'label' => 'lang:meta_desc',
-				'rules' => 'trim'
+				'rules' => 'trim|max_length[250]'
 			),
 			array(
 				'field' => 'status',

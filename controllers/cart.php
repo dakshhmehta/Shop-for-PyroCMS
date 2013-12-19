@@ -49,8 +49,6 @@ class Cart extends Public_Controller
 				
 		// Load required classes
 		$this->load->model('products_front_m');
-		$this->load->model('product_prices_m');
-
 
 		//change the next few lines
 		if ( $this->login_required && !$this->has_logged_in_user) 

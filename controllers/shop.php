@@ -86,7 +86,21 @@ class Shop extends Public_Controller
 	{
 		$this->template->build('special/'.$param);
 	}
+	
 
+	public function closed($param = '') 	
+	{
+		$this->open_shop 	= Settings::get('nc_open_status');  /* shop open closed */
+
+		if($this->open_shop)
+		{
+			redirect('shop');
+		}
+
+		$message = Settings::get('ss_closed_reason');
+
+		$this->template->build('special/closed',array('message'=>$message));
+	}
 
 	/*
 	 * key is 41aa2cd4534fd33288bfa3fb3a828979 

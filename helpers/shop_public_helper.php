@@ -327,35 +327,7 @@ if (!function_exists('sf_string_to_decimal'))
 
 
 
-if (!function_exists('orderby_helper')) 
-{
-	/**
-	 * @deprecated There is no alternative as yet but try not to use this
-	 * @param unknown_type $option
-	 * @return string
-	 */	
-	function _orderby_helper($option) 
-	{
-	
-		switch($option) 
-		{
-			case 0:
-				return 'id';
-				break;
-			case 1:
-				return 'name';
-				break;
-			case 2:
-				return 'category_id';
-				break;
-			default:
-				return 'id';
-				break;
-		}
-	}
-}
-
-
+// if (!function_exists('orderby_helper'))  -this should only be an admin helper - so i removed it from here
 
 
 if (!function_exists('sf_text'))

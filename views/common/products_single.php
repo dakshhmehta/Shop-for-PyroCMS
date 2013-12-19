@@ -36,16 +36,12 @@
 
 			<div class=''>
 				<ul>
-					{{ shop:images id="{{product:id}}" }}
+					{{shop:images id="{{product.id}}" include_cover='YES' include_gallery='YES' }}
 						<li>
 							{{if local}}
-									<a href="#">
-										<img src="{{ url:site }}files/thumb/{{file_id}}/100/100/" alt="" />
-									</a>	
+								<img itemprop="image" src="{{ url:site }}files/thumb/{{file_id}}/200/200/" width="200" height="200" alt="{{alt}}" />
 							{{else}}
-									<a href="#">
-										<img src="{{ src }}" alt="" height="100" width="100" />
-									</a>	
+								<img itemprop="image" src="{{src}}" width="200" height="200" alt="{{alt}}" />
 							{{endif}}
 						</li>
 					{{/shop:images}}

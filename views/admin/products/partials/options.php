@@ -27,7 +27,7 @@
 											<a target="_new" href="admin/shop/options/edit/<?php echo $option->option_id; ?>" class="img_edit img_icon"></a> 
 										</span>									
 										<span>
-											<?php echo get_option_name($option->option_id); ?>  
+											<?php echo ($option->name); ?>  
 										</span>     
 										<span id="OptionButtons" style="float:right">
 											<a href="#" class="img_up img_icon" data-option-id="<?php echo $option->id; ?>"></a>

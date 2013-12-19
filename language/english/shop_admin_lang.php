@@ -22,8 +22,14 @@ $lang['shop:admin:analytics']								=	'Analytics';
 $lang['shop:admin:manage']									=	'Manage';
 $lang['shop:admin:view_shop']								=	'Goto Shop';
 
-# COMMON LABELS USED EVERYWHERE
-# Common labels - When changing the text for these take note that they are used in many sections
+# Common Messages
+$lang['shop:messages:no_product_found']						=	'Unable to locate the product you requested..';
+
+# Common terms
+$lang['shop:common:start']  								= 'Start';
+$lang['shop:common:stop']  									= 'Stop';
+$lang['shop:common:activate']  								= 'Activate';
+$lang['shop:common:archive']  								= 'Archive';
 $lang['shop:common:actions']  								= 'Actions';
 $lang['shop:common:action']  								= 'Action';
 $lang['shop:common:available']  							= 'Available';
@@ -171,13 +177,13 @@ $lang['shop:gateways:main_description']  = 'Main description';
 
 
 # Admin/Manage
-$lang['shop:manage:all_cache']  = 'All cache';
-$lang['shop:manage:apearance']  = 'Apearance';
-$lang['shop:manage:categories_cache']  = 'Categories cache';
-$lang['shop:manage:compile']  = 'Compile';
-$lang['shop:manage:data_set']  = 'Data set';
-$lang['shop:manage:detail']  = 'Detail';
-$lang['shop:manage:export_data']  = 'Export data';
+$lang['shop:manage:all_cache']  					= 'All cache';
+$lang['shop:manage:apearance']  					= 'Apearance';
+$lang['shop:manage:categories_cache']  				= 'Categories cache';
+$lang['shop:manage:compile']  						= 'Compile';
+$lang['shop:manage:data_set']  						= 'Data set';
+$lang['shop:manage:detail']  						= 'Detail';
+$lang['shop:manage:export_data']  					= 'Export data';
 $lang['shop:manage:files']  = 'Files';
 $lang['shop:manage:language_generator']  = 'Language generator';
 $lang['shop:manage:login_location']  = 'Login location';
@@ -276,6 +282,8 @@ $lang['shop:pgroups:price_group']  = 'Price group';
 $lang['shop:pgroups:price_groups']  = 'Price groups';
 
 # Admin/Products
+$lang['shop:products:url_image']  					= 'Import image with URL';
+$lang['shop:products:url_image_description']  		= 'Shop allows you to add images by URLs. Beware that if the remote address changes your product may not display the image';
 $lang['shop:products:add']  = 'Add';
 $lang['shop:products:add_new_attribute']  = 'Add new attribute';
 $lang['shop:products:add_to_daily_deals']  = 'Add to daily deals';
@@ -325,7 +333,7 @@ $lang['shop:products:make_all_invisible']  = 'Make all invisible';
 $lang['shop:products:make_all_visible']  = 'Make all visible';
 $lang['shop:products:max_weight_per_unit']  = 'Max weight per unit';
 $lang['shop:products:meta_description']  = 'Meta description';
-$lang['shop:products:meta_description_description']  = 'Meta description description';
+$lang['shop:products:meta_description_description']  = '255 Characters max.';
 $lang['shop:products:mid_discount']  = 'Mid discount';
 $lang['shop:products:min_purchase_req']  = 'Min purchase req';
 $lang['shop:products:min_qty']  = 'Min qty';
@@ -338,19 +346,19 @@ $lang['shop:products:options']  = 'Options';
 $lang['shop:products:options_description']  = 'Options description';
 $lang['shop:products:order_by']  = 'Order by';
 $lang['shop:products:page_design']  = 'Page design';
-$lang['shop:products:page_design_description']  = 'Page design description';
+$lang['shop:products:page_design_description']  = "Page design lets you select the page 'design' for your product. Some of the Designs may or may not be suitable for your items. Check with your web developer if you require assistance in selecting the right design.";
 $lang['shop:products:page_design_layout']  = 'Page design layout';
-$lang['shop:products:pgroup']  = 'Pgroup';
-$lang['shop:products:pgroup_description']  = 'Pgroup description';
-$lang['shop:products:price_description']  = 'Price description';
+$lang['shop:products:pgroup']  						= 'Price Group';
+$lang['shop:products:pgroup_description']  			= 'You can set a price using a PriceGroup. By doing this you can set multiple items to the same price group. This will allow you to set a discount across a range of products';
+$lang['shop:products:price_description']  			= 'If you only have a single set price for your product you can set this here.';
 $lang['shop:products:price_tab_description']  = 'Price tab description';
 $lang['shop:products:price_tab_description_description']  = 'Price tab description description';
 $lang['shop:products:req_shipping']  						= 'Requires Shipping';
 $lang['shop:products:req_shipping_description']  			= 'Is this product a physical item that requires shipping or physical delivery. Select NO for digital goods/files.';
 $lang['shop:products:products']  = 'Products';
-$lang['shop:products:qty_discount']  = 'Qty discount';
-$lang['shop:products:qty_discounts']  = 'Qty discounts';
-$lang['shop:products:qty_discounts_description']  = 'Qty discounts description';
+$lang['shop:products:qty_discount']  						= 'QTY discount';
+$lang['shop:products:qty_discounts']  						= 'Qty discounts';
+$lang['shop:products:qty_discount_description']  = 'Qty discounts description';
 $lang['shop:products:related_products']  = 'Related products';
 $lang['shop:products:related_products_description']  = 'Related products description';
 $lang['shop:products:rrp']  = 'Rrp';
