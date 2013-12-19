@@ -43,7 +43,6 @@ class Product_prices_m extends MY_Model
 
 		$this->load->model('shop/tax_m');
 		$this->load->model('shop/pgroups_m');
-		$this->load->library('shop/package_library');
 		$this->load->library('shop/options_library');
 		$this->load->model('shop/options_product_m');	
 		$this->load->model('shop/categories_m');	

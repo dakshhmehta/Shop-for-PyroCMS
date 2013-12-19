@@ -1,24 +1,16 @@
 <?php if (!defined('BASEPATH'))  exit('No direct script access allowed');
-/*
- * SHOP for PyroCMS
- * 
- * Copyright (c) 2013, Salvatore Bordonaro
- * All rights reserved.
- *
- * Author: Salvatore Bordonaro
- * Version: 1.0.0.051
- *
- *
- *
- * 
- * See Full license details on the License.txt file
- */
- 
+
+ # 
+ # SHOP for PyroCMS
+ # -----------------------------------------------------------------
+ # Author: Salvatore Bordonaro
+ # License: See Full license details on the License.txt file
+ #
+ #
 $route['shop/admin/maintenance(/:any)?']	= 'admin/maintenance$1';
 $route['shop/admin/dailydeals(/:any)?']		= 'admin/dailydeals$1';
 $route['shop/admin/images(/:any)?']			= 'admin/images$1';
 $route['shop/admin/shipping(:any)?']		= 'admin/shipping$1';
-$route['shop/admin/packages(:any)?']		= 'admin/packages$1';
 $route['shop/admin/options(:any)?']			= 'admin/options$1';
 $route['shop/admin/pgroups(:any)?']			= 'admin/pgroups$1';
 $route['shop/admin/gateways(:any)?']		= 'admin/gateways$1';
@@ -47,7 +39,7 @@ $route['admin(/:any)?']			  			= 'admin/shop$1';
 # After  domain.com/shop/product/{slug}
 # After  domain.com/product/{slug}
 # 
-$route['shop/product(/:any)']		 		= 'products/product$1';
+#$route['shop/product(/:any)']		 		= 'products/product$1';
 
 
 

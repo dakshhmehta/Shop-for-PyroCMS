@@ -1,7 +1,7 @@
 <section class="title">
 	<h4><?php echo lang('shop:options:options'); ?></h4>
 	<h4 style="float:right">
-	<a title='<?php echo lang('shop:options:new'); ?>' href="admin/shop/options/create" class='tooltip-s modal img_icon_title img_create'></a>
+	<a title='<?php echo lang('shop:common:new'); ?>' href="admin/shop/options/create" class='tooltip-s modal img_icon_title img_create'></a>
 	</h4>
 </section>
 <?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
@@ -10,7 +10,7 @@
 		<?php if (empty($options)): ?>
 			<div class="no_data">
 				<p>
-					<?php echo lang('shop:options:description'); ?>
+					<?php echo lang('shop:common:description'); ?>
 				</p>
 				<?php echo lang('shop:options:no_data'); ?>
 			</div>
@@ -22,7 +22,7 @@
 					<th><input type="checkbox" name="action_to_all" value="" class="check-all" /></th>
 					<th></th>
 					<th><?php echo lang('shop:options:title'); ?></th>
-					<th><?php echo lang('shop:options:name'); ?></th>
+					<th><?php echo lang('shop:common:name'); ?></th>
 					<th><?php echo lang('shop:options:type'); ?></th>
 					<th style="width: 120px"></th>
 				</tr>
@@ -46,16 +46,16 @@
 								<span class="button-dropdown" data-buttons="dropdown">
 								
 										<a href="#" class="shopbutton button-rounded button-flat-primary"> 
-											<?php echo lang('shop:options:actions');?> 
+											<?php echo lang('shop:common:actions');?> 
 											<i class="icon-caret-down"></i>
 										</a>
 										 
 										<!-- Dropdown Below Button -->
 										<ul class="button-dropdown-menu-below">
 
-											<li class=''><a title='<?php echo lang('shop:options:edit'); ?>' class="" href="<?php echo site_url('admin/shop/options/edit/' . $item->id); ?>"> <?php echo lang('shop:options:edit');?>  </a></li>
-											<li class=''><a title='<?php echo lang('shop:options:copy'); ?>' class="" href="<?php echo site_url('admin/shop/options/duplicate/' . $item->id); ?>"> <?php echo lang('shop:options:copy');?> </a></li>
-											<li class='button-dropdown-divider delete'><a title='<?php echo lang('shop:options:are_you_sure'); ?>' class="tooltip-e confirm" href="<?php echo site_url('admin/shop/options/delete/' . $item->id); ?>"><?php echo lang('shop:options:delete');?>  </a></li>
+											<li class=''><a title='<?php echo lang('shop:common:edit'); ?>' class="" href="<?php echo site_url('admin/shop/options/edit/' . $item->id); ?>"> <?php echo lang('shop:common:edit');?>  </a></li>
+											<li class=''><a title='<?php echo lang('shop:common:copy'); ?>' class="" href="<?php echo site_url('admin/shop/options/duplicate/' . $item->id); ?>"> <?php echo lang('shop:common:copy');?> </a></li>
+											<li class='button-dropdown-divider delete'><a title='<?php echo lang('shop:options:are_you_sure'); ?>' class="tooltip-e confirm" href="<?php echo site_url('admin/shop/options/delete/' . $item->id); ?>"><?php echo lang('shop:common:delete');?>  </a></li>
 
 										</ul>
 

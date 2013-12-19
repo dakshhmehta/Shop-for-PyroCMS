@@ -42,7 +42,7 @@ class Dashboard extends Public_Controller
 		}
 	
 		// Define the top level breadcrumb
-		$this->template->set_breadcrumb(lang('shop'), 'shop');
+		$this->template->set_breadcrumb(lang('shop:label:shop'), 'shop');
 		
 	}
 	
@@ -63,8 +63,8 @@ class Dashboard extends Public_Controller
 		$data->total_wish = $this->wishlist_m->where('user_id',$this->current_user->id)->count_all();
 			 	
 		$this->template
-				->set_breadcrumb(lang('my'))
-				->title($this->module_details['name'].' | '.lang('dashboard'))
+				->set_breadcrumb(lang('shop:my:my'))
+				->title($this->module_details['name'].' | '.lang('shop:my:dashboard'))
 				->build('my/dashboard',$data);
 	}
 

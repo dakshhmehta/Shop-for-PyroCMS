@@ -50,7 +50,7 @@ class Tax extends Admin_Controller
 			),
 			array(
 				'field' => 'rate',
-				'label' => 'lang:slug',
+				'label' => 'Rate',
 				'rules' => 'trim|numeric|required'
 			),
 

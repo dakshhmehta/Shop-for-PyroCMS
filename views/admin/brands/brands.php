@@ -41,7 +41,7 @@
 					<td><?php echo $brand->name; ?></td>
 					<td>
 						<span style="float:right;">
-							<a class="tooltip-s img_icon img_edit"  title="<?php echo lang('shop:admin:edit');?>" href="<?php echo site_url('admin/shop/brands/edit/' . $brand->id); ?>"> </a>
+							<a class="tooltip-s img_icon img_edit"  title="<?php echo lang('shop:common:edit');?>" href="<?php echo site_url('admin/shop/brands/edit/' . $brand->id); ?>"> </a>
 							<a class="tooltip-s img_icon img_delete confirm" title="<?php echo lang('shop:admin:delete');?>" href="<?php echo site_url('admin/shop/brands/delete/' . $brand->id); ?>"> </a>	
 						</span>
 					</td>

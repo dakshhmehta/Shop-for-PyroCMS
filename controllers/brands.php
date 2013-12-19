@@ -32,10 +32,8 @@ class Brands extends Public_Controller
 		parent::__construct();
 
 		// Retrieve some core settings
-		//$this->use_css =  Settings::get('nc_css');
 		$this->shop_title = Settings::get('ss_name');		//Get the shop name
-		$this->shopsubtitle = Settings::get('ss_slogan');		//Get the shop subtitle
-		
+
 		// Load required classes
 		$this->load->model('brands_m');
 

@@ -1,6 +1,6 @@
 
 <section class="title">
-	<h4> <?php echo lang('shop:products:method_'. $this->method, 'method_'); ?>  </h4>
+	<h4> <?php echo lang('shop:common:'. $this->method); ?>  </h4>
 </section>
 
 <section class="item">
@@ -8,12 +8,12 @@
 		<?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
 		<div class="tabs">		
 			<ul class="tab-menu">
-				<li><a href="#product-tab"><span> <?php echo lang('shop:products:product'); ?></span></a></li>
+				<li><a href="#product-tab"><span> <?php echo lang('shop:common:product'); ?></span></a></li>
 			</ul>
 			<div class="form_inputs" id="product-tab">
 				<ul>
 					<li class="<?php echo alternator('', 'even'); ?>">
-						<label for="name"><?php echo lang('shop:products:name'); ?> <span>*</span>
+						<label for="name"><?php echo lang('shop:common:name'); ?> <span>*</span>
 							<small>
 								<?php echo lang('shop:products:name_description'); ?>
 							</small>
@@ -21,7 +21,7 @@
 						<div class="input" ><?php echo form_input('name', set_value('name', $name)); ?></div>
 					</li>
 					<li class="<?php echo alternator('', 'even'); ?>">
-						<label for="slug"><?php echo lang('shop:products:slug'); ?> <span>*</span>
+						<label for="slug"><?php echo lang('shop:common:slug'); ?> <span>*</span>
 							<small>
 								<?php echo lang('shop:products:slug_description'); ?>
 							</small>
@@ -29,7 +29,7 @@
 						<div class="input"><?php echo form_input('slug', set_value('slug', $slug)); ?></div>
 					</li>
 					<li>
-						<label for="price"><?php echo lang('shop:products:price'); ?><span>*</span><br />
+						<label for="price"><?php echo lang('shop:common:price'); ?><span>*</span><br />
 							<small><?php echo lang('shop:products:price_description'); ?></small>
 						</label>
 						<div class="input">

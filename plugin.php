@@ -55,6 +55,35 @@ class Plugin_Shop extends Plugin
 				'variables' => 'id|cover_id|slug|name|description',
 				'attributes' => array(),
 			),		
+			'images' => array(
+				'description' => array(
+					'en' => 'Display Gallery and cover images of products.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|src|alt|height|width|file_id|local',				
+				'attributes' => array(
+					'id' => array(
+						'type' => 'int',
+						'required' => true,
+					),
+					'max' => array(
+						'type' => 'Integer',
+						'default' => '0',
+						'required' => false,
+					),
+					'include_cover' => array(
+						'type' => 'Boolean',
+						'default' => 'NO',
+						'required' => false,
+					),		
+					'include_gallery' => array(
+						'type' => 'Boolean',
+						'default' => 'YES',
+						'required' => false,
+					),										
+				),
+			),				
 			'related' => array(
 				'description' => array(
 					'en' => 'Display a list of related products to another product.'
@@ -325,6 +354,9 @@ class Plugin_Shop extends Plugin
 		$product = $this->products_front_m->get($id, 'id', TRUE);
 
 		if ($product==NULL) 
+			return array();
+
+		if($product->related == '')
 			return array();
 
 		$related =  json_decode($product->related);	
@@ -788,15 +820,49 @@ class Plugin_Shop extends Plugin
 
 		$id = $this->attribute('id', '0');
 		$limit = $this->attribute('max', '0');
-		$this->load->model('shop/products_front_m');
+
+		$include_cover = $this->attribute('include_cover', 'NO');
+		$include_gallery = $this->attribute('include_gallery', 'YES');
+
+		$this->load->model('shop/images_m');
 
 		if($limit != '0')
 		{
 			$limit = intval($limit);
-			return (array) $this->products_front_m->limit($limit)->get_images($id);
+			$this->images_m->limit($limit);
 		}
 
-		return (array) $this->products_front_m->get_images($id);	
+
+		$cover = array();
+		$gallery = array();
+
+
+		// Get the cover image - in future cover_id will be also stored on the images table. For now we need to source from the product row for consistancy of the plugin
+		if( strtoupper(trim($include_cover)) == 'YES' )
+		{
+			$c = $this->db->select('cover_id')->get('shop_products',$id)->row();
+
+			$cover = array(
+						'src' => $c->cover_id,
+						'alt' => '',
+						'height' => '',
+						'width' => '',
+						'file_id' => $c->cover_id ,
+						'local' => '1',
+						'order' => 0,
+						'cover' => 1,
+						'id' => 0 
+						);
+		}
+
+
+		// Get the galley images
+		if( strtoupper(trim($include_gallery)) == 'YES' )
+		{
+			$gallery = (array) $this->images_m->get_images( $id );
+		}
+
+		return array_merge( $gallery , $cover );
 
 	}
 
@@ -848,8 +914,7 @@ class Plugin_Shop extends Plugin
 		{
 			$product =  $this->products_front_m->get($slug, 'slug');
 		}
-
-
+		
 
 
 		if ($product==NULL) 
@@ -859,7 +924,6 @@ class Plugin_Shop extends Plugin
 		if (is_deleted($product) || ($product->public == 0)) 
 			return array();
 
-		//var_dump($product);die;
 		return (array) $product;	
 
 	}
@@ -983,19 +1047,18 @@ class Plugin_Shop extends Plugin
 	 */
 	function mylinks()
 	{
-
+		//active make the link active, as the active display section
 		$active = $this->attribute('active', '');
 		$remove = $this->attribute('remove', '');
 		$remove = explode(' ', $remove);
 
 		$links = array();
 
-		$links['dashboard']['link'] = anchor('shop/my/dashboard', lang('dashboard'));
-		$links['orders']['link'] = anchor('shop/my/orders', lang('orders'));
-		$links['wishlist']['link'] = anchor('shop/my/wishlist', lang('wishlist'));
-		$links['messages']['link'] = anchor('shop/my/messages', lang('messages'));
-		$links['addresses']['link'] = anchor('shop/my/addresses', lang('addresses'));
-		$links['shop']['link'] = anchor('shop/', lang('back_to_shop'));
+		$links['dashboard']['link'] = anchor('shop/my/dashboard', lang('shop:my:dashboard'));
+		$links['orders']['link'] = anchor('shop/my/orders', lang('shop:my:orders'));
+		$links['wishlist']['link'] = anchor('shop/my/wishlist', lang('shop:my:wishlist'));
+		$links['messages']['link'] = anchor('shop/my/messages', lang('shop:my:messages'));
+		$links['addresses']['link'] = anchor('shop/my/addresses', lang('shop:my:addresses'));
 
 		foreach($remove as $link)
 		{
@@ -1005,7 +1068,7 @@ class Plugin_Shop extends Plugin
 		if(isset($links[$active]))
 		{
 			//set the active class
-			$links[$active]['link'] = anchor('shop/my/'.$active, lang($active), 'style="font-weight:bold"');
+			$links[$active]['link'] = anchor('shop/my/'.$active, lang('shop:my:' .$active), 'style="font-weight:bold"');
 		}
 
 		return $links;

@@ -1,13 +1,13 @@
 
 			<fieldset>
-			 	<strong><?php echo lang('shop:orders:messages'); ?></strong>
+			 	<strong><?php echo lang('shop:common:messages'); ?></strong>
 			 	
 			 	<table class='fixed' >
 					<thead class='fixed'>
 							<tr>
 								<th><?php echo lang('shop:orders:from'); ?></th>
 								<th><?php echo lang('shop:orders:date'); ?></th>
-								<th><?php echo lang('shop:orders:message'); ?></th>
+								<th><?php echo lang('shop:common:message'); ?></th>
 							</tr>
 					</thead>
 				</table>	   
@@ -41,7 +41,7 @@
 				<div class="form_inputs">
 					<ul>
 						<li>
-							<?php echo lang('shop:orders:message'); ?>
+							<?php echo lang('shop:common:message'); ?>
 							<div class="">
 								<?php echo form_textarea(array( 'name' => 'message', 'value' => set_value('message'), 'rows' => 3)); ?>
 							</div>

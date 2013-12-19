@@ -192,16 +192,12 @@ jQuery(function($){
 		    }
 
 
-
-            
 			return false;
 		
 		});	
 
 
-		
 
-	   
 
 	});
 

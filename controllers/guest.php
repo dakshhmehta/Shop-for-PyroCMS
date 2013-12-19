@@ -40,7 +40,7 @@ class Guest extends Public_Controller
 		}
 
 
-		$this->template->set_breadcrumb(lang('shop'), 'shop');
+		$this->template->set_breadcrumb(lang('shop:label:shop'), 'shop');
 		
 	}
 	
@@ -64,8 +64,8 @@ class Guest extends Public_Controller
 
 
 			$this->template
-					->set_breadcrumb(lang('my'))
-					->title($this->module_details['name'].' | '.lang('dashboard'))
+					->set_breadcrumb(lang('shop:guest:guest'))
+					->title($this->module_details['name'].' | '.lang('shop:guest:dashboard'))
 					->build('guest/dashboard');
 		}
 	}

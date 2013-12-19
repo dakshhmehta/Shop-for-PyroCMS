@@ -87,12 +87,11 @@ class Options_library
 								$string_builder .=  form_radio('prod_options_'.$option->id.'',$option_value->id, $str ).' '.$option_value->label. '<br />'; 
 								
 								//better
-								$option_value->display = form_radio('prod_options_'.$option->id.'prod_options_',$option_value->id, $str ); 
+								$option_value->display = form_radio('prod_options_'.$option->id.'',$option_value->id, $str ); 
 
 							}
 							
 							
-
 						}
 						
 						$option->display = $string_builder;
@@ -113,10 +112,7 @@ class Options_library
 
 					case 'file':
 						$file_count++;
-						//$option->display = "<input type='file' name='prod_options[".$option->slug."]' >";
-						//$option->display = "<input type='file' name='fileupload' ><input type='hidden' value='donotremove' name='prod_options[".$option->id."]' >";
 						$option->display = "<input type='file' name='prod_options_".$option->id."'>";								
-						//$option->display = "<input type='file' name='file' data >";
 						break;	
 
 

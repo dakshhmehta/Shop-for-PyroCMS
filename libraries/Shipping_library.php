@@ -172,7 +172,7 @@ class Shipping_library extends Core_library
 	
 			//prepare array
 			$insert = array(
-					'title' => $lib_object->title,
+					'title' => $lib_object->name,
 					'slug' => sf_clean_slug($slug),
 					'desc' => $lib_object->desc,
 					'enabled' => 0, /*disabled by default*/

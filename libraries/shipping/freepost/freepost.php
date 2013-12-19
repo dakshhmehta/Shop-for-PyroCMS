@@ -26,7 +26,7 @@
 class FreePost_ShippingMethod {
 
 	public $name =  'Free Postage (Free)'; 
-	public $desc = 'Free Postage for All Items - Please assign all items to a FP package.';
+	public $desc = 'Free Postage for All Items';
 	public $author = 'inspiredgroup.com.au';
 	public $website = 'http://inspiredgroup.com.au';
 	public $version = '1.0';
@@ -48,7 +48,7 @@ class FreePost_ShippingMethod {
 
 	public function run($options)  { return $options; }
 
-	public function calc($options, $packages, $from_address = array(), $to_address = array() )
+	public function calc($options, $items, $from_address = array(), $to_address = array() )
 	{
 		return 0; 		
 	}

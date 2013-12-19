@@ -19,19 +19,14 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>1</td>
-					<td><?php echo lang('total_orders'); ?></td>
-					<td><?php echo count($recent_orders); ?></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td>2</td>
-					<td><?php echo lang('unread_messages'); ?></td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td><?php echo lang('wishlist_items'); ?></td>
-					<td><?php echo $total_wish; ?></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 			</tbody>
 		</table>
