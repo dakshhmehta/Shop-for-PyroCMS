@@ -71,11 +71,12 @@ class Module_Shop extends AbstractModule
 	{
  
 		// load the model
-		$this->ci->load->model('settings_m');
+		// @todo I don't know why I commented out loading of settings_m.
+		//$this->ci->load->model('settings_m');
 
 		$get_menu_addon = $this->ci->uri->segment(3);	
 		
-		return  $this->details_library->info($get_menu_addon);
+		return  $this->ci->details_library->info($get_menu_addon);
 
 	}
   
@@ -85,7 +86,7 @@ class Module_Shop extends AbstractModule
     {
 	
 		// Get the admin menu for pyro 2.2
-		$this->details_library->admin_menu($menu);
+		$this->ci->details_library->admin_menu($menu);
 		
 		// Place menu on position #
 		add_admin_menu_place('lang:shop:admin:shop', 1);
@@ -101,11 +102,11 @@ class Module_Shop extends AbstractModule
 	{
 		$this->pdb = $pdb;
 		$this->schema = $schema;
- 		//$tables = $this->details_library->get_tables();
+ 		//$tables = $this->ci->details_library->get_tables();
 		//$this->_uninstall_tables($tables);
 		//return true;
 		# Install Product Tables
-		$tables = $this->install_tables( $this->details_library->get_tables() );
+		$tables = $this->install_tables( $this->ci->details_library->get_tables() );
 
 
 
@@ -155,7 +156,7 @@ class Module_Shop extends AbstractModule
 		$data = array();
 
 
-		foreach($this->details_library->_countryList as $key => $value)
+		foreach($this->ci->details_library->_countryList as $key => $value)
 		{
 			$data[] = array(
 					'name' => $value,
@@ -185,12 +186,12 @@ class Module_Shop extends AbstractModule
 		$this->pdb = $pdb;
 		$this->schema = $schema;
 		//Cache
-		$cache_list = $this->details_library->get_cache_list();
+		$cache_list = $this->ci->details_library->get_cache_list();
 
 
 		$this->_delete_cache($cache_list);
 
-		$tables = $this->details_library->get_tables();
+		$tables = $this->ci->details_library->get_tables();
 		$this->_uninstall_tables($tables);
 
 				
@@ -288,7 +289,7 @@ class Module_Shop extends AbstractModule
 
 		$this->dbforge->drop_table($table);
 
- 		$table_to_install = $this->details_library->get_tables($table);
+ 		$table_to_install = $this->ci->details_library->get_tables($table);
 
 
  		$table_to_install = array( $table => $table_to_install[$table] );
@@ -311,7 +312,7 @@ class Module_Shop extends AbstractModule
 		//first drop the col if exist
 		//$this->dbforge->drop_column($table_name, $col_name);
 
- 		$_table = $this->details_library->get_tables($table_name);
+ 		$_table = $this->ci->details_library->get_tables($table_name);
 
  		$fields = $_table[$table_name][$col_name];
 		$fields = array( $col_name => $fields );
@@ -356,7 +357,7 @@ class Module_Shop extends AbstractModule
 	private function init_templates() 
 	{
 
-		 $em_tmp = $this->details_library->get_email_templates();
+		 $em_tmp = $this->ci->details_library->get_email_templates();
 
 		 foreach ($em_tmp as $email_array_data) 
 		 {
@@ -378,7 +379,7 @@ class Module_Shop extends AbstractModule
 	 */
 	private function _create_settings($sett_name)
 	{
-		$settings = $this->details_library->get_settings($sett_name);
+		$settings = $this->ci->details_library->get_settings($sett_name);
 
 		//set the settings name
 		$settings['slug'] = $sett_name;
@@ -392,7 +393,7 @@ class Module_Shop extends AbstractModule
 	private function init_settings() 
 	{
 
-		$settings = $this->details_library->get_settings();
+		$settings = $this->ci->details_library->get_settings();
 
 		foreach ($settings as $slug => $setting) 
 		{
