@@ -102,15 +102,8 @@ class Module_Shop extends AbstractModule
 	{
 		$this->pdb = $pdb;
 		$this->schema = $schema;
- 		//$tables = $this->ci->details_library->get_tables();
-		//$this->_uninstall_tables($tables);
-		//return true;
-		# Install Product Tables
-		$tables = $this->install_tables( $this->ci->details_library->get_tables() );
 
-
-
-		if( $tables  )
+		if( $this->installTables() )
 		{
 			$this->init_templates();
 			$this->init_settings();
@@ -121,6 +114,96 @@ class Module_Shop extends AbstractModule
 		$this->uninstall($this->pdb, $this->schema);
 		return FALSE;
 
+	}
+
+	private function installTables()
+	{
+		$this->schema->dropIfExists('shop_products');
+		$this->schema->create('shop_products', function($table){
+			$table->increments('id');
+			$table->string('slug')->unique();
+			$table->string('name');
+			$table->string('code')->default('');
+			$table->integer('pgroup')->unsigned()->nullable();
+			$table->integer('category_id')->unsigned()->nullable();
+			$table->integer('brand_id')->unsigned()->nullable();
+			$table->text('description')->nullable();
+
+			$table->string('keywords')->nullable()->default('');
+			$table->string('meta_desc')->nullable()->default('');
+			$table->text('related')->nullable()->default('');
+			$table->text('user_data')->nullable()->default('');
+			$table->string('page_design_layout')->nullable()->default('products_single');
+			$table->integer('req_shipping')->unsigned()->nullable()->default(1);
+			$table->integer('height')->unsigned()->nullable()->default(0);
+			$table->integer('width')->unsigned()->nullable()->default(0);
+			$table->integer('depth')->unsigned()->nullable()->default(0);
+			$table->integer('weight')->unsigned()->nullable()->default(0);
+
+			$table->decimal('price', 10, 2)->default(0);
+			$table->decimal('price_base', 10, 2)->default(0);
+			$table->decimal('rrp', 10, 2)->default(0);
+			$table->integer('tax_id')->unsigned()->nullable();
+			$table->integer('tax_dir')->unsigned()->nullable();
+
+			$table->boolean('digital')->nullable()->default(0);
+			$table->boolean('featured')->nullable()->default(0);
+			$table->boolean('searchable')->nullable()->default(0);
+			$table->boolean('public')->nullable()->default(0);
+			$table->integer('min_qty')->unsigned()->nullable()->default(1);
+			$table->integer('max_qty')->unsigned()->nullable();
+			$table->integer('views')->unsigned()->nullable()->default(0);
+			$table->integer('inventory_on_hand')->unsigned()->nullable()->default(0);
+			$table->integer('inventory_low_qty')->unsigned()->nullable()->default(0);
+			$table->boolean('inventory_type')->nullable()->default(0);
+			$table->enum('status', array('discontinued', 'in_stock', 'soon_available', 'out_of_stock'))->nullable()->default('in_stock');
+
+			$table->integer('created_by')->unsigned()->nullable();
+
+			$table->timestamps();
+			$table->softDeletes();
+		});
+
+		$this->schema->dropIfExists('shop_dailydeals');
+		$this->schema->create('shop_dailydeals', function($table){
+			$table->increments('id');
+			$table->integer('prod_id')->unsigned()->nullable();
+			$table->enum('status', array(
+				'completed',
+				'pending',
+				'active',
+				'forcestop',
+				'alert'
+			))->default('pending');
+			$table->enum('mode', array(
+				'untilsold', 
+				'endofday', 
+				'letmedecide'
+			))->default('endofday');
+			$table->integer('likes')->unsigned()->nullable()->default(0);
+			$table->integer('shares')->unsigned()->nullable()->default(0);
+			$table->integer('time_online')->unsigned()->nullable()->default(0);
+			$table->date('date_start')->nullable();
+			$table->date('date_end')->nullable();
+		});
+
+		$this->schema->dropIfExists('shop_group_prices');
+		$this->schema->create('shop_group_prices', function($table){
+			$table->increments('id');
+			$table->integer('pgroup_id')->unsigned();
+			$table->integer('ugroup_id')->unsigned();
+			$table->integer('min_qty')->unsigned()->nullable()->default(0);
+			$table->decimal('price', 10, 2)->unsigned()->nullable()->default(0);
+		});
+
+		$this->schema->dropIfExists('shop_attributes');
+		$this->schema->create('shop_attributes', function($table){
+			$table->increments('id');
+			$table->integer('prod_id')->unsigned()->nullable();
+			$table->string('type')->nullable()->default('text');
+			$table->string('name')->default('Title');
+			$table->text('value')->nullable();
+		});
 	}
 
 
@@ -281,12 +364,12 @@ class Module_Shop extends AbstractModule
 		return TRUE;
 
 	}
-
-
-				
+	
+	/*
+	Removing this to utilize the schema builder	
 	private function _install_table($table)
 	{
-
+		// drop already existing table
 		$this->dbforge->drop_table($table);
 
  		$table_to_install = $this->ci->details_library->get_tables($table);
@@ -297,6 +380,7 @@ class Module_Shop extends AbstractModule
 
 		return $this->install_tables( $table_to_install );
 	}
+	*/
 
 
 	/**
@@ -432,7 +516,7 @@ class Module_Shop extends AbstractModule
 		foreach ($cache_name_array as $cache_name ) 
 		{
 			// Clear Cache
-			$this->pyrocache->delete_all($cache_name);
+			$this->ci->pyrocache->delete_all($cache_name);
 		}
 
 		return TRUE;
