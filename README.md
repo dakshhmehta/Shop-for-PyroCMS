@@ -20,3 +20,6 @@
 http://creativecommons.org/licenses/by/3.0/au/
 
 * If you want to change, adapt or share this code please link back to this site.
+* 
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/dakshhmehta/shop-for-pyrocms/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
