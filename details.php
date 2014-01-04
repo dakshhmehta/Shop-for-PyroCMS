@@ -1,4 +1,7 @@
 <?php if (!defined('BASEPATH'))  exit('No direct script access allowed');
+
+use Pyro\Module\Addons\AbstractModule;
+
 /*
  * SHOP for PyroCMS
  * 
@@ -21,10 +24,10 @@
  * @author		Salvatore Bordonaro
  * @version		1.0.0.051
  * @website		http://www.inspiredgroup.com.au/
- * @system		PyroCMS 2.2.x
+ * @system		PyroCMS 2.3.x
  *
  */
-class Module_Shop extends Module 
+class Module_Shop extends AbstractModule 
 {
 
 	/**
@@ -35,13 +38,26 @@ class Module_Shop extends Module
 	 */
 	public $version = '1.0.0.143';  
 
+	/**
+	 * PDO database object
+	 *
+	 * @var Object
+	 */
+	private $pdb = null;
+
+	/**
+	 * Laravel schema object
+	 *
+	 * @var Object
+	 */
+	private $schema = null;
 
 
 	public function __construct()
 	{
-		$this->load->library('shop/details_library');
-		$this->load->library('shop/enums');
 		$this->ci = get_instance();
+		$this->ci->load->library('shop/details_library');
+		$this->ci->load->library('shop/enums');
 	}
 
 	
@@ -55,7 +71,7 @@ class Module_Shop extends Module
 	{
  
 		// load the model
-		$this->load->model('settings_m');
+		$this->ci->load->model('settings_m');
 
 		$get_menu_addon = $this->ci->uri->segment(3);	
 		
@@ -81,9 +97,10 @@ class Module_Shop extends Module
 	
 
 
-	public function install() 
+	public function install($pdb, $schema) 
 	{
-
+		$this->pdb = $pdb;
+		$this->schema = $schema;
  		//$tables = $this->details_library->get_tables();
 		//$this->_uninstall_tables($tables);
 		//return true;
@@ -100,7 +117,7 @@ class Module_Shop extends Module
 			return TRUE;
 		}
 
-		$this->uninstall();
+		$this->uninstall($this->pdb, $this->schema);
 		return FALSE;
 
 	}
@@ -121,7 +138,7 @@ class Module_Shop extends Module
 				'user_data' => '',
 				)			  
 		);
-		$this->db->insert_batch('shop_categories', $data);
+		$this->pdb->table('shop_categories')->insert($data);
 					
 		/*Add default TAX rate of 0 */
 		$data = array(
@@ -131,7 +148,7 @@ class Module_Shop extends Module
 				'rate_state' => 0,
 				'rate_fed' => 0
 		);
-		$this->db->insert('shop_tax', $data);
+		$this->pdb->table('shop_tax')->insert($data);
 
 
 
@@ -148,7 +165,7 @@ class Module_Shop extends Module
 					);
 		}
 
-		$this->db->insert_batch('shop_countries', $data);	
+		$this->pdb->table('shop_countries')->insert($data);	
 
 
 
@@ -158,14 +175,15 @@ class Module_Shop extends Module
 
 	
 	/**
-	 * uninstall()
+	 * uninstall($pdb, $schema)
 	 * 1. Removes/drops database tables
 	 * 2. Deletes settings
 	 * 3. Deletes Email Templates
 	 */
-	public function uninstall() 
+	public function uninstall($pdb, $schema) 
 	{
-	
+		$this->pdb = $pdb;
+		$this->schema = $schema;
 		//Cache
 		$cache_list = $this->details_library->get_cache_list();
 
@@ -177,10 +195,10 @@ class Module_Shop extends Module
 
 				
 		// Remove All settings for this module
-		$this->db->delete('settings', array('module' => 'shop'));
+		$this->pdb->delete('settings', array('module' => 'shop'));
 		
 		// Remove all email templartes installed by this module
-		$this->db->delete('email_templates', array('module' => 'shop'));
+		$this->pdb->delete('email_templates', array('module' => 'shop'));
 
 
 		return TRUE;
@@ -220,7 +238,7 @@ class Module_Shop extends Module
 			case '1.0.0.137':					
 			case '1.0.0.136':
 				//image field - cover_id migration
-				$this->load->library('shop/images_library');
+				$this->ci->load->library('shop/images_library');
 				if($this->images_library->migrate2())
 				{
 					$this->_remove_table_col('shop_products','cover_id');
@@ -228,7 +246,7 @@ class Module_Shop extends Module
 				}
 				return FALSE;
 			case '1.0.0.135':
-				$this->load->library('shop/images_library');
+				$this->ci->load->library('shop/images_library');
 
 				$this->_remove_table_col('shop_images','restrain_size');
 				$this->_remove_table_col('shop_images','scope');
@@ -342,7 +360,7 @@ class Module_Shop extends Module
 
 		 foreach ($em_tmp as $email_array_data) 
 		 {
-		 	$this->db->insert('email_templates', $email_array_data );
+		 	$this->pdb->table('email_templates')->insert($email_array_data);
 		 }
 
 		 return TRUE;
