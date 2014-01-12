@@ -160,6 +160,7 @@ class Module_Shop extends AbstractModule
 
 			$table->integer('created_by')->unsigned()->nullable();
 
+			// @todo Modified timestamps and archived column. Will require code tweaking
 			$table->timestamps();
 			$table->softDeletes();
 		});
@@ -203,6 +204,59 @@ class Module_Shop extends AbstractModule
 			$table->string('type')->nullable()->default('text');
 			$table->string('name')->default('Title');
 			$table->text('value')->nullable();
+		});
+
+		$table->schema->dropIfExists('shop_options');
+		$table->schema->create('shop_options', function($table){
+			$table->increments('id');
+			$table->string('name')->nullable();
+			$table->string('title')->nullable();
+			$table->string('description')->nullable();
+			$table->string('slug')->nullable();
+			$table->string('type')->nullable();
+			$table->integer('show_title')->unsigned()->nullable()->default(1);
+		});
+
+		$table->schema->dropIfExists('shop_option_values');
+		$table->schema->create('shop_option_values', function($table){
+			$table->increments('id');
+			$table->integer('shop_option_id')->unsigned();
+			$table->string('label')->nullable();
+			$table->string('value')->nullable();
+			$table->text('user_data')->nullable();
+			$table->integer('max_qty')->unsigned()->nullable()->default(0);
+			$table->string('operator')->nullable();
+			$table->decimal('operator_value', 10, 3)->nullable();
+			$table->boolean('default')->nullable()->default(0);
+			$table->boolean('ignor_shipping')->nullable()->default(0);
+			$table->integer('order')->unsigned()->nullable()->default(0);
+		});
+
+		$table->schema->dropIfExists('shop_prod_options');
+		$table->schema->create('shop_prod_options', function($table){
+			$table->increments('id');
+			$table->integer('prod_id')->unsigned()->index();
+			$table->string('option_id')->nullable();
+			$table->integer('order')->unsigned()->nullable()->default(0);
+		});
+
+		$table->schema->dropIfExists('shop_images');
+		$table->schema->create('shop_images', function($table){
+			$table->increments('id');
+			$table->integer('product_id')->unsigned()->nullable();
+			$table->integer('width')->unsigned()->nullable()->default(0);
+			$table->integer('height')->unsigned()->nullable()->default(0);
+			$table->string('src')->nullable();
+			$table->string('alt')->nullable();
+			$table->integer('order')->unsigned()->nullable()->default(0);
+			$table->boolean('cover')->nullable()->default(0);
+			$table->string('file_id')->nullable(); // Seems weired.
+			$table->boolean('local')->nullable()->default(1);
+		});
+
+		$table->schema->dropIfExists('shop_transactions');
+		$table->schema->create('shop_transactions', function($table){
+			
 		});
 	}
 
